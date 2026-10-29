@@ -64,64 +64,68 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   return (
     <div className="space-y-5">
       {/* Top Header & Breadcrumb Bar matching Screenshot */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-1">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 sm:gap-4 pb-1">
+        <div className="min-w-0">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
             School Operations & Attendance Dashboard
           </h1>
-          <div className="flex items-center gap-1.5 text-xs text-slate-500 mt-0.5">
-            <span className="hover:text-slate-800 cursor-pointer" onClick={() => onNavigateTab('dashboard')}>
+          <div className="flex items-center gap-1 sm:gap-1.5 text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            <span className="hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer truncate" onClick={() => onNavigateTab('dashboard')}>
               Dashboard
             </span>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-            <span className="text-orange-600 font-semibold">Attendance Pulse & Operations</span>
+            <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 flex-shrink-0" />
+            <span className="text-orange-600 dark:text-orange-400 font-semibold truncate">Attendance Pulse & Operations</span>
           </div>
         </div>
 
         {/* Quick Action Top Bar */}
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
           {userRole === 'admin' ? (
             <>
               <button
                 onClick={onOpenNewStudentModal}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-xs transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-xs transition-colors cursor-pointer"
               >
-                <UserPlus className="w-4 h-4" />
-                <span>Admit Learner</span>
+                <UserPlus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span className="hidden xs:inline">Admit Learner</span>
+                <span className="xs:hidden">Admit</span>
               </button>
               <button
                 onClick={() => onNavigateTab('fees')}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs border border-slate-200/90 shadow-2xs transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 font-semibold text-xs border border-slate-200/90 dark:border-slate-700 shadow-2xs transition-colors cursor-pointer"
               >
-                <CreditCard className="w-4 h-4 text-orange-500" />
-                <span>Record Fee</span>
+                <CreditCard className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-500" />
+                <span className="hidden sm:inline">Record Fee</span>
+                <span className="sm:hidden">Fee</span>
               </button>
             </>
           ) : (
             <>
               <button
                 onClick={() => onNavigateTab('attendance')}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-xs transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-xs transition-colors cursor-pointer"
               >
-                <CalendarCheck className="w-4 h-4" />
-                <span>Take Roll Call</span>
+                <CalendarCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Take Roll Call</span>
+                <span className="sm:hidden">Roll Call</span>
               </button>
               <button
                 onClick={() => onNavigateTab('exams')}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs border border-slate-200/90 shadow-2xs transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 font-semibold text-xs border border-slate-200/90 dark:border-slate-700 shadow-2xs transition-colors cursor-pointer"
               >
-                <Printer className="w-4 h-4 text-orange-500" />
-                <span>Upload Exam Paper</span>
+                <Printer className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-500" />
+                <span className="hidden sm:inline">Upload Exam Paper</span>
+                <span className="sm:hidden">Upload</span>
               </button>
             </>
           )}
 
           <button
             onClick={() => onNavigateTab('specification')}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 font-medium text-xs transition-colors cursor-pointer"
             title="Open non-technical system manual"
           >
-            <BookOpen className="w-3.5 h-3.5 text-slate-500" />
+            <BookOpen className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-500 dark:text-slate-400" />
             <span className="hidden sm:inline">User Guide</span>
           </button>
         </div>

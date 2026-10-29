@@ -478,7 +478,7 @@ export default function App() {
       />
 
       {/* Main App Container */}
-      <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+      <div className="flex-1 flex flex-col md:flex-row overflow-hidden w-full">
         {/* Sidebar on desktop / Middle Navbar on mobile */}
         <Sidebar
           currentTab={activeTab}
@@ -494,13 +494,13 @@ export default function App() {
         />
 
         {/* Dynamic Content Body */}
-        <main className="flex-1 overflow-y-auto p-3 sm:p-5 md:p-6 lg:p-8 xl:p-8 2xl:p-10 pb-8 bg-slate-50 dark:bg-black transition-colors">
-          <div className="w-full max-w-7xl xl:max-w-[1600px] 2xl:max-w-[1720px] mx-auto space-y-6">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 2xl:p-8 pb-20 sm:pb-8 bg-slate-50 dark:bg-black transition-colors w-full">
+          <div className="w-full max-w-full sm:max-w-[calc(100vw-2rem)] md:max-w-7xl xl:max-w-[1600px] 2xl:max-w-[1720px] mx-auto space-y-4 sm:space-y-5 lg:space-y-6">
             {/* Action Toast Feedback */}
             {toastMessage && (
-              <div className="fixed bottom-24 right-7 z-50 bg-slate-900 dark:bg-slate-800 text-white text-xs font-semibold px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 dark:border-slate-700 flex items-center gap-2.5 animate-in fade-in slide-in-from-bottom-3 duration-200">
+              <div className="fixed bottom-20 sm:bottom-6 right-3 sm:right-7 z-50 bg-slate-900 dark:bg-slate-800 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl shadow-2xl border border-slate-700 dark:border-slate-700 flex items-center gap-2 sm:gap-2.5 animate-in fade-in slide-in-from-bottom-3 duration-200 max-w-[calc(100vw-1.5rem)] sm:max-w-sm">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>{toastMessage}</span>
+                <span className="break-words">{toastMessage}</span>
               </div>
             )}
 

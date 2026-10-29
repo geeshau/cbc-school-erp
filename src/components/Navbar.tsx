@@ -57,23 +57,23 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-30 bg-white dark:bg-black border-b border-slate-200/90 dark:border-neutral-900 shadow-2xs w-full transition-colors duration-200">
-      <div className="w-full px-3 sm:px-5 lg:px-6 h-16 flex items-center justify-between gap-2 sm:gap-4 max-w-full">
+      <div className="w-full px-2 sm:px-3 md:px-4 lg:px-5 xl:px-6 h-14 sm:h-16 flex items-center justify-between gap-1 sm:gap-2 md:gap-3 lg:gap-4 max-w-full">
         {/* Left: Brand Identity */}
-        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 min-w-0">
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-orange-500 flex items-center justify-center text-white shadow-md shadow-orange-500/20 ring-2 ring-orange-500/20 shrink-0">
-            <GraduationCap className="w-5 h-5 text-white" />
+        <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 shrink-0 min-w-0 flex-1 md:flex-initial">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg sm:rounded-xl bg-gradient-to-tr from-orange-600 to-orange-500 flex items-center justify-center text-white shadow-md shadow-orange-500/20 ring-2 ring-orange-500/20 shrink-0">
+            <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
           </div>
 
-          <div className="min-w-0">
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              <span className="font-extrabold text-sm sm:text-base lg:text-lg text-slate-900 dark:text-slate-100 tracking-tight font-sans truncate">
+          <div className="min-w-0 flex-1 md:flex-initial">
+            <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2">
+              <span className="font-extrabold text-xs sm:text-sm md:text-base lg:text-lg text-slate-900 dark:text-slate-100 tracking-tight font-sans truncate">
                 PCEA St Andrews <span className="text-orange-500 dark:text-orange-400 font-black">Kindergarten</span>
               </span>
-              <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 border border-orange-200/60 dark:border-orange-800/60 shrink-0">
+              <span className="hidden xs:inline-flex sm:inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 border border-orange-200/60 dark:border-orange-800/60 shrink-0">
                 SMS
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium hidden xl:block truncate">
+            <p className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 font-medium hidden lg:block truncate">
               PCEA St Andrews Campus • Term 1, 2026 AY
             </p>
           </div>
