@@ -92,9 +92,11 @@ export default function App() {
   // Collapsible Sidebar State with localStorage persistence
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(() => {
     try {
-      return localStorage.getItem('pcea_sms_sidebar_collapsed') === 'true';
+      const saved = localStorage.getItem('pcea_sms_sidebar_collapsed');
+      if (saved === null) return true;
+      return saved === 'true';
     } catch {
-      return false;
+      return true;
     }
   });
 

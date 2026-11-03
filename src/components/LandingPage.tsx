@@ -189,41 +189,51 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
 
           {/* Right Advertising Visual Card */}
           <div className="lg:col-span-5">
-            <div className="bg-white dark:bg-neutral-950 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-neutral-900 shadow-xl space-y-6 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-2xl pointer-events-none" />
+            <div className="relative overflow-hidden rounded-3xl border border-slate-200 dark:border-neutral-900 shadow-xl">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage:
+                    "url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80')"
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-white/85 via-orange-50/80 to-white/70 dark:from-neutral-950/90 dark:via-neutral-950/80 dark:to-neutral-950/90" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/20 rounded-full blur-2xl pointer-events-none" />
 
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 flex items-center justify-center font-bold">
-                  <Heart className="w-6 h-6" />
+              <div className="relative z-10 p-6 sm:p-8 space-y-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 flex items-center justify-center font-bold shadow-sm">
+                    <Heart className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white">Why Parents Choose Us</h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Holistic Child Development</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white">Why Parents Choose Us</h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">Holistic Child Development</p>
+
+                <ul className="space-y-3.5 text-xs text-slate-700 dark:text-slate-200">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                    <span>Experienced, CBC-trained and loving early childhood educators.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                    <span>Secure, modern playgrounds and Montessori learning apparatus.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                    <span>Robust digital reporting, attendance tracking, and parent communication.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                    <span>Nutritious mid-morning snacks and hygienic catering standards.</span>
+                  </li>
+                </ul>
+
+                <div className="pt-4 border-t border-slate-200/80 dark:border-neutral-800 flex items-center justify-between gap-3 text-xs font-semibold text-slate-600 dark:text-slate-300">
+                  <span className="truncate">Visiting Hours: Mon - Fri 8am - 4pm</span>
+                  <span className="text-orange-600 dark:text-orange-400 whitespace-nowrap">Book Visit</span>
                 </div>
-              </div>
-
-              <ul className="space-y-3.5 text-xs text-slate-600 dark:text-slate-300">
-                <li className="flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>Experienced, CBC-trained and loving early childhood educators.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>Secure, modern playgrounds and Montessori learning apparatus.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>Robust digital reporting, attendance tracking, and parent communication.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>Nutritious mid-morning snacks and hygienic catering standards.</span>
-                </li>
-              </ul>
-
-              <div className="pt-4 border-t border-slate-100 dark:border-neutral-900 flex items-center justify-between text-xs font-semibold text-slate-500">
-                <span>Visiting Hours: Mon - Fri 8am - 4pm</span>
-                <span className="text-orange-600 dark:text-orange-400">Book Visit</span>
               </div>
             </div>
           </div>

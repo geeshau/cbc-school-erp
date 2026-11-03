@@ -15,7 +15,7 @@ export const getSystemPrefersDark = (): boolean => {
  * Retrieve saved theme mode from localStorage with fallback to system preference.
  */
 export const getInitialTheme = (): ThemeMode => {
-  if (typeof window === 'undefined') return 'system';
+  if (typeof window === 'undefined') return 'light';
   try {
     const saved = localStorage.getItem(THEME_STORAGE_KEY) as ThemeMode | null;
     if (saved === 'light' || saved === 'dark' || saved === 'system') {
@@ -24,7 +24,7 @@ export const getInitialTheme = (): ThemeMode => {
   } catch (err) {
     console.warn('[Theme] Could not read theme from localStorage:', err);
   }
-  return 'system';
+  return 'light';
 };
 
 /**
