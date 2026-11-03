@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import {
   CreditCard,
   PlusCircle,
+  Plus,
   Search,
   CheckCircle2,
   Printer,
@@ -47,6 +48,91 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
   const [selectedReceipt, setSelectedReceipt] = useState<FeePayment | null>(null);
   const [showStatementModal, setShowStatementModal] = useState(false);
   const [statementStudentId, setStatementStudentId] = useState<string>('');
+  const [showPackageModal, setShowPackageModal] = useState(false);
+  const [packageFormError, setPackageFormError] = useState('');
+  const [isSubmittingPackage, setIsSubmittingPackage] = useState(false);
+
+  const [feePackages, setFeePackages] = useState<{ id: string; title: string; grade: string; term: string; academicYear: string; totalAmount: number; breakdown: { label: string; amount: number }[] }[]>(() => {
+    try {
+      const saved = localStorage.getItem('pcea_sms_fee_packages');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return [];
+  });
+
+  const [packageForm, setPackageForm] = useState({
+    title: '',
+    grade: 'Grade 9-A',
+    term: 'Term 1 - 2026',
+    academicYear: '2026',
+    totalAmount: '45000',
+    breakdown: [
+      { label: 'Core Tuition & Instruction', amount: '28000' },
+      { label: 'Science Laboratory & Computer Lab', amount: '6500' },
+      { label: 'Library & Digital Learning Resources', amount: '3500' },
+      { label: 'Sports & Co-Curricular Activities', amount: '4000' },
+      { label: 'Mid-Term & End-Term Examination Printing', amount: '2000' },
+      { label: 'School Daily Mid-Day Meal', amount: '4000' }
+    ]
+  });
+
+  const handleCreatePackage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPackageFormError('');
+    if (!packageForm.title.trim()) {
+      setPackageFormError('Please enter a package title.');
+      return;
+    }
+    const total = parseFloat(packageForm.totalAmount);
+    if (!total || total <= 0) {
+      setPackageFormError('Please enter a valid total amount greater than 0.');
+      return;
+    }
+    const breakdown = packageForm.breakdown
+      .map((b) => ({ label: b.label.trim(), amount: parseFloat(b.amount) || 0 }))
+      .filter((b) => b.label && b.amount > 0);
+    if (breakdown.length === 0) {
+      setPackageFormError('Please add at least one breakdown line item with a positive amount.');
+      return;
+    }
+    setIsSubmittingPackage(true);
+    try {
+      const newPkg = {
+        id: `pkg_${Date.now()}`,
+        title: packageForm.title.trim(),
+        grade: packageForm.grade,
+        term: packageForm.term,
+        academicYear: packageForm.academicYear,
+        totalAmount: total,
+        breakdown
+      };
+      setFeePackages((prev) => {
+        const next = [newPkg, ...prev];
+        try {
+          localStorage.setItem('pcea_sms_fee_packages', JSON.stringify(next));
+        } catch {}
+        return next;
+      });
+      setShowPackageModal(false);
+      setPackageForm({
+        title: '',
+        grade: 'Grade 9-A',
+        term: 'Term 1 - 2026',
+        academicYear: '2026',
+        totalAmount: '45000',
+        breakdown: [
+          { label: 'Core Tuition & Instruction', amount: '28000' },
+          { label: 'Science Laboratory & Computer Lab', amount: '6500' },
+          { label: 'Library & Digital Learning Resources', amount: '3500' },
+          { label: 'Sports & Co-Curricular Activities', amount: '4000' },
+          { label: 'Mid-Term & End-Term Examination Printing', amount: '2000' },
+          { label: 'School Daily Mid-Day Meal', amount: '4000' }
+        ]
+      });
+    } finally {
+      setIsSubmittingPackage(false);
+    }
+  };
 
   // Payment form state
   const [selectedStudentId, setSelectedStudentId] = useState(students[0]?.id || '');
@@ -727,7 +813,23 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
 
       {/* Fee Structure Package Overview */}
       {activeTab === 'structure' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-sm font-bold text-slate-900">Standard Fee Structure Packages</h3>
+              <p className="text-xs text-slate-500">Configure and manage school fee packages by grade level.</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowPackageModal(true)}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold shadow-sm shadow-orange-500/20 transition-colors cursor-pointer"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Setup New Package</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div>
@@ -796,6 +898,164 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                 <span className="font-semibold text-slate-900">KES 8,000</span>
               </div>
             </div>
+          </div>
+        </div>
+        </div>
+      )}
+
+      {/* New Fee Package Modal */}
+      {showPackageModal && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 my-auto">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+              <div>
+                <h2 className="text-base font-bold text-slate-900 font-serif">Setup New Standard Fee Package</h2>
+                <p className="text-xs text-slate-500">Create a reusable fee structure template for a grade level.</p>
+              </div>
+              <button
+                onClick={() => setShowPackageModal(false)}
+                className="p-1 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {packageFormError && (
+              <div className="mt-3 p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>{packageFormError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleCreatePackage} className="mt-4 space-y-4 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-slate-700 font-semibold mb-1">Package Title *</label>
+                  <input
+                    type="text"
+                    required
+                    value={packageForm.title}
+                    onChange={(e) => setPackageForm({ ...packageForm, title: e.target.value })}
+                    placeholder="e.g. Junior Secondary Package (Grade 7 & 8)"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-700 font-semibold mb-1">Grade / Stream *</label>
+                  <select
+                    value={packageForm.grade}
+                    onChange={(e) => setPackageForm({ ...packageForm, grade: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-medium focus:outline-none"
+                  >
+                    <option value="Grade 9-A">Grade 9-A</option>
+                    <option value="Grade 9-B">Grade 9-B</option>
+                    <option value="Grade 10-A">Grade 10-A</option>
+                    <option value="Grade 10-B">Grade 10-B</option>
+                    <option value="Grade 11-A">Grade 11-A</option>
+                    <option value="Grade 12-A">Grade 12-A</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-slate-700 font-semibold mb-1">Term</label>
+                  <input
+                    type="text"
+                    value={packageForm.term}
+                    onChange={(e) => setPackageForm({ ...packageForm, term: e.target.value })}
+                    placeholder="Term 1 - 2026"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-700 font-semibold mb-1">Academic Year</label>
+                  <input
+                    type="text"
+                    value={packageForm.academicYear}
+                    onChange={(e) => setPackageForm({ ...packageForm, academicYear: e.target.value })}
+                    placeholder="2026"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none"
+                  />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="block text-slate-700 font-semibold mb-1">Total Package Amount (KES) *</label>
+                  <input
+                    type="number"
+                    required
+                    min="1000"
+                    step="500"
+                    value={packageForm.totalAmount}
+                    onChange={(e) => setPackageForm({ ...packageForm, totalAmount: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-slate-700 font-semibold">Fee Breakdown Line Items</label>
+                  <button
+                    type="button"
+                    onClick={() => setPackageForm({ ...packageForm, breakdown: [...packageForm.breakdown, { label: '', amount: '' }] })}
+                    className="text-[11px] font-bold text-orange-600 hover:text-orange-700 cursor-pointer"
+                  >
+                    + Add Line
+                  </button>
+                </div>
+                <div className="space-y-2">
+                  {packageForm.breakdown.map((b, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={b.label}
+                        onChange={(e) => {
+                          const next = [...packageForm.breakdown];
+                          next[idx] = { ...next[idx], label: e.target.value };
+                          setPackageForm({ ...packageForm, breakdown: next });
+                        }}
+                        placeholder="Line item name"
+                        className="flex-1 px-3 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none"
+                      />
+                      <input
+                        type="number"
+                        min="0"
+                        step="100"
+                        value={b.amount}
+                        onChange={(e) => {
+                          const next = [...packageForm.breakdown];
+                          next[idx] = { ...next[idx], amount: e.target.value };
+                          setPackageForm({ ...packageForm, breakdown: next });
+                        }}
+                        placeholder="Amount"
+                        className="w-28 px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold focus:outline-none"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setPackageForm({ ...packageForm, breakdown: packageForm.breakdown.filter((_, i) => i !== idx) })}
+                        className="p-2 rounded-lg hover:bg-rose-50 text-slate-400 hover:text-rose-600 cursor-pointer"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-2 flex items-center justify-end gap-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setShowPackageModal(false)}
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmittingPackage}
+                  className="px-5 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-md shadow-orange-500/20 transition-all cursor-pointer disabled:opacity-50"
+                >
+                  {isSubmittingPackage ? 'Creating...' : 'Create Package'}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
