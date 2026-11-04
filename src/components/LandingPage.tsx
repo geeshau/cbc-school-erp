@@ -133,7 +133,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
 
       {/* Hero Section (Advertising the School - No management buttons here) */}
       <section id="about" className="relative overflow-hidden py-16 sm:py-24 px-4 sm:px-8 bg-gradient-to-b from-orange-50/50 via-white to-slate-50 dark:from-black dark:via-black dark:to-black">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-20 dark:opacity-15"
+          style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80')"
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/80 to-slate-50/90 dark:from-black/90 dark:via-black/80 dark:to-black/90" />
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
           <div className="lg:col-span-7 space-y-6">
             <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-orange-600 dark:text-orange-400">
               <Sparkles className="w-4 h-4" />
@@ -189,15 +197,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
 
           {/* Right Advertising Visual Card */}
           <div className="lg:col-span-5">
-            <div className="relative overflow-hidden rounded-3xl border border-slate-200 dark:border-neutral-900 shadow-xl">
-              <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{
-                  backgroundImage:
-                    "url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80')"
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-br from-white/85 via-orange-50/80 to-white/70 dark:from-neutral-950/90 dark:via-neutral-950/80 dark:to-neutral-950/90" />
+            <div className="relative overflow-hidden rounded-3xl border border-slate-200 dark:border-neutral-900 shadow-xl bg-white dark:bg-neutral-950">
               <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/20 rounded-full blur-2xl pointer-events-none" />
 
               <div className="relative z-10 p-6 sm:p-8 space-y-6">

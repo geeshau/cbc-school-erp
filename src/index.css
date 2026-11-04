@@ -30,10 +30,58 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Prevent horizontal overflow on small screens */
-body {
-  overflow-x: hidden;
-  min-width: 320px;
+/* Global table optimization: show all data without horizontal scrolling */
+table {
+  table-layout: auto;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* Make every table row visibly clickable (details open on click) */
+tbody tr {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+tbody tr:hover {
+  background-color: rgba(249, 115, 22, 0.06);
+}
+
+/* Prevent table wrappers from forcing horizontal scroll */
+.overflow-x-auto,
+.overflow-auto {
+  overflow-x: visible !important;
+}
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Ensure table wrappers remain scrollable but without visible scrollbars */
+.overflow-x-auto,
+.overflow-y-auto,
+.overflow-auto {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.overflow-x-auto::-webkit-scrollbar,
+.overflow-y-auto::-webkit-scrollbar,
+.overflow-auto::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 /* Ensure images and media are responsive */
