@@ -30,35 +30,7 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Global table optimization: show all data without horizontal scrolling */
-table {
-  table-layout: auto;
-  width: 100%;
-  border-collapse: collapse;
-}
-
-table th,
-table td {
-  white-space: normal;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-}
-
-/* Make every table row visibly clickable (details open on click) */
-tbody tr {
-  cursor: pointer;
-  transition: background-color 0.15s ease;
-}
-
-tbody tr:hover {
-  background-color: rgba(249, 115, 22, 0.06);
-}
-
-/* Prevent table wrappers from forcing horizontal scroll */
-.overflow-x-auto,
-.overflow-auto {
-  overflow-x: visible !important;
-}
+/* Hide all scrollbars on tables and scrollable containers */
 * {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
