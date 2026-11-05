@@ -8,7 +8,6 @@ import {
   CreditCard,
   Award,
   CalendarDays,
-  Printer as PrinterIcon,
   ShieldCheck,
   Download,
   BookOpen
@@ -26,8 +25,7 @@ export const SystemSpecificationViewer: React.FC = () => {
     { id: 'grading', title: '4. Academic Grading' },
     { id: 'reports', title: '5. Report Cards' },
     { id: 'timetable', title: '6. Timetable & Schedules' },
-    { id: 'exams', title: '7. Exam Printing Workflow' },
-    { id: 'security', title: '8. Security & Privacy' }
+    { id: 'security', title: '7. Security & Privacy' }
   ];
 
   const handlePrint = () => {
@@ -113,7 +111,6 @@ export const SystemSpecificationViewer: React.FC = () => {
                   <li>Admit and register new learners with automatic student numbers.</li>
                   <li>Issue official fee receipts and monitor arrears across classes.</li>
                   <li>Schedule master timetables and eliminate teacher/classroom double-bookings.</li>
-                  <li>Supervise the exam printing queue and confidential storage.</li>
                 </ul>
               </div>
 
@@ -124,7 +121,6 @@ export const SystemSpecificationViewer: React.FC = () => {
                 <ul className="text-xs space-y-1.5 text-slate-600 list-disc list-inside">
                   <li>Enter continuous assessment, mid-term, and final exam test scores.</li>
                   <li>Auto-convert marks into standardized letter grades with remarks.</li>
-                  <li>Upload examination papers with photocopying, stapling, and security specs.</li>
                   <li>Generate and print terminal student report cards for parent meetings.</li>
                 </ul>
               </div>
@@ -165,7 +161,7 @@ export const SystemSpecificationViewer: React.FC = () => {
               The fee module gives the school administration and parents transparent visibility into every coin paid toward school services.
             </p>
             <ul className="text-xs space-y-2 text-slate-700 list-disc list-inside">
-              <li><strong>Itemized Fee Packages:</strong> Standard packages clearly distinguish tuition, laboratory supplies, library books, co-curricular sports, meals, and examination printing.</li>
+              <li><strong>Itemized Fee Packages:</strong> Standard packages clearly distinguish tuition, laboratory supplies, library books, co-curricular sports, and meals.</li>
               <li><strong>Multi-Channel Collections:</strong> Supports Bank Wire, Mobile Money (M-Pesa), Direct Card, and Cash Office transactions.</li>
               <li><strong>Numbered Receipts:</strong> Generates an official, printed slip containing the school crest, receipt serial number, amount in words, student name, and receiving cashier stamp.</li>
               <li><strong>Real-Time Arrears Tracking:</strong> Automatic identification of outstanding balances so the bursar can issue polite parent reminders before exams.</li>
@@ -272,51 +268,11 @@ export const SystemSpecificationViewer: React.FC = () => {
           </div>
         )}
 
-        {/* Section: Exam Printing */}
-        {(activeSection === 'all' || activeSection === 'exams') && (
-          <div className="space-y-4">
-            <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">7</span>
-              <span>Teacher Exam Upload & Secure Printing Portal</span>
-            </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-slate-700">
-              Streamlines examination preparation by enabling teachers to submit papers ahead of test week with exact copying, stapling, and confidentiality instructions.
-            </p>
-            <div className="p-4 bg-purple-50 rounded-xl border border-purple-200 text-xs space-y-2 text-purple-950">
-              <span className="font-bold uppercase tracking-wider text-[11px] block">
-                Printing Lifecycle Stages:
-              </span>
-              <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 text-center">
-                <div className="p-2 bg-white rounded border border-purple-200">
-                  <span className="font-black block">1. Submitted</span>
-                  <span className="text-[10px] text-purple-700">Awaiting Head check</span>
-                </div>
-                <div className="p-2 bg-white rounded border border-purple-200">
-                  <span className="font-black block">2. In Queue</span>
-                  <span className="text-[10px] text-purple-700">Print room docket</span>
-                </div>
-                <div className="p-2 bg-white rounded border border-purple-200">
-                  <span className="font-black block">3. Printing</span>
-                  <span className="text-[10px] text-purple-700">Photocopier running</span>
-                </div>
-                <div className="p-2 bg-white rounded border border-purple-200">
-                  <span className="font-black block">4. Ready</span>
-                  <span className="text-[10px] text-purple-700">In sealed locker</span>
-                </div>
-                <div className="p-2 bg-white rounded border border-purple-200">
-                  <span className="font-black block">5. Dispatched</span>
-                  <span className="text-[10px] text-purple-700">Signed out for exam</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Section: Security */}
         {(activeSection === 'all' || activeSection === 'security') && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">8</span>
+              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">7</span>
               <span>Data Protection, Confidentiality & Audit Log</span>
             </h2>
             <p className="text-xs sm:text-sm leading-relaxed text-slate-700">

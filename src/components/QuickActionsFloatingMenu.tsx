@@ -7,7 +7,6 @@ import {
   CalendarCheck,
   FileSpreadsheet,
   FileText,
-  Printer,
   Clock,
   ChevronRight,
   CheckCircle2,
@@ -268,19 +267,6 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
         onNavigateTab('grading');
       }
     },
-    {
-      id: 'exam-print',
-      title: 'Exam Print Room Portal',
-      subtitle: 'Upload question papers & verify print queue',
-      badge: 'Exams',
-      badgeColor: 'bg-purple-100 text-purple-800',
-      icon: Printer,
-      iconColor: 'text-purple-600 bg-purple-50 group-hover:bg-purple-600 group-hover:text-white',
-      onClick: () => {
-        setIsOpen(false);
-        onNavigateTab('exams');
-      }
-    }
   ];
 
   return (

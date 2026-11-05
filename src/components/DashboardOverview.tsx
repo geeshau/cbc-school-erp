@@ -3,7 +3,6 @@ import {
   Users,
   CheckCircle,
   CreditCard,
-  Printer,
   TrendingUp,
   AlertTriangle,
   ArrowUpRight,
@@ -28,7 +27,6 @@ interface DashboardOverviewProps {
   students: Student[];
   payments?: FeePayment[];
   feeSummary: { totalBilled: number; totalCollected: number; totalOutstanding: number; collectionRate: number };
-  pendingExamsCount: number;
   userRole: UserRole;
   currentUserName?: string;
   onNavigateTab: (tab: TabType) => void;
@@ -47,7 +45,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   students,
   payments = [],
   feeSummary,
-  pendingExamsCount,
   userRole,
   currentUserName = 'Arthur Pendelton',
   onNavigateTab,
@@ -95,12 +92,12 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             </>
           ) : (
             <button
-              onClick={() => onNavigateTab('exams')}
+              onClick={() => onNavigateTab('grading')}
               className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 font-semibold text-xs border border-slate-200/90 dark:border-slate-700 shadow-2xs transition-colors cursor-pointer"
             >
-              <Printer className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-500" />
-              <span className="hidden sm:inline">Upload Exam Paper</span>
-              <span className="sm:hidden">Upload</span>
+              <FileSpreadsheet className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-500" />
+              <span className="hidden sm:inline">Input Marks</span>
+              <span className="sm:hidden">Marks</span>
             </button>
           )}
 
@@ -138,36 +135,26 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           </div>
         </div>
 
-        {/* Card 3: Exam Print Queue */}
+        {/* Card 3: Student Directory */}
         <div
-          onClick={() => onNavigateTab('exams')}
+          onClick={() => onNavigateTab('enrolment')}
           className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 shadow-xs hover:border-orange-200 transition-all cursor-pointer group min-w-0"
         >
           <div className="flex items-center justify-between gap-2">
-            <span className="text-[11px] sm:text-xs font-semibold text-slate-500">Exam Print Requisitions</span>
-            <div className="w-7 h-7 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center group-hover:bg-orange-500 group-hover:text-white transition-colors">
-              <Printer className="w-3.5 h-3.5" />
+            <span className="text-[11px] sm:text-xs font-semibold text-slate-500">Student Directory</span>
+            <div className="w-7 h-7 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-orange-500 group-hover:text-white transition-colors">
+              <Users className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-3 flex items-end justify-between gap-2">
             <div className="min-w-0">
-              <span className="text-xl sm:text-2xl font-black text-slate-900">{pendingExamsCount}</span>
-              <p className="text-[10px] sm:text-[11px] text-orange-600 font-semibold mt-0.5">Queue active</p>
-            </div>
-            {/* Alert Level Status Bars (matching screenshot open IT tickets) */}
-            <div className="w-14 sm:w-16 h-8 flex items-end gap-1 shrink-0">
-              {[35, 75, 50, 95, 60].map((h, i) => (
-                <div
-                  key={i}
-                  style={{ height: `${h}%` }}
-                  className="flex-1 bg-orange-500 rounded-t"
-                ></div>
-              ))}
+              <span className="text-xl sm:text-2xl font-black text-slate-900">{students.filter((s) => s.status === 'active').length}</span>
+              <p className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">Active learners</p>
             </div>
           </div>
         </div>
 
-        {/* Card 4: Fee Collection Rate */}
+        {/* Fee Collection Rate */}
         <div
           onClick={() => onNavigateTab('fees')}
           className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 shadow-xs hover:border-orange-200 transition-all cursor-pointer group min-w-0"
@@ -208,11 +195,11 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                 <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
                   School Operations Snapshot
                 </span>
-                <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Admissions, fees, grading, and exam activity at a glance.</p>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Admissions, fees, grading, and timetable activity at a glance.</p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-3">
               <div className="p-3 bg-slate-50/80 dark:bg-slate-800/60 rounded-xl border border-slate-200/60 dark:border-slate-700/80">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-xs font-bold text-slate-900 dark:text-slate-100">Active Learners</span>
@@ -233,15 +220,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                 </div>
               </div>
 
-              <div className="p-3 bg-slate-50/80 dark:bg-slate-800/60 rounded-xl border border-slate-200/60 dark:border-slate-700/80">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-bold text-slate-900 dark:text-slate-100">Pending Exams</span>
-                  <span className="text-xs font-black font-mono text-sky-600 dark:text-sky-400">{pendingExamsCount}</span>
-                </div>
-                <div className="mt-3 h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700">
-                  <div className="h-full w-[58%] rounded-full bg-sky-500"></div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -280,14 +258,14 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               </button>
 
               <button
-                onClick={() => onNavigateTab('exams')}
+                onClick={() => onNavigateTab('reports')}
                 className="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 hover:bg-orange-50/50 border border-slate-200/70 text-center transition-all group cursor-pointer"
               >
                 <div className="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center group-hover:bg-orange-500 transition-colors shadow-xs">
-                  <Printer className="w-4 h-4" />
+                  <FileText className="w-4 h-4" />
                 </div>
-                <span className="text-[11px] font-bold text-slate-800 mt-2">Exam Print Room</span>
-                <span className="text-[10px] text-slate-400">Manage queue</span>
+                <span className="text-[11px] font-bold text-slate-800 mt-2">View Reports</span>
+                <span className="text-[10px] text-slate-400">Learner progress</span>
               </button>
 
               <button

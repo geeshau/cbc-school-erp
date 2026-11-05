@@ -5,13 +5,11 @@ import {
   CreditCard,
   Award,
   CalendarDays,
-  Printer,
   FileSpreadsheet,
   ChevronDown,
   ChevronRight,
   PanelLeftClose,
   PanelLeftOpen,
-  SlidersHorizontal,
   Menu,
   Check,
   X,
@@ -26,16 +24,13 @@ export type TabType =
   | 'fees'
   | 'grading'
   | 'timetable'
-  | 'exams'
   | 'reports'
-  | 'settings'
   | 'website-cms';
 
 interface SidebarProps {
   currentTab: TabType;
   onSelectTab: (tab: TabType) => void;
   userRole: UserRole;
-  pendingExamsCount: number;
   isCollapsed?: boolean;
   onToggleCollapse?: () => void;
   theme?: ThemeMode;
@@ -48,7 +43,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
   currentTab,
   onSelectTab,
   userRole,
-  pendingExamsCount,
   isCollapsed = false,
   onToggleCollapse,
   theme = 'system',
@@ -69,6 +63,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
           subLabel: 'Operations Overview',
           icon: LayoutDashboard,
           roles: ['admin', 'teacher'] as UserRole[]
+        },
+        {
+          id: 'enrolment' as TabType,
+          label: 'Student Directory',
+          shortLabel: 'Students',
+          subLabel: 'Learner records',
+          icon: Users,
+          roles: ['admin', 'teacher'] as UserRole[]
         }
       ]
     },
@@ -83,20 +85,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
           subLabel: 'Receipts & Collection Ledgers',
           icon: CreditCard,
           roles: ['admin'] as UserRole[]
-        },
-        {
-          id: 'exams' as TabType,
-          label: 'Exam Print Portal',
-          shortLabel: 'Exam Press',
-          subLabel: userRole === 'admin' ? 'Print Room Pipeline' : 'Submit Paper for Printing',
-          icon: Printer,
-          badge: pendingExamsCount > 0 ? pendingExamsCount : undefined,
-          roles: ['admin', 'teacher'] as UserRole[]
         }
       ]
     },
     {
-      title: 'ADMINISTRATION & SETTINGS',
+      title: 'ADMINISTRATION',
       items: [
         {
           id: 'website-cms' as TabType,
@@ -105,14 +98,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           subLabel: 'Landing Page & Content',
           icon: Globe,
           roles: ['admin'] as UserRole[]
-        },
-        {
-          id: 'settings' as TabType,
-          label: 'System Settings',
-          shortLabel: 'Permissions',
-          subLabel: 'Permissions & Access Matrix',
-          icon: SlidersHorizontal,
-          roles: ['admin', 'teacher'] as UserRole[]
         },
       ]
     }
@@ -138,10 +123,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   // Check if current tab is one of the dropdown items
   const activeDropdownItem = dropdownItems.find((item) => item.id === currentTab);
-  const dropdownHasPendingBadge = dropdownItems.some(
-    (item) => item.badge !== undefined && item.badge > 0
-  );
-
   const handleTabClick = (tabId: TabType) => {
     onSelectTab(tabId);
     setTopDropdownOpen(false);
@@ -184,17 +165,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
 
               <div className="flex items-center gap-2 shrink-0 ml-2">
-                {item.badge !== undefined && (
-                  <span
-                    className={`px-1.5 py-0.2 rounded-full text-[9px] font-black ${
-                      isActive
-                        ? 'bg-white text-orange-600'
-                        : 'bg-rose-600 text-white'
-                    }`}
-                  >
-                    {item.badge}
-                  </span>
-                )}
                 {isActive && <Check className="w-3.5 h-3.5 text-white" />}
               </div>
             </button>
@@ -248,15 +218,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <Icon className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${isActive ? 'text-white' : 'text-current'}`} />
                 <span className="hidden sm:inline">{item.shortLabel}</span>
 
-                {item.badge !== undefined && (
-                  <span
-                    className={`absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[8px] font-black leading-none ${
-                      isActive ? 'bg-white text-orange-600' : 'bg-rose-600 text-white'
-                    }`}
-                  >
-                    {item.badge}
-                  </span>
-                )}
               </button>
             );
           })}

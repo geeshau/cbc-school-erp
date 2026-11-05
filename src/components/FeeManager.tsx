@@ -71,7 +71,6 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
       { label: 'Science Laboratory & Computer Lab', amount: '6500' },
       { label: 'Library & Digital Learning Resources', amount: '3500' },
       { label: 'Sports & Co-Curricular Activities', amount: '4000' },
-      { label: 'Mid-Term & End-Term Examination Printing', amount: '2000' },
       { label: 'School Daily Mid-Day Meal', amount: '4000' }
     ]
   });
@@ -125,7 +124,6 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
           { label: 'Science Laboratory & Computer Lab', amount: '6500' },
           { label: 'Library & Digital Learning Resources', amount: '3500' },
           { label: 'Sports & Co-Curricular Activities', amount: '4000' },
-          { label: 'Mid-Term & End-Term Examination Printing', amount: '2000' },
           { label: 'School Daily Mid-Day Meal', amount: '4000' }
         ]
       });
@@ -838,7 +836,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                 </h3>
                 <p className="text-xs text-slate-500">Applicable for Term 1, 2026</p>
               </div>
-              <span className="text-lg font-black text-slate-900">KES 48,000</span>
+              <span className="text-lg font-black text-slate-900">KES 46,000</span>
             </div>
 
             <div className="space-y-2 text-xs">
@@ -857,10 +855,6 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
               <div className="flex justify-between py-1.5 border-b border-slate-50">
                 <span className="text-slate-600">Sports & Co-Curricular Activities:</span>
                 <span className="font-semibold text-slate-900">KES 4,000</span>
-              </div>
-              <div className="flex justify-between py-1.5 border-b border-slate-50">
-                <span className="text-slate-600">Mid-Term & End-Term Examination Printing:</span>
-                <span className="font-semibold text-slate-900">KES 2,000</span>
               </div>
               <div className="flex justify-between py-1.5">
                 <span className="text-slate-600">School Daily Mid-Day Meal:</span>

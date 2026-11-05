@@ -13,8 +13,8 @@ This guide describes how the PCEA St Andrews Kindergarten Management System func
 The PCEA St Andrews Kindergarten Management System is a centralized digital office for our school. It replaces paper filing cabinets, handwritten mark sheets, paper receipt booklets, and noticeboards with one secure, accessible place where teachers and administrators work together.
 
 The system is organized around two primary roles:
-1. **School Administrators (Headteachers, Principals & Bursars):** Oversee school admissions, approve fee records, manage staff and classroom schedules, and supervise the exam printing room.
-2. **Teachers (Class Instructors & Subject Teachers):** Input student test and exam marks, view and manage their class timetable, and submit exam papers to the print room for printing before test week.
+1. **School Administrators (Headteachers, Principals & Bursars):** Oversee school admissions, approve fee records, manage staff and classroom schedules, and monitor school operations.
+2. **Teachers (Class Instructors & Subject Teachers):** Input student test and exam marks and view and manage their class timetable.
 
 ---
 
@@ -99,31 +99,7 @@ Organizes the weekly flow of lessons across all grades and teaching staff, preve
 
 ---
 
-## 8. Teacher Exam Upload & Secure Printing Portal
-### What it does
-Solves the traditional headache of exam preparation by allowing teachers to submit test papers ahead of time, while giving the school print room an organized schedule of what needs to be photocopied, stapled, and packed.
-
-### Teacher Requisition Process (Step-by-Step)
-1. **Paper Submission:** The teacher selects their subject, target grade, exam title, and exam date.
-2. **Print Specifications:** The teacher specifies:
-   - Total number of student copies required (e.g., 45 copies).
-   - Single-sided or double-sided printing.
-   - Black & white or color (for papers with colored maps or biology diagrams).
-   - Stapled booklets or loose sheets.
-3. **Confidentiality Level:** Marked as Standard, High Security, or Sealed Envelope to protect exam integrity before exam day.
-4. **Special Instructions:** Notes such as *"Include 2 spare copies for exam invigilators"* or *"Do not fold"*.
-5. **Print Requisition Slip:** The system creates a print ticket that accompanies the papers to the print room.
-
-### Print Room Pipeline Stages
-- **Submitted / Pending Approval:** Received from teacher, waiting for department check.
-- **In Print Queue:** Scheduled for the photocopier.
-- **Printing in Progress:** Currently running on the printing machine.
-- **Ready for Collection:** Printed, counted, stapled, and locked in the exam cabinet for the teacher to pick up on test day.
-- **Collected / Dispatched:** Signed out by the invigilating teacher.
-
----
-
-## 9. Security, Privacy & Safeguards
+## 8. Security, Privacy & Safeguards
 - **Clear Access Boundaries:** Teachers can only edit marks for their designated classes; financial ledgers and student admissions are reserved for administrative personnel.
 - **Permanent Audit Record:** Important updates, fee entries, and grade submissions record the author and timestamp to maintain school integrity.
 - **Parent Privacy:** Personal family contact information and sensitive health alerts are strictly kept confidential within the authorized school administration.

@@ -1,6 +1,6 @@
 {
   "name": "St Andrews Kindergarten",
-  "description": "Comprehensive school management system for St Andrews Kindergarten with role-based access for administrators and teachers, learner enrolment, fee tracking, grading, timetable scheduling, exam paper printing workflow, system settings permissions matrix, and operational guides.",
+  "description": "Comprehensive school management system for St Andrews Kindergarten with role-based access for administrators and teachers, learner enrolment, fee tracking, grading, and timetable scheduling.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -110,34 +110,6 @@ export interface TimetableSlot {
   room: string;
 }
 
-export type PrintStatus = 'pending_approval' | 'queued' | 'printing' | 'ready_for_pickup' | 'collected';
-export type ConfidentialityLevel = 'Standard' | 'Strict' | 'High Security';
-
-export interface ExamPaper {
-  id: string;
-  title: string;
-  subject: string;
-  grade: string;
-  term: string;
-  examDate: string;
-  durationMinutes: number;
-  teacherId: string;
-  teacherName: string;
-  copiesRequired: number;
-  printStatus: PrintStatus;
-  paperType: 'A4' | 'Legal';
-  sides: 'single' | 'double';
-  colorMode: 'black_white' | 'color';
-  finishing: 'stapled' | 'loose';
-  specialInstructions?: string;
-  confidentialityLevel: ConfidentialityLevel;
-  fileName: string;
-  fileSize: string;
-  createdAt: string;
-  approvedBy?: string;
-  questionsPreview?: string[];
-}
-
 export interface StudentReportCard {
   student: Student;
   term: string;

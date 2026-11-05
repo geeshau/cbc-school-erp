@@ -7,7 +7,6 @@ import {
   Calendar,
   ChevronDown,
   Search,
-  Printer,
   Users,
   Globe
 } from 'lucide-react';
@@ -20,7 +19,6 @@ interface NavbarProps {
   users: User[];
   onSwitchUser: (user: User) => void;
   dbStatus: { provider: string; connected: boolean };
-  pendingExamsCount?: number;
   activeStudentsCount?: number;
   onNavigateTab?: (tab: TabType) => void;
   theme?: ThemeMode;
@@ -34,7 +32,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   currentUser,
   users,
   onSwitchUser,
-  pendingExamsCount = 4,
   activeStudentsCount = 340,
   onNavigateTab,
   theme = 'system',

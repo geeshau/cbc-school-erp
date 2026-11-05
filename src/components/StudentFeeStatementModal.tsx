@@ -158,7 +158,7 @@ export const StudentFeeStatementModal: React.FC<StudentFeeStatementModalProps> =
       },
       {
         category: 'Assessment',
-        item: 'Mid-Term & End-Term Examination Printing & Reports',
+        item: 'Mid-Term & End-Term Assessment & Academic Reports',
         amount: Math.round(billed * 0.05)
       },
       {

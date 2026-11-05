@@ -3,7 +3,6 @@ import {
   FeePayment,
   GradeRecord,
   TimetableSlot,
-  ExamPaper,
   User
 } from '../types';
 import {
@@ -11,8 +10,7 @@ import {
   INITIAL_STUDENTS,
   INITIAL_PAYMENTS,
   INITIAL_GRADES,
-  INITIAL_TIMETABLE,
-  INITIAL_EXAMS
+  INITIAL_TIMETABLE
 } from '../data/mockData';
 
 // Safe API caller that queries the Express server with fallback to in-memory state
@@ -207,66 +205,6 @@ export const api = {
       if (res.ok) return await res.json();
     } catch (_) {}
     return { message: 'Slot deleted' };
-  },
-
-  async getExams(): Promise<ExamPaper[]> {
-    try {
-      const res = await fetch('/api/exams');
-      if (res.ok) return await res.json();
-    } catch (_) {}
-    return INITIAL_EXAMS;
-  },
-
-  async uploadExamPaper(data: Partial<ExamPaper>): Promise<ExamPaper> {
-    try {
-      const res = await fetch('/api/exams', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      if (res.ok) return await res.json();
-    } catch (_) {}
-
-    const newExam: ExamPaper = {
-      id: `exam_${Date.now()}`,
-      title: data.title || 'Examination Paper',
-      subject: data.subject || 'General',
-      grade: data.grade || 'Grade 10-A',
-      term: data.term || 'Term 1',
-      examDate: data.examDate || new Date().toISOString().split('T')[0],
-      durationMinutes: data.durationMinutes || 90,
-      teacherId: data.teacherId || 'user_teacher_1',
-      teacherName: data.teacherName || 'Sarah Jenkins',
-      copiesRequired: data.copiesRequired || 35,
-      printStatus: 'pending_approval',
-      paperType: data.paperType || 'A4',
-      sides: data.sides || 'double',
-      colorMode: data.colorMode || 'black_white',
-      finishing: data.finishing || 'stapled',
-      specialInstructions: data.specialInstructions || '',
-      confidentialityLevel: data.confidentialityLevel || 'Standard',
-      fileName: data.fileName || 'Exam_Document.pdf',
-      fileSize: data.fileSize || '1.2 MB',
-      createdAt: new Date().toISOString().split('T')[0],
-      questionsPreview: data.questionsPreview
-    };
-    return newExam;
-  },
-
-  async updateExamStatus(id: string, status: string, approvedBy?: string): Promise<ExamPaper> {
-    try {
-      const res = await fetch(`/api/exams/${id}/status`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status, approvedBy })
-      });
-      if (res.ok) return await res.json();
-    } catch (_) {}
-
-    const exam = INITIAL_EXAMS.find(e => e.id === id) || INITIAL_EXAMS[0];
-    exam.printStatus = status as any;
-    if (approvedBy) exam.approvedBy = approvedBy;
-    return exam;
   },
 
   async getSpecification(): Promise<string> {

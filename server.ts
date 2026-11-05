@@ -10,15 +10,13 @@ import {
   INITIAL_STUDENTS,
   INITIAL_PAYMENTS,
   INITIAL_GRADES,
-  INITIAL_TIMETABLE,
-  INITIAL_EXAMS
+  INITIAL_TIMETABLE
 } from './src/data/mockData';
 import {
   Student,
   FeePayment,
   GradeRecord,
-  TimetableSlot,
-  ExamPaper
+  TimetableSlot
 } from './src/types';
 
 const currentFilename = typeof __filename !== 'undefined'
@@ -84,7 +82,6 @@ let studentsStore: Student[] = [...INITIAL_STUDENTS];
 let paymentsStore: FeePayment[] = [...INITIAL_PAYMENTS];
 let gradesStore: GradeRecord[] = [...INITIAL_GRADES];
 let timetableStore: TimetableSlot[] = [...INITIAL_TIMETABLE];
-let examsStore: ExamPaper[] = [...INITIAL_EXAMS];
 
 // MongoDB integration variables
 let mongoClient: MongoClient | null = null;
@@ -113,7 +110,6 @@ async function initMongoDB() {
       await mongoDb.collection('fees').insertMany(INITIAL_PAYMENTS as any);
       await mongoDb.collection('grades').insertMany(INITIAL_GRADES as any);
       await mongoDb.collection('timetable').insertMany(INITIAL_TIMETABLE as any);
-      await mongoDb.collection('exams').insertMany(INITIAL_EXAMS as any);
       console.log('[Database] Seeded initial collections into MongoDB.');
     }
   } catch (err) {
@@ -136,7 +132,6 @@ app.get('/api/health', (req: Request, res: Response) => {
       provider: isMongoConnected ? 'MongoDB (Connected)' : 'Local High-Speed School Database (Embedded)',
       connected: isMongoConnected,
       totalLearners: studentsStore.length,
-      totalExamsInQueue: examsStore.length,
       timetableSlots: timetableStore.length
     }
   });
@@ -500,59 +495,6 @@ app.delete('/api/timetable/:id', (req: Request, res: Response) => {
   const { id } = req.params;
   timetableStore = timetableStore.filter(t => t.id !== id);
   res.json({ message: 'Timetable slot removed' });
-});
-
-// Exam Upload & Printing Portal
-app.get('/api/exams', (req: Request, res: Response) => {
-  res.json(examsStore);
-});
-
-app.post('/api/exams', (req: Request, res: Response) => {
-  const body = req.body;
-  const newExam: ExamPaper = {
-    id: `exam_${Date.now()}`,
-    title: body.title,
-    subject: body.subject,
-    grade: body.grade,
-    term: body.term || 'Term 1',
-    examDate: body.examDate,
-    durationMinutes: Number(body.durationMinutes || 90),
-    teacherId: body.teacherId || 'user_teacher_1',
-    teacherName: body.teacherName || 'Sarah Jenkins',
-    copiesRequired: Number(body.copiesRequired || 35),
-    printStatus: 'pending_approval',
-    paperType: body.paperType || 'A4',
-    sides: body.sides || 'double',
-    colorMode: body.colorMode || 'black_white',
-    finishing: body.finishing || 'stapled',
-    specialInstructions: body.specialInstructions || '',
-    confidentialityLevel: body.confidentialityLevel || 'Standard',
-    fileName: body.fileName || `${body.subject}_Exam.pdf`,
-    fileSize: body.fileSize || '1.2 MB',
-    createdAt: new Date().toISOString().split('T')[0],
-    questionsPreview: body.questionsPreview || [
-      'Instructions to Candidates: Answer all questions in Section A and any three questions from Section B.',
-      'Check that this paper contains all designated examination questions and required formula sheets.'
-    ]
-  };
-
-  examsStore.unshift(newExam);
-  res.status(201).json(newExam);
-});
-
-app.put('/api/exams/:id/status', (req: Request, res: Response) => {
-  const { id } = req.params;
-  const { status, approvedBy } = req.body;
-
-  const exam = examsStore.find(e => e.id === id);
-  if (!exam) {
-    return res.status(404).json({ error: 'Exam requisition not found' });
-  }
-
-  exam.printStatus = status;
-  if (approvedBy) exam.approvedBy = approvedBy;
-
-  res.json(exam);
 });
 
 // Non-Technical Specification Document API

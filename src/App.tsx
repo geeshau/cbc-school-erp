@@ -11,9 +11,7 @@ import { EnrolmentManager } from './components/EnrolmentManager';
 import { FeeManager } from './components/FeeManager';
 import { GradingTracker } from './components/GradingTracker';
 import { TimetableManager } from './components/TimetableManager';
-import { ExamPrintPortal } from './components/ExamPrintPortal';
 import { ReportCardsManager } from './components/ReportCardsManager';
-import { SystemSettingsManager } from './components/SystemSettingsManager';
 import { WebsiteContentManager, WebsiteContent } from './components/WebsiteContentManager';
 import { LandingPage } from './components/LandingPage';
 
@@ -23,9 +21,7 @@ import {
   FeePayment,
   GradeRecord,
   TimetableSlot,
-  ExamPaper,
   UserRole,
-  PrintStatus
 } from './types';
 import { api } from './lib/api';
 import {
@@ -33,8 +29,7 @@ import {
   INITIAL_STUDENTS,
   INITIAL_PAYMENTS,
   INITIAL_GRADES,
-  INITIAL_TIMETABLE,
-  INITIAL_EXAMS
+  INITIAL_TIMETABLE
 } from './data/mockData';
 import { CheckCircle2 } from 'lucide-react';
 import { useTheme } from './lib/theme';
@@ -59,7 +54,6 @@ export default function App() {
   const [payments, setPayments] = useState<FeePayment[]>(INITIAL_PAYMENTS);
   const [grades, setGrades] = useState<GradeRecord[]>(INITIAL_GRADES);
   const [timetableSlots, setTimetableSlots] = useState<TimetableSlot[]>(INITIAL_TIMETABLE);
-  const [exams, setExams] = useState<ExamPaper[]>(INITIAL_EXAMS);
 
   // Website CMS State
   const [websiteContent, setWebsiteContent] = useState<WebsiteContent>({
@@ -152,16 +146,14 @@ export default function App() {
           fetchedStudents,
           fetchedSummary,
           fetchedGrades,
-          fetchedTimetable,
-          fetchedExams
+          fetchedTimetable
         ] = await Promise.all([
           api.getUsers().catch(() => DEMO_USERS),
           api.getHealth().catch(() => ({ database: { connected: true, provider: 'High-Speed Database' } })),
           api.getStudents().catch(() => INITIAL_STUDENTS),
           api.getFeeSummary().catch(() => null),
           api.getGrades().catch(() => INITIAL_GRADES),
-          api.getTimetable().catch(() => INITIAL_TIMETABLE),
-          api.getExams().catch(() => INITIAL_EXAMS)
+          api.getTimetable().catch(() => INITIAL_TIMETABLE)
         ]);
 
         if (fetchedUsers && fetchedUsers.length > 0) setUsers(fetchedUsers);
@@ -170,7 +162,6 @@ export default function App() {
         if (fetchedSummary?.recentPayments) setPayments(fetchedSummary.recentPayments);
         if (fetchedGrades && fetchedGrades.length > 0) setGrades(fetchedGrades);
         if (fetchedTimetable && fetchedTimetable.length > 0) setTimetableSlots(fetchedTimetable);
-        if (fetchedExams && fetchedExams.length > 0) setExams(fetchedExams);
       } catch (err) {
         console.error('Data bootstrap error:', err);
       }
@@ -185,10 +176,6 @@ export default function App() {
   const totalOutstanding = Math.max(0, totalBilled - totalCollected);
   const collectionRate = totalBilled > 0 ? Math.round((totalCollected / totalBilled) * 100) : 0;
   const feeSummary = { totalBilled, totalCollected, totalOutstanding, collectionRate };
-
-  const pendingExamsCount = exams.filter(
-    (e) => e.printStatus === 'pending_approval' || e.printStatus === 'queued'
-  ).length;
 
   // --- Handlers ---
 
@@ -293,23 +280,6 @@ export default function App() {
     showToast('Lesson slot removed from timetable.');
   };
 
-  // Exams
-  const handleUploadExam = async (examData: Partial<ExamPaper>) => {
-    const newExam = await api.uploadExamPaper(examData);
-    setExams((prev) => [newExam, ...prev]);
-    showToast(`Exam paper "${newExam.title}" uploaded & queued for printing.`);
-  };
-
-  const handleUpdateExamStatus = async (
-    id: string,
-    status: PrintStatus,
-    approvedBy?: string
-  ) => {
-    const updated = await api.updateExamStatus(id, status, approvedBy);
-    setExams((prev) => prev.map((e) => (e.id === id ? updated : e)));
-    showToast(`Exam status changed to ${status.replace('_', ' ').toUpperCase()}.`);
-  };
-
   if (appMode === 'landing') {
     return (
       <LandingPage
@@ -334,7 +304,6 @@ export default function App() {
         users={users}
         onSwitchUser={handleSwitchUser}
         dbStatus={dbStatus}
-        pendingExamsCount={pendingExamsCount}
         activeStudentsCount={students.filter((s) => s.status === 'active').length}
         onNavigateTab={(tab) => setActiveTab(tab)}
         theme={theme}
@@ -351,7 +320,6 @@ export default function App() {
           currentTab={activeTab}
           onSelectTab={(tab) => setActiveTab(tab)}
           userRole={currentUser.role}
-          pendingExamsCount={pendingExamsCount}
           isCollapsed={isSidebarCollapsed}
           onToggleCollapse={handleToggleSidebar}
           theme={theme}
@@ -377,7 +345,6 @@ export default function App() {
                 students={students}
                 payments={payments}
                 feeSummary={feeSummary}
-                pendingExamsCount={pendingExamsCount}
                 userRole={currentUser.role}
                 currentUserName={currentUser.name}
                 onNavigateTab={(tab) => setActiveTab(tab)}
@@ -428,17 +395,6 @@ export default function App() {
               />
             )}
 
-            {/* Tab: Exam Paper Upload & Printing */}
-            {activeTab === 'exams' && (
-              <ExamPrintPortal
-                exams={exams}
-                onUploadExam={handleUploadExam}
-                onUpdateStatus={handleUpdateExamStatus}
-                userRole={currentUser.role}
-                currentUserName={currentUser.name}
-              />
-            )}
-
             {/* Tab: Terminal Report Cards */}
             {activeTab === 'reports' && (
               <ReportCardsManager
@@ -456,18 +412,6 @@ export default function App() {
               />
             )}
 
-            {/* Tab: System Settings & Permissions Matrix */}
-            {activeTab === 'settings' && (
-              <SystemSettingsManager
-                currentUser={currentUser}
-                users={users}
-                onSwitchUser={handleSwitchUser}
-                userRole={currentUser.role}
-                theme={theme}
-                resolvedTheme={resolvedTheme}
-                onThemeChange={setTheme}
-              />
-            )}
           </div>
         </main>
       </div>
