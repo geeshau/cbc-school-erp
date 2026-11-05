@@ -193,10 +193,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <nav
       id="floating-bottom-nav"
       aria-label="School navigation"
-      className="fixed bottom-3 left-1/2 z-50 -translate-x-1/2 w-[calc(100%-1rem)] max-w-4xl px-1"
+      className="fixed bottom-3 left-1/2 z-50 -translate-x-1/2 w-[calc(100%-1rem)] max-w-4xl px-1 sm:w-fit sm:max-w-[calc(100%-1rem)]"
     >
-      <div className="flex items-center justify-center rounded-full border border-slate-200/80 bg-white/90 dark:border-slate-700 dark:bg-slate-950/90 p-1.5 shadow-[0_18px_45px_rgba(15,23,42,0.18)] backdrop-blur-xl">
-        <div className="flex max-w-full items-center gap-1 overflow-x-auto no-scrollbar px-1 py-0.5">
+      <div className="flex w-full max-w-full items-center justify-center rounded-full border border-slate-200/80 bg-white/90 dark:border-slate-700 dark:bg-slate-950/90 p-1.5 shadow-[0_18px_45px_rgba(15,23,42,0.18)] backdrop-blur-xl sm:w-fit">
+        <div className="flex w-full max-w-full items-center gap-1 overflow-x-auto no-scrollbar px-1 py-0.5 sm:w-auto">
           {allAccessibleItems.map((item) => {
             const Icon = item.icon;
             const isActive = currentTab === item.id;
@@ -216,7 +216,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 title={item.label}
               >
                 <Icon className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${isActive ? 'text-white' : 'text-current'}`} />
-                <span className="hidden sm:inline">{item.shortLabel}</span>
+                <span>{item.shortLabel}</span>
 
               </button>
             );

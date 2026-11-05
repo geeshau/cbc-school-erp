@@ -105,7 +105,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
       </div>
 
       {/* KPI Metric Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-3 gap-3 sm:gap-4">
         {/* Card 1: Academic Status */}
         <div
           onClick={() => onNavigateTab('grading')}
@@ -187,45 +187,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
       </div>
 
       {/* Operations overview cards */}
-      <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1.7fr)_minmax(320px,0.9fr)] gap-4 sm:gap-5">
-        <div className="space-y-4 sm:space-y-5 min-w-0">
-          <div className="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs transition-colors">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
-              <div>
-                <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                  School Operations Snapshot
-                </span>
-                <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Admissions, fees, grading, and timetable activity at a glance.</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-3">
-              <div className="p-3 bg-slate-50/80 dark:bg-slate-800/60 rounded-xl border border-slate-200/60 dark:border-slate-700/80">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-bold text-slate-900 dark:text-slate-100">Active Learners</span>
-                  <span className="text-xs font-black font-mono text-orange-600 dark:text-orange-400">{students.filter((s) => s.status === 'active').length}</span>
-                </div>
-                <div className="mt-3 h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700">
-                  <div className="h-full w-[82%] rounded-full bg-orange-500"></div>
-                </div>
-              </div>
-
-              <div className="p-3 bg-slate-50/80 dark:bg-slate-800/60 rounded-xl border border-slate-200/60 dark:border-slate-700/80">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-bold text-slate-900 dark:text-slate-100">Fee Collection</span>
-                  <span className="text-xs font-black font-mono text-emerald-600 dark:text-emerald-400">{feeSummary.collectionRate}%</span>
-                </div>
-                <div className="mt-3 h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700">
-                  <div className="h-full w-[76%] rounded-full bg-emerald-500"></div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column: Quick School Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4 sm:gap-5 min-w-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 min-w-0">
           <div className="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs transition-colors">
             <div className="flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-orange-500"></span>
@@ -316,8 +278,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               </div>
             </div>
           </div>
-
-        </div>
       </div>
 
       {/* Floating Action Speed Dial for Common School Tasks */}
