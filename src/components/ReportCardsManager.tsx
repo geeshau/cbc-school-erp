@@ -231,7 +231,7 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
 
         {/* Academic Matrix Table */}
         <div className="overflow-hidden border border-slate-300 rounded-xl">
-          <table className="w-full text-left text-xs font-sans">
+          <table className="responsive-card-table w-full text-left text-xs font-sans">
             <thead className="bg-slate-900 text-white font-bold uppercase tracking-wider text-[11px]">
               <tr>
                 <th className="py-2.5 px-3">Subject</th>
@@ -245,11 +245,11 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
             <tbody className="divide-y divide-slate-200">
               {subjectResults.map((sub, idx) => (
                 <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}>
-                  <td className="py-2.5 px-3 font-semibold text-slate-900">{sub.name}</td>
-                  <td className="py-2.5 px-3 text-center text-slate-600">{sub.ca}</td>
-                  <td className="py-2.5 px-3 text-center text-slate-600">{sub.exam}</td>
-                  <td className="py-2.5 px-3 text-center font-black text-slate-900">{sub.total}%</td>
-                  <td className="py-2.5 px-3 text-center">
+                  <td data-label="Subject" className="py-2.5 px-3 font-semibold text-slate-900">{sub.name}</td>
+                  <td data-label="CA (30%)" className="py-2.5 px-3 text-center text-slate-600">{sub.ca}</td>
+                  <td data-label="Exam (70%)" className="py-2.5 px-3 text-center text-slate-600">{sub.exam}</td>
+                  <td data-label="Total (100%)" className="py-2.5 px-3 text-center font-black text-slate-900">{sub.total}%</td>
+                  <td data-label="Grade" className="py-2.5 px-3 text-center">
                     <span
                       className={`inline-block w-6 py-0.5 rounded text-[11px] font-black ${
                         sub.grade === 'A'
@@ -262,7 +262,7 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
                       {sub.grade}
                     </span>
                   </td>
-                  <td className="py-2.5 px-3 text-[11px] text-slate-700 italic">{sub.remarks}</td>
+                  <td data-label="Teacher Remarks" className="py-2.5 px-3 text-[11px] text-slate-700 italic">{sub.remarks}</td>
                 </tr>
               ))}
             </tbody>

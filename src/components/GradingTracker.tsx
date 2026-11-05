@@ -336,7 +336,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
       {/* Gradebook Matrix Table */}
       <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="responsive-card-table w-full text-left text-xs">
             <thead className="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-200 text-[11px]">
               <tr>
                 <th className="py-3 px-4 w-28 md:w-32">Adm No.</th>
@@ -353,13 +353,13 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
 
                 return (
                   <tr key={student.id} className="hover:bg-slate-50/70 transition-colors">
-                    <td className="py-3 px-4 font-mono font-semibold text-slate-600">
+                    <td data-label="Adm No." className="py-3 px-4 font-mono font-semibold text-slate-600">
                       {student.admissionNumber}
                     </td>
-                    <td className="py-3 px-4 font-bold text-slate-900">
+                    <td data-label="Learner Name" className="py-3 px-4 font-bold text-slate-900">
                       {student.firstName} {student.lastName}
                     </td>
-                    <td className="py-3 px-4">
+                    <td data-label="Score (/100)" className="py-3 px-4">
                       <div className="flex items-center gap-1.5">
                         <input
                           type="number"
@@ -372,14 +372,14 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
                         <span className="text-slate-400 font-medium">%</span>
                       </div>
                     </td>
-                    <td className="py-3 px-4">
+                    <td data-label="Letter Grade" className="py-3 px-4">
                       <span
                         className={`inline-block px-2.5 py-1 rounded-lg text-xs font-black border ${gradeInfo.color}`}
                       >
                         Grade {gradeInfo.grade}
                       </span>
                     </td>
-                    <td className="py-3 px-4">
+                    <td data-label="Teacher's Remarks" className="py-3 px-4">
                       <input
                         type="text"
                         value={item.remarks}

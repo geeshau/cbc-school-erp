@@ -358,6 +358,7 @@ export default function App() {
             {activeTab === 'enrolment' && (
               <EnrolmentManager
                 students={students}
+                teachers={users.filter((user) => user.role === 'teacher')}
                 onAddStudent={handleAddStudent}
                 userRole={currentUser.role}
                 onViewReportCard={() => setActiveTab('reports')}

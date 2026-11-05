@@ -25,10 +25,11 @@ import {
   Clock,
   Sparkles
 } from 'lucide-react';
-import { Student, UserRole } from '../types';
+import { Student, User, UserRole } from '../types';
 
 interface EnrolmentManagerProps {
   students: Student[];
+  teachers: User[];
   onAddStudent: (student: Partial<Student>) => Promise<void>;
   userRole: UserRole;
   onViewReportCard: (student: Student) => void;
@@ -36,6 +37,7 @@ interface EnrolmentManagerProps {
 
 export const EnrolmentManager: React.FC<EnrolmentManagerProps> = ({
   students,
+  teachers,
   onAddStudent,
   userRole,
   onViewReportCard
@@ -266,7 +268,7 @@ Performance Index: ${student.performanceIndex}%
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="responsive-card-table w-full text-left text-xs">
             <thead className="bg-slate-50/80 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-200 text-[11px]">
               <tr>
                 <th className="py-3.5 px-4">Admission No.</th>
@@ -304,12 +306,12 @@ Performance Index: ${student.performanceIndex}%
                       className="hover:bg-orange-50/50 cursor-pointer transition-colors group select-none"
                       title={`Click to open full learner details for ${student.firstName} ${student.lastName}`}
                     >
-                      <td className="py-3.5 px-4 font-mono font-semibold text-slate-700">
+                      <td data-label="Admission No." className="py-3.5 px-4 font-mono font-semibold text-slate-700">
                         <span className="group-hover:text-orange-600 transition-colors font-bold">
                           {student.admissionNumber}
                         </span>
                       </td>
-                      <td className="py-3.5 px-4 font-semibold text-slate-900">
+                      <td data-label="Learner Name" className="py-3.5 px-4 font-semibold text-slate-900">
                         <div className="flex items-center gap-2.5">
                           <div className="w-8 h-8 rounded-full bg-orange-100 text-orange-800 flex items-center justify-center font-bold text-xs border border-orange-200/60 group-hover:scale-105 transition-transform shrink-0">
                             {student.firstName[0]}
@@ -325,7 +327,7 @@ Performance Index: ${student.performanceIndex}%
                           </div>
                         </div>
                       </td>
-                      <td className="py-3.5 px-4">
+                      <td data-label="Grade & Stream" className="py-3.5 px-4">
                         <span className="inline-block px-2 py-0.5 rounded-md bg-orange-50 text-orange-700 font-bold text-[11px] border border-orange-200/60">
                           {student.grade}
                         </span>
@@ -333,13 +335,13 @@ Performance Index: ${student.performanceIndex}%
                           Stream: {student.stream}
                         </div>
                       </td>
-                      <td className="py-3.5 px-4">
+                      <td data-label="Guardian Contact" className="py-3.5 px-4">
                         <div className="text-slate-800 font-medium">{student.guardianName}</div>
                         <div className="text-[10px] text-slate-500 font-mono">
                           {student.guardianPhone}
                         </div>
                       </td>
-                      <td className="py-3.5 px-4">
+                      <td data-label="Performance" className="py-3.5 px-4">
                         <div className="flex items-center gap-1.5">
                           <span
                             className={`font-bold ${
@@ -354,7 +356,7 @@ Performance Index: ${student.performanceIndex}%
                           </span>
                         </div>
                       </td>
-                      <td className="py-3.5 px-4">
+                      <td data-label="Fee Status" className="py-3.5 px-4">
                         {isCleared ? (
                           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                             <CheckCircle2 className="w-3 h-3" />
@@ -366,7 +368,7 @@ Performance Index: ${student.performanceIndex}%
                           </span>
                         )}
                       </td>
-                      <td className="py-3.5 px-4 text-right">
+                      <td data-label="Actions" className="py-3.5 px-4 text-right">
                         <div className="flex items-center justify-end gap-1.5">
                           <button
                             id={`view-details-${student.id}`}
@@ -398,6 +400,40 @@ Performance Index: ${student.performanceIndex}%
                   );
                 })
               )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+        <div className="px-4 py-3 border-b border-slate-200 flex items-center justify-between gap-3">
+          <h2 className="text-sm font-bold text-slate-900">Teaching Staff Directory</h2>
+          <span className="text-xs font-medium text-slate-500">{teachers.length} teachers</span>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="responsive-card-table w-full text-left text-xs">
+            <thead className="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-200 text-[11px]">
+              <tr>
+                <th className="py-3 px-4">Teacher</th>
+                <th className="py-3 px-4">Phone</th>
+                <th className="py-3 px-4">Email</th>
+                <th className="py-3 px-4">Assigned Classes</th>
+                <th className="py-3 px-4">Assigned Subjects</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {teachers.map((teacher) => (
+                <tr key={teacher.id}>
+                  <td data-label="Teacher" className="py-3 px-4">
+                    <div className="font-bold text-slate-900">{teacher.name}</div>
+                    <div className="text-[10px] text-slate-500">{teacher.title}</div>
+                  </td>
+                  <td data-label="Phone" className="py-3 px-4 font-mono">{teacher.phone}</td>
+                  <td data-label="Email" className="py-3 px-4">{teacher.email}</td>
+                  <td data-label="Assigned Classes" className="py-3 px-4">{teacher.assignedClasses.join(', ')}</td>
+                  <td data-label="Assigned Subjects" className="py-3 px-4">{teacher.assignedSubjects.join(', ')}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

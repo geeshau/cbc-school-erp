@@ -80,6 +80,74 @@ table td {
   max-width: none !important;
 }
 
+@media (max-width: 767px) {
+  .responsive-card-table,
+  .responsive-card-table tbody,
+  .responsive-card-table tfoot {
+    display: block;
+    width: 100%;
+  }
+
+  .responsive-card-table thead {
+    display: none;
+  }
+
+  .responsive-card-table tbody {
+    display: grid;
+    gap: 0.625rem;
+    padding: 0.625rem;
+  }
+
+  .responsive-card-table tbody tr,
+  .responsive-card-table tfoot tr {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    padding: 0.375rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    background: #fff;
+  }
+
+  .responsive-card-table tbody td,
+  .responsive-card-table tfoot td {
+    display: flex;
+    flex: 1 1 calc(50% - 0.25rem);
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+    padding: 0.5rem !important;
+    border: 0 !important;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: left !important;
+  }
+
+  .responsive-card-table tbody td::before,
+  .responsive-card-table tfoot td[data-label]::before {
+    content: attr(data-label);
+    color: #64748b;
+    font-size: 0.625rem;
+    font-weight: 700;
+    line-height: 1rem;
+    text-transform: uppercase;
+  }
+
+  .responsive-card-table tbody td[data-label='Actions'],
+  .responsive-card-table tfoot td[colspan] {
+    flex-basis: 100%;
+  }
+
+  .responsive-card-table tbody td[colspan] {
+    flex-basis: 100%;
+    text-align: center !important;
+  }
+
+  .responsive-card-table tbody td[colspan]::before {
+    content: none;
+  }
+}
+
 /* Ensure images and media are responsive */
 img, video, canvas, svg {
   max-width: 100%;

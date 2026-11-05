@@ -225,6 +225,16 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
           .card { border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; }
           .card-val { font-size: 18px; font-weight: bold; margin-top: 4px; }
           table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 24px; }
+          @media (max-width: 767px) {
+            .responsive-card-table, .responsive-card-table tbody { display: block; width: 100%; }
+            .responsive-card-table thead { display: none; }
+            .responsive-card-table tbody { display: grid; gap: 10px; }
+            .responsive-card-table tbody tr { display: flex; flex-wrap: wrap; gap: 4px; padding: 6px; border: 1px solid #e2e8f0; border-radius: 12px; }
+            .responsive-card-table td { display: flex; flex: 1 1 calc(50% - 4px); flex-direction: column; min-width: 0; padding: 8px; border: 0; overflow-wrap: anywhere; text-align: left !important; }
+            .responsive-card-table td::before { content: attr(data-label); color: #64748b; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+            .responsive-card-table td[colspan] { flex-basis: 100%; text-align: center !important; }
+            .responsive-card-table td[colspan]::before { content: none; }
+          }
           th { background: #f1f5f9; text-align: left; padding: 8px 10px; border: 1px solid #cbd5e1; font-weight: 600; }
           td { padding: 8px 10px; border: 1px solid #cbd5e1; }
           .text-right { text-align: right; }
@@ -277,7 +287,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
         </div>
 
         <h3 style="font-size: 14px; margin-bottom: 8px;">Payment Transaction Ledger</h3>
-        <table>
+        <table class="responsive-card-table">
           <thead>
             <tr>
               <th>Date</th>
@@ -295,12 +305,12 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                     .map(
                       (p) => `
               <tr>
-                <td>${p.paymentDate}</td>
-                <td><strong>${p.receiptNumber}</strong></td>
-                <td>${p.paymentMethod}</td>
-                <td>${p.notes || 'School fee payment'}</td>
-                <td class="text-right" style="font-weight: bold; color: #047857;">KES ${p.amount.toLocaleString()}</td>
-                <td class="text-right" style="font-weight: bold;">KES ${p.runningBalance.toLocaleString()}</td>
+                <td data-label="Date">${p.paymentDate}</td>
+                <td data-label="Receipt No."><strong>${p.receiptNumber}</strong></td>
+                <td data-label="Method">${p.paymentMethod}</td>
+                <td data-label="Reference / Notes">${p.notes || 'School fee payment'}</td>
+                <td data-label="Amount Paid" class="text-right" style="font-weight: bold; color: #047857;">KES ${p.amount.toLocaleString()}</td>
+                <td data-label="Running Balance" class="text-right" style="font-weight: bold;">KES ${p.runningBalance.toLocaleString()}</td>
               </tr>
             `
                     )
@@ -690,7 +700,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
               </div>
 
               <div className="border border-slate-200 rounded-lg overflow-hidden">
-                <table className="w-full text-left text-xs">
+                <table className="responsive-card-table w-full text-left text-xs">
                   <thead className="bg-slate-100 text-slate-600 font-bold text-[11px] border-b border-slate-200">
                     <tr>
                       <th className="py-2 px-3">Item #</th>
@@ -702,10 +712,10 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                   <tbody className="divide-y divide-slate-100">
                     {feeItems.map((item, idx) => (
                       <tr key={idx} className="hover:bg-slate-50/60">
-                        <td className="py-2 px-3 text-slate-400 font-mono">{idx + 1}</td>
-                        <td className="py-2 px-3 font-semibold text-slate-700">{item.category}</td>
-                        <td className="py-2 px-3 text-slate-800">{item.item}</td>
-                        <td className="py-2 px-3 text-right font-medium text-slate-900">
+                        <td data-label="Item #" className="py-2 px-3 text-slate-400 font-mono">{idx + 1}</td>
+                        <td data-label="Category" className="py-2 px-3 font-semibold text-slate-700">{item.category}</td>
+                        <td data-label="Billing Item" className="py-2 px-3 text-slate-800">{item.item}</td>
+                        <td data-label="Amount (KES)" className="py-2 px-3 text-right font-medium text-slate-900">
                           {item.amount.toLocaleString()}
                         </td>
                       </tr>
@@ -713,10 +723,10 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                   </tbody>
                   <tfoot className="bg-slate-50 font-bold border-t-2 border-slate-300 text-xs">
                     <tr>
-                      <td colSpan={3} className="py-2.5 px-3 text-slate-800 text-right uppercase">
+                      <td data-label="Invoice Total" colSpan={3} className="py-2.5 px-3 text-slate-800 text-right uppercase">
                         Total Invoiced Term Fees:
                       </td>
-                      <td className="py-2.5 px-3 text-right font-black text-slate-900 text-sm">
+                      <td data-label="Total Invoiced" className="py-2.5 px-3 text-right font-black text-slate-900 text-sm">
                         KES {currentStudent.totalFeesBilled.toLocaleString()}
                       </td>
                     </tr>
@@ -741,7 +751,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
 
               {studentPayments.length > 0 ? (
                 <div className="border border-slate-200 rounded-lg overflow-hidden">
-                  <table className="w-full text-left text-xs">
+                  <table className="responsive-card-table w-full text-left text-xs">
                     <thead className="bg-slate-100 text-slate-600 font-bold text-[11px] border-b border-slate-200">
                       <tr>
                         <th className="py-2 px-3">Date</th>
@@ -755,27 +765,27 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                     <tbody className="divide-y divide-slate-100">
                       {paymentLedgerWithBalance.map((p) => (
                         <tr key={p.id} className="hover:bg-slate-50/60">
-                          <td className="py-2.5 px-3 text-slate-600 font-mono text-[11px]">
+                          <td data-label="Date" className="py-2.5 px-3 text-slate-600 font-mono text-[11px]">
                             {p.paymentDate}
                           </td>
-                          <td className="py-2.5 px-3 font-mono font-bold text-indigo-700 text-[11px]">
+                          <td data-label="Receipt No." className="py-2.5 px-3 font-mono font-bold text-indigo-700 text-[11px]">
                             {p.receiptNumber}
                           </td>
-                          <td className="py-2.5 px-3">
+                          <td data-label="Payment Channel" className="py-2.5 px-3">
                             <span className="inline-block px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-medium text-[11px]">
                               {p.paymentMethod}
                             </span>
                           </td>
-                          <td className="py-2.5 px-3 text-slate-700 text-[11px]">
+                          <td data-label="Transaction Remarks" className="py-2.5 px-3 text-slate-700 text-[11px]">
                             {p.notes || 'School fee installment'}
                             <span className="block text-[10px] text-slate-400">
                               By: {p.recordedBy}
                             </span>
                           </td>
-                          <td className="py-2.5 px-3 text-right font-black text-emerald-700">
+                          <td data-label="Amount Paid" className="py-2.5 px-3 text-right font-black text-emerald-700">
                             + KES {p.amount.toLocaleString()}
                           </td>
-                          <td className="py-2.5 px-3 text-right font-mono font-bold text-slate-900">
+                          <td data-label="Running Balance" className="py-2.5 px-3 text-right font-mono font-bold text-slate-900">
                             KES {p.runningBalance.toLocaleString()}
                           </td>
                         </tr>
@@ -783,13 +793,14 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                     </tbody>
                     <tfoot className="bg-slate-50 font-bold border-t-2 border-slate-300 text-xs">
                       <tr>
-                        <td colSpan={4} className="py-2.5 px-3 text-slate-800 text-right uppercase">
+                        <td data-label="Payment Totals" colSpan={4} className="py-2.5 px-3 text-slate-800 text-right uppercase">
                           Total Payments Credited:
                         </td>
-                        <td className="py-2.5 px-3 text-right font-black text-emerald-700 text-sm">
+                        <td data-label="Total Payments" className="py-2.5 px-3 text-right font-black text-emerald-700 text-sm">
                           KES {currentStudent.totalFeesPaid.toLocaleString()}
                         </td>
                         <td
+                          data-label="Outstanding Balance"
                           className={`py-2.5 px-3 text-right font-black text-sm ${
                             isCleared ? 'text-emerald-700' : 'text-rose-700'
                           }`}

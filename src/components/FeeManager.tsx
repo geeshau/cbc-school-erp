@@ -472,7 +472,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
           {/* Ledger Table */}
           <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
+              <table className="responsive-card-table w-full text-left text-xs">
                 <thead className="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-200 text-[11px]">
                   <tr>
                     <th className="py-3 px-4">Adm No.</th>
@@ -490,27 +490,28 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                     const isPaid = s.feeBalance === 0;
                     return (
                       <tr key={s.id} className="hover:bg-slate-50/70 transition-colors">
-                        <td className="py-3.5 px-4 font-mono font-semibold text-slate-700">
+                        <td data-label="Adm No." className="py-3.5 px-4 font-mono font-semibold text-slate-700">
                           {s.admissionNumber}
                         </td>
-                        <td className="py-3.5 px-4 font-bold text-slate-900">
+                        <td data-label="Learner Name" className="py-3.5 px-4 font-bold text-slate-900">
                           {s.firstName} {s.lastName}
                         </td>
-                        <td className="py-3.5 px-4 text-slate-600 font-medium">{s.grade}</td>
-                        <td className="py-3.5 px-4 font-semibold text-slate-700">
+                        <td data-label="Grade" className="py-3.5 px-4 text-slate-600 font-medium">{s.grade}</td>
+                        <td data-label="Total Billed" className="py-3.5 px-4 font-semibold text-slate-700">
                           KES {s.totalFeesBilled.toLocaleString()}
                         </td>
-                        <td className="py-3.5 px-4 font-bold text-emerald-700">
+                        <td data-label="Total Paid" className="py-3.5 px-4 font-bold text-emerald-700">
                           KES {s.totalFeesPaid.toLocaleString()}
                         </td>
                         <td
+                          data-label="Balance Remaining"
                           className={`py-3.5 px-4 font-black ${
                             isPaid ? 'text-emerald-700' : 'text-rose-700'
                           }`}
                         >
                           KES {s.feeBalance.toLocaleString()}
                         </td>
-                        <td className="py-3.5 px-4">
+                        <td data-label="Status" className="py-3.5 px-4">
                           {isPaid ? (
                             <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                               Cleared
@@ -521,7 +522,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                             </span>
                           )}
                         </td>
-                        <td className="py-3.5 px-4 text-right">
+                        <td data-label="Actions" className="py-3.5 px-4 text-right">
                           <div className="flex items-center justify-end gap-1.5">
                             <button
                               onClick={() => handleOpenStatement(s.id)}
@@ -723,7 +724,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+                <table className="responsive-card-table w-full text-left text-xs">
                   <thead className="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-200 text-[11px]">
                     <tr>
                       <th className="py-3 px-4">Receipt No.</th>
@@ -740,22 +741,22 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                   <tbody className="divide-y divide-slate-100">
                     {filteredPayments.map((p) => (
                       <tr key={p.id} className="hover:bg-slate-50/70 transition-colors">
-                        <td className="py-3.5 px-4 font-mono font-bold text-indigo-700 whitespace-nowrap">
+                        <td data-label="Receipt No." className="py-3.5 px-4 font-mono font-bold text-indigo-700 whitespace-nowrap">
                           {p.receiptNumber}
                         </td>
-                        <td className="py-3.5 px-4 text-slate-600 whitespace-nowrap font-medium">
+                        <td data-label="Payment Date" className="py-3.5 px-4 text-slate-600 whitespace-nowrap font-medium">
                           {p.paymentDate}
                         </td>
-                        <td className="py-3.5 px-4">
+                        <td data-label="Learner Details" className="py-3.5 px-4">
                           <div className="font-bold text-slate-900">{p.studentName}</div>
                           <div className="text-[10px] font-mono text-slate-400">
                             {p.admissionNumber}
                           </div>
                         </td>
-                        <td className="py-3.5 px-4 text-slate-600 whitespace-nowrap">
+                        <td data-label="Grade" className="py-3.5 px-4 text-slate-600 whitespace-nowrap">
                           {p.grade}
                         </td>
-                        <td className="py-3.5 px-4 whitespace-nowrap">
+                        <td data-label="Channel" className="py-3.5 px-4 whitespace-nowrap">
                           <span
                             className={`px-2 py-0.5 rounded-md font-medium text-[11px] ${
                               p.paymentMethod === 'Mobile Money'
@@ -770,16 +771,16 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                             {p.paymentMethod}
                           </span>
                         </td>
-                        <td className="py-3.5 px-4 font-black text-emerald-700 whitespace-nowrap">
+                        <td data-label="Amount Paid" className="py-3.5 px-4 font-black text-emerald-700 whitespace-nowrap">
                           KES {p.amount.toLocaleString()}
                         </td>
-                        <td className="py-3.5 px-4 text-slate-600 max-w-xs truncate">
+                        <td data-label="Notes / Purpose" className="py-3.5 px-4 text-slate-600 max-w-xs truncate">
                           {p.notes || <span className="text-slate-300">—</span>}
                         </td>
-                        <td className="py-3.5 px-4 text-slate-500 whitespace-nowrap">
+                        <td data-label="Recorded By" className="py-3.5 px-4 text-slate-500 whitespace-nowrap">
                           {p.recordedBy}
                         </td>
-                        <td className="py-3.5 px-4 text-right whitespace-nowrap">
+                        <td data-label="Actions" className="py-3.5 px-4 text-right whitespace-nowrap">
                           <div className="flex items-center justify-end gap-1.5">
                             <button
                               onClick={() => setSelectedReceipt(p)}

@@ -533,7 +533,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
         /* Weekly Grid */
         <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
+            <table className="responsive-card-table w-full text-left text-xs border-collapse">
               <thead>
                 <tr className="bg-slate-900 text-white font-bold text-center">
                   <th className="p-3 w-28 md:w-32 lg:w-[12.5%] text-left border-r border-slate-800 shrink-0">Time / Period</th>
@@ -549,10 +549,10 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                   if (period.isBreak) {
                     return (
                       <tr key={pIdx} className="bg-amber-50/70 text-center font-bold text-amber-900">
-                        <td className="p-2.5 text-xs text-slate-500 border-r border-slate-200 font-mono">
+                        <td data-label="Time" className="p-2.5 text-xs text-slate-500 border-r border-slate-200 font-mono">
                           {period.time}
                         </td>
-                        <td colSpan={5} className="p-2.5 text-xs uppercase tracking-widest text-amber-800">
+                        <td data-label="Break Period" colSpan={5} className="p-2.5 text-xs uppercase tracking-widest text-amber-800">
                           ☕ {period.name}
                         </td>
                       </tr>
@@ -561,7 +561,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
 
                   return (
                     <tr key={pIdx} className="hover:bg-slate-50/50">
-                      <td className="p-3 text-xs border-r border-slate-200 font-medium bg-slate-50/80">
+                      <td data-label="Time / Period" className="p-3 text-xs border-r border-slate-200 font-medium bg-slate-50/80">
                         <div className="font-bold text-slate-900">{period.name}</div>
                         <div className="text-[10px] text-slate-400 font-mono">{period.time}</div>
                       </td>
@@ -572,7 +572,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                         );
 
                         return (
-                          <td key={day} className="p-2 border-r border-slate-200 last:border-r-0 align-top">
+                          <td key={day} data-label={day} className="p-2 border-r border-slate-200 last:border-r-0 align-top">
                             {match ? (
                               <div className="p-2.5 rounded-xl bg-indigo-50/90 border border-indigo-100 flex flex-col justify-between h-full group hover:border-indigo-300 transition-colors">
                                 <div>
