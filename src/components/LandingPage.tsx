@@ -289,6 +289,27 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
         </div>
       </section>
 
+      <section className="relative w-full overflow-hidden border-y border-slate-200 dark:border-neutral-900">
+        <div
+          className="h-[220px] sm:h-[300px] lg:h-[420px] w-full bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80')"
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-900/40 to-slate-950/75" />
+        <div className="absolute inset-0 flex items-center justify-center px-4 text-center">
+          <div className="max-w-3xl">
+            <p className="text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.25em] text-orange-200">
+              Learning in Motion
+            </p>
+            <h3 className="mt-3 text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+              Discover a school where every child grows with confidence.
+            </h3>
+          </div>
+        </div>
+      </section>
+
       {/* Office Enquiry Section */}
       <section id="enquire" className="py-20 px-4 sm:px-8 bg-slate-50 dark:bg-black">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
