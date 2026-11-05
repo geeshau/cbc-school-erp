@@ -11,19 +11,14 @@ import {
   INITIAL_PAYMENTS,
   INITIAL_GRADES,
   INITIAL_TIMETABLE,
-  INITIAL_EXAMS,
-  ATTENDANCE_ANALYTICS,
-  INITIAL_ATTENDANCE_RECORDS
+  INITIAL_EXAMS
 } from './src/data/mockData';
 import {
   Student,
   FeePayment,
   GradeRecord,
-  AttendanceRecord,
   TimetableSlot,
-  ExamPaper,
-  AttendanceAnalytics,
-  AttendanceStatus
+  ExamPaper
 } from './src/types';
 
 const currentFilename = typeof __filename !== 'undefined'
@@ -90,8 +85,6 @@ let paymentsStore: FeePayment[] = [...INITIAL_PAYMENTS];
 let gradesStore: GradeRecord[] = [...INITIAL_GRADES];
 let timetableStore: TimetableSlot[] = [...INITIAL_TIMETABLE];
 let examsStore: ExamPaper[] = [...INITIAL_EXAMS];
-let attendanceRecordsStore: AttendanceRecord[] = [...INITIAL_ATTENDANCE_RECORDS];
-let attendanceAnalyticsStore: AttendanceAnalytics = { ...ATTENDANCE_ANALYTICS };
 
 // MongoDB integration variables
 let mongoClient: MongoClient | null = null;
@@ -202,7 +195,7 @@ app.post('/api/students', (req: Request, res: Response) => {
     feeBalance: 48000,
     totalFeesBilled: 48000,
     totalFeesPaid: 0,
-    attendancePercentage: 100
+    performanceIndex: 100
   };
 
   studentsStore.unshift(newStudent);
@@ -428,153 +421,6 @@ app.post('/api/grades/batch', (req: Request, res: Response) => {
   res.json({ message: 'Grades saved successfully', count: updates.length });
 });
 
-// Attendance & Analytics
-app.get('/api/attendance/records', (req: Request, res: Response) => {
-  const { startDate, endDate, grade, status, search } = req.query;
-  let results = [...attendanceRecordsStore];
-
-  if (startDate && typeof startDate === 'string') {
-    results = results.filter(r => r.date >= startDate);
-  }
-  if (endDate && typeof endDate === 'string') {
-    results = results.filter(r => r.date <= endDate);
-  }
-  if (grade && typeof grade === 'string' && grade !== 'all') {
-    results = results.filter(r => r.grade.toLowerCase() === grade.toLowerCase());
-  }
-  if (status && typeof status === 'string' && status !== 'all') {
-    results = results.filter(r => r.status.toLowerCase() === status.toLowerCase());
-  }
-  if (search && typeof search === 'string') {
-    const q = search.toLowerCase();
-    results = results.filter(
-      r =>
-        r.studentName.toLowerCase().includes(q) ||
-        r.admissionNumber.toLowerCase().includes(q) ||
-        (r.reason && r.reason.toLowerCase().includes(q)) ||
-        (r.recordedBy && r.recordedBy.toLowerCase().includes(q))
-    );
-  }
-
-  // Sort descending by date, then studentName
-  results.sort((a, b) => b.date.localeCompare(a.date) || a.studentName.localeCompare(b.studentName));
-
-  res.json(results);
-});
-
-app.get('/api/attendance/analytics', (req: Request, res: Response) => {
-  res.json(attendanceAnalyticsStore);
-});
-
-app.post('/api/attendance/mark', (req: Request, res: Response) => {
-  const { date, grade, records, recordedBy } = req.body;
-  if (!Array.isArray(records)) {
-    return res.status(400).json({ error: 'Records must be an array' });
-  }
-
-  // Remove existing records for that date and grade
-  attendanceRecordsStore = attendanceRecordsStore.filter(
-    r => !(r.date === date && r.grade.toLowerCase() === grade.toLowerCase())
-  );
-
-  let presentCount = 0;
-  let absentCount = 0;
-  let excusedCount = 0;
-
-  records.forEach((rec: any) => {
-    const status: AttendanceStatus = (rec.status === 'absent' || rec.status === 'excused') ? rec.status : 'present';
-    const item: AttendanceRecord = {
-      id: `att_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
-      date,
-      grade,
-      studentId: rec.studentId,
-      studentName: rec.studentName,
-      admissionNumber: rec.admissionNumber,
-      status,
-      reason: rec.reason || '',
-      recordedBy: recordedBy || 'Teacher'
-    };
-
-    if (item.status === 'present') presentCount++;
-    else if (item.status === 'absent') absentCount++;
-    else if (item.status === 'excused') excusedCount++;
-
-    attendanceRecordsStore.push(item);
-  });
-
-  // Re-calculate analytics summary accurately
-  const totalMarked = records.length;
-  const gradePresent = presentCount;
-  const gradeRate = totalMarked > 0 ? Math.round((gradePresent / totalMarked) * 1000) / 10 : 100;
-
-  // 1. Update gradeComparison for this grade
-  const existingGradeIdx = attendanceAnalyticsStore.gradeComparison.findIndex(
-    g => g.grade.toLowerCase() === grade.toLowerCase()
-  );
-  if (existingGradeIdx >= 0) {
-    attendanceAnalyticsStore.gradeComparison[existingGradeIdx] = {
-      ...attendanceAnalyticsStore.gradeComparison[existingGradeIdx],
-      rate: gradeRate,
-      absentCount: absentCount,
-      totalStudents: totalMarked > 0 ? totalMarked : attendanceAnalyticsStore.gradeComparison[existingGradeIdx].totalStudents
-    };
-  } else {
-    attendanceAnalyticsStore.gradeComparison.push({
-      grade,
-      rate: gradeRate,
-      totalStudents: totalMarked,
-      absentCount: absentCount
-    });
-  }
-
-  // 2. School-wide numbers across all grades in gradeComparison
-  const totalAbsentAcrossGrades = attendanceAnalyticsStore.gradeComparison.reduce(
-    (sum, g) => sum + g.absentCount, 0
-  );
-  const totalStudents = attendanceAnalyticsStore.totalStudents || 340;
-  const totalPresentToday = Math.max(0, totalStudents - totalAbsentAcrossGrades);
-  const schoolWideRate = Math.round((totalPresentToday / totalStudents) * 1000) / 10;
-
-  attendanceAnalyticsStore.presentToday = totalPresentToday;
-  attendanceAnalyticsStore.absentToday = totalAbsentAcrossGrades;
-  attendanceAnalyticsStore.excusedToday = excusedCount;
-
-  // 3. Update or insert dailyTrends for this date
-  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const parsedDate = new Date(date);
-  const dayLabel = !isNaN(parsedDate.getTime()) ? dayNames[parsedDate.getDay()] : 'Today';
-
-  const trendIdx = attendanceAnalyticsStore.dailyTrends.findIndex(t => t.date === date);
-  if (trendIdx >= 0) {
-    attendanceAnalyticsStore.dailyTrends[trendIdx] = {
-      ...attendanceAnalyticsStore.dailyTrends[trendIdx],
-      rate: schoolWideRate,
-      present: totalPresentToday,
-      absent: totalAbsentAcrossGrades
-    };
-  } else {
-    attendanceAnalyticsStore.dailyTrends.push({
-      date,
-      dayLabel,
-      rate: schoolWideRate,
-      present: totalPresentToday,
-      absent: totalAbsentAcrossGrades
-    });
-    attendanceAnalyticsStore.dailyTrends.sort((a, b) => a.date.localeCompare(b.date));
-  }
-
-  // 4. Update overallRate as the average of dailyTrends
-  if (attendanceAnalyticsStore.dailyTrends.length > 0) {
-    const sumRates = attendanceAnalyticsStore.dailyTrends.reduce((acc, t) => acc + t.rate, 0);
-    attendanceAnalyticsStore.overallRate = Math.round((sumRates / attendanceAnalyticsStore.dailyTrends.length) * 10) / 10;
-  }
-
-  res.json({
-    message: 'Attendance recorded successfully',
-    analytics: attendanceAnalyticsStore,
-    summary: { totalMarked, presentCount, absentCount, excusedCount, todayRate: schoolWideRate }
-  });
-});
 
 // Timetable Scheduling
 app.get('/api/timetable', (req: Request, res: Response) => {

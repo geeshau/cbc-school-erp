@@ -222,7 +222,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                   </li>
                   <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                    <span>Robust digital reporting, attendance tracking, and parent communication.</span>
+                    <span>Robust digital reporting and parent communication.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />

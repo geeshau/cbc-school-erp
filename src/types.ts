@@ -37,7 +37,7 @@ export interface Student {
   feeBalance: number;
   totalFeesBilled: number;
   totalFeesPaid: number;
-  attendancePercentage: number;
+  performanceIndex: number;
 }
 
 export interface FeeStructure {
@@ -96,20 +96,6 @@ export interface GradeRecord {
   updatedAt: string;
 }
 
-export type AttendanceStatus = 'present' | 'absent' | 'excused';
-
-export interface AttendanceRecord {
-  id: string;
-  date: string; // YYYY-MM-DD
-  grade: string;
-  studentId: string;
-  studentName: string;
-  admissionNumber: string;
-  status: AttendanceStatus;
-  reason?: string;
-  recordedBy: string;
-}
-
 export interface TimetableSlot {
   id: string;
   dayOfWeek: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday';
@@ -152,37 +138,6 @@ export interface ExamPaper {
   questionsPreview?: string[];
 }
 
-export interface AttendanceAnalytics {
-  overallRate: number;
-  totalStudents: number;
-  presentToday: number;
-  absentToday: number;
-  lateToday?: number;
-  excusedToday: number;
-  dailyTrends: {
-    date: string;
-    dayLabel: string;
-    rate: number;
-    present: number;
-    absent: number;
-  }[];
-  gradeComparison: {
-    grade: string;
-    rate: number;
-    totalStudents: number;
-    absentCount: number;
-  }[];
-  chronicAbsentees: {
-    studentId: string;
-    name: string;
-    admissionNumber: string;
-    grade: string;
-    daysMissed: number;
-    attendanceRate: number;
-    guardianPhone: string;
-  }[];
-}
-
 export interface StudentReportCard {
   student: Student;
   term: string;
@@ -204,9 +159,6 @@ export interface StudentReportCard {
   overallGrade: LetterGrade;
   classRank: number;
   totalStudentsInClass: number;
-  attendanceDaysHeld: number;
-  attendanceDaysPresent: number;
-  attendancePercentage: number;
   classTeacherRemarks: string;
   principalRemarks: string;
 }

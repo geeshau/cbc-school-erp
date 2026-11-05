@@ -37,7 +37,7 @@ import { ThemeSwitcher } from './ThemeSwitcher';
 
 export interface FeaturePermission {
   id: string;
-  category: 'admissions' | 'finance' | 'academics' | 'attendance' | 'timetable' | 'exams' | 'reports' | 'system';
+  category: 'admissions' | 'finance' | 'academics' | 'timetable' | 'exams' | 'reports' | 'system';
   categoryLabel: string;
   name: string;
   description: string;
@@ -199,48 +199,7 @@ const PERMISSIONS_DATA: FeaturePermission[] = [
     enforcingComponent: 'GradingTracker.tsx (Lock / Save mechanism)'
   },
 
-  // 4. Attendance Roll Call
-  {
-    id: 'attendance_daily_roll',
-    category: 'attendance',
-    categoryLabel: 'Attendance & Roll Call',
-    name: 'Take Daily Morning Classroom Roll Call',
-    description: 'Mark students as Present, Excused, or Absent with daily timestamps and absence notes.',
-    adminAccess: 'full',
-    teacherAccess: 'full',
-    adminCapabilities: ['Any Class Register', 'Headmaster Oversight'],
-    teacherCapabilities: ['Assigned Class Register'],
-    governanceRationale: 'Class teachers conduct morning roll calls daily to maintain active student safety accountability.',
-    enforcingComponent: 'AttendanceTracker.tsx'
-  },
-  {
-    id: 'attendance_chronic_alerts',
-    category: 'attendance',
-    categoryLabel: 'Attendance & Roll Call',
-    name: 'Monitor School-Wide Chronic Absenteeism Trends',
-    description: 'Review multi-week statistical trends, identify high-risk attendance dropouts, and trigger welfare interventions.',
-    adminAccess: 'full',
-    teacherAccess: 'view',
-    adminCapabilities: ['School-wide Interventions', 'MOE Escalation'],
-    teacherCapabilities: ['Classroom View Only'],
-    governanceRationale: 'Early detection of truancy and child protection risks requires centralized headmaster coordination.',
-    enforcingComponent: 'DashboardOverview.tsx & AttendanceTracker.tsx'
-  },
-  {
-    id: 'attendance_historical_audit',
-    category: 'attendance',
-    categoryLabel: 'Attendance & Roll Call',
-    name: 'Alter Historical Attendance Logs (>7 Days Past)',
-    description: 'Retroactively change student roll call statuses for dates older than one calendar week.',
-    adminAccess: 'full',
-    teacherAccess: 'none',
-    adminCapabilities: ['Administrative Override', 'Audit Justification'],
-    teacherCapabilities: ['Restricted'],
-    governanceRationale: 'Complies with official Ministry of Education statutory roll call records integrity standards.',
-    enforcingComponent: 'AttendanceTracker.tsx'
-  },
-
-  // 5. Timetable & Master Schedules
+  // 4. Timetable & Master Schedules
   {
     id: 'timetable_view',
     category: 'timetable',
@@ -328,7 +287,7 @@ const PERMISSIONS_DATA: FeaturePermission[] = [
     category: 'reports',
     categoryLabel: 'Terminal Reports & Transcripts',
     name: 'Generate & View Official Terminal Report Cards',
-    description: 'Compile marks, attendance rates, and teacher remarks into formal printable academic progress reports.',
+    description: 'Compile marks and teacher remarks into formal printable academic progress reports.',
     adminAccess: 'full',
     teacherAccess: 'full',
     adminCapabilities: ['All Classes & Streams', 'Batch Export'],
@@ -444,7 +403,6 @@ export const SystemSettingsManager: React.FC<SystemSettingsManagerProps> = ({
     { id: 'admissions', label: 'Admissions & Roster' },
     { id: 'finance', label: 'Finance & Fees' },
     { id: 'academics', label: 'Grading & Marks' },
-    { id: 'attendance', label: 'Attendance Roll' },
     { id: 'timetable', label: 'Timetable' },
     { id: 'exams', label: 'Exam Printing' },
     { id: 'reports', label: 'Terminal Reports' },
@@ -515,7 +473,7 @@ export const SystemSettingsManager: React.FC<SystemSettingsManagerProps> = ({
               Viewing in Class Teacher Mode (Pedagogical Scope)
             </div>
             <p className="text-amber-800 leading-relaxed">
-              You are currently logged in as a <strong>Class Teacher</strong>. The matrix below displays your active permissions (such as entering grades, taking morning roll call, and requesting exam printing) alongside features strictly reserved for the <strong>Headmaster & Bursar</strong> (such as tuition fees and master schedules).
+              You are currently logged in as a <strong>Class Teacher</strong>. The matrix below displays your active permissions (such as entering grades and requesting exam printing) alongside features strictly reserved for the <strong>Headmaster & Bursar</strong> (such as tuition fees and master schedules).
             </p>
           </div>
         </div>
@@ -615,7 +573,7 @@ export const SystemSettingsManager: React.FC<SystemSettingsManagerProps> = ({
               <div className="text-2xl font-black text-slate-900 mt-2 font-sans">
                 {teacherEnabledCount} <span className="text-xs font-semibold text-slate-400">/ {totalCount}</span>
               </div>
-              <p className="text-[11px] text-slate-500 mt-1">Pedagogical & roll call tasks</p>
+              <p className="text-[11px] text-slate-500 mt-1">Pedagogical & assessment tasks</p>
             </div>
 
             <div className="bg-white p-4 rounded-2xl border border-rose-200/60 bg-gradient-to-br from-white to-rose-50/30 shadow-xs">
@@ -1087,19 +1045,6 @@ export const SystemSettingsManager: React.FC<SystemSettingsManagerProps> = ({
                   </div>
                   <p className="text-slate-500 text-[11px] mt-0.5">
                     Teacher Jane Mwangi uploaded Chemistry End-Term draft. Secretarial Print Room lock assigned to Locker #03; code issued exclusively via Administrator authorization.
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-start gap-3 text-xs">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-900">Daily Attendance Roll Call Logged</span>
-                    <span className="text-[10px] text-slate-400 font-mono">Yesterday, 08:10 AM</span>
-                  </div>
-                  <p className="text-slate-500 text-[11px] mt-0.5">
-                    Grade 10-A morning register recorded by Teacher Jane Mwangi. Headmaster dashboard synchronized with zero attendance roll tampering detected.
                   </p>
                 </div>
               </div>

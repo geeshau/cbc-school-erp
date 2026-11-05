@@ -9,12 +9,10 @@ import {
   ArrowUpRight,
   Phone,
   UserPlus,
-  CalendarCheck,
   FileSpreadsheet,
   BookOpen,
   Activity,
   HardDrive,
-  Clock,
   ShieldCheck,
   RefreshCw,
   FileText,
@@ -22,12 +20,11 @@ import {
   ChevronRight,
   Target
 } from 'lucide-react';
-import { AttendanceAnalytics, Student, UserRole, FeePayment } from '../types';
+import { Student, UserRole, FeePayment } from '../types';
 import { TabType } from './Sidebar';
 import { QuickActionsFloatingMenu } from './QuickActionsFloatingMenu';
 
 interface DashboardOverviewProps {
-  analytics: AttendanceAnalytics;
   students: Student[];
   payments?: FeePayment[];
   feeSummary: { totalBilled: number; totalCollected: number; totalOutstanding: number; collectionRate: number };
@@ -47,7 +44,6 @@ interface DashboardOverviewProps {
 }
 
 export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
-  analytics,
   students,
   payments = [],
   feeSummary,
@@ -59,22 +55,20 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   onAddStudent,
   onRecordPayment
 }) => {
-  const schoolTotal = analytics.totalStudents || 340;
-
   return (
     <div className="space-y-4 sm:space-y-5 min-w-0">
       {/* Top Header & Breadcrumb Bar matching Screenshot */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 sm:gap-4 pb-1">
         <div className="min-w-0">
           <h1 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight leading-tight break-words">
-            School Operations & Attendance Dashboard
+            School Operations Dashboard
           </h1>
           <div className="flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5 min-w-0">
             <span className="hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer truncate" onClick={() => onNavigateTab('dashboard')}>
               Dashboard
             </span>
             <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 flex-shrink-0" />
-            <span className="text-orange-600 dark:text-orange-400 font-semibold truncate">Attendance Pulse & Operations</span>
+            <span className="text-orange-600 dark:text-orange-400 font-semibold truncate">Operations & Performance</span>
           </div>
         </div>
 
@@ -100,65 +94,22 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               </button>
             </>
           ) : (
-            <>
-              <button
-                onClick={() => onNavigateTab('attendance')}
-                className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-xs transition-colors cursor-pointer"
-              >
-                <CalendarCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                <span className="hidden sm:inline">Take Roll Call</span>
-                <span className="sm:hidden">Roll Call</span>
-              </button>
-              <button
-                onClick={() => onNavigateTab('exams')}
-                className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 font-semibold text-xs border border-slate-200/90 dark:border-slate-700 shadow-2xs transition-colors cursor-pointer"
-              >
-                <Printer className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-500" />
-                <span className="hidden sm:inline">Upload Exam Paper</span>
-                <span className="sm:hidden">Upload</span>
-              </button>
-            </>
+            <button
+              onClick={() => onNavigateTab('exams')}
+              className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 font-semibold text-xs border border-slate-200/90 dark:border-slate-700 shadow-2xs transition-colors cursor-pointer"
+            >
+              <Printer className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-500" />
+              <span className="hidden sm:inline">Upload Exam Paper</span>
+              <span className="sm:hidden">Upload</span>
+            </button>
           )}
 
         </div>
       </div>
 
-      {/* Top 4 KPI Metric Cards (Directly matching the screenshot's top 4 KPI cards) */}
+      {/* KPI Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
-        {/* Card 1: School Attendance Rate */}
-        <div
-          onClick={() => onNavigateTab('attendance')}
-          className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 shadow-xs hover:border-orange-200 transition-all cursor-pointer group min-w-0"
-        >
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-[11px] sm:text-xs font-semibold text-slate-500">School Attendance Rate</span>
-            <div className="w-7 h-7 rounded-lg bg-orange-50 text-orange-500 flex items-center justify-center group-hover:bg-orange-500 group-hover:text-white transition-colors">
-              <Clock className="w-3.5 h-3.5" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-end justify-between gap-2">
-            <div className="min-w-0">
-              <span className="text-xl sm:text-2xl font-black text-slate-900">{analytics.overallRate}%</span>
-              <p className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">Last 30 school days</p>
-            </div>
-            {/* Sparkline Visual (Orange Waves mapped to last 7 daily trends) */}
-            <div className="w-16 sm:w-20 h-8 flex items-end gap-1 shrink-0">
-              {analytics.dailyTrends.slice(-7).map((d, i) => {
-                const normalizedHeight = Math.max(25, Math.min(100, Math.round(((d.rate - 88) / 12) * 75 + 25)));
-                return (
-                  <div
-                    key={d.date || i}
-                    title={`${d.dayLabel} (${d.rate}%): ${d.present} present`}
-                    style={{ height: `${normalizedHeight}%` }}
-                    className="flex-1 bg-orange-400/80 group-hover:bg-orange-500 rounded-t transition-all"
-                  ></div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Card 2: Academic Status */}
+        {/* Card 1: Academic Status */}
         <div
           onClick={() => onNavigateTab('grading')}
           className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 shadow-xs hover:border-orange-200 transition-all cursor-pointer group min-w-0"
@@ -248,74 +199,55 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         </div>
       </div>
 
-      {/* Mid Section: Attendance & Roll Call Trend Analysis (Shadcn Chart & Grade Progress) */}
+      {/* Operations overview cards */}
       <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1.7fr)_minmax(320px,0.9fr)] gap-4 sm:gap-5">
-        {/* Grade Attendance Progress Bars & Visual Analytics Graphs */}
         <div className="space-y-4 sm:space-y-5 min-w-0">
-          {/* Grade Attendance Progress Bars */}
           <div className="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs transition-colors">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
               <div>
                 <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                  Grade-by-Grade Attendance Standing
+                  School Operations Snapshot
                 </span>
-                <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Click any class to take or update today's roll call</p>
-              </div>
-              <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400">
-                <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span> 95-100%
-                </span>
-                <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-orange-500"></span> 90-95%
-                </span>
-                <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-rose-500"></span> &lt; 90%
-                </span>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Admissions, fees, grading, and exam activity at a glance.</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
-              {analytics.gradeComparison.map((item, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => onNavigateTab('attendance')}
-                  className="p-3 bg-slate-50/80 dark:bg-slate-800/60 hover:bg-orange-50/40 dark:hover:bg-slate-800 rounded-xl border border-slate-200/60 dark:border-slate-700/80 hover:border-orange-200 dark:hover:border-orange-800 transition-all flex flex-col justify-between cursor-pointer group min-w-0"
-                  title={`Click to open attendance register for ${item.grade}`}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors truncate">
-                      {item.grade}
-                    </span>
-                    <span
-                      className={`text-xs font-black font-mono ${
-                        item.rate >= 95 ? 'text-emerald-600 dark:text-emerald-400' : 'text-orange-600 dark:text-orange-400'
-                      }`}
-                    >
-                      {item.rate}%
-                    </span>
-                  </div>
-                  <div className="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden mt-2">
-                    <div
-                      style={{ width: `${Math.min(100, Math.max(0, item.rate))}%` }}
-                      className={`h-full rounded-full ${
-                        item.rate >= 95 ? 'bg-emerald-500' : 'bg-orange-500'
-                      }`}
-                    ></div>
-                  </div>
-                  <div className="flex items-center justify-between gap-2 text-[10px] text-slate-400 dark:text-slate-500 mt-1.5">
-                    <span>{item.totalStudents} enrolled</span>
-                    <span>{item.absentCount} absent</span>
-                  </div>
+              <div className="p-3 bg-slate-50/80 dark:bg-slate-800/60 rounded-xl border border-slate-200/60 dark:border-slate-700/80">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-bold text-slate-900 dark:text-slate-100">Active Learners</span>
+                  <span className="text-xs font-black font-mono text-orange-600 dark:text-orange-400">{students.filter((s) => s.status === 'active').length}</span>
                 </div>
-              ))}
+                <div className="mt-3 h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700">
+                  <div className="h-full w-[82%] rounded-full bg-orange-500"></div>
+                </div>
+              </div>
+
+              <div className="p-3 bg-slate-50/80 dark:bg-slate-800/60 rounded-xl border border-slate-200/60 dark:border-slate-700/80">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-bold text-slate-900 dark:text-slate-100">Fee Collection</span>
+                  <span className="text-xs font-black font-mono text-emerald-600 dark:text-emerald-400">{feeSummary.collectionRate}%</span>
+                </div>
+                <div className="mt-3 h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700">
+                  <div className="h-full w-[76%] rounded-full bg-emerald-500"></div>
+                </div>
+              </div>
+
+              <div className="p-3 bg-slate-50/80 dark:bg-slate-800/60 rounded-xl border border-slate-200/60 dark:border-slate-700/80">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-bold text-slate-900 dark:text-slate-100">Pending Exams</span>
+                  <span className="text-xs font-black font-mono text-sky-600 dark:text-sky-400">{pendingExamsCount}</span>
+                </div>
+                <div className="mt-3 h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700">
+                  <div className="h-full w-[58%] rounded-full bg-sky-500"></div>
+                </div>
+              </div>
             </div>
           </div>
-
         </div>
 
-        {/* Right Column: Quick School Actions (styled with Dark Circles like Screenshot's Quick IT Actions) */}
+        {/* Right Column: Quick School Actions */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4 sm:gap-5 min-w-0">
-          {/* Quick IT Actions Panel */}
           <div className="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs transition-colors">
             <div className="flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-orange-500"></span>
@@ -325,17 +257,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <button
-                onClick={() => onNavigateTab('attendance')}
-                className="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 hover:bg-orange-50/50 dark:hover:bg-slate-800 border border-slate-200/70 dark:border-slate-700 text-center transition-all group cursor-pointer"
-              >
-                <div className="w-9 h-9 rounded-full bg-slate-900 dark:bg-slate-700 text-white flex items-center justify-center group-hover:bg-orange-500 transition-colors shadow-xs">
-                  <CalendarCheck className="w-4 h-4" />
-                </div>
-                <span className="text-[11px] font-bold text-slate-800 dark:text-slate-200 mt-2">Morning Roll Call</span>
-                <span className="text-[10px] text-slate-400 dark:text-slate-500">Class registers</span>
-              </button>
-
               <button
                 onClick={() => onNavigateTab('fees')}
                 className="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 hover:bg-orange-50/50 border border-slate-200/70 text-center transition-all group cursor-pointer"
@@ -368,10 +289,21 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                 <span className="text-[11px] font-bold text-slate-800 mt-2">Exam Print Room</span>
                 <span className="text-[10px] text-slate-400">Manage queue</span>
               </button>
+
+              <button
+                onClick={() => onNavigateTab('enrolment')}
+                className="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 hover:bg-orange-50/50 border border-slate-200/70 text-center transition-all group cursor-pointer"
+              >
+                <div className="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center group-hover:bg-orange-500 transition-colors shadow-xs">
+                  <Users className="w-4 h-4" />
+                </div>
+                <span className="text-[11px] font-bold text-slate-800 mt-2">Student Records</span>
+                <span className="text-[10px] text-slate-400">Manage roster</span>
+              </button>
             </div>
           </div>
 
-          {/* User Roles Distribution (Segmented Bar matching screenshot's "User Roles Distribution") */}
+          {/* User Roles Distribution */}
           <div className="bg-white p-4 sm:p-5 rounded-xl border border-slate-200/80 shadow-xs">
             <div className="flex items-center justify-between gap-2 mb-3">
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">
@@ -407,41 +339,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             </div>
           </div>
 
-          {/* Chronic Absenteeism Alerts */}
-          <div className="bg-white p-4 sm:p-5 rounded-xl border border-slate-200/80 shadow-xs md:col-span-2 xl:col-span-1">
-            <div className="flex items-center gap-2 mb-2">
-              <AlertTriangle className="w-4 h-4 text-orange-500" />
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">
-                Chronic Absenteeism Watchlist
-              </h3>
-            </div>
-            <p className="text-[11px] text-slate-500 mb-3">
-              Learners flagged for missing &gt; 15% of sessions this term.
-            </p>
-
-            <div className="space-y-2.5">
-              {analytics.chronicAbsentees.map((std) => (
-                <div
-                  key={std.studentId}
-                  className="p-2.5 rounded-lg bg-orange-50/40 border border-orange-200/50 flex items-center justify-between gap-2"
-                >
-                  <div className="min-w-0">
-                    <div className="text-xs font-bold text-slate-900 truncate">{std.name}</div>
-                    <div className="text-[10px] text-slate-500 truncate">
-                      {std.grade} • {std.daysMissed} days missed
-                    </div>
-                  </div>
-                  <a
-                    href={`tel:${std.guardianPhone}`}
-                    className="inline-flex items-center gap-1 text-[11px] font-bold text-orange-600 hover:text-orange-700 bg-white px-2 py-1 rounded border border-orange-200 shadow-2xs cursor-pointer flex-shrink-0"
-                  >
-                    <Phone className="w-3 h-3" />
-                    <span>Call</span>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
 

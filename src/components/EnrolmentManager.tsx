@@ -96,8 +96,8 @@ Total Fees Paid: KES ${student.totalFeesPaid.toLocaleString()}
 Outstanding Arrears: KES ${student.feeBalance.toLocaleString()}
 Fee Standing: ${student.feeBalance === 0 ? 'CLEARED' : 'PENDING PAYMENT'}
 
-ATTENDANCE:
-Cumulative Rate: ${student.attendancePercentage}%
+PERFORMANCE:
+Performance Index: ${student.performanceIndex}%
 =====================================================`;
 
     handleCopyText(text, 'Full Dossier');
@@ -273,7 +273,7 @@ Cumulative Rate: ${student.attendancePercentage}%
                 <th className="py-3.5 px-4">Learner Name</th>
                 <th className="py-3.5 px-4">Grade & Stream</th>
                 <th className="py-3.5 px-4">Guardian Contact</th>
-                <th className="py-3.5 px-4">Attendance</th>
+                <th className="py-3.5 px-4">Performance</th>
                 <th className="py-3.5 px-4">Fee Status</th>
                 <th className="py-3.5 px-4 text-right">Actions</th>
               </tr>
@@ -343,14 +343,14 @@ Cumulative Rate: ${student.attendancePercentage}%
                         <div className="flex items-center gap-1.5">
                           <span
                             className={`font-bold ${
-                              student.attendancePercentage >= 95
+                              student.performanceIndex >= 95
                                 ? 'text-emerald-700'
-                                : student.attendancePercentage >= 85
+                                : student.performanceIndex >= 85
                                 ? 'text-amber-700'
                                 : 'text-rose-700'
                             }`}
                           >
-                            {student.attendancePercentage}%
+                            {student.performanceIndex}%
                           </span>
                         </div>
                       </td>
@@ -489,11 +489,11 @@ Cumulative Rate: ${student.attendancePercentage}%
 
               <div className="p-3 rounded-2xl bg-emerald-50/70 border border-emerald-200/70">
                 <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 block mb-0.5">
-                  Attendance Record
+                  Performance Index
                 </span>
-                <div className="text-sm font-black text-emerald-800">{selectedStudent.attendancePercentage}%</div>
+                <div className="text-sm font-black text-emerald-800">{selectedStudent.performanceIndex}%</div>
                 <div className="text-[11px] text-emerald-700 mt-0.5 font-medium">
-                  {selectedStudent.attendancePercentage >= 95 ? 'Exceptional Attendance' : 'Regular Attendance'}
+                  {selectedStudent.performanceIndex >= 95 ? 'Exceptional Progress' : 'Steady Progress'}
                 </div>
               </div>
 
@@ -813,46 +813,46 @@ Cumulative Rate: ${student.attendancePercentage}%
                 </div>
               </div>
 
-              {/* 6. Attendance Analytics & Roll Call Standing */}
+              {/* 6. Learner Progress Overview */}
               <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2.5">
                 <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
                     <Activity className="w-3.5 h-3.5 text-emerald-600" />
-                    Attendance & Roll Call Pulse
+                    Learner Progress Pulse
                   </span>
                   <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200/50">
-                    90 Days Rolling
+                    Term Review
                   </span>
                 </div>
 
                 <div className="space-y-2 text-slate-700">
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500 font-medium">Cumulative Attendance Rate:</span>
+                    <span className="text-slate-500 font-medium">Performance Index:</span>
                     <span className="text-base font-black text-emerald-700">
-                      {selectedStudent.attendancePercentage}%
+                      {selectedStudent.performanceIndex}%
                     </span>
                   </div>
 
-                  {/* Attendance Bar */}
+                  {/* Progress Bar */}
                   <div>
                     <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden">
                       <div
                         className="h-full rounded-full bg-emerald-500 transition-all duration-500"
-                        style={{ width: `${selectedStudent.attendancePercentage}%` }}
+                        style={{ width: `${selectedStudent.performanceIndex}%` }}
                       />
                     </div>
                   </div>
 
                   <div className="p-2.5 rounded-xl bg-white border border-slate-200/80 text-xs">
                     <div className="font-bold text-slate-800">
-                      {selectedStudent.attendancePercentage >= 95
-                        ? 'Exemplary Attendance & Regularity'
-                        : selectedStudent.attendancePercentage >= 85
-                        ? 'Satisfactory Attendance Standing'
-                        : 'Attendance Review Recommended'}
+                      {selectedStudent.performanceIndex >= 95
+                        ? 'Strong engagement and steady performance'
+                        : selectedStudent.performanceIndex >= 85
+                        ? 'Healthy learner engagement'
+                        : 'Support plan recommended'}
                     </div>
                     <p className="text-[11px] text-slate-500 mt-0.5">
-                      Learner is actively registered in the daily morning roll call register with verified parent notification.
+                      Learner progress is being monitored through ongoing academic support review.
                     </p>
                   </div>
                 </div>

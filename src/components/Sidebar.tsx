@@ -4,7 +4,6 @@ import {
   Users,
   CreditCard,
   Award,
-  CheckCircle2,
   CalendarDays,
   Printer,
   FileSpreadsheet,
@@ -26,7 +25,6 @@ export type TabType =
   | 'enrolment'
   | 'fees'
   | 'grading'
-  | 'attendance'
   | 'timetable'
   | 'exams'
   | 'reports'
@@ -68,16 +66,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id: 'dashboard' as TabType,
           label: 'Admin Dashboard',
           shortLabel: 'Dashboard',
-          subLabel: 'Attendance & Trends',
+          subLabel: 'Operations Overview',
           icon: LayoutDashboard,
-          roles: ['admin', 'teacher'] as UserRole[]
-        },
-        {
-          id: 'attendance' as TabType,
-          label: 'Attendance Register',
-          shortLabel: 'Attendance',
-          subLabel: 'Daily Roll Call Pulse',
-          icon: CheckCircle2,
           roles: ['admin', 'teacher'] as UserRole[]
         }
       ]
@@ -134,7 +124,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     .filter((item) => item.roles.includes(userRole));
 
   // Core primary tabs displayed directly on the middle navbar
-  const primaryTabIds: TabType[] = ['dashboard', 'attendance', 'enrolment', 'grading'];
+  const primaryTabIds: TabType[] = ['dashboard', 'enrolment', 'grading'];
 
   // 1. Items rendered directly as pills on the middle navbar
   const navbarItems = allAccessibleItems.filter((item) =>

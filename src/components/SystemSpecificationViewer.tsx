@@ -23,12 +23,11 @@ export const SystemSpecificationViewer: React.FC = () => {
     { id: 'overview', title: '1. System Overview & Roles' },
     { id: 'admissions', title: '2. Admissions & Student Cards' },
     { id: 'fees', title: '3. Fee Packages & Receipts' },
-    { id: 'attendance', title: '4. Roll Call & Trends' },
-    { id: 'grading', title: '5. Academic Grading' },
-    { id: 'reports', title: '6. Report Cards' },
-    { id: 'timetable', title: '7. Timetable & Schedules' },
-    { id: 'exams', title: '8. Exam Printing Workflow' },
-    { id: 'security', title: '9. Security & Privacy' }
+    { id: 'grading', title: '4. Academic Grading' },
+    { id: 'reports', title: '5. Report Cards' },
+    { id: 'timetable', title: '6. Timetable & Schedules' },
+    { id: 'exams', title: '7. Exam Printing Workflow' },
+    { id: 'security', title: '8. Security & Privacy' }
   ];
 
   const handlePrint = () => {
@@ -113,7 +112,6 @@ export const SystemSpecificationViewer: React.FC = () => {
                 <ul className="text-xs space-y-1.5 text-slate-600 list-disc list-inside">
                   <li>Admit and register new learners with automatic student numbers.</li>
                   <li>Issue official fee receipts and monitor arrears across classes.</li>
-                  <li>Review real-time school-wide attendance trends and chronic absenteeism alerts.</li>
                   <li>Schedule master timetables and eliminate teacher/classroom double-bookings.</li>
                   <li>Supervise the exam printing queue and confidential storage.</li>
                 </ul>
@@ -124,7 +122,6 @@ export const SystemSpecificationViewer: React.FC = () => {
                   Teachers (Class Instructors & Subject Examiners)
                 </span>
                 <ul className="text-xs space-y-1.5 text-slate-600 list-disc list-inside">
-                  <li>Conduct daily morning roll calls with instant headmaster synchronization.</li>
                   <li>Enter continuous assessment, mid-term, and final exam test scores.</li>
                   <li>Auto-convert marks into standardized letter grades with remarks.</li>
                   <li>Upload examination papers with photocopying, stapling, and security specs.</li>
@@ -151,7 +148,7 @@ export const SystemSpecificationViewer: React.FC = () => {
                 <li><strong>Application Data Entry:</strong> Staff record learner name, birth date, gender, address, and special medical conditions (e.g. asthma, food allergies).</li>
                 <li><strong>Unique Admission Number:</strong> The system automatically issues a standardized school identification code (e.g. ADM-2026-0101).</li>
                 <li><strong>Class Stream Placement:</strong> The student is assigned to their grade classroom and class teacher.</li>
-                <li><strong>Automatic Financial & Academic Ledgers:</strong> An electronic fee account, attendance card, and term report card are instantly initiated.</li>
+                <li><strong>Automatic Financial & Academic Ledgers:</strong> An electronic fee account and term report card are instantly initiated.</li>
               </ol>
             </div>
           </div>
@@ -176,44 +173,11 @@ export const SystemSpecificationViewer: React.FC = () => {
           </div>
         )}
 
-        {/* Section: Attendance */}
-        {(activeSection === 'all' || activeSection === 'attendance') && (
-          <div className="space-y-4">
-            <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">4</span>
-              <span>Daily Roll Call & School-Wide Attendance Trends</span>
-            </h2>
-            <p className="text-xs sm:text-sm leading-relaxed text-slate-700">
-              Accounting for every learner daily is vital for child safety and academic continuity.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-              <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
-                <span className="font-bold text-emerald-900 block">Morning Check-In</span>
-                <p className="text-emerald-700 mt-1">
-                  Class teachers mark Present, Excused, or Absent in seconds using a single-tap interface.
-                </p>
-              </div>
-              <div className="p-3 bg-indigo-50 rounded-xl border border-indigo-200">
-                <span className="font-bold text-indigo-900 block">School-Wide Trends</span>
-                <p className="text-indigo-700 mt-1">
-                  A visual analytics dashboard shows daily trends across weekdays and compares attendance rates across all classes.
-                </p>
-              </div>
-              <div className="p-3 bg-rose-50 rounded-xl border border-rose-200">
-                <span className="font-bold text-rose-900 block">Early Warning System</span>
-                <p className="text-rose-700 mt-1">
-                  Learners missing more than 15% of sessions are automatically flagged for welfare and parental contact.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Section: Grading */}
         {(activeSection === 'all' || activeSection === 'grading') && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">5</span>
+              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">4</span>
               <span>Academic Performance & Grading Matrix</span>
             </h2>
             <p className="text-xs sm:text-sm leading-relaxed text-slate-700">
@@ -264,7 +228,7 @@ export const SystemSpecificationViewer: React.FC = () => {
         {(activeSection === 'all' || activeSection === 'reports') && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">6</span>
+              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">5</span>
               <span>Terminal Learner Report Cards</span>
             </h2>
             <p className="text-xs sm:text-sm leading-relaxed text-slate-700">
@@ -285,7 +249,7 @@ export const SystemSpecificationViewer: React.FC = () => {
         {(activeSection === 'all' || activeSection === 'timetable') && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">7</span>
+              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">6</span>
               <span>Master Timetable & Lesson Scheduling</span>
             </h2>
             <p className="text-xs sm:text-sm leading-relaxed text-slate-700">
@@ -312,7 +276,7 @@ export const SystemSpecificationViewer: React.FC = () => {
         {(activeSection === 'all' || activeSection === 'exams') && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">8</span>
+              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">7</span>
               <span>Teacher Exam Upload & Secure Printing Portal</span>
             </h2>
             <p className="text-xs sm:text-sm leading-relaxed text-slate-700">
@@ -352,14 +316,14 @@ export const SystemSpecificationViewer: React.FC = () => {
         {(activeSection === 'all' || activeSection === 'security') && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">9</span>
+              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">8</span>
               <span>Data Protection, Confidentiality & Audit Log</span>
             </h2>
             <p className="text-xs sm:text-sm leading-relaxed text-slate-700">
               Protecting student confidentiality and academic integrity is of the highest priority.
             </p>
             <ul className="text-xs space-y-1.5 text-slate-700 list-disc list-inside">
-              <li><strong>Role Isolation:</strong> Teachers only have permission to edit grades and attendance for their assigned subjects and classes. Bursar records are restricted to financial administrators.</li>
+              <li><strong>Role Isolation:</strong> Teachers only have permission to edit grades for their assigned subjects and classes. Bursar records are restricted to financial administrators.</li>
               <li><strong>Audit Timestamping:</strong> Every mark entered and payment receipt issued records the exact time and staff member responsible.</li>
               <li><strong>Parent Contact Privacy:</strong> Emergency telephone numbers, home addresses, and confidential medical notes are strictly shielded.</li>
               <li><strong>Automated Database Redundancy:</strong> Continuous persistence safeguards against loss of academic history.</li>

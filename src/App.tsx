@@ -10,7 +10,6 @@ import { DashboardOverview } from './components/DashboardOverview';
 import { EnrolmentManager } from './components/EnrolmentManager';
 import { FeeManager } from './components/FeeManager';
 import { GradingTracker } from './components/GradingTracker';
-import { AttendanceTracker } from './components/AttendanceTracker';
 import { TimetableManager } from './components/TimetableManager';
 import { ExamPrintPortal } from './components/ExamPrintPortal';
 import { ReportCardsManager } from './components/ReportCardsManager';
@@ -23,13 +22,10 @@ import {
   Student,
   FeePayment,
   GradeRecord,
-  AttendanceAnalytics,
-  AttendanceRecord,
   TimetableSlot,
   ExamPaper,
   UserRole,
-  PrintStatus,
-  AttendanceStatus
+  PrintStatus
 } from './types';
 import { api } from './lib/api';
 import {
@@ -38,9 +34,7 @@ import {
   INITIAL_PAYMENTS,
   INITIAL_GRADES,
   INITIAL_TIMETABLE,
-  INITIAL_EXAMS,
-  ATTENDANCE_ANALYTICS,
-  INITIAL_ATTENDANCE_RECORDS
+  INITIAL_EXAMS
 } from './data/mockData';
 import { CheckCircle2 } from 'lucide-react';
 import { useTheme } from './lib/theme';
@@ -64,10 +58,8 @@ export default function App() {
   const [students, setStudents] = useState<Student[]>(INITIAL_STUDENTS);
   const [payments, setPayments] = useState<FeePayment[]>(INITIAL_PAYMENTS);
   const [grades, setGrades] = useState<GradeRecord[]>(INITIAL_GRADES);
-  const [analytics, setAnalytics] = useState<AttendanceAnalytics>(ATTENDANCE_ANALYTICS);
   const [timetableSlots, setTimetableSlots] = useState<TimetableSlot[]>(INITIAL_TIMETABLE);
   const [exams, setExams] = useState<ExamPaper[]>(INITIAL_EXAMS);
-  const [attendanceRecords, setAttendanceRecords] = useState<AttendanceRecord[]>(INITIAL_ATTENDANCE_RECORDS);
 
   // Website CMS State
   const [websiteContent, setWebsiteContent] = useState<WebsiteContent>({
@@ -160,20 +152,16 @@ export default function App() {
           fetchedStudents,
           fetchedSummary,
           fetchedGrades,
-          fetchedAnalytics,
           fetchedTimetable,
-          fetchedExams,
-          fetchedAttendanceRecords
+          fetchedExams
         ] = await Promise.all([
           api.getUsers().catch(() => DEMO_USERS),
           api.getHealth().catch(() => ({ database: { connected: true, provider: 'High-Speed Database' } })),
           api.getStudents().catch(() => INITIAL_STUDENTS),
           api.getFeeSummary().catch(() => null),
           api.getGrades().catch(() => INITIAL_GRADES),
-          api.getAttendanceAnalytics().catch(() => ATTENDANCE_ANALYTICS),
           api.getTimetable().catch(() => INITIAL_TIMETABLE),
-          api.getExams().catch(() => INITIAL_EXAMS),
-          api.getAttendanceRecords().catch(() => INITIAL_ATTENDANCE_RECORDS)
+          api.getExams().catch(() => INITIAL_EXAMS)
         ]);
 
         if (fetchedUsers && fetchedUsers.length > 0) setUsers(fetchedUsers);
@@ -181,12 +169,8 @@ export default function App() {
         if (fetchedStudents && fetchedStudents.length > 0) setStudents(fetchedStudents);
         if (fetchedSummary?.recentPayments) setPayments(fetchedSummary.recentPayments);
         if (fetchedGrades && fetchedGrades.length > 0) setGrades(fetchedGrades);
-        if (fetchedAnalytics) setAnalytics(fetchedAnalytics);
         if (fetchedTimetable && fetchedTimetable.length > 0) setTimetableSlots(fetchedTimetable);
         if (fetchedExams && fetchedExams.length > 0) setExams(fetchedExams);
-        if (fetchedAttendanceRecords && fetchedAttendanceRecords.length > 0) {
-          setAttendanceRecords(fetchedAttendanceRecords);
-        }
       } catch (err) {
         console.error('Data bootstrap error:', err);
       }
@@ -296,123 +280,6 @@ export default function App() {
     }
   };
 
-  // Attendance
-  const handleRecordAttendance = async (data: {
-    date: string;
-    grade: string;
-    records: {
-      studentId: string;
-      studentName: string;
-      admissionNumber: string;
-      status: AttendanceStatus;
-      reason?: string;
-    }[];
-    recordedBy: string;
-  }) => {
-    try {
-      const res = await api.recordAttendance(data);
-
-      const presentCount = data.records.filter((r) => r.status === 'present').length;
-      const absentCount = data.records.filter((r) => r.status === 'absent').length;
-      const excusedCount = data.records.filter((r) => r.status === 'excused').length;
-      const totalMarked = data.records.length;
-      const gradeRate = totalMarked > 0 ? Math.round((presentCount / totalMarked) * 1000) / 10 : 100;
-
-      if (res?.analytics) {
-        setAnalytics(res.analytics);
-      } else {
-        setAnalytics((prev) => {
-          // 1. Update gradeComparison
-          const gradeIdx = prev.gradeComparison.findIndex(
-            (g) => g.grade.toLowerCase() === data.grade.toLowerCase()
-          );
-          const newGradeComp = [...prev.gradeComparison];
-          if (gradeIdx >= 0) {
-            newGradeComp[gradeIdx] = {
-              ...newGradeComp[gradeIdx],
-              rate: gradeRate,
-              absentCount,
-              totalStudents: totalMarked > 0 ? totalMarked : newGradeComp[gradeIdx].totalStudents
-            };
-          } else {
-            newGradeComp.push({
-              grade: data.grade,
-              rate: gradeRate,
-              totalStudents: totalMarked,
-              absentCount
-            });
-          }
-
-          const totalAbsent = newGradeComp.reduce((sum, g) => sum + g.absentCount, 0);
-          const totalLearners = prev.totalStudents || 340;
-          const totalPresent = Math.max(0, totalLearners - totalAbsent);
-          const schoolRate = Math.round((totalPresent / totalLearners) * 1000) / 10;
-
-          const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-          const parsed = new Date(data.date);
-          const dayLabel = !isNaN(parsed.getTime()) ? dayNames[parsed.getDay()] : 'Today';
-
-          const newDailyTrends = [...prev.dailyTrends];
-          const trendIdx = newDailyTrends.findIndex((t) => t.date === data.date);
-          if (trendIdx >= 0) {
-            newDailyTrends[trendIdx] = {
-              ...newDailyTrends[trendIdx],
-              rate: schoolRate,
-              present: totalPresent,
-              absent: totalAbsent
-            };
-          } else {
-            newDailyTrends.push({
-              date: data.date,
-              dayLabel,
-              rate: schoolRate,
-              present: totalPresent,
-              absent: totalAbsent
-            });
-            newDailyTrends.sort((a, b) => a.date.localeCompare(b.date));
-          }
-
-          const sumRates = newDailyTrends.reduce((acc, t) => acc + t.rate, 0);
-          const overallRate = Math.round((sumRates / newDailyTrends.length) * 10) / 10;
-
-          return {
-            ...prev,
-            overallRate,
-            presentToday: totalPresent,
-            absentToday: totalAbsent,
-            excusedToday: excusedCount,
-            gradeComparison: newGradeComp,
-            dailyTrends: newDailyTrends
-          };
-        });
-      }
-
-      // Also update local attendanceRecords store for immediate historical logs reflection
-      const newAttendanceLogs: AttendanceRecord[] = data.records.map((r, idx) => ({
-        id: `att_${Date.now()}_${idx}`,
-        date: data.date,
-        grade: data.grade,
-        studentId: r.studentId,
-        studentName: r.studentName,
-        admissionNumber: r.admissionNumber,
-        status: r.status,
-        reason: r.reason || '',
-        recordedBy: data.recordedBy
-      }));
-
-      setAttendanceRecords((prev) => {
-        const filtered = prev.filter(
-          (existing) => !(existing.date === data.date && existing.grade.toLowerCase() === data.grade.toLowerCase())
-        );
-        return [...newAttendanceLogs, ...filtered];
-      });
-
-      showToast(`Attendance recorded for ${data.grade} (${gradeRate}% present). School-wide trends updated.`);
-    } catch (err: any) {
-      showToast(`Error saving attendance: ${err.message}`);
-    }
-  };
-
   // Timetable
   const handleAddSlot = async (slotData: Partial<TimetableSlot>) => {
     const newSlot = await api.addTimetableSlot(slotData);
@@ -507,7 +374,6 @@ export default function App() {
             {/* Tab: Analytics Pulse & Overview */}
             {activeTab === 'dashboard' && (
               <DashboardOverview
-                analytics={analytics}
                 students={students}
                 payments={payments}
                 feeSummary={feeSummary}
@@ -547,18 +413,6 @@ export default function App() {
                 students={students}
                 grades={grades}
                 onSaveGrades={handleSaveGrades}
-                userRole={currentUser.role}
-                currentUserName={currentUser.name}
-              />
-            )}
-
-            {/* Tab: Attendance Roll Call */}
-            {activeTab === 'attendance' && (
-              <AttendanceTracker
-                students={students}
-                attendanceRecords={attendanceRecords}
-                analytics={analytics}
-                onRecordAttendance={handleRecordAttendance}
                 userRole={currentUser.role}
                 currentUserName={currentUser.name}
               />

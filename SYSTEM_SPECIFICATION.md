@@ -13,8 +13,8 @@ This guide describes how the PCEA St Andrews Kindergarten Management System func
 The PCEA St Andrews Kindergarten Management System is a centralized digital office for our school. It replaces paper filing cabinets, handwritten mark sheets, paper receipt booklets, and noticeboards with one secure, accessible place where teachers and administrators work together.
 
 The system is organized around two primary roles:
-1. **School Administrators (Headteachers, Principals & Bursars):** Oversee school admissions, approve fee records, monitor school-wide attendance trends, manage staff and classroom schedules, and supervise the exam printing room.
-2. **Teachers (Class Instructors & Subject Teachers):** Take morning roll calls, input student test and exam marks, view and manage their class timetable, and submit exam papers to the print room for printing before test week.
+1. **School Administrators (Headteachers, Principals & Bursars):** Oversee school admissions, approve fee records, manage staff and classroom schedules, and supervise the exam printing room.
+2. **Teachers (Class Instructors & Subject Teachers):** Input student test and exam marks, view and manage their class timetable, and submit exam papers to the print room for printing before test week.
 
 ---
 
@@ -32,7 +32,7 @@ Maintains a complete, permanent student card for every enrolled learner from the
 1. **Application Received:** The school office enters the learner's details using the "Register New Learner" form.
 2. **Admission Number Issued:** The system assigns an official student registration code that stays with the student throughout their school journey.
 3. **Class Allocation:** The student is placed into their appropriate grade (e.g., Grade 10-A).
-4. **Automatic Account Creation:** An electronic fee ledger, attendance register, and term report card are instantly created for the student.
+4. **Automatic Account Creation:** An electronic fee ledger and term report card are instantly created for the student.
 
 ---
 
@@ -48,21 +48,6 @@ Provides the school bursar and parents with complete transparency over school fe
 - **Parent Fee Statements:** A one-page statement showing all payments and balance due can be printed or sent to parents at any time.
 
 ---
-
-## 4. Daily Attendance & School-Wide Attendance Trends
-### What it does
-Ensures every child is accounted for every morning and alerts the school leadership to patterns of absenteeism before they hurt academic performance.
-
-### How Roll Call Works
-1. **Morning Check-In:** At the start of the school day, the class teacher opens their digital attendance sheet.
-2. **One-Tap Roll Call:** The teacher marks each learner as **Present**, **Excused** (e.g., medical or approved family leave), or **Absent**. A handy "Mark All Present" button allows swift check-ins, requiring only absentees or excused learners to be adjusted.
-3. **Instant School Office Sync:** The moment the teacher saves roll call, the headteacher's dashboard updates immediately.
-
-### School-Wide Attendance Analytics
-- **Overall Attendance Percentage:** Shows whether school attendance meets our school's goal (e.g., 95% or higher).
-- **Grade-by-Grade Comparison:** Highlights which classes have exceptional attendance and which classes need pastoral attention.
-- **Weekly & Monthly Trends:** Shows patterns (for example, if attendance drops on rainy Mondays or before holiday breaks).
-- **Chronic Absenteeism Early Warning:** Automatically flags any student who has missed more than 15% of classes so the school can contact their parents promptly.
 
 ---
 
@@ -95,7 +80,6 @@ Produces professional, comprehensive student academic reports for parents at the
 - **Student Profile:** Full name, admission number, grade, and class teacher.
 - **Academic Table:** All subjects listed with continuous assessment scores, final exam scores, total percentage, letter grade, and subject teacher comments.
 - **Overall Performance:** Term average, class rank (e.g., 3rd out of 34 students), and total marks.
-- **Attendance Summary:** Total school days held, days present, and days absent.
 - **Pastoral & Conduct Feedback:** Class teacher's personalized behavioral summary and Principal's official closing remarks with signature block.
 - **Print & Distribution:** Formatted to print cleanly on standard A4 stationery.
 
@@ -140,7 +124,7 @@ Solves the traditional headache of exam preparation by allowing teachers to subm
 ---
 
 ## 9. Security, Privacy & Safeguards
-- **Clear Access Boundaries:** Teachers can only edit marks and roll calls for their designated classes; financial ledgers and student admissions are reserved for administrative personnel.
+- **Clear Access Boundaries:** Teachers can only edit marks for their designated classes; financial ledgers and student admissions are reserved for administrative personnel.
 - **Permanent Audit Record:** Important updates, fee entries, and grade submissions record the author and timestamp to maintain school integrity.
 - **Parent Privacy:** Personal family contact information and sensitive health alerts are strictly kept confidential within the authorized school administration.
 - **Continuous Backup:** All student files, fee records, and grades are preserved safely so that a computer malfunction in the staff room never results in lost school work.

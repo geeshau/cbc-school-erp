@@ -3,10 +3,8 @@ import {
   Student,
   FeePayment,
   GradeRecord,
-  AttendanceRecord,
   TimetableSlot,
   ExamPaper,
-  AttendanceAnalytics,
   StudentReportCard
 } from '../types';
 
@@ -65,7 +63,7 @@ export const INITIAL_STUDENTS: Student[] = [
     feeBalance: 0,
     totalFeesBilled: 48000,
     totalFeesPaid: 48000,
-    attendancePercentage: 98.2
+    performanceIndex: 98.2
   },
   {
     id: 'std_002',
@@ -88,7 +86,7 @@ export const INITIAL_STUDENTS: Student[] = [
     feeBalance: 12000,
     totalFeesBilled: 48000,
     totalFeesPaid: 36000,
-    attendancePercentage: 94.5
+    performanceIndex: 94.5
   },
   {
     id: 'std_003',
@@ -111,7 +109,7 @@ export const INITIAL_STUDENTS: Student[] = [
     feeBalance: 0,
     totalFeesBilled: 48000,
     totalFeesPaid: 48000,
-    attendancePercentage: 99.0
+    performanceIndex: 99.0
   },
   {
     id: 'std_004',
@@ -134,7 +132,7 @@ export const INITIAL_STUDENTS: Student[] = [
     feeBalance: 24000,
     totalFeesBilled: 48000,
     totalFeesPaid: 24000,
-    attendancePercentage: 81.4
+    performanceIndex: 81.4
   },
   {
     id: 'std_005',
@@ -157,7 +155,7 @@ export const INITIAL_STUDENTS: Student[] = [
     feeBalance: 4000,
     totalFeesBilled: 48000,
     totalFeesPaid: 44000,
-    attendancePercentage: 96.5
+    performanceIndex: 96.5
   },
   {
     id: 'std_006',
@@ -180,7 +178,7 @@ export const INITIAL_STUDENTS: Student[] = [
     feeBalance: 0,
     totalFeesBilled: 52000,
     totalFeesPaid: 52000,
-    attendancePercentage: 97.4
+    performanceIndex: 97.4
   },
   {
     id: 'std_007',
@@ -203,7 +201,7 @@ export const INITIAL_STUDENTS: Student[] = [
     feeBalance: 18000,
     totalFeesBilled: 52000,
     totalFeesPaid: 34000,
-    attendancePercentage: 92.1
+    performanceIndex: 92.1
   },
   {
     id: 'std_008',
@@ -226,7 +224,7 @@ export const INITIAL_STUDENTS: Student[] = [
     feeBalance: 0,
     totalFeesBilled: 45000,
     totalFeesPaid: 45000,
-    attendancePercentage: 95.8
+    performanceIndex: 95.8
   },
   {
     id: 'std_009',
@@ -249,7 +247,7 @@ export const INITIAL_STUDENTS: Student[] = [
     feeBalance: 15000,
     totalFeesBilled: 45000,
     totalFeesPaid: 30000,
-    attendancePercentage: 83.2
+    performanceIndex: 83.2
   },
   {
     id: 'std_010',
@@ -272,7 +270,7 @@ export const INITIAL_STUDENTS: Student[] = [
     feeBalance: 0,
     totalFeesBilled: 55000,
     totalFeesPaid: 55000,
-    attendancePercentage: 98.9
+    performanceIndex: 98.9
   },
   {
     id: 'std_011',
@@ -295,7 +293,7 @@ export const INITIAL_STUDENTS: Student[] = [
     feeBalance: 0,
     totalFeesBilled: 45000,
     totalFeesPaid: 45000,
-    attendancePercentage: 95.0
+    performanceIndex: 95.0
   },
   {
     id: 'std_012',
@@ -318,7 +316,7 @@ export const INITIAL_STUDENTS: Student[] = [
     feeBalance: 5000,
     totalFeesBilled: 45000,
     totalFeesPaid: 40000,
-    attendancePercentage: 92.6
+    performanceIndex: 92.6
   },
   {
     id: 'std_013',
@@ -341,7 +339,7 @@ export const INITIAL_STUDENTS: Student[] = [
     feeBalance: 0,
     totalFeesBilled: 48000,
     totalFeesPaid: 48000,
-    attendancePercentage: 96.0
+    performanceIndex: 96.0
   },
   {
     id: 'std_014',
@@ -364,7 +362,7 @@ export const INITIAL_STUDENTS: Student[] = [
     feeBalance: 12000,
     totalFeesBilled: 48000,
     totalFeesPaid: 36000,
-    attendancePercentage: 94.4
+    performanceIndex: 94.4
   }
 ];
 
@@ -716,501 +714,6 @@ export const INITIAL_PAYMENTS: FeePayment[] = [
   }
 ];
 
-export const INITIAL_ATTENDANCE_RECORDS: AttendanceRecord[] = [
-  // 2026-03-16 (Monday) - Grade 10-A
-  {
-    id: 'att_20260316_01',
-    date: '2026-03-16',
-    grade: 'Grade 10-A',
-    studentId: 'std_001',
-    studentName: 'Amara Kiprono',
-    admissionNumber: 'ADM-2024-0101',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260316_02',
-    date: '2026-03-16',
-    grade: 'Grade 10-A',
-    studentId: 'std_002',
-    studentName: 'Ethan Mwangi',
-    admissionNumber: 'ADM-2024-0102',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260316_03',
-    date: '2026-03-16',
-    grade: 'Grade 10-A',
-    studentId: 'std_003',
-    studentName: 'Chloe Otieno',
-    admissionNumber: 'ADM-2024-0103',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260316_04',
-    date: '2026-03-16',
-    grade: 'Grade 10-A',
-    studentId: 'std_004',
-    studentName: 'Brian Koech',
-    admissionNumber: 'ADM-2024-0104',
-    status: 'absent',
-    reason: 'Reported illness (viral flu)',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260316_05',
-    date: '2026-03-16',
-    grade: 'Grade 10-A',
-    studentId: 'std_005',
-    studentName: 'Zainab Hassan',
-    admissionNumber: 'ADM-2024-0105',
-    status: 'excused',
-    reason: 'Traffic congestion on Valley Road (arrived 08:22)',
-    recordedBy: 'Sarah Jenkins'
-  },
-
-  // 2026-03-16 (Monday) - Grade 9-A
-  {
-    id: 'att_20260316_06',
-    date: '2026-03-16',
-    grade: 'Grade 9-A',
-    studentId: 'std_008',
-    studentName: 'Daniel Ochieng',
-    admissionNumber: 'ADM-2025-0150',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Marcus Vance'
-  },
-  {
-    id: 'att_20260316_07',
-    date: '2026-03-16',
-    grade: 'Grade 9-A',
-    studentId: 'std_009',
-    studentName: 'Nia Wanjiku',
-    admissionNumber: 'ADM-2025-0155',
-    status: 'absent',
-    reason: 'Dental appointment at Nairobi Hospital',
-    recordedBy: 'Marcus Vance'
-  },
-
-  // 2026-03-13 (Friday) - Grade 10-A
-  {
-    id: 'att_20260313_01',
-    date: '2026-03-13',
-    grade: 'Grade 10-A',
-    studentId: 'std_001',
-    studentName: 'Amara Kiprono',
-    admissionNumber: 'ADM-2024-0101',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260313_02',
-    date: '2026-03-13',
-    grade: 'Grade 10-A',
-    studentId: 'std_002',
-    studentName: 'Ethan Mwangi',
-    admissionNumber: 'ADM-2024-0102',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260313_03',
-    date: '2026-03-13',
-    grade: 'Grade 10-A',
-    studentId: 'std_003',
-    studentName: 'Chloe Otieno',
-    admissionNumber: 'ADM-2024-0103',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260313_04',
-    date: '2026-03-13',
-    grade: 'Grade 10-A',
-    studentId: 'std_004',
-    studentName: 'Brian Koech',
-    admissionNumber: 'ADM-2024-0104',
-    status: 'absent',
-    reason: 'Medical checkup',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260313_05',
-    date: '2026-03-13',
-    grade: 'Grade 10-A',
-    studentId: 'std_005',
-    studentName: 'Zainab Hassan',
-    admissionNumber: 'ADM-2024-0105',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-
-  // 2026-03-12 (Thursday) - Grade 11-A & Grade 12-A
-  {
-    id: 'att_20260312_01',
-    date: '2026-03-12',
-    grade: 'Grade 11-A',
-    studentId: 'std_006',
-    studentName: 'Lucas Kimutai',
-    admissionNumber: 'ADM-2023-0088',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260312_02',
-    date: '2026-03-12',
-    grade: 'Grade 11-A',
-    studentId: 'std_007',
-    studentName: 'Faith Chebet',
-    admissionNumber: 'ADM-2023-0092',
-    status: 'excused',
-    reason: 'National Mathematics Olympiad contest representation',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260312_03',
-    date: '2026-03-12',
-    grade: 'Grade 12-A',
-    studentId: 'std_010',
-    studentName: 'Leo Njoroge',
-    admissionNumber: 'ADM-2022-0045',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Dr. Arthur Pendelton'
-  },
-
-  // 2026-03-10 (Tuesday) - Grade 10-A
-  {
-    id: 'att_20260310_01',
-    date: '2026-03-10',
-    grade: 'Grade 10-A',
-    studentId: 'std_001',
-    studentName: 'Amara Kiprono',
-    admissionNumber: 'ADM-2024-0101',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260310_02',
-    date: '2026-03-10',
-    grade: 'Grade 10-A',
-    studentId: 'std_002',
-    studentName: 'Ethan Mwangi',
-    admissionNumber: 'ADM-2024-0102',
-    status: 'excused',
-    reason: 'School bus mechanical delay along Ngong Road',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260310_03',
-    date: '2026-03-10',
-    grade: 'Grade 10-A',
-    studentId: 'std_003',
-    studentName: 'Chloe Otieno',
-    admissionNumber: 'ADM-2024-0103',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260310_04',
-    date: '2026-03-10',
-    grade: 'Grade 10-A',
-    studentId: 'std_004',
-    studentName: 'Brian Koech',
-    admissionNumber: 'ADM-2024-0104',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260310_05',
-    date: '2026-03-10',
-    grade: 'Grade 10-A',
-    studentId: 'std_005',
-    studentName: 'Zainab Hassan',
-    admissionNumber: 'ADM-2024-0105',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-
-  // 2026-03-06 (Friday) - Grade 9-B & Grade 10-B
-  {
-    id: 'att_20260306_01',
-    date: '2026-03-06',
-    grade: 'Grade 9-B',
-    studentId: 'std_011',
-    studentName: 'Kelvin Mutua',
-    admissionNumber: 'ADM-2025-0162',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Marcus Vance'
-  },
-  {
-    id: 'att_20260306_02',
-    date: '2026-03-06',
-    grade: 'Grade 9-B',
-    studentId: 'std_012',
-    studentName: 'Amina Abdi',
-    admissionNumber: 'ADM-2025-0168',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Marcus Vance'
-  },
-  {
-    id: 'att_20260306_03',
-    date: '2026-03-06',
-    grade: 'Grade 10-B',
-    studentId: 'std_013',
-    studentName: 'Trevor Kimani',
-    admissionNumber: 'ADM-2024-0112',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Marcus Vance'
-  },
-  {
-    id: 'att_20260306_04',
-    date: '2026-03-06',
-    grade: 'Grade 10-B',
-    studentId: 'std_014',
-    studentName: 'Joy Kerubo',
-    admissionNumber: 'ADM-2024-0118',
-    status: 'excused',
-    reason: 'School music festival choir rehearsal',
-    recordedBy: 'Marcus Vance'
-  },
-
-  // 2026-03-02 (Monday) - Grade 10-A
-  {
-    id: 'att_20260302_01',
-    date: '2026-03-02',
-    grade: 'Grade 10-A',
-    studentId: 'std_001',
-    studentName: 'Amara Kiprono',
-    admissionNumber: 'ADM-2024-0101',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260302_02',
-    date: '2026-03-02',
-    grade: 'Grade 10-A',
-    studentId: 'std_002',
-    studentName: 'Ethan Mwangi',
-    admissionNumber: 'ADM-2024-0102',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260302_03',
-    date: '2026-03-02',
-    grade: 'Grade 10-A',
-    studentId: 'std_003',
-    studentName: 'Chloe Otieno',
-    admissionNumber: 'ADM-2024-0103',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260302_04',
-    date: '2026-03-02',
-    grade: 'Grade 10-A',
-    studentId: 'std_004',
-    studentName: 'Brian Koech',
-    admissionNumber: 'ADM-2024-0104',
-    status: 'absent',
-    reason: 'Fever and cold',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260302_05',
-    date: '2026-03-02',
-    grade: 'Grade 10-A',
-    studentId: 'std_005',
-    studentName: 'Zainab Hassan',
-    admissionNumber: 'ADM-2024-0105',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-
-  // 2026-02-27 (Friday) - Grade 10-A & Grade 9-A
-  {
-    id: 'att_20260227_01',
-    date: '2026-02-27',
-    grade: 'Grade 10-A',
-    studentId: 'std_001',
-    studentName: 'Amara Kiprono',
-    admissionNumber: 'ADM-2024-0101',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260227_02',
-    date: '2026-02-27',
-    grade: 'Grade 10-A',
-    studentId: 'std_002',
-    studentName: 'Ethan Mwangi',
-    admissionNumber: 'ADM-2024-0102',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260227_03',
-    date: '2026-02-27',
-    grade: 'Grade 10-A',
-    studentId: 'std_004',
-    studentName: 'Brian Koech',
-    admissionNumber: 'ADM-2024-0104',
-    status: 'absent',
-    reason: 'Family event out of town',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260227_04',
-    date: '2026-02-27',
-    grade: 'Grade 9-A',
-    studentId: 'std_008',
-    studentName: 'Daniel Ochieng',
-    admissionNumber: 'ADM-2025-0150',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Marcus Vance'
-  },
-  {
-    id: 'att_20260227_05',
-    date: '2026-02-27',
-    grade: 'Grade 9-A',
-    studentId: 'std_009',
-    studentName: 'Nia Wanjiku',
-    admissionNumber: 'ADM-2025-0155',
-    status: 'excused',
-    reason: 'Rainstorm transit disruption',
-    recordedBy: 'Marcus Vance'
-  },
-
-  // 2026-02-20 (Friday) - Grade 10-A
-  {
-    id: 'att_20260220_01',
-    date: '2026-02-20',
-    grade: 'Grade 10-A',
-    studentId: 'std_001',
-    studentName: 'Amara Kiprono',
-    admissionNumber: 'ADM-2024-0101',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260220_02',
-    date: '2026-02-20',
-    grade: 'Grade 10-A',
-    studentId: 'std_003',
-    studentName: 'Chloe Otieno',
-    admissionNumber: 'ADM-2024-0103',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260220_03',
-    date: '2026-02-20',
-    grade: 'Grade 10-A',
-    studentId: 'std_004',
-    studentName: 'Brian Koech',
-    admissionNumber: 'ADM-2024-0104',
-    status: 'excused',
-    reason: 'Overslept; parent signed excuse slip',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260220_04',
-    date: '2026-02-20',
-    grade: 'Grade 10-A',
-    studentId: 'std_005',
-    studentName: 'Zainab Hassan',
-    admissionNumber: 'ADM-2024-0105',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-
-  // 2026-02-16 (Monday) - Grade 10-A & Grade 11-A
-  {
-    id: 'att_20260216_01',
-    date: '2026-02-16',
-    grade: 'Grade 10-A',
-    studentId: 'std_001',
-    studentName: 'Amara Kiprono',
-    admissionNumber: 'ADM-2024-0101',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260216_02',
-    date: '2026-02-16',
-    grade: 'Grade 10-A',
-    studentId: 'std_002',
-    studentName: 'Ethan Mwangi',
-    admissionNumber: 'ADM-2024-0102',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260216_03',
-    date: '2026-02-16',
-    grade: 'Grade 10-A',
-    studentId: 'std_004',
-    studentName: 'Brian Koech',
-    admissionNumber: 'ADM-2024-0104',
-    status: 'absent',
-    reason: 'Asthma flareup',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260216_04',
-    date: '2026-02-16',
-    grade: 'Grade 11-A',
-    studentId: 'std_006',
-    studentName: 'Lucas Kimutai',
-    admissionNumber: 'ADM-2023-0088',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  },
-  {
-    id: 'att_20260216_05',
-    date: '2026-02-16',
-    grade: 'Grade 11-A',
-    studentId: 'std_007',
-    studentName: 'Faith Chebet',
-    admissionNumber: 'ADM-2023-0092',
-    status: 'present',
-    reason: '',
-    recordedBy: 'Sarah Jenkins'
-  }
-];
-
 export const INITIAL_GRADES: GradeRecord[] = [
   // Grade 10-A Mathematics
   {
@@ -1281,7 +784,7 @@ export const INITIAL_GRADES: GradeRecord[] = [
     maxScore: 100,
     percentage: 54,
     letterGrade: 'D',
-    remarks: 'Struggles with word problems. Attendance support needed.',
+    remarks: 'Struggles with word problems. Additional support in problem-solving strategies is recommended.',
     recordedBy: 'Sarah Jenkins',
     updatedAt: '2026-03-10'
   },
@@ -1857,61 +1360,3 @@ export const INITIAL_EXAMS: ExamPaper[] = [
   }
 ];
 
-export const ATTENDANCE_ANALYTICS: AttendanceAnalytics = {
-  overallRate: 94.9,
-  totalStudents: 340,
-  presentToday: 322,
-  absentToday: 18,
-  excusedToday: 6,
-  dailyTrends: [
-    { date: '2026-02-16', dayLabel: 'Mon', rate: 95.3, present: 324, absent: 16 },
-    { date: '2026-02-17', dayLabel: 'Tue', rate: 96.2, present: 327, absent: 13 },
-    { date: '2026-02-18', dayLabel: 'Wed', rate: 94.7, present: 322, absent: 18 },
-    { date: '2026-02-19', dayLabel: 'Thu', rate: 95.9, present: 326, absent: 14 },
-    { date: '2026-02-20', dayLabel: 'Fri', rate: 93.5, present: 318, absent: 22 },
-    { date: '2026-02-23', dayLabel: 'Mon', rate: 96.8, present: 329, absent: 11 },
-    { date: '2026-02-24', dayLabel: 'Tue', rate: 95.6, present: 325, absent: 15 },
-    { date: '2026-02-25', dayLabel: 'Wed', rate: 94.4, present: 321, absent: 19 },
-    { date: '2026-02-26', dayLabel: 'Thu', rate: 96.2, present: 327, absent: 13 },
-    { date: '2026-02-27', dayLabel: 'Fri', rate: 92.9, present: 316, absent: 24 },
-    { date: '2026-03-02', dayLabel: 'Mon', rate: 95.9, present: 326, absent: 14 },
-    { date: '2026-03-03', dayLabel: 'Tue', rate: 96.5, present: 328, absent: 12 },
-    { date: '2026-03-04', dayLabel: 'Wed', rate: 93.8, present: 319, absent: 21 },
-    { date: '2026-03-05', dayLabel: 'Thu', rate: 95.0, present: 323, absent: 17 },
-    { date: '2026-03-06', dayLabel: 'Fri', rate: 93.2, present: 317, absent: 23 },
-    { date: '2026-03-09', dayLabel: 'Mon', rate: 96.2, present: 327, absent: 13 },
-    { date: '2026-03-10', dayLabel: 'Tue', rate: 95.0, present: 323, absent: 17 },
-    { date: '2026-03-11', dayLabel: 'Wed', rate: 94.1, present: 320, absent: 20 },
-    { date: '2026-03-12', dayLabel: 'Thu', rate: 95.8, present: 326, absent: 14 },
-    { date: '2026-03-13', dayLabel: 'Fri', rate: 92.4, present: 314, absent: 26 },
-    { date: '2026-03-16', dayLabel: 'Mon', rate: 94.8, present: 322, absent: 18 }
-  ],
-  gradeComparison: [
-    { grade: 'Grade 9-A', rate: 96.1, totalStudents: 35, absentCount: 1 },
-    { grade: 'Grade 9-B', rate: 93.8, totalStudents: 36, absentCount: 2 },
-    { grade: 'Grade 10-A', rate: 94.5, totalStudents: 34, absentCount: 2 },
-    { grade: 'Grade 10-B', rate: 95.2, totalStudents: 35, absentCount: 2 },
-    { grade: 'Grade 11-A', rate: 97.4, totalStudents: 32, absentCount: 1 },
-    { grade: 'Grade 12-A', rate: 98.6, totalStudents: 30, absentCount: 0 }
-  ],
-  chronicAbsentees: [
-    {
-      studentId: 'std_004',
-      name: 'Brian Koech',
-      admissionNumber: 'ADM-2024-0104',
-      grade: 'Grade 10-A',
-      daysMissed: 8,
-      attendanceRate: 81.4,
-      guardianPhone: '+254 725 332 211'
-    },
-    {
-      studentId: 'std_009',
-      name: 'Nia Wanjiku',
-      admissionNumber: 'ADM-2025-0155',
-      grade: 'Grade 9-A',
-      daysMissed: 7,
-      attendanceRate: 83.2,
-      guardianPhone: '+254 723 998 877'
-    }
-  ]
-};

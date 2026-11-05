@@ -187,7 +187,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
         totalFeesBilled: billedFee,
         totalFeesPaid: 0,
         feeBalance: billedFee,
-        attendancePercentage: 100
+        performanceIndex: 100
       });
 
       setShowEnrolmentModal(false);
@@ -253,19 +253,6 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
         setIsOpen(false);
         setStatementStudentId(students[0]?.id || '');
         setShowStatementModal(true);
-      }
-    },
-    {
-      id: 'attendance-call',
-      title: 'Take Morning Roll Call',
-      subtitle: 'Mark daily presence, excused & absence',
-      badge: 'Daily',
-      badgeColor: 'bg-teal-100 text-teal-800',
-      icon: CalendarCheck,
-      iconColor: 'text-teal-600 bg-teal-50 group-hover:bg-teal-600 group-hover:text-white',
-      onClick: () => {
-        setIsOpen(false);
-        onNavigateTab('attendance');
       }
     },
     {

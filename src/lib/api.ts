@@ -2,10 +2,8 @@ import {
   Student,
   FeePayment,
   GradeRecord,
-  AttendanceRecord,
   TimetableSlot,
   ExamPaper,
-  AttendanceAnalytics,
   User
 } from '../types';
 import {
@@ -14,9 +12,7 @@ import {
   INITIAL_PAYMENTS,
   INITIAL_GRADES,
   INITIAL_TIMETABLE,
-  INITIAL_EXAMS,
-  ATTENDANCE_ANALYTICS,
-  INITIAL_ATTENDANCE_RECORDS
+  INITIAL_EXAMS
 } from '../data/mockData';
 
 // Safe API caller that queries the Express server with fallback to in-memory state
@@ -107,7 +103,7 @@ export const api = {
       feeBalance: 48000,
       totalFeesBilled: 48000,
       totalFeesPaid: 0,
-      attendancePercentage: 100
+      performanceIndex: 100
     };
     return newStudent;
   },
@@ -181,61 +177,6 @@ export const api = {
       if (res.ok) return await res.json();
     } catch (_) {}
     return { message: 'Grades saved successfully', count: updates.length };
-  },
-
-  async getAttendanceAnalytics(): Promise<AttendanceAnalytics> {
-    try {
-      const res = await fetch('/api/attendance/analytics');
-      if (res.ok) return await res.json();
-    } catch (_) {}
-    return ATTENDANCE_ANALYTICS;
-  },
-
-  async getAttendanceRecords(params?: {
-    startDate?: string;
-    endDate?: string;
-    grade?: string;
-    status?: string;
-    search?: string;
-  }): Promise<AttendanceRecord[]> {
-    try {
-      const query = new URLSearchParams(params as any).toString();
-      const res = await fetch(`/api/attendance/records?${query}`);
-      if (res.ok) return await res.json();
-    } catch (_) {}
-
-    let list = [...INITIAL_ATTENDANCE_RECORDS];
-    if (params?.startDate) list = list.filter(r => r.date >= params.startDate!);
-    if (params?.endDate) list = list.filter(r => r.date <= params.endDate!);
-    if (params?.grade && params.grade !== 'all') list = list.filter(r => r.grade.toLowerCase() === params.grade!.toLowerCase());
-    if (params?.status && params.status !== 'all') list = list.filter(r => r.status.toLowerCase() === params.status!.toLowerCase());
-    if (params?.search) {
-      const q = params.search.toLowerCase();
-      list = list.filter(
-        r =>
-          r.studentName.toLowerCase().includes(q) ||
-          r.admissionNumber.toLowerCase().includes(q) ||
-          (r.reason && r.reason.toLowerCase().includes(q))
-      );
-    }
-    return list.sort((a, b) => b.date.localeCompare(a.date));
-  },
-
-  async recordAttendance(data: {
-    date: string;
-    grade: string;
-    records: { studentId: string; studentName: string; admissionNumber: string; status: string; reason?: string }[];
-    recordedBy: string;
-  }): Promise<any> {
-    try {
-      const res = await fetch('/api/attendance/mark', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      if (res.ok) return await res.json();
-    } catch (_) {}
-    return { message: 'Attendance recorded successfully' };
   },
 
   async getTimetable(params?: { grade?: string; teacherId?: string }): Promise<TimetableSlot[]> {

@@ -102,7 +102,7 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
             </h1>
           </div>
           <p className="text-xs text-slate-500 mt-1">
-            Formal, printable end-of-term academic statements with subject breakdown, teacher evaluations, and attendance tracking.
+            Formal, printable end-of-term academic statements with subject breakdown and teacher evaluations.
           </p>
         </div>
 
@@ -201,18 +201,18 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
           </div>
         </div>
 
-        {/* Attendance & Enrollment Standing */}
+        {/* Academic & Enrollment Standing */}
         <div className="flex flex-wrap items-center justify-between p-3 bg-slate-100/60 rounded-xl font-sans text-xs border border-slate-200/60">
           <div>
-            <span className="text-slate-500">Days Present in Term: </span>
+            <span className="text-slate-500">Performance Index: </span>
             <span className="font-bold text-slate-900">
-              {Math.round(((selectedStudent.attendancePercentage ?? 95) / 100) * 60)} of 60 days
+              {selectedStudent.performanceIndex ?? 95}%
             </span>
           </div>
           <div>
-            <span className="text-slate-500">Attendance Percentage: </span>
+            <span className="text-slate-500">Academic Standing: </span>
             <span className="font-black text-emerald-800">
-              {selectedStudent.attendancePercentage ?? 95}%
+              {selectedStudent.performanceIndex ?? 95}%
             </span>
           </div>
           <div>
