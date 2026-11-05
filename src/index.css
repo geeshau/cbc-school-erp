@@ -56,6 +56,30 @@ html {
   height: 0;
 }
 
+/* Make all table rows globally clickable and hover-styled */
+table tbody tr {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+table tbody tr:hover {
+  background-color: rgba(249, 115, 22, 0.08) !important;
+}
+
+/* Ensure table data shows fully without wrapping or truncation */
+table {
+  table-layout: auto;
+  width: 100%;
+}
+
+table th,
+table td {
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  max-width: none !important;
+}
+
 /* Ensure images and media are responsive */
 img, video, canvas, svg {
   max-width: 100%;
