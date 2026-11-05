@@ -14,7 +14,6 @@ import { AttendanceTracker } from './components/AttendanceTracker';
 import { TimetableManager } from './components/TimetableManager';
 import { ExamPrintPortal } from './components/ExamPrintPortal';
 import { ReportCardsManager } from './components/ReportCardsManager';
-import { SystemSpecificationViewer } from './components/SystemSpecificationViewer';
 import { SystemSettingsManager } from './components/SystemSettingsManager';
 import { WebsiteContentManager, WebsiteContent } from './components/WebsiteContentManager';
 import { LandingPage } from './components/LandingPage';
@@ -467,7 +466,6 @@ export default function App() {
         currentUser={currentUser}
         users={users}
         onSwitchUser={handleSwitchUser}
-        onOpenSpec={() => setActiveTab('specification')}
         dbStatus={dbStatus}
         pendingExamsCount={pendingExamsCount}
         activeStudentsCount={students.filter((s) => s.status === 'active').length}
@@ -496,7 +494,7 @@ export default function App() {
         />
 
         {/* Dynamic Content Body */}
-        <main className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 2xl:p-8 pb-20 sm:pb-8 bg-slate-50 dark:bg-black transition-colors w-full">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 2xl:p-8 pb-32 sm:pb-32 md:pb-36 bg-slate-50 dark:bg-black transition-colors w-full">
           <div className="w-full max-w-full sm:max-w-[calc(100vw-2rem)] md:max-w-7xl xl:max-w-[1600px] 2xl:max-w-[1720px] mx-auto space-y-4 sm:space-y-5 lg:space-y-6">
             {/* Action Toast Feedback */}
             {toastMessage && (
@@ -594,11 +592,6 @@ export default function App() {
                 grades={grades}
                 userRole={currentUser.role}
               />
-            )}
-
-            {/* Tab: Non-Technical System Specification */}
-            {activeTab === 'specification' && (
-              <SystemSpecificationViewer />
             )}
 
             {/* Tab: Website CMS */}

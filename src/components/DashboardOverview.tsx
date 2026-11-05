@@ -120,14 +120,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             </>
           )}
 
-          <button
-            onClick={() => onNavigateTab('specification')}
-            className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 font-medium text-xs transition-colors cursor-pointer"
-            title="Open non-technical system manual"
-          >
-            <BookOpen className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-500 dark:text-slate-400" />
-            <span className="hidden sm:inline">User Guide</span>
-          </button>
         </div>
       </div>
 

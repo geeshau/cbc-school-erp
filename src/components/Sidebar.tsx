@@ -8,7 +8,6 @@ import {
   CalendarDays,
   Printer,
   FileSpreadsheet,
-  BookOpen,
   ChevronDown,
   ChevronRight,
   PanelLeftClose,
@@ -31,7 +30,6 @@ export type TabType =
   | 'timetable'
   | 'exams'
   | 'reports'
-  | 'specification'
   | 'settings'
   | 'website-cms';
 
@@ -126,14 +124,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           icon: SlidersHorizontal,
           roles: ['admin', 'teacher'] as UserRole[]
         },
-        {
-          id: 'specification' as TabType,
-          label: 'System Specification',
-          shortLabel: 'Spec Guide',
-          subLabel: 'Non-Technical User Manual',
-          icon: BookOpen,
-          roles: ['admin', 'teacher'] as UserRole[]
-        }
       ]
     }
   ];
@@ -240,346 +230,48 @@ export const Sidebar: React.FC<SidebarProps> = ({
   );
 
   return (
-    <>
-      {/* ========================================================= */}
-      {/* 1. MOBILE VIEW: MIDDLE NAVBAR CENTERED TO SCREEN          */}
-      {/* With rounded corners (rounded-2xl) and Simplified Dropdown */}
-      {/* ========================================================= */}
-      <div className="md:hidden w-full flex flex-col items-center px-3 pt-2 pb-1 shrink-0 bg-slate-50 dark:bg-slate-950 sticky top-16 z-30 transition-colors">
-        <nav
-          id="mobile-middle-navbar"
-          aria-label="Mobile School Navigation"
-          className="relative w-full max-w-md mx-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm rounded-2xl p-1.5 flex items-center justify-between gap-1 transition-colors"
-        >
-          {/* Horizontally scrollable pill tabs for primary modules with rounded corners */}
-          <div className="flex-1 flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5 px-0.5">
-            {navbarItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = currentTab === item.id;
-
-              return (
-                <button
-                  key={item.id}
-                  id={`mobile-mid-nav-${item.id}`}
-                  type="button"
-                  onClick={() => handleTabClick(item.id)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer ${
-                    isActive
-                      ? 'bg-orange-500 text-white shadow-sm shadow-orange-500/25'
-                      : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
-                  }`}
-                  aria-current={isActive ? 'page' : undefined}
-                >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-slate-500 dark:text-slate-400'}`} />
-                  <span>{item.shortLabel}</span>
-
-                  {item.badge !== undefined && (
-                    <span
-                      className={`px-1.5 py-0.2 rounded-full text-[9px] font-black ${
-                        isActive ? 'bg-white text-orange-600' : 'bg-rose-600 text-white'
-                      }`}
-                    >
-                      {item.badge}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* More Button that opens the Simplified Dropdown on Mobile */}
-          <div className="relative shrink-0">
-            <button
-              id="mobile-middle-navbar-more-btn"
-              type="button"
-              onClick={() => setTopDropdownOpen(!topDropdownOpen)}
-              className={`px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer border ${
-                topDropdownOpen || activeDropdownItem
-                  ? 'bg-orange-500 text-white border-orange-500 shadow-sm shadow-orange-500/25'
-                  : 'bg-slate-100 dark:bg-slate-800 hover:bg-orange-50 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 border-slate-200/80 dark:border-slate-700'
-              }`}
-              title="More School Modules"
-              aria-label="Open more school modules dropdown menu"
-              aria-expanded={topDropdownOpen}
-              aria-haspopup="true"
-            >
-              <Menu className="w-3.5 h-3.5" />
-              <span>{activeDropdownItem ? activeDropdownItem.shortLabel : 'More'}</span>
-
-              {dropdownHasPendingBadge && !activeDropdownItem && (
-                <span className="w-2 h-2 rounded-full bg-rose-600 ring-1 ring-white shrink-0" />
-              )}
-
-              <ChevronDown
-                className={`w-3 h-3 transition-transform duration-200 ${
-                  topDropdownOpen ? 'rotate-180' : ''
-                }`}
-              />
-            </button>
-
-            {/* Mobile Navbar Dropdown Menu - No Blur Effects */}
-            {topDropdownOpen && (
-              <>
-                {/* Click-away backdrop with NO blur */}
-                <div
-                  className="fixed inset-0 z-40 bg-slate-900/30 dark:bg-black/50"
-                  onClick={() => setTopDropdownOpen(false)}
-                  aria-hidden="true"
-                />
-
-                {/* Dropdown Card with rounded-2xl corners, solid background, NO blur */}
-                <div
-                  id="mobile-navbar-more-dropdown"
-                  className="absolute right-0 top-full mt-2 w-64 sm:w-72 max-w-[calc(100vw-2rem)] bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 p-1.5 z-50 max-h-[75vh] overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-150"
-                >
-                  {renderDropdownContent()}
-                </div>
-              </>
-            )}
-          </div>
-        </nav>
-      </div>
-
-      {/* ========================================================= */}
-      {/* 2. DESKTOP VIEW: STANDARD LEFT SIDEBAR                    */}
-      {/* Hidden on mobile (hidden md:flex), active on md+ screens   */}
-      {/* ========================================================= */}
-      <aside
-        id="app-sidebar"
-        className={`bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hidden md:flex md:flex-col shrink-0 min-h-[calc(100vh-4rem)] border-r border-slate-200/90 dark:border-slate-800 shadow-xs select-none transition-all duration-300 ease-in-out ${
-          isCollapsed
-            ? 'md:w-16 lg:w-[74px]'
-            : 'md:w-60 lg:w-64'
-        }`}
-      >
-        {/* Top Header & Role Indicator */}
-        <div
-          className={`border-b border-slate-100 dark:border-slate-800 ${
-            isCollapsed ? 'p-2.5 flex flex-col items-center gap-2' : 'p-3.5'
-          }`}
-        >
-          {!isCollapsed ? (
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex-1 px-3 py-2 rounded-xl bg-orange-50/70 dark:bg-orange-950/30 border border-orange-200/60 dark:border-orange-900/40 flex items-center justify-between">
-                <div>
-                  <div className="text-[10px] uppercase font-extrabold tracking-wider text-orange-600 dark:text-orange-400">
-                    Active Workspace
-                  </div>
-                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100 capitalize">
-                    {userRole === 'admin' ? 'Principal & Bursar' : 'Teaching Staff'}
-                  </div>
-                </div>
-                <span
-                  className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
-                    userRole === 'admin'
-                      ? 'bg-orange-500 text-white shadow-xs'
-                      : 'bg-slate-800 dark:bg-slate-700 text-white'
-                  }`}
-                >
-                  {userRole === 'admin' ? 'Admin' : 'Teacher'}
-                </span>
-              </div>
-
-              {onToggleCollapse && (
-                <button
-                  id="sidebar-collapse-toggle-btn"
-                  type="button"
-                  onClick={onToggleCollapse}
-                  className="p-2 rounded-xl text-slate-400 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer shrink-0"
-                  title="Collapse sidebar (hide text labels)"
-                  aria-label="Collapse sidebar"
-                >
-                  <PanelLeftClose className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-          ) : (
-            <div className="flex flex-col items-center gap-2 w-full">
-              {onToggleCollapse && (
-                <button
-                  id="sidebar-expand-toggle-btn"
-                  type="button"
-                  onClick={onToggleCollapse}
-                  className="w-10 h-10 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-orange-50 dark:hover:bg-slate-800 hover:text-orange-600 dark:hover:text-orange-400 transition-colors flex items-center justify-center cursor-pointer border border-transparent hover:border-orange-200 dark:hover:border-slate-700"
-                  title="Expand sidebar"
-                  aria-label="Expand sidebar"
-                >
-                  <PanelLeftOpen className="w-5 h-5 text-orange-600 dark:text-orange-400" />
-                </button>
-              )}
-              <div
-                className={`text-[10px] font-black px-2 py-0.5 rounded-md uppercase tracking-wider text-center ${
-                  userRole === 'admin' ? 'bg-orange-500 text-white' : 'bg-slate-800 dark:bg-slate-700 text-white'
-                }`}
-                title={`Active role: ${
-                  userRole === 'admin' ? 'School Administrator' : 'Class Teacher'
-                }`}
-              >
-                {userRole === 'admin' ? 'ADM' : 'TCH'}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Navigation Sections */}
-        <div className={`flex-1 overflow-y-auto py-3 space-y-4 ${isCollapsed ? 'px-2' : 'px-2'}`}>
-          {sections.map((sec, secIdx) => {
-            const visibleSecItems = sec.items.filter((item) =>
-              item.roles.includes(userRole)
-            );
-            if (visibleSecItems.length === 0) return null;
+    <nav
+      id="floating-bottom-nav"
+      aria-label="School navigation"
+      className="fixed bottom-3 left-1/2 z-50 -translate-x-1/2 w-[calc(100%-1rem)] max-w-4xl px-1"
+    >
+      <div className="flex items-center justify-center rounded-full border border-slate-200/80 bg-white/90 dark:border-slate-700 dark:bg-slate-950/90 p-1.5 shadow-[0_18px_45px_rgba(15,23,42,0.18)] backdrop-blur-xl">
+        <div className="flex max-w-full items-center gap-1 overflow-x-auto no-scrollbar px-1 py-0.5">
+          {allAccessibleItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = currentTab === item.id;
 
             return (
-              <div key={secIdx} className="space-y-1">
-                {!isCollapsed ? (
-                  <div className="px-3 text-[10px] font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase">
-                    {sec.title}
-                  </div>
-                ) : (
-                  secIdx > 0 && <div className="border-t border-slate-200/60 dark:border-slate-800 my-2 mx-1" />
+              <button
+                key={item.id}
+                id={`floating-nav-${item.id}`}
+                type="button"
+                onClick={() => handleTabClick(item.id)}
+                className={`group relative flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-2 text-[10px] font-bold transition-all duration-200 sm:px-3 sm:text-[11px] ${
+                  isActive
+                    ? 'bg-orange-500 text-white shadow-sm shadow-orange-500/30'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white'
+                }`}
+                aria-current={isActive ? 'page' : undefined}
+                title={item.label}
+              >
+                <Icon className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${isActive ? 'text-white' : 'text-current'}`} />
+                <span className="hidden sm:inline">{item.shortLabel}</span>
+
+                {item.badge !== undefined && (
+                  <span
+                    className={`absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[8px] font-black leading-none ${
+                      isActive ? 'bg-white text-orange-600' : 'bg-rose-600 text-white'
+                    }`}
+                  >
+                    {item.badge}
+                  </span>
                 )}
-
-                <div className="space-y-1">
-                  {visibleSecItems.map((item) => {
-                    const Icon = item.icon;
-                    const isActive = currentTab === item.id;
-
-                    if (isCollapsed) {
-                      return (
-                        <div key={item.id} className="relative group">
-                          <button
-                            id={`sidebar-tab-collapsed-${item.id}`}
-                            type="button"
-                            onClick={() => handleTabClick(item.id)}
-                            className={`w-11 h-11 mx-auto rounded-xl flex items-center justify-center transition-all cursor-pointer relative ${
-                              isActive
-                                ? 'bg-orange-500 text-white shadow-md shadow-orange-500/25 ring-2 ring-orange-400/40'
-                                : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
-                            }`}
-                            aria-label={item.label}
-                          >
-                            <Icon
-                              className={`w-5 h-5 ${
-                                isActive
-                                  ? 'text-white'
-                                  : 'text-slate-500 dark:text-slate-400 group-hover:text-slate-800 dark:group-hover:text-slate-200'
-                              }`}
-                            />
-
-                            {item.badge !== undefined && (
-                              <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-rose-600 text-white text-[9px] font-black rounded-full flex items-center justify-center ring-2 ring-white dark:ring-slate-900">
-                                {item.badge}
-                              </span>
-                            )}
-                          </button>
-
-                          {/* Hover Tooltip in Collapsed Mode */}
-                          <div className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 z-50 hidden group-hover:flex flex-col bg-slate-900 dark:bg-slate-800 text-white px-3 py-2 rounded-xl shadow-2xl text-xs whitespace-nowrap animate-in fade-in duration-150 border border-slate-700">
-                            <span className="font-bold text-white text-xs">{item.label}</span>
-                            <span className="text-[10px] text-slate-400">{item.subLabel}</span>
-                            {item.badge !== undefined && (
-                              <span className="text-[10px] font-bold text-orange-400 mt-0.5">
-                                {item.badge} pending action
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    }
-
-                    return (
-                      <button
-                        key={item.id}
-                        id={`sidebar-tab-${item.id}`}
-                        type="button"
-                        onClick={() => handleTabClick(item.id)}
-                        className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-all group cursor-pointer ${
-                          isActive
-                            ? 'border-l-[3px] border-orange-500 bg-orange-50/70 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 font-semibold shadow-xs'
-                            : 'hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-medium'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2.5 min-w-0">
-                          <Icon
-                            className={`w-4 h-4 shrink-0 transition-colors ${
-                              isActive
-                                ? 'text-orange-500 dark:text-orange-400'
-                                : 'text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300'
-                            }`}
-                          />
-                          <div className="truncate">
-                            <div
-                              className={`text-xs leading-tight truncate ${
-                                isActive ? 'text-orange-600 dark:text-orange-400 font-bold' : ''
-                              }`}
-                            >
-                              {item.label}
-                            </div>
-                            <div className="text-[10px] text-slate-400 dark:text-slate-500 truncate">
-                              {item.subLabel}
-                            </div>
-                          </div>
-                        </div>
-
-                        {item.badge !== undefined && (
-                          <span
-                            className={`text-[10px] px-1.5 py-0.5 rounded-full font-extrabold shrink-0 ${
-                              isActive
-                                ? 'bg-orange-500 text-white'
-                                : 'bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300'
-                            }`}
-                          >
-                            {item.badge}
-                          </span>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+              </button>
             );
           })}
         </div>
-
-        {/* Theme Mode & School Footer Note */}
-        <div className="p-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-400 dark:text-slate-500 flex flex-col gap-2">
-          {!isCollapsed ? (
-            <>
-              <div className="flex items-center justify-between pb-1 border-b border-slate-100/80 dark:border-slate-800/80">
-                <span className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500">
-                  After-Hours Mode
-                </span>
-                <ThemeSwitcher
-                  theme={theme}
-                  resolvedTheme={resolvedTheme}
-                  onThemeChange={onThemeChange || (() => {})}
-                  onToggleTheme={onToggleTheme}
-                  variant="compact"
-                  showLabel={true}
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="font-medium truncate pr-1">PCEA St Andrews Kindergarten</span>
-                <span className="text-[10px] font-semibold text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-950/50 px-1.5 py-0.5 rounded border border-orange-200/50 dark:border-orange-900/50 shrink-0">
-                  2026 AY
-                </span>
-              </div>
-            </>
-          ) : (
-            <div className="mx-auto flex flex-col items-center gap-2">
-              <ThemeSwitcher
-                theme={theme}
-                resolvedTheme={resolvedTheme}
-                onThemeChange={onThemeChange || (() => {})}
-                onToggleTheme={onToggleTheme}
-                variant="compact"
-                showLabel={false}
-              />
-              <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500">2026</span>
-            </div>
-          )}
-        </div>
-      </aside>
-    </>
+      </div>
+    </nav>
   );
 };

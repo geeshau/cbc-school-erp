@@ -19,7 +19,6 @@ interface NavbarProps {
   currentUser: User;
   users: User[];
   onSwitchUser: (user: User) => void;
-  onOpenSpec: () => void;
   dbStatus: { provider: string; connected: boolean };
   pendingExamsCount?: number;
   activeStudentsCount?: number;
@@ -35,7 +34,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   currentUser,
   users,
   onSwitchUser,
-  onOpenSpec,
   pendingExamsCount = 4,
   activeStudentsCount = 340,
   onNavigateTab,
@@ -115,18 +113,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Public Site</span>
             </button>
           )}
-
-          {/* Spec Guide Button */}
-          <button
-            id="navbar-spec-guide-btn"
-            type="button"
-            onClick={onOpenSpec}
-            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 hover:text-slate-900 dark:hover:text-white transition-colors border border-slate-200/80 dark:border-slate-700 cursor-pointer shrink-0"
-            title="Open non-technical system specification guide"
-          >
-            <FileText className="w-4 h-4 text-orange-500 shrink-0" />
-            <span className="hidden sm:inline">Spec Guide</span>
-          </button>
 
           {/* Theme Switcher Toggle (Light / Dark / Low-Light Night Mode) */}
           <ThemeSwitcher
