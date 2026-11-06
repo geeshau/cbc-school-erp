@@ -61,7 +61,7 @@ export default function App() {
     phone: '0786198873',
     email: 'kindergarten@pceastandrews.org',
     altEmail: 'pceastandrewskindergarten@gmail.com',
-    heroTitle: 'Shaping Bright Futures with Christian Values & Montessori Excellence',
+    heroTitle: 'A bright beginning for every child.',
     heroSubtitle: 'Located in the serene surroundings of St Andrews Compound, Church Road, Nairobi, PCEA St Andrews Kindergarten provides a holistic, loving, and stimulating environment where children discover their full potential through play-based learning, CBC curriculum foundations, and spiritual growth.',
     location: 'kindergarten.pceastandrews.org',
     galleryImages: [

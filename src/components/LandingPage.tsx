@@ -37,6 +37,20 @@ interface LandingPageProps {
 export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem }) => {
   const { toggleTheme, isDark } = useTheme();
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+  const galleryImages = content?.galleryImages || [
+    { id: '1', title: 'Interactive Classroom Session', url: 'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=800&q=80', category: 'Academics' },
+    { id: '2', title: 'Safe Outdoor Play Ground', url: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80', category: 'Recreation' },
+    { id: '3', title: 'Creative Arts & Crafts', url: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80', category: 'Talents' }
+  ];
+  const galleryLanes = [galleryImages, [...galleryImages].reverse()];
+  const galleryTilePositions = [
+    'gallery-bento-tile-large',
+    'gallery-bento-tile-wide',
+    'gallery-bento-tile-small-top',
+    'gallery-bento-tile-small-middle',
+    'gallery-bento-tile-small-bottom',
+    'gallery-bento-tile-small-last'
+  ];
 
   // Form states for Report Request
   const [childName, setChildName] = useState('');
@@ -131,111 +145,80 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
         </div>
       </header>
 
-      {/* Hero Section (Advertising the School - No management buttons here) */}
-      <section id="about" className="relative overflow-hidden py-16 sm:py-24 px-4 sm:px-8 bg-gradient-to-b from-orange-50/50 via-white to-slate-50 dark:from-black dark:via-black dark:to-black">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-20 dark:opacity-15"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80')"
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/80 to-slate-50/90 dark:from-black/90 dark:via-black/80 dark:to-black/90" />
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-          <div className="lg:col-span-7 space-y-6">
-            <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-orange-600 dark:text-orange-400">
-              <Sparkles className="w-4 h-4" />
-              <span>Admissions Open for 2026 Academic Year</span>
-            </div>
+      {/* Hero Section */}
+      <section id="about" className="bg-zinc-200 px-3 py-5 sm:px-8 sm:py-8 dark:bg-black">
+        <div className="relative isolate mx-auto max-w-7xl overflow-hidden rounded-3xl bg-white shadow-xl dark:bg-neutral-950">
+          <div className="hero-orange-sweep absolute inset-x-0 bottom-0 z-0 h-[34%]" aria-hidden="true" />
+          <div className="relative z-10 grid grid-cols-1 lg:min-h-[640px] lg:grid-cols-2">
+            <div className="relative z-20 order-2 flex flex-col justify-center gap-5 p-6 pb-12 sm:p-10 sm:pb-16 lg:order-1 lg:p-12">
+              <p className="text-xs font-bold text-slate-600 dark:text-slate-300">Early childhood education in Nairobi</p>
+              <h2 className="max-w-2xl text-4xl font-black leading-[1.05] text-slate-950 dark:text-white sm:text-5xl">
+                {content?.heroTitle || 'A bright beginning for every child.'}
+              </h2>
 
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight text-slate-900 dark:text-white">
-              {content?.heroTitle || (
-                <>
-                  Shaping Bright Futures with <span className="text-orange-600 dark:text-orange-500">Christian Values & Montessori Excellence</span>
-                </>
-              )}
-            </h2>
+              <p className="max-w-xl text-sm leading-relaxed text-slate-600 dark:text-slate-300 sm:text-base">
+                {content?.heroSubtitle ||
+                  'Located in the serene surroundings of St Andrews Compound, Church Road, Nairobi, PCEA St Andrews Kindergarten provides a holistic, loving, and stimulating environment where children discover their full potential through play-based learning, CBC curriculum foundations, and spiritual growth.'}
+              </p>
 
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
-              {content?.heroSubtitle ||
-                'Located in the serene surroundings of St Andrews Compound, Church Road, Nairobi, PCEA St Andrews Kindergarten provides a holistic, loving, and stimulating environment where children discover their full potential through play-based learning, CBC curriculum foundations, and spiritual growth.'}
-            </p>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
-              <div className="p-4 rounded-2xl bg-white dark:bg-neutral-950 border border-slate-200 dark:border-neutral-900 shadow-xs">
-                <span className="text-xl font-black text-orange-600 dark:text-orange-400">Playgroup</span>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Ages 2 - 3 Years</p>
+              <div className="flex flex-wrap items-center gap-3">
+                <a
+                  href="#report-form"
+                  className="inline-flex items-center gap-2 rounded-full bg-black px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-slate-800"
+                >
+                  <span>Request Child Report</span>
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+                <a
+                  href="#enquire"
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-800 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-neutral-950 dark:text-white"
+                >
+                  <HelpCircle className="h-4 w-4 text-orange-600" />
+                  <span>Enquire</span>
+                </a>
               </div>
-              <div className="p-4 rounded-2xl bg-white dark:bg-neutral-950 border border-slate-200 dark:border-neutral-900 shadow-xs">
-                <span className="text-xl font-black text-amber-600 dark:text-amber-400">PP1 & PP2</span>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Ages 4 - 5 Years</p>
-              </div>
-              <div className="p-4 rounded-2xl bg-white dark:bg-neutral-950 border border-slate-200 dark:border-neutral-900 shadow-xs">
-                <span className="text-xl font-black text-emerald-600 dark:text-emerald-400">Grade 1 - 3</span>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">CBC Primary Classes</p>
+
+              <div className="flex max-w-lg flex-wrap gap-2 pt-1 text-[11px] font-bold text-slate-600 dark:text-slate-300">
+                <span className="rounded-full border border-slate-200 bg-white/90 px-3 py-1.5 dark:border-slate-800 dark:bg-neutral-950/90">Playgroup · Ages 2 - 3</span>
+                <span className="rounded-full border border-slate-200 bg-white/90 px-3 py-1.5 dark:border-slate-800 dark:bg-neutral-950/90">PP1 & PP2 · Ages 4 - 5</span>
+                <span className="rounded-full border border-slate-200 bg-white/90 px-3 py-1.5 dark:border-slate-800 dark:bg-neutral-950/90">Grade 1 - 3 · CBC</span>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <a
-                href="#report-form"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-black text-white bg-orange-600 hover:bg-orange-700 shadow-lg shadow-orange-600/25 transition-all cursor-pointer"
-              >
-                <span>Request Child Report</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
+            <div className="relative order-1 min-h-[340px] sm:min-h-[440px] lg:order-2 lg:min-h-[640px]">
+              <div className="absolute inset-4 overflow-hidden rounded-2xl sm:inset-7 lg:inset-y-8 lg:left-6 lg:right-8">
+                <img
+                  src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=85"
+                  alt="Children learning together in a classroom"
+                  className="hero-feature-photo"
+                  fetchPriority="high"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/30 via-transparent to-slate-950/15" />
+              </div>
 
-              <a
-                href="#enquire"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold bg-white dark:bg-neutral-950 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-neutral-900 hover:bg-slate-50 dark:hover:bg-neutral-900 transition-all cursor-pointer shadow-xs"
-              >
-                <HelpCircle className="w-4 h-4 text-orange-600" />
-                <span>Enquire School Office</span>
-              </a>
+              <div className="absolute left-6 top-6 z-20 sm:left-9 sm:top-9">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-slate-950/50 px-3 py-2 text-[10px] font-extrabold uppercase text-white shadow-lg backdrop-blur-md sm:text-xs">
+                  <Sparkles className="h-4 w-4 text-amber-300" />
+                  <span>Admissions Open for 2026 Academic Year</span>
+                </div>
+              </div>
+
+              <div className="absolute bottom-12 right-6 z-20 max-w-[250px] rounded-xl border border-slate-100 bg-white p-4 shadow-xl sm:bottom-14 sm:right-9 sm:p-5">
+                <div className="flex items-center gap-2.5">
+                  <Heart className="h-5 w-5 shrink-0 text-orange-600" />
+                  <h3 className="text-sm font-extrabold text-slate-950">Why parents choose us</h3>
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-slate-600">
+                  Caring educators, Montessori discovery, and a strong foundation for lifelong learning.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Right Advertising Visual Card */}
-          <div className="lg:col-span-5">
-            <div className="relative overflow-hidden rounded-3xl border border-slate-200 dark:border-neutral-900 shadow-xl bg-white dark:bg-neutral-950">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/20 rounded-full blur-2xl pointer-events-none" />
-
-              <div className="relative z-10 p-6 sm:p-8 space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 flex items-center justify-center font-bold shadow-sm">
-                    <Heart className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold text-slate-900 dark:text-white">Why Parents Choose Us</h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">Holistic Child Development</p>
-                  </div>
-                </div>
-
-                <ul className="space-y-3.5 text-xs text-slate-700 dark:text-slate-200">
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                    <span>Experienced, CBC-trained and loving early childhood educators.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                    <span>Secure, modern playgrounds and Montessori learning apparatus.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                    <span>Robust digital reporting and parent communication.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                    <span>Nutritious mid-morning snacks and hygienic catering standards.</span>
-                  </li>
-                </ul>
-
-                <div className="pt-4 border-t border-slate-200/80 dark:border-neutral-800 flex items-center justify-between gap-3 text-xs font-semibold text-slate-600 dark:text-slate-300">
-                  <span className="truncate">Visiting Hours: Mon - Fri 8am - 4pm</span>
-                  <span className="text-orange-600 dark:text-orange-400 whitespace-nowrap">Book Visit</span>
-                </div>
-              </div>
-            </div>
+          <div className="relative z-20 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 px-5 pb-5 pt-2 text-[10px] font-extrabold uppercase text-white sm:gap-x-12 sm:text-xs">
+            <span>Montessori learning</span>
+            <span>CBC foundations</span>
+            <span>Christian values</span>
           </div>
         </div>
       </section>
@@ -255,33 +238,22 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {(content?.galleryImages || [
-              { id: '1', title: 'Interactive Classroom Session', url: 'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=800&q=80', category: 'Academics' },
-              { id: '2', title: 'Safe Outdoor Play Ground', url: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80', category: 'Recreation' },
-              { id: '3', title: 'Creative Arts & Crafts', url: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80', category: 'Talents' }
-            ]).map((img) => (
-              <div
-                key={img.id}
-                className="group relative rounded-2xl overflow-hidden bg-slate-100 dark:bg-neutral-950 border border-slate-200 dark:border-neutral-900 shadow-sm"
-              >
-                <div className="h-56 relative overflow-hidden bg-slate-200 dark:bg-neutral-900">
-                  <img
-                    src={img.url}
-                    alt={img.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => {
-                      // Fallback if image fails to load
-                      const target = e.target as HTMLElement;
-                      target.style.display = 'none';
-                    }}
-                  />
-                  <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-white text-[10px] font-bold">
-                    {img.category}
-                  </span>
-                </div>
-                <div className="p-4 bg-white dark:bg-neutral-950">
-                  <h5 className="text-xs font-bold text-slate-900 dark:text-white">{img.title}</h5>
+          <div className="space-y-3 overflow-hidden" role="region" aria-label="Campus and activities gallery">
+            {galleryLanes.map((laneImages, laneIndex) => (
+              <div className="gallery-marquee" key={`gallery-lane-${laneIndex}`} aria-hidden={laneIndex > 0}>
+                <div className="gallery-marquee-track">
+                  {[0, 1].map((copy) => (
+                    <div className="gallery-bento-group" key={`gallery-group-${laneIndex}-${copy}`} aria-hidden={copy > 0}>
+                      {laneImages.map((img, imageIndex) => (
+                        <figure
+                          key={`${copy}-${img.id}`}
+                          className={`gallery-bento-tile ${galleryTilePositions[imageIndex % galleryTilePositions.length]}`}
+                        >
+                          <img src={img.url} alt={img.title} loading="lazy" />
+                        </figure>
+                      ))}
+                    </div>
+                  ))}
                 </div>
               </div>
             ))}
