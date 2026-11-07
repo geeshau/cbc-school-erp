@@ -153,21 +153,32 @@ table td {
     width: 100%;
   }
 
-  .hero-banner-image {
-    height: 100%;
+  .hero-glow {
+    animation: hero-glow-pulse 9s ease-in-out infinite alternate;
+    will-change: transform, opacity;
   }
 
-  .hero-orange-sweep {
-    background-color: #f59e0b;
-    clip-path: polygon(0 94%, 100% 34%, 100% 100%, 0 100%);
+  @keyframes hero-glow-pulse {
+    from { opacity: 0.6; transform: translateX(-50%) scale(1); }
+    to { opacity: 1; transform: translateX(-50%) scale(1.045); }
   }
 
-  .hero-feature-photo {
-    clip-path: polygon(0 0, 100% 0, 100% 56%, 0 88%);
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    width: 100%;
+  .hero-fade-in {
+    animation: hero-fade-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .hero-fade-in-delay {
+    animation-delay: 120ms;
+  }
+
+  @keyframes hero-fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-glow,
+    .hero-fade-in { animation: none !important; }
   }
 
   .gallery-marquee-track {

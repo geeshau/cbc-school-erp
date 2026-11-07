@@ -42,7 +42,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
     { id: '2', title: 'Safe Outdoor Play Ground', url: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80', category: 'Recreation' },
     { id: '3', title: 'Creative Arts & Crafts', url: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80', category: 'Talents' }
   ];
-  const galleryLanes = [galleryImages, [...galleryImages].reverse()];
   const galleryTilePositions = [
     'gallery-bento-tile-large',
     'gallery-bento-tile-wide',
@@ -146,79 +145,163 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
       </header>
 
       {/* Hero Section */}
-      <section id="about" className="bg-zinc-200 px-3 py-5 sm:px-8 sm:py-8 dark:bg-black">
-        <div className="relative isolate mx-auto max-w-7xl overflow-hidden rounded-3xl bg-white shadow-xl dark:bg-neutral-950">
-          <div className="hero-orange-sweep absolute inset-x-0 bottom-0 z-0 h-[34%]" aria-hidden="true" />
-          <div className="relative z-10 grid grid-cols-1 lg:min-h-[640px] lg:grid-cols-2">
-            <div className="relative z-20 order-2 flex flex-col justify-center gap-5 p-6 pb-12 sm:p-10 sm:pb-16 lg:order-1 lg:p-12">
-              <p className="text-xs font-bold text-slate-600 dark:text-slate-300">Early childhood education in Nairobi</p>
-              <h2 className="max-w-2xl text-4xl font-black leading-[1.05] text-slate-950 dark:text-white sm:text-5xl">
-                {content?.heroTitle || 'A bright beginning for every child.'}
+      <section
+        id="about"
+        aria-labelledby="hero-heading"
+        className="relative isolate overflow-hidden bg-[#fbfbfc] dark:bg-black"
+      >
+        {/* Modern background: soft radial light, fine grid, restrained glow */}
+        <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+          <div className="absolute inset-0 bg-[radial-gradient(1100px_520px_at_15%_-10%,rgba(251,146,60,0.16),transparent_60%),radial-gradient(900px_420px_at_90%_10%,rgba(245,158,11,0.10),transparent_55%)] dark:bg-[radial-gradient(1100px_520px_at_15%_-10%,rgba(251,146,60,0.10),transparent_60%),radial-gradient(900px_420px_at_90%_10%,rgba(245,158,11,0.06),transparent_55%)]" />
+          <div className="absolute inset-0 opacity-[0.55] [background-image:linear-gradient(to_right,rgba(15,23,42,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.045)_1px,transparent_1px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_35%,black,transparent)] dark:opacity-[0.35] dark:[background-image:linear-gradient(to_right,rgba(255,255,255,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.055)_1px,transparent_1px)]" />
+          <div className="hero-glow absolute left-1/2 top-[-140px] h-[460px] w-[min(920px,120vw)] -translate-x-1/2 rounded-full bg-gradient-to-r from-orange-300/20 via-amber-200/14 to-orange-200/18 blur-3xl dark:from-orange-500/10 dark:via-amber-500/8 dark:to-orange-600/10" />
+          <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent dark:via-neutral-800" />
+        </div>
+
+        <div className="mx-auto max-w-7xl px-4 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-24 lg:pt-20">
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:gap-14 xl:gap-16">
+            {/* Left: copy */}
+            <div className="hero-fade-in max-w-2xl">
+              <div className="inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-slate-200/80 bg-white/80 px-3 py-1.5 shadow-[0_1px_0_rgba(255,255,255,0.9),0_8px_24px_-18px_rgba(15,23,42,0.35)] backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/75 dark:shadow-none">
+                <span className="inline-flex h-5 shrink-0 items-center rounded-full bg-orange-600 px-2 text-[10px] font-extrabold uppercase tracking-[0.08em] text-white">
+                  2026
+                </span>
+                <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-200">Admissions open</span>
+                <span className="hidden h-1 w-1 rounded-full bg-emerald-500 sm:inline-block" aria-hidden="true" />
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">PCEA St Andrews · Nairobi</span>
+              </div>
+
+              <h2
+                id="hero-heading"
+                className="mt-6 text-balance text-[2.35rem] font-black leading-[1.03] tracking-[-0.03em] text-slate-950 dark:text-white sm:text-[3.45rem] lg:text-[4.1rem]"
+              >
+                {content?.heroTitle ? (
+                  content.heroTitle
+                ) : (
+                  <>
+                    Where little minds{' '}
+                    <span className="relative inline-block">
+                      <span className="relative z-10 bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 bg-clip-text text-transparent dark:from-orange-400 dark:via-orange-300 dark:to-amber-300">
+                        grow bright.
+                      </span>
+                      <span className="absolute inset-x-0 bottom-[0.08em] -z-0 h-[0.3em] rounded-full bg-orange-200/60 dark:bg-orange-500/15" aria-hidden="true" />
+                    </span>
+                  </>
+                )}
               </h2>
 
-              <p className="max-w-xl text-sm leading-relaxed text-slate-600 dark:text-slate-300 sm:text-base">
+              <p className="mt-5 max-w-xl text-pretty text-[15px] leading-7 text-slate-600 dark:text-slate-300 sm:text-lg sm:leading-8">
                 {content?.heroSubtitle ||
-                  'Located in the serene surroundings of St Andrews Compound, Church Road, Nairobi, PCEA St Andrews Kindergarten provides a holistic, loving, and stimulating environment where children discover their full potential through play-based learning, CBC curriculum foundations, and spiritual growth.'}
+                  'Montessori-inspired learning, CBC foundations, and Christian values — in a safe, joyful environment at PCEA St Andrews, Church Road, Nairobi.'}
               </p>
 
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <a
                   href="#report-form"
-                  className="inline-flex items-center gap-2 rounded-full bg-black px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-slate-800"
+                  className="group inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-slate-950 px-6 text-sm font-bold text-white shadow-[0_1px_0_rgba(255,255,255,0.08)_inset,0_10px_30px_-12px_rgba(15,23,42,0.55)] transition duration-200 hover:-translate-y-0.5 hover:bg-slate-900 hover:shadow-[0_1px_0_rgba(255,255,255,0.08)_inset,0_16px_36px_-14px_rgba(15,23,42,0.6)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 dark:bg-white dark:text-slate-950 dark:shadow-[0_10px_30px_-14px_rgba(255,255,255,0.18)] dark:hover:bg-slate-100 dark:focus-visible:ring-offset-black"
                 >
                   <span>Request Child Report</span>
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
                 </a>
                 <a
                   href="#enquire"
-                  className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-800 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-neutral-950 dark:text-white"
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-slate-200/90 bg-white/90 px-6 text-sm font-semibold text-slate-800 shadow-sm backdrop-blur transition duration-200 hover:border-slate-300 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 dark:border-neutral-800 dark:bg-neutral-950/80 dark:text-slate-100 dark:hover:border-neutral-700 dark:hover:bg-neutral-900 dark:focus-visible:ring-offset-black"
                 >
-                  <HelpCircle className="h-4 w-4 text-orange-600" />
-                  <span>Enquire</span>
+                  <HelpCircle className="h-4 w-4 text-orange-600 dark:text-orange-400" aria-hidden="true" />
+                  <span>Talk to the office</span>
                 </a>
               </div>
 
-              <div className="flex max-w-lg flex-wrap gap-2 pt-1 text-[11px] font-bold text-slate-600 dark:text-slate-300">
-                <span className="rounded-full border border-slate-200 bg-white/90 px-3 py-1.5 dark:border-slate-800 dark:bg-neutral-950/90">Playgroup · Ages 2 - 3</span>
-                <span className="rounded-full border border-slate-200 bg-white/90 px-3 py-1.5 dark:border-slate-800 dark:bg-neutral-950/90">PP1 & PP2 · Ages 4 - 5</span>
-                <span className="rounded-full border border-slate-200 bg-white/90 px-3 py-1.5 dark:border-slate-800 dark:bg-neutral-950/90">Grade 1 - 3 · CBC</span>
-              </div>
+              <ul className="mt-9 grid grid-cols-1 gap-3 border-t border-slate-200/80 pt-6 sm:grid-cols-3 sm:gap-4 dark:border-neutral-800" aria-label="School highlights">
+                {[
+                  { icon: Users, label: 'Caring educators', detail: 'Attentive early-years support' },
+                  { icon: ShieldCheck, label: 'Safe campus', detail: 'Secure, child-friendly spaces' },
+                  { icon: BookOpen, label: 'CBC-aligned', detail: 'Strong learning foundations' },
+                ].map(({ icon: Icon, label, detail }) => (
+                  <li key={label} className="flex items-start gap-3 rounded-2xl border border-transparent p-1 sm:p-0">
+                    <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-slate-700 shadow-sm ring-1 ring-slate-200/70 dark:bg-neutral-900 dark:text-slate-200 dark:ring-neutral-800">
+                      <Icon className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-[13px] font-semibold leading-5 text-slate-800 dark:text-slate-100">{label}</span>
+                      <span className="block text-[11px] leading-4 text-slate-500 dark:text-slate-400">{detail}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <div className="relative order-1 min-h-[340px] sm:min-h-[440px] lg:order-2 lg:min-h-[640px]">
-              <div className="absolute inset-4 overflow-hidden rounded-2xl sm:inset-7 lg:inset-y-8 lg:left-6 lg:right-8">
-                <img
-                  src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=85"
-                  alt="Children learning together in a classroom"
-                  className="hero-feature-photo"
-                  fetchPriority="high"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/30 via-transparent to-slate-950/15" />
-              </div>
+            {/* Right: visual composition */}
+            <div className="hero-fade-in hero-fade-in-delay relative lg:pl-2">
+              <div className="relative mx-auto max-w-[620px] lg:max-w-none">
+                <div className="absolute -inset-x-6 -inset-y-8 -z-10 rounded-[3rem] bg-gradient-to-tr from-orange-200/35 via-transparent to-amber-100/25 blur-2xl dark:from-orange-900/15 dark:to-amber-900/10" aria-hidden="true" />
 
-              <div className="absolute left-6 top-6 z-20 sm:left-9 sm:top-9">
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-slate-950/50 px-3 py-2 text-[10px] font-extrabold uppercase text-white shadow-lg backdrop-blur-md sm:text-xs">
-                  <Sparkles className="h-4 w-4 text-amber-300" />
-                  <span>Admissions Open for 2026 Academic Year</span>
-                </div>
-              </div>
+                <div className="group relative overflow-hidden rounded-[2rem] border border-slate-200/70 bg-white/70 p-2 shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_24px_70px_-28px_rgba(15,23,42,0.38)] backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-900/70 dark:shadow-[0_24px_70px_-34px_rgba(0,0,0,0.85)]">
+                  <div className="relative overflow-hidden rounded-[1.45rem] bg-slate-100 dark:bg-neutral-800">
+                    <div className="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3]">
+                      <img
+                        src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1400&q=80"
+                        alt="Children learning together in a bright, welcoming classroom"
+                        className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
+                        fetchPriority="high"
+                        decoding="async"
+                        sizes="(min-width: 1024px) 46vw, (min-width: 640px) 92vw, 100vw"
+                      />
+                    </div>
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-950/5 to-transparent" />
+                    <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/5 dark:ring-white/5" />
 
-              <div className="absolute bottom-12 right-6 z-20 max-w-[250px] rounded-xl border border-slate-100 bg-white p-4 shadow-xl sm:bottom-14 sm:right-9 sm:p-5">
-                <div className="flex items-center gap-2.5">
-                  <Heart className="h-5 w-5 shrink-0 text-orange-600" />
-                  <h3 className="text-sm font-extrabold text-slate-950">Why parents choose us</h3>
+                    <div className="absolute left-3 top-3 sm:left-4 sm:top-4">
+                      <div className="inline-flex items-center gap-1.5 rounded-full border border-white/40 bg-white/90 px-2.5 py-1 text-[10px] font-bold text-slate-900 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-neutral-950/80 dark:text-white">
+                        <Sparkles className="h-3.5 w-3.5 text-orange-500" aria-hidden="true" />
+                        Admissions Open 2026
+                      </div>
+                    </div>
+
+                    <div className="absolute inset-x-3 bottom-3 sm:inset-x-4 sm:bottom-4">
+                      <div className="flex flex-wrap gap-1.5">
+                        {['Montessori', 'CBC', 'Christian Values'].map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-full border border-white/15 bg-slate-950/25 px-2.5 py-1 text-[10px] font-semibold text-white backdrop-blur-md"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2 p-2 pt-3 sm:gap-3 sm:p-3">
+                    {[
+                      { label: 'Playgroup', sub: 'Ages 2–3' },
+                      { label: 'PP1 & PP2', sub: 'Ages 4–5' },
+                      { label: 'Grade 1–3', sub: 'CBC Primary' },
+                    ].map((item) => (
+                      <div
+                        key={item.label}
+                        className="rounded-xl border border-slate-200/70 bg-slate-50/80 px-2 py-2.5 text-center transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-800/55 dark:hover:bg-neutral-800 sm:px-3"
+                      >
+                        <div className="text-[11px] font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-xs">{item.label}</div>
+                        <div className="mt-0.5 text-[9px] text-slate-500 dark:text-slate-400 sm:text-[10px]">{item.sub}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <p className="mt-2 text-xs leading-relaxed text-slate-600">
-                  Caring educators, Montessori discovery, and a strong foundation for lifelong learning.
-                </p>
+
+                <div className="mt-3 flex items-stretch gap-3 sm:absolute sm:-bottom-5 sm:left-4 sm:mt-0 sm:max-w-[320px]">
+                  <div className="flex w-full items-center gap-3 rounded-2xl border border-slate-200/80 bg-white/95 p-3 shadow-[0_12px_34px_-18px_rgba(15,23,42,0.28)] backdrop-blur dark:border-neutral-700 dark:bg-neutral-950/92 dark:shadow-none sm:p-3.5">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 text-white shadow-sm">
+                      <Heart className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                    <div className="min-w-0">
+                      <div className="text-[13px] font-extrabold leading-4 text-slate-900 dark:text-white">Parents trust us</div>
+                      <div className="mt-0.5 text-[11px] leading-4 text-slate-500 dark:text-slate-400">Safe, nurturing, holistic care for every child.</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="relative z-20 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 px-5 pb-5 pt-2 text-[10px] font-extrabold uppercase text-white sm:gap-x-12 sm:text-xs">
-            <span>Montessori learning</span>
-            <span>CBC foundations</span>
-            <span>Christian values</span>
           </div>
         </div>
       </section>
@@ -238,25 +321,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
             </p>
           </div>
 
-          <div className="space-y-3 overflow-hidden" role="region" aria-label="Campus and activities gallery">
-            {galleryLanes.map((laneImages, laneIndex) => (
-              <div className="gallery-marquee" key={`gallery-lane-${laneIndex}`} aria-hidden={laneIndex > 0}>
-                <div className="gallery-marquee-track">
-                  {[0, 1].map((copy) => (
-                    <div className="gallery-bento-group" key={`gallery-group-${laneIndex}-${copy}`} aria-hidden={copy > 0}>
-                      {laneImages.map((img, imageIndex) => (
-                        <figure
-                          key={`${copy}-${img.id}`}
-                          className={`gallery-bento-tile ${galleryTilePositions[imageIndex % galleryTilePositions.length]}`}
-                        >
-                          <img src={img.url} alt={img.title} loading="lazy" />
-                        </figure>
-                      ))}
-                    </div>
-                  ))}
-                </div>
+          <div className="overflow-hidden" role="region" aria-label="Campus and activities gallery">
+            <div className="gallery-marquee">
+              <div className="gallery-marquee-track">
+                {[0, 1].map((copy) => (
+                  <div className="gallery-bento-group" key={`gallery-group-${copy}`} aria-hidden={copy > 0}>
+                    {galleryImages.map((img, imageIndex) => (
+                      <figure
+                        key={`${copy}-${img.id}`}
+                        className={`gallery-bento-tile ${galleryTilePositions[imageIndex % galleryTilePositions.length]}`}
+                      >
+                        <img src={img.url} alt={img.title} loading="lazy" />
+                      </figure>
+                    ))}
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
