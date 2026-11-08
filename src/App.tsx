@@ -64,6 +64,9 @@ export default function App() {
     heroTitle: 'A bright beginning for every child.',
     heroSubtitle: 'Located in the serene surroundings of St Andrews Compound, Church Road, Nairobi, PCEA St Andrews Kindergarten provides a holistic, loving, and stimulating environment where children discover their full potential through play-based learning, CBC curriculum foundations, and spiritual growth.',
     location: 'kindergarten.pceastandrews.org',
+    admissionLabel: 'Admissions Open',
+    heroPrimaryCtaLabel: 'Enquire About Admissions',
+    heroSecondaryCtaLabel: 'Request Child Report',
     galleryImages: [
       { id: '1', title: 'Montessori Play & Learning', url: 'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=800&q=80', category: 'Campus' },
       { id: '2', title: 'Creative Arts & Expression', url: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80', category: 'Activities' },

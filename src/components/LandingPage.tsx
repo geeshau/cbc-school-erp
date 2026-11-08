@@ -21,7 +21,9 @@ import {
   Send,
   Image as ImageIcon,
   MessageSquare,
-  HelpCircle
+  HelpCircle,
+  Menu,
+  X
 } from 'lucide-react';
 import { useTheme } from '../lib/theme';
 import { User } from '../types';
@@ -37,6 +39,7 @@ interface LandingPageProps {
 export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem }) => {
   const { toggleTheme, isDark } = useTheme();
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const galleryImages = content?.galleryImages || [
     { id: '1', title: 'Interactive Classroom Session', url: 'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=800&q=80', category: 'Academics' },
     { id: '2', title: 'Safe Outdoor Play Ground', url: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80', category: 'Recreation' },
@@ -125,23 +128,63 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
           </div>
 
           {/* Navigation Links & Theme Toggle */}
-          <div className="flex items-center gap-6">
-            <nav className="hidden md:flex items-center gap-6 text-xs font-bold text-slate-600 dark:text-slate-300">
-              <a href="#about" className="hover:text-orange-600 transition-colors">About Us</a>
-              <a href="#gallery" className="hover:text-orange-600 transition-colors">Gallery</a>
-              <a href="#enquire" className="hover:text-orange-600 transition-colors">Office Enquiry</a>
-              <a href="#report-form" className="hover:text-orange-600 transition-colors">Request Report</a>
+          <div className="flex items-center gap-3 sm:gap-6">
+            <nav className="hidden md:flex items-center gap-6 text-xs font-bold text-slate-600 dark:text-slate-300" aria-label="Primary">
+              <a href="#about" className="rounded-sm hover:text-orange-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-950">About Us</a>
+              <a href="#gallery" className="rounded-sm hover:text-orange-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-950">Gallery</a>
+              <a href="#enquire" className="rounded-sm hover:text-orange-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-950">Office Enquiry</a>
+              <a href="#report-form" className="rounded-sm hover:text-orange-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-950">Request Report</a>
             </nav>
 
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-neutral-900 transition-all cursor-pointer"
+              className="inline-flex items-center justify-center min-w-[44px] min-h-[44px] p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-neutral-900 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-950"
               title="Toggle theme (Shift+D)"
+              aria-label="Toggle theme"
+              type="button"
             >
               {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
             </button>
+
+            <button
+              onClick={() => setMobileMenuOpen((open) => !open)}
+              className="md:hidden inline-flex items-center justify-center min-w-[44px] min-h-[44px] p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-neutral-900 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-950"
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-landing-nav"
+              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              type="button"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {mobileMenuOpen && (
+          <nav
+            id="mobile-landing-nav"
+            aria-label="Mobile primary"
+            className="md:hidden border-t border-slate-200/80 dark:border-neutral-900 bg-white/95 dark:bg-black/95 backdrop-blur-md"
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex flex-col">
+              {[
+                { href: '#about', label: 'About Us' },
+                { href: '#gallery', label: 'Gallery' },
+                { href: '#enquire', label: 'Office Enquiry' },
+                { href: '#report-form', label: 'Request Report' },
+              ].map((item, index) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`py-3 px-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400 transition-colors min-h-[44px] flex items-center rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-950 ${index > 0 ? 'border-t border-slate-100 dark:border-neutral-900' : ''}`}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </nav>
+        )}
       </header>
 
       {/* Hero Section */}
@@ -163,12 +206,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
             {/* Left: copy */}
             <div className="hero-fade-in max-w-2xl">
               <div className="inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-slate-200/80 bg-white/80 px-3 py-1.5 shadow-[0_1px_0_rgba(255,255,255,0.9),0_8px_24px_-18px_rgba(15,23,42,0.35)] backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/75 dark:shadow-none">
-                <span className="inline-flex h-5 shrink-0 items-center rounded-full bg-orange-600 px-2 text-[10px] font-extrabold uppercase tracking-[0.08em] text-white">
-                  2026
+                <span className="inline-flex h-5 shrink-0 items-center rounded-full bg-orange-700 px-2 text-[10px] font-extrabold uppercase tracking-[0.08em] text-white">
+                  {content?.admissionLabel || 'Admissions open'}
                 </span>
-                <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-200">Admissions open</span>
+                <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-200">{content?.admissionLabel ? 'Enrolment' : 'PCEA St Andrews'}</span>
                 <span className="hidden h-1 w-1 rounded-full bg-emerald-500 sm:inline-block" aria-hidden="true" />
-                <span className="text-[11px] text-slate-500 dark:text-slate-400">PCEA St Andrews · Nairobi</span>
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">Nairobi</span>
               </div>
 
               <h2
@@ -197,18 +240,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <a
-                  href="#report-form"
-                  className="group inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-slate-950 px-6 text-sm font-bold text-white shadow-[0_1px_0_rgba(255,255,255,0.08)_inset,0_10px_30px_-12px_rgba(15,23,42,0.55)] transition duration-200 hover:-translate-y-0.5 hover:bg-slate-900 hover:shadow-[0_1px_0_rgba(255,255,255,0.08)_inset,0_16px_36px_-14px_rgba(15,23,42,0.6)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 dark:bg-white dark:text-slate-950 dark:shadow-[0_10px_30px_-14px_rgba(255,255,255,0.18)] dark:hover:bg-slate-100 dark:focus-visible:ring-offset-black"
+                  href="#enquire"
+                  className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-slate-950 px-6 text-sm font-bold text-white shadow-[0_1px_0_rgba(255,255,255,0.08)_inset,0_10px_30px_-12px_rgba(15,23,42,0.55)] transition duration-200 hover:-translate-y-0.5 hover:bg-slate-900 hover:shadow-[0_1px_0_rgba(255,255,255,0.08)_inset,0_16px_36px_-14px_rgba(15,23,42,0.6)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 sm:w-auto dark:bg-white dark:text-slate-950 dark:shadow-[0_10px_30px_-14px_rgba(255,255,255,0.18)] dark:hover:bg-slate-100 dark:focus-visible:ring-offset-black"
                 >
-                  <span>Request Child Report</span>
+                  <span>{content?.heroPrimaryCtaLabel || 'Enquire About Admissions'}</span>
                   <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
                 </a>
                 <a
-                  href="#enquire"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-slate-200/90 bg-white/90 px-6 text-sm font-semibold text-slate-800 shadow-sm backdrop-blur transition duration-200 hover:border-slate-300 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 dark:border-neutral-800 dark:bg-neutral-950/80 dark:text-slate-100 dark:hover:border-neutral-700 dark:hover:bg-neutral-900 dark:focus-visible:ring-offset-black"
+                  href="#report-form"
+                  className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-slate-200/90 bg-white/90 px-6 text-sm font-semibold text-slate-800 shadow-sm backdrop-blur transition duration-200 hover:border-slate-300 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 sm:w-auto dark:border-neutral-800 dark:bg-neutral-950/80 dark:text-slate-100 dark:hover:border-neutral-700 dark:hover:bg-neutral-900 dark:focus-visible:ring-offset-black"
                 >
-                  <HelpCircle className="h-4 w-4 text-orange-600 dark:text-orange-400" aria-hidden="true" />
-                  <span>Talk to the office</span>
+                  <FileText className="h-4 w-4 text-orange-600 dark:text-orange-400" aria-hidden="true" />
+                  <span>{content?.heroSecondaryCtaLabel || 'Request Child Report'}</span>
                 </a>
               </div>
 
@@ -237,10 +280,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                 <div className="absolute -inset-x-6 -inset-y-8 -z-10 rounded-[3rem] bg-gradient-to-tr from-orange-200/35 via-transparent to-amber-100/25 blur-2xl dark:from-orange-900/15 dark:to-amber-900/10" aria-hidden="true" />
 
                 <div className="group relative overflow-hidden rounded-[2rem] border border-slate-200/70 bg-white/70 p-2 shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_24px_70px_-28px_rgba(15,23,42,0.38)] backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-900/70 dark:shadow-[0_24px_70px_-34px_rgba(0,0,0,0.85)]">
-                  <div className="relative overflow-hidden rounded-[1.45rem] bg-slate-100 dark:bg-neutral-800">
+                  <div className="hero-media relative overflow-hidden rounded-[1.45rem] bg-slate-100 dark:bg-neutral-800">
                     <div className="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3]">
                       <img
                         src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1400&q=80"
+                        srcSet="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=480&q=80 480w, https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=768&q=80 768w, https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1024&q=80 1024w, https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1400&q=80 1400w, https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80 1600w"
                         alt="Children learning together in a bright, welcoming classroom"
                         className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
                         fetchPriority="high"
@@ -254,7 +298,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                     <div className="absolute left-3 top-3 sm:left-4 sm:top-4">
                       <div className="inline-flex items-center gap-1.5 rounded-full border border-white/40 bg-white/90 px-2.5 py-1 text-[10px] font-bold text-slate-900 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-neutral-950/80 dark:text-white">
                         <Sparkles className="h-3.5 w-3.5 text-orange-500" aria-hidden="true" />
-                        Admissions Open 2026
+                        {content?.admissionLabel || 'Admissions Open'}
                       </div>
                     </div>
 
@@ -263,7 +307,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                         {['Montessori', 'CBC', 'Christian Values'].map((tag) => (
                           <span
                             key={tag}
-                            className="rounded-full border border-white/15 bg-slate-950/25 px-2.5 py-1 text-[10px] font-semibold text-white backdrop-blur-md"
+                            className="rounded-full border border-white/20 bg-slate-950/55 px-2.5 py-1 text-[10px] font-semibold text-white drop-shadow-sm backdrop-blur-md"
                           >
                             {tag}
                           </span>
@@ -289,7 +333,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                   </div>
                 </div>
 
-                <div className="mt-3 flex items-stretch gap-3 sm:absolute sm:-bottom-5 sm:left-4 sm:mt-0 sm:max-w-[320px]">
+                <div className="mt-3 sm:mt-4">
                   <div className="flex w-full items-center gap-3 rounded-2xl border border-slate-200/80 bg-white/95 p-3 shadow-[0_12px_34px_-18px_rgba(15,23,42,0.28)] backdrop-blur dark:border-neutral-700 dark:bg-neutral-950/92 dark:shadow-none sm:p-3.5">
                     <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 text-white shadow-sm">
                       <Heart className="h-4 w-4" aria-hidden="true" />

@@ -23,6 +23,9 @@ export interface WebsiteContent {
   heroTitle: string;
   heroSubtitle: string;
   location: string;
+  admissionLabel?: string;
+  heroPrimaryCtaLabel?: string;
+  heroSecondaryCtaLabel?: string;
   galleryImages: { id: string; title: string; url: string; category: string }[];
 }
 
@@ -203,6 +206,20 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
           <div className="space-y-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                Admissions Badge / Label
+              </label>
+              <input
+                type="text"
+                value={formData.admissionLabel || ''}
+                onChange={(e) => handleChange('admissionLabel', e.target.value)}
+                placeholder="e.g. Admissions Open"
+                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              />
+              <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">Optional. Leave blank to use a neutral “Admissions Open” label in the hero.</p>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                 Main Hero Headline
               </label>
               <input
@@ -224,6 +241,34 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                 className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none"
               ></textarea>
             </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  Primary Hero CTA Label
+                </label>
+                <input
+                  type="text"
+                  value={formData.heroPrimaryCtaLabel || ''}
+                  onChange={(e) => handleChange('heroPrimaryCtaLabel', e.target.value)}
+                  placeholder="e.g. Enquire About Admissions"
+                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  Secondary Hero CTA Label
+                </label>
+                <input
+                  type="text"
+                  value={formData.heroSecondaryCtaLabel || ''}
+                  onChange={(e) => handleChange('heroSecondaryCtaLabel', e.target.value)}
+                  placeholder="e.g. Request Child Report"
+                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                />
+              </div>
+            </div>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">CTA labels are optional; existing button destinations remain unchanged.</p>
           </div>
         </div>
 
