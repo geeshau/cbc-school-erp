@@ -14,6 +14,7 @@ import { TimetableManager } from './components/TimetableManager';
 import { ReportCardsManager } from './components/ReportCardsManager';
 import { WebsiteContentManager, WebsiteContent } from './components/WebsiteContentManager';
 import { LandingPage } from './components/LandingPage';
+import { LearnHouseLanding } from './components/LearnHouseLanding';
 
 import {
   User,
@@ -282,6 +283,10 @@ export default function App() {
     setTimetableSlots((prev) => prev.filter((s) => s.id !== id));
     showToast('Lesson slot removed from timetable.');
   };
+
+  if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('page') === 'learnhouse') {
+    return <LearnHouseLanding />;
+  }
 
   if (appMode === 'landing') {
     return (
