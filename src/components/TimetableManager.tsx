@@ -281,7 +281,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2">
-            <CalendarDays className="w-5 h-5 text-orange-500" />
+            <CalendarDays className="w-5 h-5 text-brand-500" />
             <h1 className="text-xl font-bold text-slate-900 font-serif">
               Master School Timetable & Class Schedules
             </h1>
@@ -300,7 +300,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
               onClick={() => setLayoutMode('monthly')}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
                 layoutMode === 'monthly'
-                  ? 'bg-orange-500 text-white font-bold shadow-xs'
+                  ? 'bg-brand-500 text-white font-bold shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -313,7 +313,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
               onClick={() => setLayoutMode('weekly')}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
                 layoutMode === 'weekly'
-                  ? 'bg-orange-500 text-white font-bold shadow-xs'
+                  ? 'bg-brand-500 text-white font-bold shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -333,7 +333,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
           {userRole === 'admin' && (
             <button
               onClick={() => setShowAddModal(true)}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-md shadow-orange-500/15 transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent-500 hover:bg-accent-400 text-brand-900 font-bold text-xs shadow-md shadow-accent-500/30 transition-all cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Schedule Lesson</span>
@@ -345,7 +345,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
       {/* View Switcher & Selector */}
       <div
         id="timetable-controls"
-        className="timetable-controls bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex flex-wrap gap-4 items-center justify-between"
+        className="timetable-controls bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-wrap gap-4 items-center justify-between rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900"
       >
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2.5">
@@ -386,7 +386,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                 id="timetable-grade-select"
                 value={selectedGrade}
                 onChange={(e) => setSelectedGrade(e.target.value)}
-                className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-orange-500/20 cursor-pointer text-slate-800"
+                className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand-500/20 cursor-pointer text-slate-800"
               >
                 {availableGrades.map((grade) => (
                   <option key={grade} value={grade}>
@@ -405,7 +405,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
               htmlFor="timetable-teacher-filter"
               className="text-xs font-bold text-slate-600 flex items-center gap-1.5 whitespace-nowrap"
             >
-              <Filter className="w-3.5 h-3.5 text-orange-500" />
+              <Filter className="w-3.5 h-3.5 text-brand-500" />
               <span>Filter by Teacher:</span>
             </label>
             <select
@@ -418,7 +418,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                   setSelectedTeacher(val);
                 }
               }}
-              className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-orange-500/20 text-slate-800 cursor-pointer"
+              className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand-500/20 text-slate-800 cursor-pointer"
             >
               <option value="all">All Teachers (Show All)</option>
               {availableTeachers.map((teacher) => (
@@ -443,10 +443,10 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                     setViewMode('class');
                   }
                 }}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-orange-50 hover:bg-orange-100 text-orange-800 border border-orange-200 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-brand-50 hover:bg-brand-100 text-brand-800 border border-brand-200 transition-colors cursor-pointer"
                 title="Toggle view between class schedule and full teacher schedule"
               >
-                <User className="w-3.5 h-3.5 text-orange-600" />
+                <User className="w-3.5 h-3.5 text-brand-600" />
                 <span>
                   {viewMode === 'teacher' ? 'View in Class Grid' : `View ${selectedTeacherFilter}'s Full Schedule`}
                 </span>
@@ -469,12 +469,12 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
 
       {/* Active Filter Notification Banner */}
       {selectedTeacherFilter !== 'all' && (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 py-2.5 rounded-xl bg-orange-50 border border-orange-200 text-xs text-orange-950 animate-in fade-in duration-150">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 py-2.5 rounded-xl bg-brand-50 border border-brand-200 text-xs text-brand-950 animate-in fade-in duration-150">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-orange-500 shrink-0 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-brand-500 shrink-0 animate-pulse" />
             <span>
               Teacher Filter Active: Only displaying slots associated with{' '}
-              <strong className="font-bold text-orange-900">{selectedTeacherFilter}</strong>
+              <strong className="font-bold text-brand-900">{selectedTeacherFilter}</strong>
               {viewMode === 'class' ? (
                 <> in <strong>{selectedGrade}</strong> ({filteredSlots.length} periods found)</>
               ) : (
@@ -493,7 +493,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                   setViewMode('class');
                 }
               }}
-              className="text-orange-800 hover:text-orange-950 font-bold underline cursor-pointer text-xs"
+              className="text-brand-800 hover:text-brand-950 font-bold underline cursor-pointer text-xs"
             >
               {viewMode === 'class' ? 'Toggle to Full School Schedule' : `Toggle to ${selectedGrade} Only`}
             </button>
@@ -535,7 +535,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
           <div className="overflow-x-auto">
             <table className="responsive-card-table w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-slate-900 text-white font-bold text-center">
+                <tr className="bg-brand-800 text-white font-bold text-center">
                   <th className="p-3 w-28 md:w-32 lg:w-[12.5%] text-left border-r border-slate-800 shrink-0">Time / Period</th>
                   {days.map((day) => (
                     <th key={day} className="p-3 border-r border-slate-800 last:border-r-0 min-w-[140px] md:min-w-[150px] lg:min-w-0 lg:w-[17.5%]">
@@ -623,7 +623,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
       {/* Schedule Lesson Modal with Proactive Collision Detection */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 max-h-[90vh] overflow-y-auto rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div>
                 <h2 className="text-base font-bold text-slate-900 font-serif flex items-center gap-2">
@@ -776,7 +776,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                       setFormData({ ...formData, dayOfWeek: e.target.value as any });
                       setConflictError('');
                     }}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
                   >
                     {days.map((d) => (
                       <option key={d} value={d}>
@@ -794,7 +794,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                       setFormData({ ...formData, periodIndex: Number(e.target.value) });
                       setConflictError('');
                     }}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
                   >
                     <option value={1}>Period 1 (08:00 - 08:45)</option>
                     <option value={2}>Period 2 (08:45 - 09:30)</option>
@@ -849,7 +849,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     placeholder="e.g. Mathematics"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
                   />
                 </div>
               </div>
@@ -961,7 +961,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                         }}
                         className={`px-2 py-1 rounded-lg text-[10px] font-medium border transition-colors cursor-pointer ${
                           isSelected
-                            ? 'bg-orange-500 text-white border-orange-500'
+                            ? 'bg-brand-500 text-white border-brand-500'
                             : isOccupied
                             ? 'bg-rose-50/80 text-rose-700 border-rose-200 line-through opacity-60'
                             : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
@@ -993,7 +993,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                   className={`px-5 py-2.5 rounded-xl font-bold text-xs transition-all flex items-center gap-1.5 ${
                     validationStatus.hasConflict
                       ? 'bg-rose-100 text-rose-700 border border-rose-300 cursor-not-allowed opacity-90'
-                      : 'bg-orange-500 hover:bg-orange-600 text-white shadow-md shadow-orange-500/20 cursor-pointer'
+                      : 'bg-brand-500 hover:bg-brand-600 text-white shadow-md shadow-brand-500/20 cursor-pointer'
                   }`}
                   title={
                     validationStatus.hasConflict

@@ -1,6 +1,32 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ── Brand design tokens (shared by landing page & portal) ──
+   brand  = dark teal / forest green (primary, #0D3B36 at 800)
+   accent = bright yellow-orange (CTAs, stars, highlights)        */
+@theme {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-50: #eef8f6;
+  --color-brand-100: #d5eee9;
+  --color-brand-200: #a9dcd3;
+  --color-brand-300: #72c2b5;
+  --color-brand-400: #3fa594;
+  --color-brand-500: #17766a;
+  --color-brand-600: #115f55;
+  --color-brand-700: #0f4c45;
+  --color-brand-800: #0d3b36;
+  --color-brand-900: #0a2f2b;
+  --color-brand-950: #061d1b;
+
+  --color-accent-300: #ffc94d;
+  --color-accent-400: #ffae00;
+  --color-accent-500: #f7941d;
+  --color-accent-600: #e07d0a;
+
+  --color-canvas: #f8f9fa;
+}
+
 :root {
   color-scheme: light;
 }
@@ -11,6 +37,7 @@
 
 /* Ensure smooth theme transitions on surface backgrounds and text */
 body {
+  font-family: var(--font-sans);
   transition: background-color 0.2s ease, color 0.2s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -18,7 +45,7 @@ body {
 }
 
 .dark body, html.dark body {
-  background-color: #000000 !important;
+  background-color: #04110f !important;
 }
 
 /* Responsive base improvements */
@@ -63,7 +90,7 @@ table tbody tr {
 }
 
 table tbody tr:hover {
-  background-color: rgba(249, 115, 22, 0.08) !important;
+  background-color: rgba(23, 118, 106, 0.07) !important;
 }
 
 /* Ensure table data shows fully without wrapping or truncation */

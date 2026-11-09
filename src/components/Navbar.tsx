@@ -51,24 +51,25 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-30 bg-white dark:bg-black border-b border-slate-200/90 dark:border-neutral-900 shadow-2xs w-full transition-colors duration-200">
-      <div className="w-full px-2 sm:px-3 md:px-4 lg:px-5 xl:px-6 h-14 sm:h-16 flex items-center justify-between gap-1 sm:gap-2 md:gap-3 lg:gap-4 max-w-full">
+    <header className="sticky top-0 z-30 bg-brand-800 dark:bg-brand-950 border-b border-white/5 shadow-[0_10px_30px_-15px_rgba(6,29,27,0.6)] w-full transition-colors duration-200">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px]" aria-hidden="true" />
+      <div className="relative w-full px-2 sm:px-3 md:px-4 lg:px-5 xl:px-6 h-14 sm:h-16 flex items-center justify-between gap-1 sm:gap-2 md:gap-3 lg:gap-4 max-w-full">
         {/* Left: Brand Identity */}
         <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 shrink-0 min-w-0 flex-1 md:flex-initial">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg sm:rounded-xl bg-gradient-to-tr from-orange-600 to-orange-500 flex items-center justify-center text-white shadow-md shadow-orange-500/20 ring-2 ring-orange-500/20 shrink-0">
-            <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg sm:rounded-xl rounded-tr-2xl sm:rounded-tr-2xl bg-accent-400 flex items-center justify-center text-brand-800 shadow-lg shadow-black/20 shrink-0">
+            <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5" />
           </div>
 
           <div className="min-w-0 flex-1 md:flex-initial">
             <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2">
-              <span className="font-extrabold text-xs sm:text-sm md:text-base lg:text-lg text-slate-900 dark:text-slate-100 tracking-tight font-sans truncate">
-                PCEA St Andrews <span className="text-orange-500 dark:text-orange-400 font-black">Kindergarten</span>
+              <span className="font-extrabold text-xs sm:text-sm md:text-base lg:text-lg text-white tracking-tight font-sans truncate">
+                PCEA St Andrews <span className="text-accent-400 font-black">Kindergarten</span>
               </span>
-              <span className="hidden xs:inline-flex sm:inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 border border-orange-200/60 dark:border-orange-800/60 shrink-0">
+              <span className="hidden xs:inline-flex sm:inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold bg-white/10 text-accent-300 border border-white/15 shrink-0">
                 SMS
               </span>
             </div>
-            <p className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 font-medium hidden lg:block truncate">
+            <p className="text-[10px] sm:text-[11px] text-white/55 font-medium hidden lg:block truncate">
               PCEA St Andrews Campus • Term 1, 2026 AY
             </p>
           </div>
@@ -80,16 +81,16 @@ export const Navbar: React.FC<NavbarProps> = ({
           className="hidden md:flex items-center flex-1 max-w-xs lg:max-w-sm mx-2 sm:mx-3 min-w-0"
         >
           <div className="w-full relative">
-            <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <Search className="w-4 h-4 text-white/50 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               placeholder="Search learners, grades, fees..."
-              className="w-full pl-9 pr-14 py-1.5 sm:py-2 bg-slate-50 dark:bg-slate-800/80 hover:bg-slate-100/80 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-400 transition-all"
+              className="w-full pl-9 pr-14 py-1.5 sm:py-2 bg-white/10 hover:bg-white/15 focus:bg-white/15 border border-white/15 rounded-full text-xs text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-accent-400/40 focus:border-accent-400 transition-all"
             />
             <div className="absolute right-2.5 top-1/2 -translate-y-1/2 hidden lg:flex items-center gap-1 pointer-events-none">
-              <kbd className="px-1.5 py-0.5 text-[10px] font-semibold text-slate-400 dark:text-slate-500 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded shadow-2xs">
+              <kbd className="px-1.5 py-0.5 text-[10px] font-semibold text-white/60 bg-white/10 border border-white/15 rounded-full">
                 Enter ↵
               </kbd>
             </div>
@@ -103,10 +104,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               onClick={onReturnToLanding}
-              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-semibold text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/60 hover:bg-orange-100 dark:hover:bg-orange-900/80 transition-colors border border-orange-200/80 dark:border-orange-800 cursor-pointer shrink-0"
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-bold text-brand-900 bg-accent-500 hover:bg-accent-400 shadow-lg shadow-black/20 transition-colors cursor-pointer shrink-0"
               title="Return to Public Landing Page"
             >
-              <Globe className="w-3.5 h-3.5 text-orange-500 shrink-0" />
+              <Globe className="w-3.5 h-3.5 shrink-0" />
               <span>Public Site</span>
             </button>
           )}
@@ -127,13 +128,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="navbar-user-profile-btn"
               type="button"
               onClick={() => setShowDropdown(!showDropdown)}
-              className="flex items-center gap-2 px-2 sm:px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors text-left cursor-pointer shrink-0"
+              className="flex items-center gap-2 px-1.5 sm:px-2 py-1.5 rounded-xl rounded-tr-2xl border border-white/15 bg-white/10 hover:bg-white/15 transition-colors text-left cursor-pointer shrink-0"
               aria-haspopup="true"
               aria-expanded={showDropdown}
             >
               <div
-                className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shadow-2xs shrink-0 ${
-                  currentUser.role === 'admin' ? 'bg-orange-500' : 'bg-slate-800 dark:bg-slate-700'
+                className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold shadow-2xs shrink-0 ${
+                  currentUser.role === 'admin' ? 'bg-accent-400 text-brand-800' : 'bg-white text-brand-800'
                 }`}
               >
                 {currentUser.role === 'admin' ? (
@@ -143,14 +144,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                 )}
               </div>
               <div className="hidden md:block max-w-[130px] lg:max-w-[160px] truncate">
-                <div className="text-xs font-bold text-slate-900 dark:text-slate-100 leading-tight truncate">
+                <div className="text-xs font-bold text-white leading-tight truncate">
                   {currentUser.name}
                 </div>
-                <div className="text-[10px] text-orange-600 dark:text-orange-400 font-semibold capitalize truncate">
+                <div className="text-[10px] text-accent-300 font-semibold capitalize truncate">
                   {currentUser.role === 'admin' ? 'Administrator' : 'Class Teacher'}
                 </div>
               </div>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
+              <ChevronDown className="w-3.5 h-3.5 text-white/60 shrink-0" />
             </button>
 
             {/* Click-away backdrop */}
@@ -182,13 +183,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                         onSwitchUser(u);
                         setShowDropdown(false);
                       }}
-                      className={`w-full px-3.5 py-2.5 text-left flex items-start gap-3 hover:bg-orange-50/50 dark:hover:bg-slate-800/60 transition-colors cursor-pointer ${
-                        u.id === currentUser.id ? 'bg-orange-50/70 dark:bg-slate-800/80 border-l-3 border-orange-500 font-medium' : ''
+                      className={`w-full px-3.5 py-2.5 text-left flex items-start gap-3 hover:bg-brand-50/50 dark:hover:bg-slate-800/60 transition-colors cursor-pointer ${
+                        u.id === currentUser.id ? 'bg-brand-50/70 dark:bg-slate-800/80 border-l-3 border-brand-500 font-medium' : ''
                       }`}
                     >
                       <div
                         className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0 mt-0.5 ${
-                          u.role === 'admin' ? 'bg-orange-500' : 'bg-slate-800 dark:bg-slate-700'
+                          u.role === 'admin' ? 'bg-brand-500' : 'bg-brand-800 dark:bg-slate-700'
                         }`}
                       >
                         {u.role === 'admin' ? <ShieldCheck className="w-4 h-4" /> : <UserCheck className="w-4 h-4" />}
@@ -199,7 +200,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         <span
                           className={`inline-block mt-0.5 text-[9px] font-extrabold px-1.5 py-0.2 rounded uppercase ${
                             u.role === 'admin'
-                              ? 'bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300'
+                              ? 'bg-brand-100 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300'
                               : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
                           }`}
                         >

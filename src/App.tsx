@@ -14,7 +14,6 @@ import { TimetableManager } from './components/TimetableManager';
 import { ReportCardsManager } from './components/ReportCardsManager';
 import { WebsiteContentManager, WebsiteContent } from './components/WebsiteContentManager';
 import { LandingPage } from './components/LandingPage';
-import { LearnHouseLanding } from './components/LearnHouseLanding';
 
 import {
   User,
@@ -284,10 +283,6 @@ export default function App() {
     showToast('Lesson slot removed from timetable.');
   };
 
-  if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('page') === 'learnhouse') {
-    return <LearnHouseLanding />;
-  }
-
   if (appMode === 'landing') {
     return (
       <LandingPage
@@ -305,7 +300,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-black text-slate-900 dark:text-slate-100 font-sans flex flex-col antialiased w-full overflow-x-hidden transition-colors duration-200">
+    <div className="min-h-screen bg-canvas dark:bg-[#04110f] text-slate-900 dark:text-slate-100 font-sans flex flex-col antialiased w-full overflow-x-hidden transition-colors duration-200">
       {/* Top Header Navbar */}
       <Navbar
         currentUser={currentUser}
@@ -337,7 +332,7 @@ export default function App() {
         />
 
         {/* Dynamic Content Body */}
-        <main className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 2xl:p-8 pb-32 sm:pb-32 md:pb-36 bg-slate-50 dark:bg-black transition-colors w-full">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 2xl:p-8 pb-32 sm:pb-32 md:pb-36 bg-canvas dark:bg-[#04110f] transition-colors w-full">
           <div className="w-full max-w-full sm:max-w-[calc(100vw-2rem)] md:max-w-7xl xl:max-w-[1600px] 2xl:max-w-[1720px] mx-auto space-y-4 sm:space-y-5 lg:space-y-6">
             {/* Action Toast Feedback */}
             {toastMessage && (

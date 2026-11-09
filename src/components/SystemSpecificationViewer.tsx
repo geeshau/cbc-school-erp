@@ -38,7 +38,7 @@ export const SystemSpecificationViewer: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200 print:hidden">
         <div>
           <div className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-orange-500" />
+            <BookOpen className="w-5 h-5 text-brand-500" />
             <h1 className="text-xl font-bold text-slate-900 font-serif">
               System Specification & Operational Guide
             </h1>
@@ -50,7 +50,7 @@ export const SystemSpecificationViewer: React.FC = () => {
 
         <button
           onClick={handlePrint}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-md shadow-orange-500/15 transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-accent-500 hover:bg-accent-400 text-brand-900 font-bold text-xs shadow-md shadow-accent-500/30 transition-all cursor-pointer"
         >
           <Printer className="w-4 h-4" />
           <span>Print Complete Manual</span>
@@ -65,7 +65,7 @@ export const SystemSpecificationViewer: React.FC = () => {
             onClick={() => setActiveSection(sec.id)}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-colors cursor-pointer ${
               activeSection === sec.id
-                ? 'bg-orange-500 text-white shadow-xs'
+                ? 'bg-brand-500 text-white shadow-xs'
                 : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
             }`}
           >
@@ -75,7 +75,7 @@ export const SystemSpecificationViewer: React.FC = () => {
       </div>
 
       {/* Document Body */}
-      <div className="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200 shadow-xs max-w-4xl mx-auto space-y-8 text-slate-800 font-sans print:border-none print:shadow-none print:p-0">
+      <div className="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200 max-w-4xl mx-auto space-y-8 text-slate-800 font-sans print:border-none print:shadow-none print:p-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
         {/* Title Cover Block */}
         <div className="border-b-2 border-slate-900 pb-6 text-center space-y-2">
           <span className="inline-block px-3 py-1 bg-amber-100 text-amber-900 text-[11px] font-bold uppercase tracking-wider rounded-full font-sans">
@@ -96,7 +96,7 @@ export const SystemSpecificationViewer: React.FC = () => {
         {(activeSection === 'all' || activeSection === 'overview') && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">1</span>
+              <span className="w-6 h-6 rounded-full bg-brand-800 text-white text-xs flex items-center justify-center font-sans font-bold">1</span>
               <span>Overview of the System & Role-Based Access</span>
             </h2>
             <p className="text-xs sm:text-sm leading-relaxed text-slate-700">
@@ -132,7 +132,7 @@ export const SystemSpecificationViewer: React.FC = () => {
         {(activeSection === 'all' || activeSection === 'admissions') && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">2</span>
+              <span className="w-6 h-6 rounded-full bg-brand-800 text-white text-xs flex items-center justify-center font-sans font-bold">2</span>
               <span>Learner Admissions & Electronic Student Cards</span>
             </h2>
             <p className="text-xs sm:text-sm leading-relaxed text-slate-700">
@@ -154,7 +154,7 @@ export const SystemSpecificationViewer: React.FC = () => {
         {(activeSection === 'all' || activeSection === 'fees') && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">3</span>
+              <span className="w-6 h-6 rounded-full bg-brand-800 text-white text-xs flex items-center justify-center font-sans font-bold">3</span>
               <span>School Fee Management & Printable Receipts</span>
             </h2>
             <p className="text-xs sm:text-sm leading-relaxed text-slate-700">
@@ -173,7 +173,7 @@ export const SystemSpecificationViewer: React.FC = () => {
         {(activeSection === 'all' || activeSection === 'grading') && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">4</span>
+              <span className="w-6 h-6 rounded-full bg-brand-800 text-white text-xs flex items-center justify-center font-sans font-bold">4</span>
               <span>Academic Performance & Grading Matrix</span>
             </h2>
             <p className="text-xs sm:text-sm leading-relaxed text-slate-700">
@@ -224,7 +224,7 @@ export const SystemSpecificationViewer: React.FC = () => {
         {(activeSection === 'all' || activeSection === 'reports') && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">5</span>
+              <span className="w-6 h-6 rounded-full bg-brand-800 text-white text-xs flex items-center justify-center font-sans font-bold">5</span>
               <span>Terminal Learner Report Cards</span>
             </h2>
             <p className="text-xs sm:text-sm leading-relaxed text-slate-700">
@@ -245,7 +245,7 @@ export const SystemSpecificationViewer: React.FC = () => {
         {(activeSection === 'all' || activeSection === 'timetable') && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">6</span>
+              <span className="w-6 h-6 rounded-full bg-brand-800 text-white text-xs flex items-center justify-center font-sans font-bold">6</span>
               <span>Master Timetable & Lesson Scheduling</span>
             </h2>
             <p className="text-xs sm:text-sm leading-relaxed text-slate-700">
@@ -272,7 +272,7 @@ export const SystemSpecificationViewer: React.FC = () => {
         {(activeSection === 'all' || activeSection === 'security') && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-900 font-serif border-b border-slate-200 pb-2 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center font-sans font-bold">7</span>
+              <span className="w-6 h-6 rounded-full bg-brand-800 text-white text-xs flex items-center justify-center font-sans font-bold">7</span>
               <span>Data Protection, Confidentiality & Audit Log</span>
             </h2>
             <p className="text-xs sm:text-sm leading-relaxed text-slate-700">

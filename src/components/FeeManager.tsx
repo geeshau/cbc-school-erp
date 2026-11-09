@@ -303,7 +303,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2">
-            <CreditCard className="w-5 h-5 text-orange-500" />
+            <CreditCard className="w-5 h-5 text-brand-500" />
             <h1 className="text-xl font-bold text-slate-900 font-serif">
               Learner Fee & Financial Accounts
             </h1>
@@ -319,12 +319,12 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
             className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs border border-slate-200 shadow-xs transition-all cursor-pointer"
             title="Generate official printable PDF-style student fee statement"
           >
-            <FileText className="w-4 h-4 text-orange-500" />
+            <FileText className="w-4 h-4 text-brand-500" />
             <span>Generate Student Statement</span>
           </button>
           <button
             onClick={() => setShowPaymentModal(true)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-md shadow-orange-500/15 transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-accent-500 hover:bg-accent-400 text-brand-900 font-bold text-xs shadow-md shadow-accent-500/30 transition-all cursor-pointer"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Record Fee Payment</span>
@@ -334,7 +334,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
 
       {/* Financial KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
             Total Fees Billed
           </span>
@@ -344,7 +344,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
           <p className="text-xs text-slate-500 mt-1">Full term expected fees</p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
             Total Fees Banked
           </span>
@@ -354,7 +354,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
           <p className="text-xs text-slate-500 mt-1">Received in school accounts</p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
             Outstanding Arrears
           </span>
@@ -364,16 +364,16 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
           <p className="text-xs text-slate-500 mt-1">Due before end-of-term</p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
             Collection Rate
           </span>
-          <div className="text-2xl font-black text-orange-600 mt-2">
+          <div className="text-2xl font-black text-brand-600 mt-2">
             {collectionRate}%
           </div>
           <div className="w-full bg-slate-100 rounded-full h-1.5 mt-2 overflow-hidden">
             <div
-              className="bg-orange-500 h-full rounded-full"
+              className="bg-brand-500 h-full rounded-full"
               style={{ width: `${collectionRate}%` }}
             ></div>
           </div>
@@ -386,7 +386,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
           onClick={() => setActiveTab('ledger')}
           className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
             activeTab === 'ledger'
-              ? 'bg-orange-500 text-white shadow-xs'
+              ? 'bg-brand-500 text-white shadow-xs'
               : 'text-slate-600 hover:bg-slate-100'
           }`}
         >
@@ -396,13 +396,13 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
           onClick={() => setActiveTab('transactions')}
           className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
             activeTab === 'transactions'
-              ? 'bg-orange-500 text-white shadow-xs'
+              ? 'bg-brand-500 text-white shadow-xs'
               : 'text-slate-600 hover:bg-slate-100'
           }`}
         >
           <span>Payment Transactions Log</span>
           <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
-            activeTab === 'transactions' ? 'bg-white/20 text-white' : 'bg-orange-100 text-orange-800'
+            activeTab === 'transactions' ? 'bg-white/20 text-white' : 'bg-brand-100 text-brand-800'
           }`}>
             {filteredPayments.length}
           </span>
@@ -411,7 +411,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
           onClick={() => setActiveTab('structure')}
           className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
             activeTab === 'structure'
-              ? 'bg-orange-500 text-white shadow-xs'
+              ? 'bg-brand-500 text-white shadow-xs'
               : 'text-slate-600 hover:bg-slate-100'
           }`}
         >
@@ -422,7 +422,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
       {activeTab === 'ledger' && (
         <div className="space-y-4">
           {/* Filters */}
-          <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col sm:flex-row gap-3 items-center justify-between">
+          <div className="bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-col sm:flex-row gap-3 items-center justify-between rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="relative w-full sm:w-80">
               <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
@@ -440,7 +440,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                 onClick={() => setStatusFilter('all')}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold cursor-pointer ${
                   statusFilter === 'all'
-                    ? 'bg-orange-50 text-orange-700 border border-orange-200'
+                    ? 'bg-brand-50 text-brand-700 border border-brand-200'
                     : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
                 }`}
               >
@@ -537,7 +537,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                                 setSelectedStudentId(s.id);
                                 setShowPaymentModal(true);
                               }}
-                              className="px-2.5 py-1 rounded-lg bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs transition-colors cursor-pointer border border-orange-200/60"
+                              className="px-2.5 py-1 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold text-xs transition-colors cursor-pointer border border-brand-200/60"
                             >
                               + Pay Fee
                             </button>
@@ -572,7 +572,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
           />
 
           {/* Secondary Filter Bar: Search, Grade, Channel, and Export/Print */}
-          <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col lg:flex-row gap-3 items-center justify-between">
+          <div className="bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-col lg:flex-row gap-3 items-center justify-between rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
               {/* Search */}
               <div className="relative w-full sm:w-64">
@@ -650,7 +650,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
 
           {/* Period Financial Metrics Summary Banner */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Period Banked
               </span>
@@ -662,7 +662,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
               </p>
             </div>
 
-            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Average Receipt
               </span>
@@ -672,7 +672,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
               <p className="text-[11px] text-slate-500 mt-0.5">Per transaction</p>
             </div>
 
-            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Mobile Money (M-Pesa)
               </span>
@@ -687,7 +687,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
               </p>
             </div>
 
-            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Bank Wire & Card
               </span>
@@ -716,7 +716,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                 <button
                   type="button"
                   onClick={handleResetPaymentFilters}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs transition-colors cursor-pointer border border-orange-200"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold text-xs transition-colors cursor-pointer border border-brand-200"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>Reset All Filters</span>
@@ -792,10 +792,10 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                             </button>
                             <button
                               onClick={() => handleOpenStatement(p.studentId)}
-                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-orange-50 hover:bg-orange-100 text-orange-700 font-semibold text-xs transition-colors cursor-pointer border border-orange-200/50"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 font-semibold text-xs transition-colors cursor-pointer border border-brand-200/50"
                               title="Generate PDF-style Printable Statement"
                             >
-                              <FileText className="w-3.5 h-3.5 text-orange-600" />
+                              <FileText className="w-3.5 h-3.5 text-brand-600" />
                               <span>Statement</span>
                             </button>
                           </div>
@@ -821,7 +821,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
             <button
               type="button"
               onClick={() => setShowPackageModal(true)}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold shadow-sm shadow-orange-500/20 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent-500 hover:bg-accent-400 text-brand-900 text-xs font-bold shadow-sm shadow-accent-500/30 transition-colors cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Setup New Package</span>
@@ -829,7 +829,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
+          <div className="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div>
                 <h3 className="text-sm font-bold text-slate-900 font-serif">
@@ -864,7 +864,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
+          <div className="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div>
                 <h3 className="text-sm font-bold text-slate-900 font-serif">
@@ -901,7 +901,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
       {/* New Fee Package Modal */}
       {showPackageModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 my-auto">
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 my-auto rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div>
                 <h2 className="text-base font-bold text-slate-900 font-serif">Setup New Standard Fee Package</h2>
@@ -932,7 +932,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                     value={packageForm.title}
                     onChange={(e) => setPackageForm({ ...packageForm, title: e.target.value })}
                     placeholder="e.g. Junior Secondary Package (Grade 7 & 8)"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                   />
                 </div>
                 <div>
@@ -979,7 +979,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                     step="500"
                     value={packageForm.totalAmount}
                     onChange={(e) => setPackageForm({ ...packageForm, totalAmount: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                   />
                 </div>
               </div>
@@ -990,7 +990,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                   <button
                     type="button"
                     onClick={() => setPackageForm({ ...packageForm, breakdown: [...packageForm.breakdown, { label: '', amount: '' }] })}
-                    className="text-[11px] font-bold text-orange-600 hover:text-orange-700 cursor-pointer"
+                    className="text-[11px] font-bold text-brand-600 hover:text-brand-700 cursor-pointer"
                   >
                     + Add Line
                   </button>
@@ -1045,7 +1045,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                 <button
                   type="submit"
                   disabled={isSubmittingPackage}
-                  className="px-5 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-md shadow-orange-500/20 transition-all cursor-pointer disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-xl bg-accent-500 hover:bg-accent-400 text-brand-900 font-bold text-xs shadow-md shadow-accent-500/30 transition-all cursor-pointer disabled:opacity-50"
                 >
                   {isSubmittingPackage ? 'Creating...' : 'Create Package'}
                 </button>
@@ -1058,7 +1058,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
       {/* Record Fee Payment Modal */}
       {showPaymentModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div>
                 <h2 className="text-base font-bold text-slate-900 font-serif">
@@ -1146,7 +1146,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-5 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-md shadow-orange-500/20 transition-all cursor-pointer disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-xl bg-accent-500 hover:bg-accent-400 text-brand-900 font-bold text-xs shadow-md shadow-accent-500/30 transition-all cursor-pointer disabled:opacity-50"
                 >
                   {isSubmitting ? 'Recording...' : 'Generate Receipt & Save'}
                 </button>
@@ -1159,7 +1159,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
       {/* Official Receipt Printable Slip Modal */}
       {selectedReceipt && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 print:hidden">
               <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                 Official School Receipt
@@ -1167,7 +1167,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
               <div className="flex items-center gap-2">
                 <button
                   onClick={handlePrint}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs transition-colors cursor-pointer border border-orange-200"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold text-xs transition-colors cursor-pointer border border-brand-200"
                 >
                   <Printer className="w-3.5 h-3.5" />
                   <span>Print Receipt</span>
@@ -1191,7 +1191,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                 <p className="text-[11px] text-slate-600 font-sans">
                   PCEA St. Andrews Campus • State House Road, Nairobi • Tel: +254 20 272 3505
                 </p>
-                <div className="inline-block mt-2 px-3 py-0.5 bg-slate-900 text-white text-[10px] font-sans font-bold uppercase tracking-widest rounded-full">
+                <div className="inline-block mt-2 px-3 py-0.5 bg-brand-800 text-white text-[10px] font-sans font-bold uppercase tracking-widest rounded-full">
                   OFFICIAL FEE PAYMENT RECEIPT
                 </div>
               </div>

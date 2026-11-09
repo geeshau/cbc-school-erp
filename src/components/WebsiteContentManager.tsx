@@ -89,10 +89,10 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Header Banner */}
-      <div className="bg-white dark:bg-neutral-950 p-6 rounded-2xl border border-slate-200/80 dark:border-neutral-900 shadow-xs flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-white dark:bg-brand-950 p-6 rounded-2xl border border-slate-200/80 dark:border-brand-900 flex flex-wrap items-center justify-between gap-4 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)]">
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 flex items-center justify-center font-bold">
+            <div className="w-9 h-9 rounded-xl bg-brand-100 dark:bg-brand-950 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold">
               <Globe className="w-5 h-5" />
             </div>
             <div>
@@ -110,7 +110,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
             href="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 rounded-xl text-xs font-bold text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/60 hover:bg-orange-100 border border-orange-200 dark:border-neutral-800 transition-all flex items-center gap-1.5 cursor-pointer"
+            className="px-4 py-2 rounded-xl text-xs font-bold text-brand-700 dark:text-brand-300 bg-brand-50 dark:bg-brand-950/60 hover:bg-brand-100 border border-brand-200 dark:border-neutral-800 transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <Globe className="w-3.5 h-3.5" />
             <span>Preview Live Site</span>
@@ -127,9 +127,9 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Contact & General Info */}
-        <div className="bg-white dark:bg-neutral-950 p-6 rounded-2xl border border-slate-200/80 dark:border-neutral-900 shadow-xs space-y-4">
+        <div className="bg-white dark:bg-brand-950 p-6 rounded-2xl border border-slate-200/80 dark:border-brand-900 space-y-4 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)]">
           <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
-            <Phone className="w-4 h-4 text-orange-500" />
+            <Phone className="w-4 h-4 text-brand-500" />
             <span>Contact Information & Top Banner</span>
           </h3>
 
@@ -142,7 +142,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                 type="text"
                 value={formData.announcementText}
                 onChange={(e) => handleChange('announcementText', e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
 
@@ -154,7 +154,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                 type="text"
                 value={formData.phone}
                 onChange={(e) => handleChange('phone', e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
 
@@ -166,7 +166,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                 type="email"
                 value={formData.email}
                 onChange={(e) => handleChange('email', e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
 
@@ -178,7 +178,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                 type="email"
                 value={formData.altEmail}
                 onChange={(e) => handleChange('altEmail', e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
 
@@ -190,16 +190,16 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                 type="text"
                 value={formData.location}
                 onChange={(e) => handleChange('location', e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
           </div>
         </div>
 
         {/* Hero Section Copy */}
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-4">
+        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-4 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)]">
           <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-orange-500" />
+            <Sparkles className="w-4 h-4 text-brand-500" />
             <span>Hero & Overview Copy</span>
           </h3>
 
@@ -213,7 +213,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                 value={formData.admissionLabel || ''}
                 onChange={(e) => handleChange('admissionLabel', e.target.value)}
                 placeholder="e.g. Admissions Open"
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
               <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">Optional. Leave blank to use a neutral “Admissions Open” label in the hero.</p>
             </div>
@@ -226,7 +226,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                 type="text"
                 value={formData.heroTitle}
                 onChange={(e) => handleChange('heroTitle', e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
 
@@ -238,7 +238,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                 rows={3}
                 value={formData.heroSubtitle}
                 onChange={(e) => handleChange('heroSubtitle', e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none"
+                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"
               ></textarea>
             </div>
 
@@ -252,7 +252,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                   value={formData.heroPrimaryCtaLabel || ''}
                   onChange={(e) => handleChange('heroPrimaryCtaLabel', e.target.value)}
                   placeholder="e.g. Enquire About Admissions"
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
                 />
               </div>
               <div>
@@ -264,7 +264,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                   value={formData.heroSecondaryCtaLabel || ''}
                   onChange={(e) => handleChange('heroSecondaryCtaLabel', e.target.value)}
                   placeholder="e.g. Request Child Report"
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
                 />
               </div>
             </div>
@@ -273,10 +273,10 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
         </div>
 
         {/* Gallery Photos Management */}
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-5">
+        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-5 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)]">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
-              <ImageIcon className="w-4 h-4 text-orange-500" />
+              <ImageIcon className="w-4 h-4 text-brand-500" />
               <span>Campus Photo Gallery Manager</span>
             </h3>
             <span className="text-[11px] text-slate-400 font-semibold">{formData.galleryImages.length} Photos</span>
@@ -314,7 +314,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                 <button
                   type="button"
                   onClick={handleAddImage}
-                  className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold flex items-center gap-1 cursor-pointer shrink-0"
+                  className="px-4 py-2 bg-accent-500 hover:bg-accent-400 text-brand-900 rounded-xl text-xs font-bold flex items-center gap-1 cursor-pointer shrink-0"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add</span>
@@ -365,7 +365,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
         <div className="flex justify-end pt-4">
           <button
             type="submit"
-            className="px-8 py-3.5 rounded-xl text-xs font-black text-white bg-orange-600 hover:bg-orange-700 shadow-lg shadow-orange-600/25 transition-all cursor-pointer flex items-center gap-2"
+            className="px-8 py-3.5 rounded-xl text-xs font-black text-brand-900 bg-accent-500 hover:bg-accent-400 shadow-lg shadow-brand-600/25 transition-all cursor-pointer flex items-center gap-2"
           >
             <Save className="w-4 h-4" />
             <span>Save & Publish Website Changes</span>

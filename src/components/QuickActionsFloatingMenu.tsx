@@ -232,9 +232,9 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
       title: 'Enroll New Student',
       subtitle: 'Admit learner & register parent dossier',
       badge: 'Admissions',
-      badgeColor: 'bg-orange-100 text-orange-800',
+      badgeColor: 'bg-brand-100 text-brand-800',
       icon: UserPlus,
-      iconColor: 'text-orange-600 bg-orange-50 group-hover:bg-orange-600 group-hover:text-white',
+      iconColor: 'text-brand-600 bg-brand-50 group-hover:bg-brand-600 group-hover:text-white',
       onClick: () => {
         setIsOpen(false);
         setShowEnrolmentModal(true);
@@ -280,17 +280,17 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
             className="mb-3 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200/90 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200"
           >
             {/* Popover Header */}
-            <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 px-4 py-3.5 text-white flex items-center justify-between border-b border-slate-700">
+            <div className="bg-gradient-to-r from-brand-800 via-slate-800 to-brand-900 px-4 py-3.5 text-white flex items-center justify-between border-b border-slate-700">
               <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-lg bg-orange-500/20 text-orange-400 border border-orange-500/30 flex items-center justify-center">
-                  <Zap className="w-4 h-4 fill-orange-400" />
+                <div className="w-7 h-7 rounded-lg bg-brand-500/20 text-brand-400 border border-brand-500/30 flex items-center justify-center">
+                  <Zap className="w-4 h-4 fill-brand-400" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="text-xs font-bold uppercase tracking-wider text-slate-100">
                       Quick Actions
                     </h3>
-                    <span className="px-1.5 py-0.2 rounded bg-orange-500 text-white font-mono text-[9px] font-black">
+                    <span className="px-1.5 py-0.2 rounded bg-accent-500 text-brand-900 font-mono text-[9px] font-black">
                       SHORTCUTS
                     </span>
                   </div>
@@ -299,7 +299,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
               </div>
 
               <div className="flex items-center gap-1.5">
-                <span className="text-[10px] font-mono text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700">
+                <span className="text-[10px] font-mono text-slate-400 bg-brand-800 px-1.5 py-0.5 rounded border border-slate-700">
                   Press [Q]
                 </span>
                 <button
@@ -331,7 +331,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-bold text-slate-900 group-hover:text-orange-600 transition-colors">
+                          <span className="text-xs font-bold text-slate-900 group-hover:text-brand-600 transition-colors">
                             {item.title}
                           </span>
                           <span
@@ -344,7 +344,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                       </div>
                     </div>
 
-                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-orange-500 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-brand-500 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
                   </button>
                 );
               })}
@@ -364,15 +364,15 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
           onClick={() => setIsOpen((prev) => !prev)}
           className={`group flex items-center gap-2.5 px-4 py-3 rounded-full font-bold text-xs shadow-xl transition-all duration-200 cursor-pointer ${
             isOpen
-              ? 'bg-slate-900 hover:bg-black text-white shadow-slate-900/30'
-              : 'bg-gradient-to-r from-orange-500 via-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-orange-500/35 hover:shadow-orange-500/45 hover:scale-105 active:scale-95'
+              ? 'bg-brand-800 hover:bg-black text-white shadow-slate-900/30'
+              : 'bg-gradient-to-r from-brand-500 via-brand-500 to-amber-500 hover:from-brand-600 hover:to-amber-600 text-white shadow-brand-500/35 hover:shadow-brand-500/45 hover:scale-105 active:scale-95'
           }`}
           aria-expanded={isOpen}
           title="Quick Actions floating menu (Press Q)"
         >
           <div
             className={`w-6 h-6 rounded-full flex items-center justify-center transition-transform duration-200 ${
-              isOpen ? 'rotate-90 bg-slate-800 text-white' : 'bg-white/20 text-white'
+              isOpen ? 'rotate-90 bg-brand-800 text-white' : 'bg-white/20 text-white'
             }`}
           >
             {isOpen ? <X className="w-4 h-4" /> : <Zap className="w-3.5 h-3.5 fill-white" />}
@@ -387,7 +387,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
       {/* 1. QUICK RECORD FEE PAYMENT MODAL */}
       {showPaymentModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 my-auto">
+          <div className="bg-white rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 my-auto rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
@@ -424,7 +424,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                 <select
                   value={paymentStudentId}
                   onChange={(e) => setPaymentStudentId(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/30"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
                 >
                   {students.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -471,7 +471,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                     step="100"
                     value={paymentAmount}
                     onChange={(e) => setPaymentAmount(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500/30 text-sm"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500/30 text-sm"
                   />
                 </div>
 
@@ -480,7 +480,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                   <select
                     value={paymentMethod}
                     onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/30 text-xs"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30 text-xs"
                   >
                     <option value="Mobile Money">Mobile Money (M-Pesa)</option>
                     <option value="Bank Transfer">Bank Transfer (EFT)</option>
@@ -497,7 +497,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                   <button
                     type="button"
                     onClick={() => setPaymentAmount(String(selectedPaymentStudent.feeBalance))}
-                    className="px-2 py-0.5 rounded bg-orange-50 hover:bg-orange-100 text-orange-700 text-[10px] font-bold border border-orange-200 cursor-pointer"
+                    className="px-2 py-0.5 rounded bg-brand-50 hover:bg-brand-100 text-brand-700 text-[10px] font-bold border border-brand-200 cursor-pointer"
                   >
                     Full Arrears (KES {selectedPaymentStudent.feeBalance.toLocaleString()})
                   </button>
@@ -565,10 +565,10 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
       {/* 2. QUICK ENROL NEW STUDENT MODAL */}
       {showEnrolmentModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl max-w-xl w-full p-5 sm:p-6 shadow-2xl border border-slate-200 max-h-[92vh] overflow-y-auto animate-in fade-in duration-150 my-auto">
+          <div className="bg-white rounded-2xl max-w-xl w-full p-5 sm:p-6 shadow-2xl border border-slate-200 max-h-[92vh] overflow-y-auto animate-in fade-in duration-150 my-auto rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-brand-100 text-brand-600 flex items-center justify-center">
                   <UserPlus className="w-4 h-4" />
                 </div>
                 <div>
@@ -611,7 +611,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                       placeholder="e.g. Samuel"
                       value={enrolmentData.firstName}
                       onChange={(e) => setEnrolmentData({ ...enrolmentData, firstName: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-orange-500"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-brand-500"
                     />
                   </div>
 
@@ -623,7 +623,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                       placeholder="e.g. Mwangi"
                       value={enrolmentData.lastName}
                       onChange={(e) => setEnrolmentData({ ...enrolmentData, lastName: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-orange-500"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-brand-500"
                     />
                   </div>
                 </div>
@@ -719,7 +719,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                       onChange={(e) =>
                         setEnrolmentData({ ...enrolmentData, guardianName: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-orange-500"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-brand-500"
                     />
                   </div>
 
@@ -782,7 +782,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                 <button
                   type="submit"
                   disabled={isSubmittingEnrolment}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white font-bold text-xs transition-all shadow-md shadow-orange-500/20 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-accent-500 hover:bg-accent-400 disabled:opacity-50 text-brand-900 font-bold text-xs transition-all shadow-md shadow-accent-500/30 cursor-pointer"
                 >
                   <UserPlus className="w-3.5 h-3.5" />
                   <span>{isSubmittingEnrolment ? 'Enrolling...' : 'Complete Enrolment'}</span>

@@ -151,7 +151,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               onClick={() => handleTabClick(item.id)}
               className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-left transition-colors cursor-pointer ${
                 isActive
-                  ? 'bg-orange-500 text-white font-semibold shadow-xs'
+                  ? 'bg-brand-500 text-white font-semibold shadow-xs'
                   : 'text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
@@ -195,7 +195,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       aria-label="School navigation"
       className="fixed bottom-3 left-1/2 z-50 -translate-x-1/2 w-[calc(100%-1rem)] max-w-4xl px-1 sm:w-fit sm:max-w-[calc(100%-1rem)]"
     >
-      <div className="flex w-full max-w-full items-center justify-center rounded-full border border-slate-200/80 bg-white/90 dark:border-slate-700 dark:bg-slate-950/90 p-1.5 shadow-[0_18px_45px_rgba(15,23,42,0.18)] backdrop-blur-xl sm:w-fit">
+      <div className="flex w-full max-w-full items-center justify-center rounded-full border border-white/10 bg-brand-800/95 dark:bg-brand-950/95 p-1.5 shadow-[0_20px_50px_-12px_rgba(6,29,27,0.65)] backdrop-blur-xl sm:w-fit">
         <div className="flex w-full max-w-full items-center gap-1 overflow-x-auto no-scrollbar px-1 py-0.5 sm:w-auto">
           {allAccessibleItems.map((item) => {
             const Icon = item.icon;
@@ -209,13 +209,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 onClick={() => handleTabClick(item.id)}
                 className={`group relative flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-2 text-[10px] font-bold transition-all duration-200 sm:px-3 sm:text-[11px] ${
                   isActive
-                    ? 'bg-orange-500 text-white shadow-sm shadow-orange-500/30'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white'
+                    ? 'bg-accent-400 text-brand-900 shadow-md shadow-black/25'
+                    : 'text-white/70 hover:bg-white/10 hover:text-white'
                 }`}
                 aria-current={isActive ? 'page' : undefined}
                 title={item.label}
               >
-                <Icon className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${isActive ? 'text-white' : 'text-current'}`} />
+                <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-current" />
                 <span>{item.shortLabel}</span>
 
               </button>

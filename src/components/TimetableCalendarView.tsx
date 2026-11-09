@@ -97,12 +97,12 @@ export const getSubjectColor = (subject: string) => {
   }
   if (s.includes('pe') || s.includes('sport') || s.includes('phys')) {
     return {
-      bg: 'bg-orange-50',
-      border: 'border-orange-200',
-      text: 'text-orange-700',
-      badge: 'bg-orange-100 text-orange-800',
-      dot: 'bg-orange-500',
-      hover: 'hover:bg-orange-100'
+      bg: 'bg-brand-50',
+      border: 'border-brand-200',
+      text: 'text-brand-700',
+      badge: 'bg-brand-100 text-brand-800',
+      dot: 'bg-brand-500',
+      hover: 'hover:bg-brand-100'
     };
   }
   if (s.includes('comp') || s.includes('ict')) {
@@ -367,7 +367,7 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
   return (
     <div className="space-y-6">
       {/* Month Navigation & Summary Header */}
-      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs">
+      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           {/* Month Title & Nav */}
           <div className="flex items-center gap-3">
@@ -400,7 +400,7 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
             <div>
               <h2 className="text-lg sm:text-xl font-black text-slate-900 font-serif tracking-tight flex items-center gap-2">
                 <span>{monthTitle}</span>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-orange-50 text-orange-700 border border-orange-200">
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-brand-50 text-brand-700 border border-brand-200">
                   {viewMode === 'class' ? selectedGrade : selectedTeacher}
                 </span>
               </h2>
@@ -418,7 +418,7 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
               onClick={() => setSelectedSubjectFilter('all')}
               className={`text-xs px-2.5 py-1 rounded-lg font-semibold transition-all cursor-pointer shrink-0 ${
                 selectedSubjectFilter === 'all'
-                  ? 'bg-slate-900 text-white'
+                  ? 'bg-brand-800 text-white'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
@@ -458,7 +458,7 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
           <div className="p-2.5 bg-slate-50/80 rounded-xl border border-slate-200/60">
             <span className="text-[10px] font-bold uppercase text-slate-400 block tracking-wider">Total Lessons</span>
             <div className="flex items-baseline gap-1.5 mt-0.5">
-              <span className="text-lg font-black text-orange-600">{monthStats.totalLessons}</span>
+              <span className="text-lg font-black text-brand-600">{monthStats.totalLessons}</span>
               <span className="text-[11px] text-slate-500 font-medium">periods scheduled</span>
             </div>
           </div>
@@ -486,7 +486,7 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
         {/* Left / Top: Monthly Calendar Grid (8 cols on large screen) */}
         <div className="lg:col-span-8 bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden flex flex-col">
           {/* Weekday Header Columns */}
-          <div className="grid grid-cols-7 bg-slate-900 text-white text-center font-bold text-xs py-2.5">
+          <div className="grid grid-cols-7 bg-brand-800 text-white text-center font-bold text-xs py-2.5">
             {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, idx) => (
               <div key={day} className={idx >= 5 ? 'text-slate-400 font-medium' : ''}>
                 {day}
@@ -511,10 +511,10 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
                       ? 'bg-slate-50/50 text-slate-300'
                       : dayItem.isWeekend
                       ? 'bg-slate-50/80 text-slate-400'
-                      : 'bg-white hover:bg-orange-50/30'
+                      : 'bg-white hover:bg-brand-50/30'
                   } ${
                     selected
-                      ? 'ring-2 ring-orange-500 ring-inset bg-orange-50/40 z-10'
+                      ? 'ring-2 ring-brand-500 ring-inset bg-brand-50/40 z-10'
                       : ''
                   }`}
                 >
@@ -523,9 +523,9 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
                     <span
                       className={`text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full transition-all ${
                         today
-                          ? 'bg-orange-500 text-white font-black shadow-xs'
+                          ? 'bg-brand-500 text-white font-black shadow-xs'
                           : selected
-                          ? 'bg-orange-100 text-orange-900 font-bold'
+                          ? 'bg-brand-100 text-brand-900 font-bold'
                           : dayItem.isCurrentMonth
                           ? 'text-slate-800'
                           : 'text-slate-400'
@@ -536,11 +536,11 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
 
                     {/* Today Badge or Lesson Count */}
                     {today ? (
-                      <span className="text-[9px] font-black uppercase tracking-wider text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded border border-orange-200">
+                      <span className="text-[9px] font-black uppercase tracking-wider text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded border border-brand-200">
                         Today
                       </span>
                     ) : dayItem.slots.length > 0 && dayItem.isCurrentMonth ? (
-                      <span className="text-[10px] font-bold text-slate-400 group-hover:text-orange-600 transition-colors">
+                      <span className="text-[10px] font-bold text-slate-400 group-hover:text-brand-600 transition-colors">
                         {dayItem.slots.length}L
                       </span>
                     ) : null}
@@ -596,12 +596,12 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
 
         {/* Right / Bottom: Selected Day Schedule Inspector (4 cols on large screen) */}
         <div className="lg:col-span-4 space-y-4">
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col h-full">
+          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 flex flex-col h-full rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
             {/* Header of Day Inspector */}
             <div className="pb-3 border-b border-slate-100 flex items-start justify-between gap-2">
               <div>
                 <div className="flex items-center gap-2">
-                  <CalendarIcon className="w-4 h-4 text-orange-500" />
+                  <CalendarIcon className="w-4 h-4 text-brand-500" />
                   <h3 className="text-sm font-bold text-slate-900 font-serif">
                     Day Schedule Inspector
                   </h3>
@@ -748,7 +748,7 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
                               );
                             }
                           }}
-                          className="inline-flex items-center gap-1 text-[11px] font-bold text-orange-600 hover:text-orange-700 cursor-pointer"
+                          className="inline-flex items-center gap-1 text-[11px] font-bold text-brand-600 hover:text-brand-700 cursor-pointer"
                         >
                           <Plus className="w-3 h-3" />
                           <span>Assign</span>
@@ -770,7 +770,7 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
                       onOpenAddModalWithDay(selectedDayInfo.dayName as any);
                     }
                   }}
-                  className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-800 font-bold text-xs border border-orange-200 transition-colors cursor-pointer"
+                  className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-800 font-bold text-xs border border-brand-200 transition-colors cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add Lesson on {selectedDayInfo.dayName}</span>
@@ -784,7 +784,7 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
       {/* Lesson Details Dialog / Popover */}
       {activeSlotModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-150 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
                 <div className={`p-2 rounded-xl ${getSubjectColor(activeSlotModal.subject).bg}`}>
@@ -859,7 +859,7 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
               <button
                 type="button"
                 onClick={() => setActiveSlotModal(null)}
-                className="px-4 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-slate-800 transition-colors cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-brand-800 text-white font-bold text-xs hover:bg-brand-700 transition-colors cursor-pointer"
               >
                 Close
               </button>

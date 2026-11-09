@@ -96,7 +96,7 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200 print:hidden">
         <div>
           <div className="flex items-center gap-2">
-            <FileCheck2 className="w-5 h-5 text-orange-500" />
+            <FileCheck2 className="w-5 h-5 text-brand-500" />
             <h1 className="text-xl font-bold text-slate-900 font-serif">
               Terminal Learner Performance & Report Cards
             </h1>
@@ -109,7 +109,7 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={handlePrint}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-md shadow-orange-500/15 transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-accent-500 hover:bg-accent-400 text-brand-900 font-bold text-xs shadow-md shadow-accent-500/30 transition-all cursor-pointer"
           >
             <Printer className="w-4 h-4" />
             <span>Print Report Card</span>
@@ -118,13 +118,13 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
       </div>
 
       {/* Student Selector Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex flex-wrap gap-4 items-center justify-between print:hidden">
+      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-wrap gap-4 items-center justify-between print:hidden rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
         <div className="flex items-center gap-2">
           <span className="text-xs font-bold text-slate-500">Select Learner:</span>
           <select
             value={selectedStudentId}
             onChange={(e) => setSelectedStudentId(e.target.value)}
-            className="text-xs font-bold px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            className="text-xs font-bold px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
           >
             {students.map((s) => (
               <option key={s.id} value={s.id}>
@@ -158,7 +158,7 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
       </div>
 
       {/* Printable Report Card Sheet */}
-      <div className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-200 shadow-md max-w-4xl mx-auto space-y-6 text-slate-900 font-serif print:shadow-none print:border-none print:p-0">
+      <div className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-200 shadow-md max-w-4xl mx-auto space-y-6 text-slate-900 font-serif print:shadow-none print:border-none print:p-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
         {/* School Header */}
         <div className="text-center pb-4 border-b-2 border-slate-900">
           <h1 className="text-2xl font-black uppercase tracking-widest text-slate-950">
@@ -170,7 +170,7 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
           <p className="text-[11px] font-sans text-slate-500 mt-1">
             PCEA St. Andrews Campus • State House Road, P.O. Box 41282-00100, Nairobi • Tel: +254 20 272 3505 • Email: kindergarten@pceastandrews.org
           </p>
-          <div className="inline-block mt-3 px-4 py-1 bg-slate-900 text-white font-sans text-xs font-bold uppercase tracking-widest rounded-full">
+          <div className="inline-block mt-3 px-4 py-1 bg-brand-800 text-white font-sans text-xs font-bold uppercase tracking-widest rounded-full">
             Official Terminal Academic Report Card
           </div>
         </div>
@@ -232,7 +232,7 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
         {/* Academic Matrix Table */}
         <div className="overflow-hidden border border-slate-300 rounded-xl">
           <table className="responsive-card-table w-full text-left text-xs font-sans">
-            <thead className="bg-slate-900 text-white font-bold uppercase tracking-wider text-[11px]">
+            <thead className="bg-brand-800 text-white font-bold uppercase tracking-wider text-[11px]">
               <tr>
                 <th className="py-2.5 px-3">Subject</th>
                 <th className="py-2.5 px-3 text-center">CA (30%)</th>

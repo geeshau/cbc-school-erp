@@ -71,19 +71,19 @@ export const DateRangeFilter: React.FC<DateRangeFilterProps> = ({
 
   return (
     <div
-      className={`bg-white p-4 rounded-2xl border border-slate-200/90 shadow-xs space-y-3 ${className}`}
+      className={`bg-white p-4 rounded-2xl border border-slate-200/90 space-y-3 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900 ${className}`}
     >
       {/* Top row: Title and current status */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-orange-50 border border-orange-200 flex items-center justify-center text-orange-600">
+          <div className="w-7 h-7 rounded-lg bg-brand-50 border border-brand-200 flex items-center justify-center text-brand-600">
             <Calendar className="w-4 h-4" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-slate-900">{label}</span>
               {isFilterActive ? (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-800 border border-orange-200">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-100 text-brand-800 border border-brand-200">
                   <span>Filtered: {activePreset ? activePreset.label : `${formatDateDisplay(startDate)} → ${formatDateDisplay(endDate)}`}</span>
                 </span>
               ) : (
@@ -130,7 +130,7 @@ export const DateRangeFilter: React.FC<DateRangeFilterProps> = ({
               type="date"
               value={startDate}
               onChange={(e) => onDateRangeChange(e.target.value, endDate)}
-              className="text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white focus:bg-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 text-slate-800 transition-colors"
+              className="text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white focus:bg-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-slate-800 transition-colors"
             />
           </div>
 
@@ -142,7 +142,7 @@ export const DateRangeFilter: React.FC<DateRangeFilterProps> = ({
               type="date"
               value={endDate}
               onChange={(e) => onDateRangeChange(startDate, e.target.value)}
-              className="text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white focus:bg-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 text-slate-800 transition-colors"
+              className="text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white focus:bg-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-slate-800 transition-colors"
             />
           </div>
         </div>
@@ -164,7 +164,7 @@ export const DateRangeFilter: React.FC<DateRangeFilterProps> = ({
                 onClick={() => handleSelectPreset(p)}
                 className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
                   isSelected
-                    ? 'bg-orange-500 text-white shadow-xs font-bold'
+                    ? 'bg-brand-500 text-white shadow-xs font-bold'
                     : 'bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200/70'
                 }`}
               >

@@ -360,7 +360,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
         {/* Top Control Bar (HIDDEN IN PRINT) */}
         <div className="bg-white px-5 py-3.5 border-b border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-3 shrink-0 print:hidden">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600 shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-brand-100 flex items-center justify-center text-brand-600 shrink-0">
               <FileText className="w-5 h-5" />
             </div>
             <div>
@@ -391,7 +391,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
               <select
                 value={selectedStudentId}
                 onChange={(e) => setSelectedStudentId(e.target.value)}
-                className="text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-300 bg-slate-50 hover:bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
+                className="text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-300 bg-slate-50 hover:bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500/30"
               >
                 {students.map((s) => (
                   <option key={s.id} value={s.id}>
@@ -444,7 +444,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
             {/* Primary Print / Save as PDF Button */}
             <button
               onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-sm shadow-orange-500/20 transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent-500 hover:bg-accent-400 text-brand-900 font-bold text-xs shadow-sm shadow-accent-500/30 transition-all cursor-pointer"
               title="Print or Save as PDF"
             >
               <Printer className="w-3.5 h-3.5" />
@@ -466,15 +466,15 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
           {/* A4-Proportioned Printable Sheet */}
           <div
             id="student-fee-statement-document"
-            className="bg-white rounded-xl shadow-lg border border-slate-300/80 p-6 sm:p-10 space-y-6 max-w-3xl mx-auto print:shadow-none print:border print:border-slate-300 print:rounded-none print:p-6 print:m-0 print:max-w-none"
+            className="bg-white rounded-xl shadow-lg border border-slate-300/80 p-6 sm:p-10 space-y-6 max-w-3xl mx-auto print:shadow-none print:border print:border-slate-300 print:rounded-none print:p-6 print:m-0 print:max-w-none rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900"
           >
             {/* 1. Institutional Letterhead Header */}
             <div className="border-b-2 border-slate-900 pb-5">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
                 {/* School Seal & Identity */}
                 <div className="flex items-center gap-3.5">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center text-white shadow-md border border-slate-700">
-                    <Building2 className="w-8 h-8 text-orange-400" />
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-800 to-brand-900 flex items-center justify-center text-white shadow-md border border-slate-700">
+                    <Building2 className="w-8 h-8 text-brand-400" />
                   </div>
                   <div>
                     <h1 className="text-xl sm:text-2xl font-black text-slate-900 font-serif tracking-tight">
@@ -491,7 +491,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
 
                 {/* Statement Reference & Meta */}
                 <div className="sm:text-right border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-200 w-full sm:w-auto">
-                  <span className="inline-block px-3 py-1 bg-slate-900 text-white text-[10px] font-bold uppercase tracking-wider rounded-md">
+                  <span className="inline-block px-3 py-1 bg-brand-800 text-white text-[10px] font-bold uppercase tracking-wider rounded-md">
                     OFFICIAL FEE STATEMENT
                   </span>
                   <div className="mt-2 text-[11px] text-slate-600 space-y-0.5">
@@ -523,7 +523,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
               {/* Learner Particulars */}
               <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-1.5">
                 <div className="flex items-center gap-1.5 font-bold text-slate-900 uppercase tracking-wider text-[11px] pb-1 border-b border-slate-200">
-                  <User className="w-3.5 h-3.5 text-orange-500" />
+                  <User className="w-3.5 h-3.5 text-brand-500" />
                   <span>Learner Particulars</span>
                 </div>
                 <div className="flex justify-between pt-1">
@@ -556,7 +556,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
               {/* Billing & Guardian Particulars */}
               <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-1.5">
                 <div className="flex items-center gap-1.5 font-bold text-slate-900 uppercase tracking-wider text-[11px] pb-1 border-b border-slate-200">
-                  <Building2 className="w-3.5 h-3.5 text-orange-500" />
+                  <Building2 className="w-3.5 h-3.5 text-brand-500" />
                   <span>Guardian & Billing Particulars</span>
                 </div>
                 <div className="flex justify-between pt-1">
@@ -679,7 +679,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                 <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all ${
-                      isCleared ? 'bg-emerald-600' : 'bg-orange-500'
+                      isCleared ? 'bg-emerald-600' : 'bg-brand-500'
                     }`}
                     style={{ width: `${settlementPercent}%` }}
                   ></div>
@@ -739,7 +739,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
             <div className="space-y-2">
               <div className="flex items-center justify-between pb-1 border-b border-slate-200">
                 <div className="flex items-center gap-2">
-                  <CreditCard className="w-4 h-4 text-orange-500" />
+                  <CreditCard className="w-4 h-4 text-brand-500" />
                   <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
                     Payment History & Credit Ledger
                   </h3>
@@ -823,7 +823,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                         onRecordPayment(currentStudent.id);
                         onClose();
                       }}
-                      className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-orange-500 text-white font-bold text-xs shadow-xs hover:bg-orange-600 transition-colors cursor-pointer"
+                      className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent-500 text-brand-900 font-bold text-xs shadow-xs hover:bg-accent-400 transition-colors cursor-pointer"
                     >
                       <span>+ Record Initial Payment Now</span>
                     </button>
@@ -857,7 +857,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-500">Account No (Student Adm):</span>
-                      <span className="font-mono font-black text-orange-600">
+                      <span className="font-mono font-black text-brand-600">
                         {currentStudent.admissionNumber}
                       </span>
                     </div>
@@ -954,7 +954,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                   onRecordPayment(currentStudent.id);
                   onClose();
                 }}
-                className="px-3 py-1.5 rounded-lg bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 text-xs font-bold transition-colors cursor-pointer"
+                className="px-3 py-1.5 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 border border-brand-200 text-xs font-bold transition-colors cursor-pointer"
               >
                 + Record Payment for {currentStudent.firstName}
               </button>
@@ -962,9 +962,9 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
 
             <button
               onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-slate-900 hover:bg-black text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-brand-800 hover:bg-black text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
             >
-              <Printer className="w-3.5 h-3.5 text-orange-400" />
+              <Printer className="w-3.5 h-3.5 text-brand-400" />
               <span>Print Statement</span>
             </button>
 

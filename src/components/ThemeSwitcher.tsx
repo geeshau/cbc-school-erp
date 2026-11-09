@@ -93,7 +93,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
                       ? 'text-indigo-500 dark:text-indigo-400'
                       : opt.mode === 'light'
                       ? 'text-amber-500'
-                      : 'text-orange-500'
+                      : 'text-brand-500'
                     : 'text-slate-400 dark:text-slate-500'
                 }`}
               />
@@ -157,7 +157,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
                     }}
                     className={`w-full px-3 py-2 text-left rounded-xl flex items-center justify-between transition-colors cursor-pointer ${
                       isSelected
-                        ? 'bg-orange-50/80 dark:bg-orange-950/40 text-orange-900 dark:text-orange-200'
+                        ? 'bg-brand-50/80 dark:bg-brand-950/40 text-brand-900 dark:text-brand-200'
                         : 'hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
                     }`}
                   >
@@ -165,7 +165,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
                       <div
                         className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
                           isSelected
-                            ? 'bg-orange-500 text-white'
+                            ? 'bg-brand-500 text-white'
                             : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
                         }`}
                       >
@@ -178,7 +178,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
                         </div>
                       </div>
                     </div>
-                    {isSelected && <Check className="w-4 h-4 text-orange-600 dark:text-orange-400 shrink-0" />}
+                    {isSelected && <Check className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />}
                   </button>
                 );
               })}
@@ -209,8 +209,8 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
       onClick={handleClick}
       className={`group relative flex items-center gap-2 p-2 sm:px-2.5 sm:py-1.5 rounded-xl border transition-all cursor-pointer ${
         isDarkActive
-          ? 'bg-slate-800 hover:bg-slate-750 text-indigo-300 border-slate-700 hover:border-slate-600 shadow-2xs'
-          : 'bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-900 border-slate-200/80 hover:border-slate-300 shadow-2xs'
+          ? 'bg-white/10 hover:bg-white/15 text-indigo-200 border-white/15'
+          : 'bg-white/10 hover:bg-white/15 text-white border-white/15'
       } ${className}`}
       title={
         isDarkActive
@@ -228,7 +228,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
         {isDarkActive ? (
           <Moon className="w-4 h-4 text-indigo-400 transition-transform duration-300 group-hover:-rotate-12" />
         ) : (
-          <Sun className="w-4 h-4 text-amber-500 transition-transform duration-300 group-hover:rotate-45" />
+          <Sun className="w-4 h-4 text-accent-400 transition-transform duration-300 group-hover:rotate-45" />
         )}
       </div>
 

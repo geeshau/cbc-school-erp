@@ -180,7 +180,7 @@ Performance Index: ${student.performanceIndex}%
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2">
-            <Users className="w-5 h-5 text-orange-500" />
+            <Users className="w-5 h-5 text-brand-500" />
             <h1 className="text-xl font-bold text-slate-900 font-serif">
               Learner Enrolment & Student Directory
             </h1>
@@ -193,7 +193,7 @@ Performance Index: ${student.performanceIndex}%
         {userRole === 'admin' && (
           <button
             onClick={() => setShowAddModal(true)}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-md shadow-orange-500/15 transition-all shrink-0 cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-accent-500 hover:bg-accent-400 text-brand-900 font-bold text-xs shadow-md shadow-accent-500/30 transition-all shrink-0 cursor-pointer"
           >
             <UserPlus className="w-4 h-4" />
             <span>Admit New Learner</span>
@@ -202,7 +202,7 @@ Performance Index: ${student.performanceIndex}%
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col md:flex-row gap-3 items-center justify-between">
+      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-col md:flex-row gap-3 items-center justify-between rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
         {/* Search */}
         <div className="relative w-full md:w-80">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -211,7 +211,7 @@ Performance Index: ${student.performanceIndex}%
             placeholder="Search learner name, ADM number, parent..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
+            className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all"
           />
         </div>
 
@@ -255,14 +255,14 @@ Performance Index: ${student.performanceIndex}%
       {/* Student Records Table */}
       <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
         {/* Table Tip / Instruction Banner */}
-        <div className="px-4 py-2.5 bg-orange-50/70 border-b border-orange-200/60 flex items-center justify-between text-xs text-orange-950 font-medium">
+        <div className="px-4 py-2.5 bg-brand-50/70 border-b border-brand-200/60 flex items-center justify-between text-xs text-brand-950 font-medium">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse shrink-0" />
+            <span className="w-2 h-2 rounded-full bg-brand-500 animate-pulse shrink-0" />
             <span>
               Tip: <strong>Click any table row</strong> to open the complete learner dossier, guardian contacts & medical details.
             </span>
           </div>
-          <span className="text-[11px] text-orange-800 font-bold shrink-0 hidden sm:inline">
+          <span className="text-[11px] text-brand-800 font-bold shrink-0 hidden sm:inline">
             Showing {filteredStudents.length} of {students.length} Learners
           </span>
         </div>
@@ -303,22 +303,22 @@ Performance Index: ${student.performanceIndex}%
                           setSelectedStudent(student);
                         }
                       }}
-                      className="hover:bg-orange-50/50 cursor-pointer transition-colors group select-none"
+                      className="hover:bg-brand-50/50 cursor-pointer transition-colors group select-none"
                       title={`Click to open full learner details for ${student.firstName} ${student.lastName}`}
                     >
                       <td data-label="Admission No." className="py-3.5 px-4 font-mono font-semibold text-slate-700">
-                        <span className="group-hover:text-orange-600 transition-colors font-bold">
+                        <span className="group-hover:text-brand-600 transition-colors font-bold">
                           {student.admissionNumber}
                         </span>
                       </td>
                       <td data-label="Learner Name" className="py-3.5 px-4 font-semibold text-slate-900">
                         <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-full bg-orange-100 text-orange-800 flex items-center justify-center font-bold text-xs border border-orange-200/60 group-hover:scale-105 transition-transform shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-brand-100 text-brand-800 flex items-center justify-center font-bold text-xs border border-brand-200/60 group-hover:scale-105 transition-transform shrink-0">
                             {student.firstName[0]}
                             {student.lastName[0]}
                           </div>
                           <div>
-                            <div className="group-hover:text-orange-600 transition-colors font-bold">
+                            <div className="group-hover:text-brand-600 transition-colors font-bold">
                               {student.firstName} {student.lastName}
                             </div>
                             <div className="text-[10px] text-slate-400 font-normal">
@@ -328,7 +328,7 @@ Performance Index: ${student.performanceIndex}%
                         </div>
                       </td>
                       <td data-label="Grade & Stream" className="py-3.5 px-4">
-                        <span className="inline-block px-2 py-0.5 rounded-md bg-orange-50 text-orange-700 font-bold text-[11px] border border-orange-200/60">
+                        <span className="inline-block px-2 py-0.5 rounded-md bg-brand-50 text-brand-700 font-bold text-[11px] border border-brand-200/60">
                           {student.grade}
                         </span>
                         <div className="text-[10px] text-slate-400 mt-0.5">
@@ -377,7 +377,7 @@ Performance Index: ${student.performanceIndex}%
                               e.stopPropagation();
                               setSelectedStudent(student);
                             }}
-                            className="px-2.5 py-1 rounded-lg bg-orange-50 group-hover:bg-orange-100 text-orange-700 font-bold text-xs transition-colors cursor-pointer border border-orange-200/70"
+                            className="px-2.5 py-1 rounded-lg bg-brand-50 group-hover:bg-brand-100 text-brand-700 font-bold text-xs transition-colors cursor-pointer border border-brand-200/70"
                           >
                             Details
                           </button>
@@ -393,7 +393,7 @@ Performance Index: ${student.performanceIndex}%
                           >
                             Report Card
                           </button>
-                          <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-orange-500 group-hover:translate-x-0.5 transition-all" />
+                          <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-brand-500 group-hover:translate-x-0.5 transition-all" />
                         </div>
                       </td>
                     </tr>
@@ -447,13 +447,13 @@ Performance Index: ${student.performanceIndex}%
         >
           <div
             id="learner-details-modal"
-            className="bg-white rounded-3xl max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 my-8 max-h-[92vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200 space-y-6"
+            className="bg-white rounded-3xl max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 my-8 max-h-[92vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200 space-y-6 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Top Modal Header */}
             <div className="flex items-start justify-between pb-5 border-b border-slate-100 gap-4">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-orange-600 to-orange-500 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-orange-500/20 ring-2 ring-orange-400/30 shrink-0">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-500 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-brand-500/20 ring-2 ring-brand-400/30 shrink-0">
                   {selectedStudent.firstName[0]}
                   {selectedStudent.lastName[0]}
                 </div>
@@ -493,7 +493,7 @@ Performance Index: ${student.performanceIndex}%
                       </button>
                     </span>
                     <span>•</span>
-                    <span className="font-semibold text-orange-600">
+                    <span className="font-semibold text-brand-600">
                       {selectedStudent.grade} ({selectedStudent.stream} Stream)
                     </span>
                     <span>•</span>
@@ -515,12 +515,12 @@ Performance Index: ${student.performanceIndex}%
 
             {/* Quick KPI Metric Highlights */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="p-3 rounded-2xl bg-orange-50/70 border border-orange-200/70">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-orange-700 block mb-0.5">
+              <div className="p-3 rounded-2xl bg-brand-50/70 border border-brand-200/70">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-brand-700 block mb-0.5">
                   Class Placement
                 </span>
                 <div className="text-sm font-bold text-slate-900">{selectedStudent.grade}</div>
-                <div className="text-[11px] text-orange-800 mt-0.5 font-medium">{selectedStudent.stream} Stream</div>
+                <div className="text-[11px] text-brand-800 mt-0.5 font-medium">{selectedStudent.stream} Stream</div>
               </div>
 
               <div className="p-3 rounded-2xl bg-emerald-50/70 border border-emerald-200/70">
@@ -566,7 +566,7 @@ Performance Index: ${student.performanceIndex}%
               <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2.5">
                 <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                    <Users className="w-3.5 h-3.5 text-orange-500" />
+                    <Users className="w-3.5 h-3.5 text-brand-500" />
                     Personal & Admission Biodata
                   </span>
                   <span className="text-[10px] font-mono text-slate-400">ID: {selectedStudent.id}</span>
@@ -612,10 +612,10 @@ Performance Index: ${student.performanceIndex}%
               <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2.5">
                 <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                    <Phone className="w-3.5 h-3.5 text-orange-500" />
+                    <Phone className="w-3.5 h-3.5 text-brand-500" />
                     Parent / Guardian & Contacts
                   </span>
-                  <span className="text-[10px] font-semibold text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded border border-orange-200/50">
+                  <span className="text-[10px] font-semibold text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded border border-brand-200/50">
                     Primary Contact
                   </span>
                 </div>
@@ -639,7 +639,7 @@ Performance Index: ${student.performanceIndex}%
                       </span>
                       <a
                         href={`tel:${selectedStudent.guardianPhone}`}
-                        className="font-mono font-bold text-orange-600 hover:text-orange-700 hover:underline flex items-center gap-1"
+                        className="font-mono font-bold text-brand-600 hover:text-brand-700 hover:underline flex items-center gap-1"
                         title="Click to call guardian"
                       >
                         {selectedStudent.guardianPhone}
@@ -655,7 +655,7 @@ Performance Index: ${student.performanceIndex}%
                         </span>
                         <a
                           href={`mailto:${selectedStudent.guardianEmail}`}
-                          className="font-medium text-slate-800 hover:text-orange-600 hover:underline truncate max-w-[180px]"
+                          className="font-medium text-slate-800 hover:text-brand-600 hover:underline truncate max-w-[180px]"
                           title="Click to email parent"
                         >
                           {selectedStudent.guardianEmail}
@@ -690,7 +690,7 @@ Performance Index: ${student.performanceIndex}%
               <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2.5">
                 <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                    <BookOpen className="w-3.5 h-3.5 text-orange-500" />
+                    <BookOpen className="w-3.5 h-3.5 text-brand-500" />
                     Academic Placement & Faculty
                   </span>
                   <span className="text-[10px] font-semibold text-slate-500">Term 1, 2026</span>
@@ -782,7 +782,7 @@ Performance Index: ${student.performanceIndex}%
               <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2.5">
                 <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                    <CreditCard className="w-3.5 h-3.5 text-orange-500" />
+                    <CreditCard className="w-3.5 h-3.5 text-brand-500" />
                     School Fee Account & Ledger
                   </span>
                   <span
@@ -835,7 +835,7 @@ Performance Index: ${student.performanceIndex}%
                     <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden">
                       <div
                         className={`h-full rounded-full transition-all duration-500 ${
-                          selectedStudent.feeBalance === 0 ? 'bg-emerald-500' : 'bg-orange-500'
+                          selectedStudent.feeBalance === 0 ? 'bg-emerald-500' : 'bg-brand-500'
                         }`}
                         style={{
                           width: `${Math.min(
@@ -936,7 +936,7 @@ Performance Index: ${student.performanceIndex}%
                     onViewReportCard(selectedStudent);
                     setSelectedStudent(null);
                   }}
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs transition-colors shadow-md shadow-orange-500/20 cursor-pointer w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-accent-500 hover:bg-accent-400 text-brand-900 font-bold text-xs transition-colors shadow-md shadow-accent-500/30 cursor-pointer w-full sm:w-auto"
                 >
                   <FileSpreadsheet className="w-4 h-4" />
                   <span>Open Term Report Card</span>
@@ -958,7 +958,7 @@ Performance Index: ${student.performanceIndex}%
       {/* New Learner Admission Modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 max-h-[92vh] overflow-y-auto animate-in fade-in duration-150">
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 max-h-[92vh] overflow-y-auto animate-in fade-in duration-150 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div>
                 <h2 className="text-base font-bold text-slate-900 font-serif">
@@ -1155,7 +1155,7 @@ Performance Index: ${student.performanceIndex}%
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-5 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-md shadow-orange-500/20 transition-all cursor-pointer disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-xl bg-accent-500 hover:bg-accent-400 text-brand-900 font-bold text-xs shadow-md shadow-accent-500/30 transition-all cursor-pointer disabled:opacity-50"
                 >
                   {isSubmitting ? 'Registering Learner...' : 'Complete Enrolment'}
                 </button>

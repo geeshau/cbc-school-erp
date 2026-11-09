@@ -174,7 +174,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2">
-            <Award className="w-5 h-5 text-orange-500" />
+            <Award className="w-5 h-5 text-brand-500" />
             <h1 className="text-xl font-bold text-slate-900 font-serif">
               Academic Performance & Grading Matrix
             </h1>
@@ -187,7 +187,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
         <button
           onClick={handleSaveAll}
           disabled={isSaving}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-md shadow-orange-500/15 transition-all cursor-pointer disabled:opacity-50"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-accent-500 hover:bg-accent-400 text-brand-900 font-bold text-xs shadow-md shadow-accent-500/30 transition-all cursor-pointer disabled:opacity-50"
         >
           {isSaving ? (
             <span>Saving...</span>
@@ -208,7 +208,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
       )}
 
       {/* Selectors Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex flex-wrap gap-3 items-center justify-between">
+      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-wrap gap-3 items-center justify-between rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
         <div className="flex flex-wrap items-center gap-3">
           <div>
             <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
@@ -285,7 +285,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
 
       {/* Class Performance Metrics Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
+        <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Class Mean Score
           </span>
@@ -293,7 +293,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
           <p className="text-[11px] text-slate-500">Across {selectedSubject}</p>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
+        <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Class Pass Rate
           </span>
@@ -301,7 +301,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
           <p className="text-[11px] text-slate-500">{passCount} scored &gt;= 50%</p>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
+        <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Highest Mark
           </span>
@@ -309,7 +309,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
           <p className="text-[11px] text-slate-500">Top performance</p>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
+        <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Grade Distribution
           </span>
