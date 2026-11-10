@@ -76,7 +76,35 @@ export const Sidebar: React.FC<SidebarProps> = ({
         }
       ]
     },
-
+    {
+      title: 'ACADEMICS',
+      items: [
+        {
+          id: 'grading' as TabType,
+          label: 'Marks & Grading',
+          shortLabel: 'Grading',
+          subLabel: 'Scores & Assessment',
+          icon: Award,
+          roles: ['admin', 'teacher'] as UserRole[]
+        },
+        {
+          id: 'timetable' as TabType,
+          label: 'Class Timetable',
+          shortLabel: 'Timetable',
+          subLabel: 'Lesson Scheduling',
+          icon: CalendarDays,
+          roles: ['admin', 'teacher'] as UserRole[]
+        },
+        {
+          id: 'reports' as TabType,
+          label: 'Report Cards',
+          shortLabel: 'Reports',
+          subLabel: 'Terminal Reports',
+          icon: FileSpreadsheet,
+          roles: ['admin', 'teacher'] as UserRole[]
+        }
+      ]
+    },
     {
       title: 'FINANCE & OPERATIONS',
       items: [

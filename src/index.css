@@ -363,7 +363,7 @@ img, video, canvas, svg {
 @media print {
   @page {
     size: A4 portrait;
-    margin: 8mm 10mm;
+    margin: 12mm 14mm;
   }
 
   html, body {
@@ -373,21 +373,186 @@ img, video, canvas, svg {
     print-color-adjust: exact !important;
     margin: 0 !important;
     padding: 0 !important;
+    font-size: 11pt !important;
+    width: 100% !important;
+    overflow: visible !important;
   }
 
-  /* Hide app navigation, sidebar, and background overlays when printing */
-  nav, aside, header, [role="navigation"], .no-print {
+  /* ── Hide all non-printable chrome ── */
+  nav,
+  aside,
+  header,
+  [role="navigation"],
+  .no-print,
+  #floating-bottom-nav,
+  .fixed.bottom-7,
+  .fixed.bottom-20,
+  .fixed.bottom-6 {
     display: none !important;
+  }
+
+  /* Hide toast notifications */
+  .animate-in.fade-in.slide-in-from-bottom-3 {
+    display: none !important;
+  }
+
+  /* ── General layout reset for print ── */
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Remove shadows, rounded corners and dark mode in print */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  .dark body, html.dark body {
+    background-color: #ffffff !important;
+  }
+
+  .dark * {
+    background-color: transparent !important;
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+  }
+
+  /* ── Report Card print layout ── */
+  /* The main content container should be full-width A4 */
+  main > div {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Report card sheet fills A4 */
+  .font-serif {
+    page-break-inside: avoid;
+  }
+
+  /* ── Fee Statement modal print ── */
+  .fixed.inset-0 {
+    position: static !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    display: block !important;
+    z-index: auto !important;
+  }
+
+  .fixed.inset-0 > div {
+    max-width: 100% !important;
+    width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: static !important;
   }
 
   /* Ensure statement document prints cleanly */
   #student-fee-statement-document {
-    border: 1px solid #cbd5e1 !important;
+    border: none !important;
     box-shadow: none !important;
     max-width: 100% !important;
     width: 100% !important;
     margin: 0 !important;
-    padding: 18px 24px !important;
+    padding: 8px 0 !important;
+    page-break-inside: avoid;
+    border-radius: 0 !important;
+  }
+
+  /* ── Receipt modal print ── */
+  .bg-white.p-8,
+  .bg-white.p-10,
+  .bg-white.sm\:p-10 {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 12px !important;
+    border-radius: 0 !important;
+  }
+
+  /* ── Tables print properly ── */
+  table {
+    page-break-inside: auto;
+    width: 100% !important;
+    font-size: 9pt !important;
+  }
+
+  table tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  table thead {
+    display: table-header-group;
+  }
+
+  table th, table td {
+    white-space: normal !important;
+    padding: 4px 6px !important;
+  }
+
+  /* Restore table layout for print (override mobile card layout) */
+  .responsive-card-table,
+  .responsive-card-table tbody,
+  .responsive-card-table tfoot {
+    display: table !important;
+    width: 100% !important;
+  }
+
+  .responsive-card-table thead {
+    display: table-header-group !important;
+  }
+
+  .responsive-card-table tbody {
+    display: table-row-group !important;
+    padding: 0 !important;
+  }
+
+  .responsive-card-table tbody tr,
+  .responsive-card-table tfoot tr {
+    display: table-row !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+  }
+
+  .responsive-card-table tbody td,
+  .responsive-card-table tfoot td {
+    display: table-cell !important;
+    flex: none !important;
+    padding: 4px 6px !important;
+    border: 1px solid #e2e8f0 !important;
+  }
+
+  .responsive-card-table tbody td::before,
+  .responsive-card-table tfoot td::before {
+    content: none !important;
+  }
+
+  /* ── Prevent content overflow ── */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  a[href]::after {
+    content: none !important;
+  }
+
+  /* ── Page breaks ── */
+  h1, h2, h3, h4 {
+    page-break-after: avoid;
+  }
+
+  .space-y-6 > * {
     page-break-inside: avoid;
   }
 }
