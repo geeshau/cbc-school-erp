@@ -43,7 +43,7 @@ const NAV_LINKS = [
   { href: '#about', label: 'About' },
   { href: '#programmes', label: 'Programmes' },
   { href: '#gallery', label: 'Gallery' },
-  { href: '#report-form', label: 'Reports' },
+  { href: '#reports', label: 'Reports', modal: true },
 ];
 
 const HERO_FACTS = [
@@ -74,14 +74,20 @@ const STEPS = [
   {
     title: 'Send an Admissions Enquiry',
     text: 'Use the office enquiry form or call us to ask about vacancies, fees, uniform and transport.',
+    image: 'https://images.unsplash.com/photo-1596495578065-6e0763fa1178?auto=format&fit=crop&w=800&q=80',
+    imageAlt: 'Parent enquiring about school admissions at reception',
   },
   {
     title: 'Visit the School',
     text: 'Tour our classrooms and play areas, meet the teachers and see a typical learning day.',
+    image: 'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=800&q=80',
+    imageAlt: 'Teacher guiding children during a classroom activity',
   },
   {
     title: 'Complete Enrolment',
     text: 'Submit the admission documents and your child is ready to begin their bright journey.',
+    image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80',
+    imageAlt: 'Happy child with backpack ready for first day of school',
   },
 ];
 
@@ -148,6 +154,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
       ];
 
   // Report request form
+  const [reportModalOpen, setReportModalOpen] = useState(false);
   const [childName, setChildName] = useState('');
   const [parentName, setParentName] = useState('');
   const [adminNumber, setAdminNumber] = useState('');
@@ -295,6 +302,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
 
             <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
               {NAV_LINKS.map((link, i) => (
+                link.modal ? (
+                  <button
+                    key={link.href}
+                    type="button"
+                    onClick={() => setReportModalOpen(true)}
+                    className={`relative text-sm font-semibold transition-colors hover:text-white cursor-pointer ${
+                      'text-white/70 after:w-0 hover:after:w-full'
+                    } after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:rounded-full after:bg-[#FFAE00] after:transition-all`}
+                  >
+                    {link.label}
+                  </button>
+                ) : (
                 <a
                   key={link.href}
                   href={link.href}
@@ -304,6 +323,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                 >
                   {link.label}
                 </a>
+                )
               ))}
             </nav>
 
@@ -338,6 +358,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
           {menuOpen && (
             <nav id="mobile-nav" className="mx-5 mb-4 rounded-2xl border border-white/10 bg-white/5 p-3 backdrop-blur-xl lg:hidden" aria-label="Mobile">
               {NAV_LINKS.map((link) => (
+                link.modal ? (
+                  <button
+                    key={link.href}
+                    type="button"
+                    onClick={() => { setMenuOpen(false); setReportModalOpen(true); }}
+                    className="block w-full rounded-xl px-4 py-3 text-left text-sm font-semibold text-white/90 hover:bg-white/10"
+                  >
+                    {link.label}
+                  </button>
+                ) : (
                 <a
                   key={link.href}
                   href={link.href}
@@ -346,6 +376,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                 >
                   {link.label}
                 </a>
+                )
               ))}
               <button
                 type="button"
@@ -401,7 +432,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </a>
 
-              <a href="#report-form" className="group inline-flex items-center gap-3 text-white">
+              <button type="button" onClick={() => setReportModalOpen(true)} className="group inline-flex items-center gap-3 text-white cursor-pointer">
                 <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-white text-[#0D3B36] shadow-lg transition group-hover:scale-105">
                   <span className="absolute inset-0 animate-ping rounded-full bg-white/30" aria-hidden="true" />
                   <FileText className="relative h-5 w-5" aria-hidden="true" />
@@ -409,7 +440,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                 <span className="text-sm font-bold underline-offset-4 group-hover:underline">
                   {content?.heroSecondaryCtaLabel || 'Request Child Report'}
                 </span>
-              </a>
+              </button>
             </div>
 
             <dl className="mt-12 grid grid-cols-3 divide-x divide-white/15 rounded-2xl border border-white/10 bg-white/5 py-5 backdrop-blur">
@@ -769,14 +800,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
             <div className="relative mx-auto h-72 w-72 sm:h-80 sm:w-80 lg:h-96 lg:w-96">
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#0D3B36] to-[#14574f]" aria-hidden="true" />
               <div className="absolute -inset-4 rounded-full border-2 border-dashed border-[#0D3B36]/25 [animation:spin_40s_linear_infinite]" aria-hidden="true" />
-              <img
-                src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=800&q=80"
-                alt="Teacher guiding children during a classroom activity"
-                className="absolute inset-3 h-[calc(100%-1.5rem)] w-[calc(100%-1.5rem)] rounded-full object-cover ring-8 ring-white"
-                loading="lazy"
-              />
-              <span className="absolute -right-1 top-8 flex h-14 w-14 items-center justify-center rounded-full bg-[#FFAE00] text-2xl font-black text-[#0D3B36] shadow-xl ring-4 ring-white">
-                3
+              {/* Step images — all rendered, only active one is visible */}
+              {STEPS.map((step, i) => (
+                <img
+                  key={step.title}
+                  src={step.image}
+                  alt={step.imageAlt}
+                  className={`absolute inset-3 h-[calc(100%-1.5rem)] w-[calc(100%-1.5rem)] rounded-full object-cover ring-8 ring-white transition-opacity duration-500 ${
+                    i === activeStep ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  loading="lazy"
+                />
+              ))}
+              <span className="absolute -right-1 top-8 flex h-14 w-14 items-center justify-center rounded-full bg-[#FFAE00] text-2xl font-black text-[#0D3B36] shadow-xl ring-4 ring-white transition-all duration-300">
+                {activeStep + 1}
               </span>
               <Plus className="absolute -left-4 bottom-10 h-8 w-8 text-[#FFAE00]" strokeWidth={3} aria-hidden="true" />
             </div>
@@ -976,75 +1013,129 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
         </div>
       </section>
 
-      {/* ───────────── Report request ───────────── */}
-      <section id="report-form" className="scroll-mt-6 px-4 py-20 sm:px-8 lg:py-24">
-        <div className="relative mx-auto max-w-4xl overflow-hidden rounded-[2.5rem] rounded-tr-[6rem] px-6 py-12 sm:px-12 sm:py-14" style={{ backgroundColor: TEAL }}>
+      {/* ───────────── Report request CTA banner ───────────── */}
+      <section className="px-4 py-14 sm:px-8 lg:py-16">
+        <div className="relative mx-auto flex max-w-4xl flex-col items-center gap-6 overflow-hidden rounded-[2.5rem] rounded-tr-[6rem] px-6 py-10 text-center sm:px-12 sm:py-12" style={{ backgroundColor: TEAL }}>
           <div className="pointer-events-none absolute inset-0" aria-hidden="true">
             <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[#FFAE00]/15 blur-3xl" />
             <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:24px_24px]" />
           </div>
-
-          <div className="relative mx-auto mb-8 max-w-xl text-center">
-            <SectionLabel light>Official Document Portal</SectionLabel>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Request Child Progress Report</h2>
-            <p className="mt-3 text-sm text-white/70">
-              Parents can request official terminal progress reports and report cards by providing pupil details below.
-            </p>
-          </div>
-
-          {reportSubmitted ? (
-            <div className="relative space-y-4 rounded-2xl bg-white p-8 text-center shadow-xl">
-              <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-600" aria-hidden="true" />
-              <h3 className="text-lg font-extrabold text-[#0D3B36]">Report Request Logged Successfully!</h3>
-              <p className="mx-auto max-w-md text-sm leading-relaxed text-slate-600">
-                Child Report Request for <strong className="text-[#F7941D]">{childName}</strong> (Admin No: <span className="font-mono">{adminNumber}</span>)
-                has been submitted for verification. The official term report will be sent to <span className="underline">{parentEmail}</span>.
-              </p>
-              <button
-                type="button"
-                onClick={() => {
-                  setReportSubmitted(false);
-                  setChildName('');
-                  setParentName('');
-                  setAdminNumber('');
-                  setParentEmail('');
-                }}
-                className="rounded-xl bg-[#F7941D] px-6 py-2.5 text-sm font-bold text-white hover:bg-[#FFAE00]"
-              >
-                Request Another Report
-              </button>
-            </div>
-          ) : (
-            <form onSubmit={handleReportSubmit} className="relative space-y-4 rounded-2xl rounded-tr-[3rem] bg-white p-6 shadow-xl sm:p-8">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="rep-child" className="mb-1.5 block text-xs font-bold text-slate-700">Name of Child *</label>
-                  <input id="rep-child" type="text" required value={childName} onChange={(e) => setChildName(e.target.value)} placeholder="e.g. Liam Kiprono" className={inputClass} />
-                </div>
-                <div>
-                  <label htmlFor="rep-parent" className="mb-1.5 block text-xs font-bold text-slate-700">Name of Parent *</label>
-                  <input id="rep-parent" type="text" required value={parentName} onChange={(e) => setParentName(e.target.value)} placeholder="e.g. David Kiprono" className={inputClass} />
-                </div>
-                <div>
-                  <label htmlFor="rep-adm" className="mb-1.5 block text-xs font-bold text-slate-700">Child Admission Number *</label>
-                  <input id="rep-adm" type="text" required value={adminNumber} onChange={(e) => setAdminNumber(e.target.value)} placeholder="e.g. ADM-2026-001" className={`${inputClass} font-mono`} />
-                </div>
-                <div>
-                  <label htmlFor="rep-email" className="mb-1.5 block text-xs font-bold text-slate-700">Parent Email Address *</label>
-                  <input id="rep-email" type="email" required value={parentEmail} onChange={(e) => setParentEmail(e.target.value)} placeholder="e.g. david.kiprono@gmail.com" className={inputClass} />
-                </div>
-              </div>
-              <button
-                type="submit"
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#F7941D] py-3.5 text-sm font-bold text-white shadow-lg shadow-orange-500/30 transition hover:-translate-y-0.5 hover:bg-[#FFAE00]"
-              >
-                <FileText className="h-4 w-4" aria-hidden="true" /> Submit Child Report Request
-              </button>
-              <p className="text-center text-xs text-slate-400">Reports are verified against school administrative records before dispatch.</p>
-            </form>
-          )}
+          <FileText className="relative h-10 w-10 text-[#FFAE00]" aria-hidden="true" />
+          <h2 className="relative text-2xl font-extrabold tracking-tight text-white sm:text-3xl">Request Child Progress Report</h2>
+          <p className="relative max-w-lg text-sm text-white/70">
+            Parents can request official terminal progress reports and report cards by providing pupil details.
+          </p>
+          <button
+            type="button"
+            onClick={() => setReportModalOpen(true)}
+            className="relative flex items-center gap-2 rounded-full bg-[#F7941D] px-8 py-3.5 text-sm font-bold text-white shadow-lg shadow-orange-500/30 transition hover:-translate-y-0.5 hover:bg-[#FFAE00]"
+          >
+            <FileText className="h-4 w-4" aria-hidden="true" />
+            Open Report Request Form
+          </button>
         </div>
       </section>
+
+      {/* ───────────── Report request MODAL ───────────── */}
+      {reportModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Request Child Progress Report">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => { setReportModalOpen(false); setReportSubmitted(false); }}
+            aria-hidden="true"
+          />
+
+          {/* Modal panel */}
+          <div className="relative w-full max-w-lg overflow-hidden rounded-3xl rounded-tr-[4rem] bg-white shadow-2xl" style={{ animation: 'fadeSlideUp 0.3s ease-out' }}>
+            {/* Header */}
+            <div className="relative px-6 pt-6 sm:px-8 sm:pt-8" style={{ backgroundColor: TEAL }}>
+              <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+                <div className="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-[#FFAE00]/15 blur-3xl" />
+              </div>
+              <button
+                type="button"
+                onClick={() => { setReportModalOpen(false); setReportSubmitted(false); }}
+                className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+                aria-label="Close"
+              >
+                <X className="h-5 w-5" />
+              </button>
+              <div className="relative pb-6 text-center">
+                <SectionLabel light>Official Document Portal</SectionLabel>
+                <h2 className="mt-2 text-xl font-extrabold tracking-tight text-white sm:text-2xl">Request Child Progress Report</h2>
+                <p className="mt-2 text-xs text-white/70">
+                  Provide pupil details below to request official terminal progress reports.
+                </p>
+              </div>
+            </div>
+
+            {/* Body */}
+            <div className="px-6 py-6 sm:px-8 sm:py-8">
+              {reportSubmitted ? (
+                <div className="space-y-4 text-center">
+                  <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-600" aria-hidden="true" />
+                  <h3 className="text-lg font-extrabold text-[#0D3B36]">Report Request Logged Successfully!</h3>
+                  <p className="mx-auto max-w-md text-sm leading-relaxed text-slate-600">
+                    Child Report Request for <strong className="text-[#F7941D]">{childName}</strong> (Admin No: <span className="font-mono">{adminNumber}</span>)
+                    has been submitted for verification. The official term report will be sent to <span className="underline">{parentEmail}</span>.
+                  </p>
+                  <div className="flex gap-3 justify-center pt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setReportSubmitted(false);
+                        setChildName('');
+                        setParentName('');
+                        setAdminNumber('');
+                        setParentEmail('');
+                      }}
+                      className="rounded-xl bg-[#F7941D] px-6 py-2.5 text-sm font-bold text-white hover:bg-[#FFAE00]"
+                    >
+                      Request Another
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setReportModalOpen(false); setReportSubmitted(false); }}
+                      className="rounded-xl border border-slate-200 px-6 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <form onSubmit={handleReportSubmit} className="space-y-4">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="rep-child" className="mb-1.5 block text-xs font-bold text-slate-700">Name of Child *</label>
+                      <input id="rep-child" type="text" required value={childName} onChange={(e) => setChildName(e.target.value)} placeholder="e.g. Liam Kiprono" className={inputClass} />
+                    </div>
+                    <div>
+                      <label htmlFor="rep-parent" className="mb-1.5 block text-xs font-bold text-slate-700">Name of Parent *</label>
+                      <input id="rep-parent" type="text" required value={parentName} onChange={(e) => setParentName(e.target.value)} placeholder="e.g. David Kiprono" className={inputClass} />
+                    </div>
+                    <div>
+                      <label htmlFor="rep-adm" className="mb-1.5 block text-xs font-bold text-slate-700">Child Admission Number *</label>
+                      <input id="rep-adm" type="text" required value={adminNumber} onChange={(e) => setAdminNumber(e.target.value)} placeholder="e.g. ADM-2026-001" className={`${inputClass} font-mono`} />
+                    </div>
+                    <div>
+                      <label htmlFor="rep-email" className="mb-1.5 block text-xs font-bold text-slate-700">Parent Email Address *</label>
+                      <input id="rep-email" type="email" required value={parentEmail} onChange={(e) => setParentEmail(e.target.value)} placeholder="e.g. david.kiprono@gmail.com" className={inputClass} />
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#F7941D] py-3.5 text-sm font-bold text-white shadow-lg shadow-orange-500/30 transition hover:-translate-y-0.5 hover:bg-[#FFAE00]"
+                  >
+                    <FileText className="h-4 w-4" aria-hidden="true" /> Submit Child Report Request
+                  </button>
+                  <p className="text-center text-xs text-slate-400">Reports are verified against school administrative records before dispatch.</p>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ───────────── Footer ───────────── */}
       <footer className="relative overflow-hidden text-white/70" style={{ backgroundColor: '#082824' }}>
@@ -1065,7 +1156,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
             <ul className="space-y-2.5 text-sm">
               {[...NAV_LINKS, { href: '#enquire', label: 'Office Enquiry' }].map((l) => (
                 <li key={l.href}>
-                  <a href={l.href} className="transition-colors hover:text-[#FFAE00]">{l.label}</a>
+                  {'modal' in l && l.modal ? (
+                    <button type="button" onClick={() => setReportModalOpen(true)} className="transition-colors hover:text-[#FFAE00]">{l.label}</button>
+                  ) : (
+                    <a href={l.href} className="transition-colors hover:text-[#FFAE00]">{l.label}</a>
+                  )}
                 </li>
               ))}
             </ul>

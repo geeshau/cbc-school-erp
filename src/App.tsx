@@ -34,13 +34,32 @@ import {
   INITIAL_TIMETABLE,
   INITIAL_EVENTS
 } from './data/mockData';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, ArrowLeft } from 'lucide-react';
 import { useTheme } from './lib/theme';
 
 export default function App() {
   const [appMode, setAppMode] = useState<'landing' | 'system'>('landing');
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
+  const [tabHistory, setTabHistory] = useState<TabType[]>([]);
   const { theme, resolvedTheme, setTheme, toggleTheme, isDark } = useTheme();
+
+  // Wrapped tab setter that tracks history
+  const navigateToTab = (tab: TabType) => {
+    if (tab !== activeTab) {
+      setTabHistory((prev) => [...prev, activeTab]);
+      setActiveTab(tab);
+    }
+  };
+
+  const goBack = () => {
+    setTabHistory((prev) => {
+      if (prev.length === 0) return prev;
+      const newHistory = [...prev];
+      const previousTab = newHistory.pop()!;
+      setActiveTab(previousTab);
+      return newHistory;
+    });
+  };
 
   // Users & Role Switching (Dr. Arthur Pendelton - Admin, Sarah Jenkins - Teacher, Marcus Vance - Teacher)
   const [users, setUsers] = useState<User[]>(DEMO_USERS);
@@ -344,7 +363,7 @@ export default function App() {
         onSwitchUser={handleSwitchUser}
         dbStatus={dbStatus}
         activeStudentsCount={students.filter((s) => s.status === 'active').length}
-        onNavigateTab={(tab) => setActiveTab(tab)}
+        onNavigateTab={(tab) => navigateToTab(tab)}
         theme={theme}
         resolvedTheme={resolvedTheme}
         onThemeChange={setTheme}
@@ -358,7 +377,7 @@ export default function App() {
         {/* Sidebar on desktop / Middle Navbar on mobile */}
         <Sidebar
           currentTab={activeTab}
-          onSelectTab={(tab) => setActiveTab(tab)}
+          onSelectTab={(tab) => navigateToTab(tab)}
           userRole={currentUser.role}
           isCollapsed={isSidebarCollapsed}
           onToggleCollapse={handleToggleSidebar}
@@ -371,6 +390,18 @@ export default function App() {
         {/* Dynamic Content Body */}
         <main className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 2xl:p-8 pb-24 sm:pb-24 md:pb-24 lg:pb-24 xl:pb-24 2xl:pb-24 bg-canvas dark:bg-[#04110f] transition-colors w-full">
           <div className="w-full max-w-full sm:max-w-[calc(100vw-2rem)] md:max-w-7xl xl:max-w-[1600px] 2xl:max-w-[1720px] mx-auto space-y-4 sm:space-y-5 lg:space-y-6">
+            {/* Back Navigation Button */}
+            {tabHistory.length > 0 && (
+              <button
+                type="button"
+                onClick={goBack}
+                className="inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-colors"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                Back
+              </button>
+            )}
+
             {/* Action Toast Feedback */}
             {toastMessage && (
               <div className="fixed bottom-20 sm:bottom-6 right-3 sm:right-7 z-50 bg-slate-900 dark:bg-slate-800 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl shadow-2xl border border-slate-700 dark:border-slate-700 flex items-center gap-2 sm:gap-2.5 animate-in fade-in slide-in-from-bottom-3 duration-200 max-w-[calc(100vw-1.5rem)] sm:max-w-sm">
@@ -388,8 +419,8 @@ export default function App() {
                 feeSummary={feeSummary}
                 userRole={currentUser.role}
                 currentUserName={currentUser.name}
-                onNavigateTab={(tab) => setActiveTab(tab)}
-                onOpenNewStudentModal={() => setActiveTab('enrolment')}
+                onNavigateTab={(tab) => navigateToTab(tab)}
+                onOpenNewStudentModal={() => navigateToTab('enrolment')}
                 onAddStudent={handleAddStudent}
                 onRecordPayment={handleRecordPayment}
               />
@@ -402,7 +433,7 @@ export default function App() {
                 teachers={users.filter((user) => user.role === 'teacher')}
                 onAddStudent={handleAddStudent}
                 userRole={currentUser.role}
-                onViewReportCard={() => setActiveTab('reports')}
+                onViewReportCard={() => navigateToTab('reports')}
               />
             )}
 
