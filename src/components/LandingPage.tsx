@@ -228,11 +228,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
     setTimeout(() => setFeedbackSubmitted(false), 4000);
   };
 
-  // Scroll-to-top visibility
+  // Scroll-to-top visibility & sticky nav
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [showStickyNav, setShowStickyNav] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setShowScrollTop(window.scrollY > 400);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setShowScrollTop(y > 400);
+      setShowStickyNav(y > 120);
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -278,6 +283,67 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
           </div>
         </div>
       </div>
+
+      {/* ───────────── Sticky Top Navbar (appears on scroll) ───────────── */}
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+          showStickyNav
+            ? 'translate-y-0 opacity-100'
+            : '-translate-y-full opacity-0 pointer-events-none'
+        }`}
+        style={{ backgroundColor: TEAL }}
+      >
+        <div className="border-b border-white/10 bg-[#0D3B36]/95 backdrop-blur-xl shadow-lg shadow-black/20">
+          <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
+            <a href="#home" className="flex items-center gap-2.5 text-white" onClick={scrollToTop}>
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#FFAE00] text-sm font-black text-[#0D3B36]">
+                PS
+              </span>
+              <span className="text-sm font-extrabold tracking-tight sm:text-base">PCEA St Andrews</span>
+            </a>
+
+            <nav className="hidden items-center gap-6 lg:flex" aria-label="Sticky navigation">
+              {NAV_LINKS.map((link) => (
+                link.modal ? (
+                  <button
+                    key={link.href}
+                    type="button"
+                    onClick={() => setReportModalOpen(true)}
+                    className="text-sm font-semibold text-white/70 transition-colors hover:text-white cursor-pointer"
+                  >
+                    {link.label}
+                  </button>
+                ) : (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm font-semibold text-white/70 transition-colors hover:text-white"
+                  >
+                    {link.label}
+                  </a>
+                )
+              ))}
+            </nav>
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => onEnterSystem()}
+                className="flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold text-white transition hover:bg-white/20"
+              >
+                <Lock className="h-3 w-3" />
+                Staff
+              </button>
+              <a
+                href="#enquire"
+                className="hidden rounded-full bg-[#F7941D] px-5 py-2 text-xs font-bold text-white shadow-lg shadow-orange-500/30 transition hover:bg-[#FFAE00] sm:inline-flex"
+              >
+                Contact
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
 
       {/* ───────────── Hero (with header) ───────────── */}
       <div className="relative overflow-hidden" style={{ backgroundColor: TEAL }}>
