@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Users,
   ShieldCheck,
@@ -22,8 +22,14 @@ import {
   GraduationCap,
   Image as ImageIcon,
   Lock,
+  ChevronUp,
+  ChevronLeft,
+  ChevronRight,
+  MessageCircle,
+  Quote,
+  ThumbsUp,
 } from 'lucide-react';
-import { WebsiteContent } from './WebsiteContentManager';
+import { WebsiteContent, FeedbackComment } from './WebsiteContentManager';
 
 interface LandingPageProps {
   content?: WebsiteContent;
@@ -154,6 +160,80 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
   const [enquiryMessage, setEnquiryMessage] = useState('');
   const [enquirySubmitted, setEnquirySubmitted] = useState(false);
 
+  // Feedback from CMS (visible only)
+  const visibleFeedback = (content?.feedbackComments || []).filter((fb) => fb.visible);
+
+  // Horizontal slideshow — page-by-page with auto-advance
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [cardsPerView, setCardsPerView] = useState(3);
+
+  // Responsive cards-per-view
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      setCardsPerView(w < 640 ? 1 : w < 1024 ? 2 : 3);
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
+  const totalSlides = Math.max(1, Math.ceil(visibleFeedback.length / cardsPerView));
+
+  // Auto-advance every 5 seconds
+  useEffect(() => {
+    if (isPaused || totalSlides <= 1) return;
+    const timer = setInterval(() => {
+      setSlideIndex((prev) => (prev + 1) % totalSlides);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [isPaused, totalSlides]);
+
+  // Clamp slide index when cards or cardsPerView change
+  useEffect(() => {
+    setSlideIndex((prev) => Math.min(prev, totalSlides - 1));
+  }, [totalSlides]);
+
+  // Like handling (local session only)
+  const [likedIds, setLikedIds] = useState<Set<string>>(new Set());
+  const [localLikes, setLocalLikes] = useState<Record<string, number>>({});
+
+  const handleLike = (id: string) => {
+    if (likedIds.has(id)) return;
+    setLikedIds((prev) => new Set(prev).add(id));
+    setLocalLikes((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
+  };
+
+  // Feedback submission form
+  const [feedbackFormOpen, setFeedbackFormOpen] = useState(false);
+  const [feedbackText, setFeedbackText] = useState('');
+  const [feedbackRole, setFeedbackRole] = useState('');
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
+
+  const handleFeedbackSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!feedbackText.trim()) return;
+    // In a real app this would POST to the server; for now show confirmation
+    setFeedbackText('');
+    setFeedbackRole('');
+    setFeedbackSubmitted(true);
+    setTimeout(() => setFeedbackSubmitted(false), 4000);
+  };
+
+  // Scroll-to-top visibility
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowScrollTop(window.scrollY > 400);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   const handleReportSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!childName || !parentName || !adminNumber || !parentEmail) {
@@ -228,6 +308,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
             </nav>
 
             <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => onEnterSystem()}
+                className="hidden rounded-full border border-white/20 bg-white/10 px-5 py-2.5 text-sm font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20 sm:inline-flex items-center gap-1.5"
+              >
+                <Lock className="h-3.5 w-3.5" />
+                Staff
+              </button>
               <a
                 href="#enquire"
                 className="hidden rounded-full bg-[#F7941D] px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-orange-500/30 transition hover:-translate-y-0.5 hover:bg-[#FFAE00] sm:inline-flex"
@@ -259,6 +347,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                   {link.label}
                 </a>
               ))}
+              <button
+                type="button"
+                onClick={() => { setMenuOpen(false); onEnterSystem(); }}
+                className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/10 px-4 py-3 text-sm font-bold text-white"
+              >
+                <Lock className="h-3.5 w-3.5" />
+                Staff Login
+              </button>
               <a
                 href="#enquire"
                 onClick={() => setMenuOpen(false)}
@@ -366,8 +462,230 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
         </svg>
       </div>
 
+      {/* ───────────── Parent Feedback Carousel ───────────── */}
+      {visibleFeedback.length > 0 && (
+      <section id="feedback" className="scroll-mt-6 bg-[#F8F9FA] pb-8 pt-16 lg:pb-12 lg:pt-20">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          {/* Header */}
+          <div className="mx-auto max-w-2xl text-center">
+            <SectionLabel>What Parents Say</SectionLabel>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0D3B36] sm:text-4xl lg:text-5xl">
+              Voices From Our School Community
+            </h2>
+            <p className="mt-4 text-slate-500">
+              Anonymous feedback from parents and guardians about their experience at PCEA St Andrews Kindergarten.
+            </p>
+          </div>
+
+          {/* Horizontal Slideshow Carousel */}
+          <div
+            className="relative mt-12 px-6 sm:px-12"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            aria-roledescription="carousel"
+            aria-label="Parent feedback"
+          >
+            {/* Prev / Next arrows */}
+            {totalSlides > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setSlideIndex((prev) => (prev - 1 + totalSlides) % totalSlides)}
+                  className="absolute left-0 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-[#0D3B36] shadow-md transition-all hover:bg-[#0D3B36] hover:text-white"
+                  aria-label="Previous feedback"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSlideIndex((prev) => (prev + 1) % totalSlides)}
+                  className="absolute right-0 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-[#0D3B36] shadow-md transition-all hover:bg-[#0D3B36] hover:text-white"
+                  aria-label="Next feedback"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </>
+            )}
+
+            {/* Slide track */}
+            <div className="overflow-hidden rounded-2xl">
+              <div
+                className="flex transition-transform duration-600 ease-in-out"
+                style={{ transform: `translateX(-${slideIndex * 100}%)` }}
+              >
+                {/* Each slide is a full-width page of cards */}
+                {Array.from({ length: totalSlides }).map((_, slideIdx) => {
+                  const slideCards = visibleFeedback.slice(
+                    slideIdx * cardsPerView,
+                    slideIdx * cardsPerView + cardsPerView
+                  );
+                  return (
+                    <div
+                      key={slideIdx}
+                      className="grid w-full shrink-0 gap-5"
+                      style={{
+                        gridTemplateColumns: `repeat(${cardsPerView}, minmax(0, 1fr))`,
+                      }}
+                      role="group"
+                      aria-roledescription="slide"
+                      aria-label={`Feedback page ${slideIdx + 1} of ${totalSlides}`}
+                    >
+                      {slideCards.map((fb) => {
+                        const totalLikes = fb.likes + (localLikes[fb.id] || 0);
+                        return (
+                          <article
+                            key={fb.id}
+                            className="group relative flex flex-col rounded-3xl rounded-tr-[3rem] border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#0D3B36]/25 hover:shadow-[0_20px_60px_-20px_rgba(13,59,54,0.25)]"
+                          >
+                            {/* Quote icon */}
+                            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0D3B36]/[0.07] text-[#0D3B36] transition-colors group-hover:bg-[#FFAE00]/15 group-hover:text-[#F7941D]">
+                              <Quote className="h-5 w-5" aria-hidden="true" />
+                            </span>
+
+                            {/* Comment text */}
+                            <p className="mt-4 flex-1 text-sm leading-relaxed text-slate-600">
+                              &ldquo;{fb.text}&rdquo;
+                            </p>
+
+                            {/* Footer: role, date, like */}
+                            <div className="mt-5 flex items-center justify-between border-t border-slate-200 pt-4 transition-colors group-hover:border-slate-300">
+                              <div className="flex items-center gap-2.5">
+                                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0D3B36] text-xs font-bold text-white">
+                                  {fb.role.charAt(0).toUpperCase()}
+                                </span>
+                                <div className="min-w-0">
+                                  <span className="block text-xs font-bold text-[#0D3B36] truncate">{fb.role}</span>
+                                  <span className="block text-[10px] text-slate-400">{fb.date}</span>
+                                </div>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => handleLike(fb.id)}
+                                className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition-all ${
+                                  likedIds.has(fb.id)
+                                    ? 'bg-[#FFAE00]/15 text-[#F7941D]'
+                                    : 'bg-slate-100 text-slate-400 hover:bg-[#FFAE00]/10 hover:text-[#F7941D]'
+                                }`}
+                                aria-label={`Like this feedback (${totalLikes} likes)`}
+                              >
+                                <ThumbsUp className={`h-3.5 w-3.5 ${likedIds.has(fb.id) ? 'fill-[#F7941D]' : ''}`} />
+                                {totalLikes}
+                              </button>
+                            </div>
+                          </article>
+                        );
+                      })}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Slide indicator dots */}
+            {totalSlides > 1 && (
+              <div className="mt-8 flex items-center justify-center gap-2">
+                {Array.from({ length: totalSlides }).map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setSlideIndex(i)}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      i === slideIndex
+                        ? 'w-8 bg-[#0D3B36]'
+                        : 'w-2 bg-slate-300 hover:bg-slate-400'
+                    }`}
+                    aria-label={`Go to feedback page ${i + 1}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Submit Anonymous Feedback — collapsed by default */}
+          <div className="mx-auto mt-14 max-w-2xl">
+            <div className="relative rounded-3xl rounded-tr-[4rem] border border-slate-200 bg-white shadow-sm overflow-hidden">
+              <span className="absolute right-0 top-0 h-14 w-14 rounded-tr-[4rem] border-r-4 border-t-4 border-[#0D3B36]/30" aria-hidden="true" />
+
+              {/* Clickable header — always visible */}
+              <button
+                type="button"
+                onClick={() => setFeedbackFormOpen((o) => !o)}
+                className="flex w-full items-center gap-3 p-6 text-left transition-colors hover:bg-slate-50 sm:p-8"
+                aria-expanded={feedbackFormOpen}
+              >
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0D3B36] text-white">
+                  <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-lg font-extrabold text-[#0D3B36]">Share Your Experience</h3>
+                  <p className="text-xs text-slate-500">Your feedback is anonymous and helps other parents.</p>
+                </div>
+                <ChevronRight
+                  className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-300 ${feedbackFormOpen ? 'rotate-90' : ''}`}
+                  aria-hidden="true"
+                />
+              </button>
+
+              {/* Collapsible form */}
+              <div
+                className="grid transition-all duration-300 ease-in-out"
+                style={{ gridTemplateRows: feedbackFormOpen ? '1fr' : '0fr' }}
+              >
+                <div className="overflow-hidden">
+                  <div className="px-6 pb-6 sm:px-8 sm:pb-8">
+                    {feedbackSubmitted && (
+                      <div className="mb-4 flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700">
+                        <CheckCircle2 className="h-4 w-4 shrink-0" aria-hidden="true" />
+                        Thank you! Your anonymous feedback has been submitted for review.
+                      </div>
+                    )}
+
+                    <form onSubmit={handleFeedbackSubmit} className="space-y-4">
+                      <div>
+                        <label htmlFor="fb-text" className="mb-1.5 block text-xs font-bold text-slate-700">Your Comment *</label>
+                        <textarea
+                          id="fb-text"
+                          rows={3}
+                          required
+                          value={feedbackText}
+                          onChange={(e) => setFeedbackText(e.target.value)}
+                          placeholder="Share your experience as a parent at St Andrews..."
+                          className={`${inputClass} resize-none`}
+                          maxLength={500}
+                        />
+                        <p className="mt-1 text-right text-[10px] text-slate-400">{feedbackText.length}/500</p>
+                      </div>
+                      <div>
+                        <label htmlFor="fb-role" className="mb-1.5 block text-xs font-bold text-slate-700">
+                          Your Role <span className="font-normal text-slate-400">(optional — e.g. "Parent — PP1")</span>
+                        </label>
+                        <input
+                          id="fb-role"
+                          type="text"
+                          value={feedbackRole}
+                          onChange={(e) => setFeedbackRole(e.target.value)}
+                          placeholder="Anonymous Parent"
+                          className={inputClass}
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#0D3B36] py-3.5 text-sm font-bold text-white shadow-lg shadow-[#0D3B36]/20 transition hover:-translate-y-0.5 hover:bg-[#145A52]"
+                      >
+                        <Send className="h-4 w-4" aria-hidden="true" /> Post Anonymous Feedback
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      )}
+
       {/* ───────────── 3 Reasons ───────────── */}
-      <section id="about" className="mx-auto max-w-7xl scroll-mt-6 px-5 py-20 sm:px-8 lg:py-24">
+      <section id="about" className="mx-auto max-w-7xl scroll-mt-6 px-5 pt-10 pb-20 sm:px-8 lg:pt-14 lg:pb-24">
         <div className="mx-auto max-w-2xl text-center">
           <SectionLabel>Why PCEA St Andrews</SectionLabel>
           <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0D3B36] sm:text-4xl lg:text-5xl">3 Reasons To Choose Us</h2>
@@ -568,7 +886,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
       </section>
 
       {/* ───────────── Office enquiry ───────────── */}
-      <section id="enquire" className="scroll-mt-6 bg-white py-20 lg:py-24">
+      <section id="enquire" className="scroll-mt-6 bg-[#F8F9FA] py-20 lg:py-24">
         <div className="mx-auto grid max-w-7xl items-start gap-12 px-5 sm:px-8 lg:grid-cols-2">
           <div>
             <SectionLabel>Direct Contact</SectionLabel>
@@ -792,6 +1110,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
           </div>
         </div>
       </footer>
+
+      {/* ───────────── Scroll-to-top button ───────────── */}
+      <button
+        type="button"
+        onClick={scrollToTop}
+        aria-label="Scroll to top"
+        className={`fixed bottom-6 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-[#0D3B36] text-white shadow-lg shadow-black/20 ring-1 ring-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-[#145A52] hover:shadow-xl hover:scale-105 active:scale-95 ${
+          showScrollTop
+            ? 'translate-y-0 opacity-100'
+            : 'translate-y-4 opacity-0 pointer-events-none'
+        }`}
+      >
+        <ChevronUp className="h-5 w-5" />
+      </button>
     </div>
   );
 };

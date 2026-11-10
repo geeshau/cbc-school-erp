@@ -78,6 +78,14 @@ export default function App() {
       { id: '4', title: 'Spiritual Assembly & Song', url: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80', category: 'Spiritual' },
       { id: '5', title: 'CBC Interactive Lessons', url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80', category: 'Facilities' },
       { id: '6', title: 'Kindergarten Computer Lab', url: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80', category: 'Facilities' }
+    ],
+    feedbackComments: [
+      { id: 'fb-1', text: 'My daughter has blossomed since joining St Andrews. The teachers are incredibly patient and truly know each child by name. The CBC approach makes learning feel like play!', role: 'Parent — PP2', date: 'Oct 2026', likes: 24, visible: true },
+      { id: 'fb-2', text: 'As a first-time parent, I was nervous about school. The warm reception and regular progress updates from teachers gave me so much confidence. Highly recommend this school.', role: 'Parent — Playgroup', date: 'Sep 2026', likes: 18, visible: true },
+      { id: 'fb-3', text: 'The Montessori-inspired activities are fantastic. My son comes home excited to tell us what he learned. The spiritual growth focus aligns perfectly with our family values.', role: 'Parent — Grade 1', date: 'Nov 2026', likes: 31, visible: true },
+      { id: 'fb-4', text: 'Clean, safe, and well-organized campus. The outdoor play area is wonderful and the children get a great balance of structured learning and free play time.', role: 'Parent — PP1', date: 'Aug 2026', likes: 15, visible: true },
+      { id: 'fb-5', text: 'The school events and parent days are beautifully organized. You can see how much effort the staff puts into making every child feel special and celebrated.', role: 'Parent — Grade 2', date: 'Oct 2026', likes: 22, visible: true },
+      { id: 'fb-6', text: 'Transferring here was the best decision. The smaller class sizes mean my child gets individual attention. The report cards are detailed and show real progress tracking.', role: 'Parent — Grade 3', date: 'Nov 2026', likes: 27, visible: true },
     ]
   });
 
@@ -342,6 +350,7 @@ export default function App() {
         onThemeChange={setTheme}
         onToggleTheme={toggleTheme}
         onReturnToLanding={() => setAppMode('landing')}
+        onLogout={() => setAppMode('landing')}
       />
 
       {/* Main App Container */}
@@ -360,7 +369,7 @@ export default function App() {
         />
 
         {/* Dynamic Content Body */}
-        <main className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 2xl:p-8 pb-32 sm:pb-32 md:pb-36 bg-canvas dark:bg-[#04110f] transition-colors w-full">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 2xl:p-8 pb-24 sm:pb-24 md:pb-24 lg:pb-24 xl:pb-24 2xl:pb-24 bg-canvas dark:bg-[#04110f] transition-colors w-full">
           <div className="w-full max-w-full sm:max-w-[calc(100vw-2rem)] md:max-w-7xl xl:max-w-[1600px] 2xl:max-w-[1720px] mx-auto space-y-4 sm:space-y-5 lg:space-y-6">
             {/* Action Toast Feedback */}
             {toastMessage && (

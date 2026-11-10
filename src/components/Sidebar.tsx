@@ -231,10 +231,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <nav
       id="floating-bottom-nav"
       aria-label="School navigation"
-      className="fixed bottom-3 left-1/2 z-50 -translate-x-1/2 w-[calc(100%-1rem)] max-w-4xl px-1 sm:w-fit sm:max-w-[calc(100%-1rem)]"
+      className="fixed bottom-3 left-1/2 z-50 -translate-x-1/2 w-[calc(100%-1rem)] max-w-5xl px-1 sm:w-auto sm:max-w-[calc(100%-4rem)]"
     >
-      <div className="flex w-full max-w-full items-center justify-center rounded-full border border-white/10 bg-brand-800/95 dark:bg-brand-950/95 p-1.5 shadow-[0_20px_50px_-12px_rgba(6,29,27,0.65)] backdrop-blur-xl sm:w-fit">
-        <div className="flex w-full max-w-full items-center gap-1 overflow-x-auto no-scrollbar px-1 py-0.5 sm:w-auto">
+      <div className="flex w-full items-center justify-center rounded-full border border-white/10 bg-brand-800/95 dark:bg-brand-950/95 p-1 sm:p-1.5 shadow-[0_20px_50px_-12px_rgba(6,29,27,0.65)] backdrop-blur-xl">
+        <div className="flex w-full items-center justify-between gap-0.5 sm:gap-1 px-0.5 sm:px-1 py-0.5">
           {allAccessibleItems.map((item) => {
             const Icon = item.icon;
             const isActive = currentTab === item.id;
@@ -245,7 +245,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 id={`floating-nav-${item.id}`}
                 type="button"
                 onClick={() => handleTabClick(item.id)}
-                className={`group relative flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-2 text-[10px] font-bold transition-all duration-200 sm:px-3 sm:text-[11px] ${
+                className={`group relative flex flex-1 sm:flex-initial shrink-0 items-center justify-center sm:justify-start gap-1 sm:gap-1.5 rounded-full px-2 py-2 sm:px-3 sm:py-2 text-[10px] font-bold transition-all duration-200 sm:text-[11px] ${
                   isActive
                     ? 'bg-accent-400 text-brand-900 shadow-md shadow-black/25'
                     : 'text-white/70 hover:bg-white/10 hover:text-white'
@@ -253,9 +253,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 aria-current={isActive ? 'page' : undefined}
                 title={item.label}
               >
-                <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-current" />
-                <span>{item.shortLabel}</span>
-
+                <Icon className="h-4 w-4 text-current shrink-0" />
+                <span className={`text-[9px] sm:text-[11px] ${isActive ? '' : 'hidden sm:inline'}`}>{item.shortLabel}</span>
               </button>
             );
           })}

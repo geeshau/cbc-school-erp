@@ -272,7 +272,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
   return (
     <>
       {/* Floating Action Speed Dial Button (Anchored Bottom-Right) */}
-      <div ref={menuRef} className="fixed bottom-7 right-7 z-40 print:hidden flex flex-col items-end">
+      <div ref={menuRef} className="fixed bottom-20 right-4 sm:right-7 z-40 print:hidden flex flex-col items-end">
         {/* Floating Menu Popover */}
         {isOpen && (
           <div

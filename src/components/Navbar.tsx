@@ -8,7 +8,8 @@ import {
   ChevronDown,
   Search,
   Users,
-  Globe
+  Globe,
+  LogOut
 } from 'lucide-react';
 import { User, ThemeMode } from '../types';
 import { TabType } from './Sidebar';
@@ -26,6 +27,7 @@ interface NavbarProps {
   onThemeChange?: (theme: ThemeMode) => void;
   onToggleTheme?: () => void;
   onReturnToLanding?: () => void;
+  onLogout?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -38,7 +40,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   resolvedTheme = 'light',
   onThemeChange = () => {},
   onToggleTheme = () => {},
-  onReturnToLanding
+  onReturnToLanding,
+  onLogout
 }) => {
   const [showDropdown, setShowDropdown] = React.useState(false);
   const [searchValue, setSearchValue] = React.useState('');
@@ -109,6 +112,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <Globe className="w-3.5 h-3.5 shrink-0" />
               <span>Public Site</span>
+            </button>
+          )}
+
+          {/* Logout Button */}
+          {onLogout && (
+            <button
+              type="button"
+              onClick={onLogout}
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 border border-red-200 dark:border-red-800 transition-colors cursor-pointer shrink-0"
+              title="Log out and return to landing page"
+            >
+              <LogOut className="w-3.5 h-3.5 shrink-0" />
+              <span className="hidden sm:inline">Logout</span>
             </button>
           )}
 
