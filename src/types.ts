@@ -134,3 +134,20 @@ export interface StudentReportCard {
   classTeacherRemarks: string;
   principalRemarks: string;
 }
+
+export type SchoolEventCategory = 'Academic' | 'Holiday' | 'Exam' | 'Meeting' | 'Sports' | 'Spiritual' | 'General';
+
+export interface SchoolEvent {
+  id: string;
+  title: string;
+  description: string;
+  category: SchoolEventCategory;
+  startDate: string; // YYYY-MM-DD
+  endDate: string; // YYYY-MM-DD
+  startTime?: string; // HH:MM (optional, empty = all-day)
+  endTime?: string; // HH:MM
+  location: string;
+  allDay: boolean;
+  createdBy: string;
+  googleCalendarId?: string; // populated when synced to Google Calendar
+}

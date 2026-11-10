@@ -13,7 +13,8 @@ import {
   Menu,
   Check,
   X,
-  Globe
+  Globe,
+  CalendarHeart
 } from 'lucide-react';
 import { UserRole, ThemeMode } from '../types';
 import { ThemeSwitcher } from './ThemeSwitcher';
@@ -25,6 +26,7 @@ export type TabType =
   | 'grading'
   | 'timetable'
   | 'reports'
+  | 'calendar'
   | 'website-cms';
 
 interface SidebarProps {
@@ -91,6 +93,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
     {
       title: 'ADMINISTRATION',
       items: [
+        {
+          id: 'calendar' as TabType,
+          label: 'School Calendar',
+          shortLabel: 'Calendar',
+          subLabel: 'Events & Google Sync',
+          icon: CalendarHeart,
+          roles: ['admin', 'teacher'] as UserRole[]
+        },
         {
           id: 'website-cms' as TabType,
           label: 'Website CMS',

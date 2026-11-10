@@ -19,13 +19,25 @@ import {
   ChevronRight,
   Target
 } from 'lucide-react';
-import { Student, UserRole, FeePayment } from '../types';
+import { Student, UserRole, FeePayment, SchoolEvent, SchoolEventCategory } from '../types';
 import { TabType } from './Sidebar';
 import { QuickActionsFloatingMenu } from './QuickActionsFloatingMenu';
+import { CalendarDays, Clock, MapPin } from 'lucide-react';
+
+const EVENT_DOT_COLORS: Record<SchoolEventCategory, string> = {
+  Academic: 'bg-brand-500',
+  Holiday: 'bg-rose-500',
+  Exam: 'bg-amber-500',
+  Meeting: 'bg-indigo-500',
+  Sports: 'bg-emerald-500',
+  Spiritual: 'bg-purple-500',
+  General: 'bg-slate-400',
+};
 
 interface DashboardOverviewProps {
   students: Student[];
   payments?: FeePayment[];
+  events?: SchoolEvent[];
   feeSummary: { totalBilled: number; totalCollected: number; totalOutstanding: number; collectionRate: number };
   userRole: UserRole;
   currentUserName?: string;
@@ -44,6 +56,7 @@ interface DashboardOverviewProps {
 export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   students,
   payments = [],
+  events = [],
   feeSummary,
   userRole,
   currentUserName = 'Arthur Pendelton',
@@ -52,6 +65,14 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   onAddStudent,
   onRecordPayment
 }) => {
+  const upcomingEvents = useMemo(() => {
+    const todayStr = new Date().toISOString().split('T')[0];
+    return [...events]
+      .filter(e => e.endDate >= todayStr)
+      .sort((a, b) => a.startDate.localeCompare(b.startDate) || (a.startTime || '').localeCompare(b.startTime || ''))
+      .slice(0, 5);
+  }, [events]);
+
   const avgPerformance = useMemo(() => {
     const active = students.filter((s) => s.status === 'active');
     if (active.length === 0) return '0.0';
@@ -330,6 +351,69 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
            </button>
         </div>
       </div>
+
+      {/* Upcoming Events Preview */}
+      {upcomingEvents.length > 0 && (
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200 mb-4 flex items-center justify-between">
+            <span className="flex items-center gap-2">
+              <CalendarDays className="w-4 h-4 text-brand-500" />
+              Upcoming School Events
+            </span>
+            <button
+              onClick={() => onNavigateTab('calendar')}
+              className="text-[10px] font-bold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 flex items-center gap-1 transition-colors cursor-pointer"
+            >
+              View Full Calendar <ArrowUpRight className="w-3 h-3" />
+            </button>
+          </h3>
+          <div className="space-y-2">
+            {upcomingEvents.map(ev => (
+              <div
+                key={ev.id}
+                onClick={() => onNavigateTab('calendar')}
+                className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-brand-900/40 hover:bg-slate-100 dark:hover:bg-brand-900/70 border border-slate-200/70 dark:border-brand-900 transition-colors cursor-pointer group"
+              >
+                {/* Date tile */}
+                <div className="shrink-0 w-12 h-12 rounded-xl bg-brand-800 dark:bg-brand-700 text-white flex flex-col items-center justify-center leading-none">
+                  <span className="text-[10px] font-bold uppercase">
+                    {new Date(`${ev.startDate}T00:00:00`).toLocaleDateString('en-GB', { month: 'short' })}
+                  </span>
+                  <span className="text-lg font-black">
+                    {new Date(`${ev.startDate}T00:00:00`).getDate()}
+                  </span>
+                </div>
+
+                {/* Event info */}
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className={`w-2 h-2 rounded-full shrink-0 ${EVENT_DOT_COLORS[ev.category]}`}></span>
+                    <span className="text-xs font-bold text-slate-900 dark:text-slate-100 truncate">{ev.title}</span>
+                  </div>
+                  <div className="flex items-center gap-3 mt-1 text-[10px] text-slate-500 dark:text-slate-400 font-medium">
+                    {!ev.allDay && ev.startTime && (
+                      <span className="inline-flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {ev.startTime}{ev.endTime ? ` – ${ev.endTime}` : ''}
+                      </span>
+                    )}
+                    {ev.allDay && (
+                      <span className="inline-flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        All day
+                      </span>
+                    )}
+                    <span className="inline-flex items-center gap-1">
+                      <MapPin className="w-3 h-3" />
+                      <span className="truncate">{ev.location}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Floating Action Speed Dial for Common School Tasks */}
       <QuickActionsFloatingMenu

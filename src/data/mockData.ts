@@ -4,7 +4,8 @@ import {
   FeePayment,
   GradeRecord,
   TimetableSlot,
-  StudentReportCard
+  StudentReportCard,
+  SchoolEvent
 } from '../types';
 
 export const DEMO_USERS: User[] = [
@@ -1245,6 +1246,83 @@ export const INITIAL_TIMETABLE: TimetableSlot[] = [
     teacherId: 'user_teacher_9',
     teacherName: 'Rosemary Gitau',
     room: 'Creative Arts Studio'
+  }
+];
+
+export const INITIAL_EVENTS: SchoolEvent[] = [
+  {
+    id: 'evt_001',
+    title: 'Term 1 Opening Day',
+    description: 'School reopens for Term 1, 2026. All learners report by 8:00 AM for assembly.',
+    category: 'Academic',
+    startDate: '2026-01-06',
+    endDate: '2026-01-06',
+    startTime: '08:00',
+    endTime: '10:00',
+    location: 'Main Assembly Hall',
+    allDay: false,
+    createdBy: 'Dr. Arthur Pendelton'
+  },
+  {
+    id: 'evt_002',
+    title: 'Mid-Term Examinations',
+    description: 'Continuous assessment tests and mid-term examinations across all grades.',
+    category: 'Exam',
+    startDate: '2026-02-23',
+    endDate: '2026-02-27',
+    location: 'Respective Classrooms',
+    allDay: true,
+    createdBy: 'Dr. Arthur Pendelton'
+  },
+  {
+    id: 'evt_003',
+    title: 'Parent-Teacher Consultation Day',
+    description: 'Scheduled meetings for guardians to review learner progress and report cards.',
+    category: 'Meeting',
+    startDate: '2026-03-14',
+    endDate: '2026-03-14',
+    startTime: '09:00',
+    endTime: '15:00',
+    location: 'School Compound',
+    allDay: false,
+    createdBy: 'Dr. Arthur Pendelton'
+  },
+  {
+    id: 'evt_004',
+    title: 'Inter-House Sports Day',
+    description: 'Annual athletics competition between school houses. Parents welcome.',
+    category: 'Sports',
+    startDate: '2026-03-20',
+    endDate: '2026-03-20',
+    startTime: '08:30',
+    endTime: '16:00',
+    location: 'School Sports Field',
+    allDay: false,
+    createdBy: 'Dr. Arthur Pendelton'
+  },
+  {
+    id: 'evt_005',
+    title: 'Term 1 Closing Day',
+    description: 'End of Term 1. Report cards issued and learners break for holidays.',
+    category: 'Holiday',
+    startDate: '2026-04-03',
+    endDate: '2026-04-03',
+    location: 'Main Assembly Hall',
+    allDay: true,
+    createdBy: 'Dr. Arthur Pendelton'
+  },
+  {
+    id: 'evt_006',
+    title: 'Sunday Chapel Service',
+    description: 'Weekly interdenominational worship and spiritual nurturing for boarders.',
+    category: 'Spiritual',
+    startDate: '2026-11-15',
+    endDate: '2026-11-15',
+    startTime: '10:00',
+    endTime: '11:30',
+    location: 'School Chapel',
+    allDay: false,
+    createdBy: 'Dr. Arthur Pendelton'
   }
 ];
 

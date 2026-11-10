@@ -10,13 +10,15 @@ import {
   INITIAL_STUDENTS,
   INITIAL_PAYMENTS,
   INITIAL_GRADES,
-  INITIAL_TIMETABLE
+  INITIAL_TIMETABLE,
+  INITIAL_EVENTS
 } from './src/data/mockData';
 import {
   Student,
   FeePayment,
   GradeRecord,
-  TimetableSlot
+  TimetableSlot,
+  SchoolEvent
 } from './src/types';
 
 const currentFilename = typeof __filename !== 'undefined'
@@ -82,6 +84,7 @@ let studentsStore: Student[] = [...INITIAL_STUDENTS];
 let paymentsStore: FeePayment[] = [...INITIAL_PAYMENTS];
 let gradesStore: GradeRecord[] = [...INITIAL_GRADES];
 let timetableStore: TimetableSlot[] = [...INITIAL_TIMETABLE];
+let eventsStore: SchoolEvent[] = [...INITIAL_EVENTS];
 
 // MongoDB integration variables
 let mongoClient: MongoClient | null = null;
@@ -495,6 +498,85 @@ app.delete('/api/timetable/:id', (req: Request, res: Response) => {
   const { id } = req.params;
   timetableStore = timetableStore.filter(t => t.id !== id);
   res.json({ message: 'Timetable slot removed' });
+});
+
+// -------------------------------------------------------------
+// School Calendar / Events endpoints
+// -------------------------------------------------------------
+app.get('/api/events', (req: Request, res: Response) => {
+  const { category, startDate, endDate } = req.query;
+  let result = [...eventsStore];
+
+  if (category && typeof category === 'string' && category !== 'all') {
+    result = result.filter(e => e.category.toLowerCase() === category.toLowerCase());
+  }
+  if (startDate && typeof startDate === 'string') {
+    result = result.filter(e => e.endDate >= startDate);
+  }
+  if (endDate && typeof endDate === 'string') {
+    result = result.filter(e => e.startDate <= endDate);
+  }
+
+  result.sort((a, b) => a.startDate.localeCompare(b.startDate));
+  res.json(result);
+});
+
+app.post('/api/events', (req: Request, res: Response) => {
+  const body = req.body || {};
+
+  if (!body.title || !body.startDate) {
+    return res.status(400).json({ error: 'Event title and start date are required.' });
+  }
+
+  const newEvent: SchoolEvent = {
+    id: `evt_${Date.now()}`,
+    title: body.title,
+    description: body.description || '',
+    category: body.category || 'General',
+    startDate: body.startDate,
+    endDate: body.endDate || body.startDate,
+    startTime: body.allDay ? '' : (body.startTime || ''),
+    endTime: body.allDay ? '' : (body.endTime || ''),
+    location: body.location || 'School Compound',
+    allDay: Boolean(body.allDay),
+    createdBy: body.createdBy || 'Administrator',
+    googleCalendarId: body.googleCalendarId || undefined
+  };
+
+  eventsStore.push(newEvent);
+
+  if (isMongoConnected && mongoDb) {
+    mongoDb.collection('events').insertOne(newEvent as any).catch(console.error);
+  }
+
+  res.status(201).json(newEvent);
+});
+
+app.put('/api/events/:id', (req: Request, res: Response) => {
+  const { id } = req.params;
+  const index = eventsStore.findIndex(e => e.id === id);
+  if (index === -1) {
+    return res.status(404).json({ error: 'Event not found' });
+  }
+
+  eventsStore[index] = { ...eventsStore[index], ...req.body, id };
+
+  if (isMongoConnected && mongoDb) {
+    mongoDb.collection('events').updateOne({ id }, { $set: eventsStore[index] }).catch(console.error);
+  }
+
+  res.json(eventsStore[index]);
+});
+
+app.delete('/api/events/:id', (req: Request, res: Response) => {
+  const { id } = req.params;
+  eventsStore = eventsStore.filter(e => e.id !== id);
+
+  if (isMongoConnected && mongoDb) {
+    mongoDb.collection('events').deleteOne({ id }).catch(console.error);
+  }
+
+  res.json({ message: 'Event removed' });
 });
 
 // Non-Technical Specification Document API

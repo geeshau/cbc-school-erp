@@ -13,6 +13,7 @@ import { GradingTracker } from './components/GradingTracker';
 import { TimetableManager } from './components/TimetableManager';
 import { ReportCardsManager } from './components/ReportCardsManager';
 import { WebsiteContentManager, WebsiteContent } from './components/WebsiteContentManager';
+import { SchoolCalendarManager } from './components/SchoolCalendarManager';
 import { LandingPage } from './components/LandingPage';
 
 import {
@@ -21,6 +22,7 @@ import {
   FeePayment,
   GradeRecord,
   TimetableSlot,
+  SchoolEvent,
   UserRole,
 } from './types';
 import { api } from './lib/api';
@@ -29,7 +31,8 @@ import {
   INITIAL_STUDENTS,
   INITIAL_PAYMENTS,
   INITIAL_GRADES,
-  INITIAL_TIMETABLE
+  INITIAL_TIMETABLE,
+  INITIAL_EVENTS
 } from './data/mockData';
 import { CheckCircle2 } from 'lucide-react';
 import { useTheme } from './lib/theme';
@@ -54,6 +57,7 @@ export default function App() {
   const [payments, setPayments] = useState<FeePayment[]>(INITIAL_PAYMENTS);
   const [grades, setGrades] = useState<GradeRecord[]>(INITIAL_GRADES);
   const [timetableSlots, setTimetableSlots] = useState<TimetableSlot[]>(INITIAL_TIMETABLE);
+  const [events, setEvents] = useState<SchoolEvent[]>(INITIAL_EVENTS);
 
   // Website CMS State
   const [websiteContent, setWebsiteContent] = useState<WebsiteContent>({
@@ -149,14 +153,16 @@ export default function App() {
           fetchedStudents,
           fetchedSummary,
           fetchedGrades,
-          fetchedTimetable
+          fetchedTimetable,
+          fetchedEvents
         ] = await Promise.all([
           api.getUsers().catch(() => DEMO_USERS),
           api.getHealth().catch(() => ({ database: { connected: true, provider: 'High-Speed Database' } })),
           api.getStudents().catch(() => INITIAL_STUDENTS),
           api.getFeeSummary().catch(() => null),
           api.getGrades().catch(() => INITIAL_GRADES),
-          api.getTimetable().catch(() => INITIAL_TIMETABLE)
+          api.getTimetable().catch(() => INITIAL_TIMETABLE),
+          api.getEvents().catch(() => INITIAL_EVENTS)
         ]);
 
         if (fetchedUsers && fetchedUsers.length > 0) setUsers(fetchedUsers);
@@ -165,6 +171,7 @@ export default function App() {
         if (fetchedSummary?.recentPayments) setPayments(fetchedSummary.recentPayments);
         if (fetchedGrades && fetchedGrades.length > 0) setGrades(fetchedGrades);
         if (fetchedTimetable && fetchedTimetable.length > 0) setTimetableSlots(fetchedTimetable);
+        if (fetchedEvents && fetchedEvents.length > 0) setEvents(fetchedEvents);
       } catch (err) {
         console.error('Data bootstrap error:', err);
       }
@@ -283,6 +290,27 @@ export default function App() {
     showToast('Lesson slot removed from timetable.');
   };
 
+  // School Calendar / Events
+  const handleAddEvent = async (eventData: Partial<SchoolEvent>) => {
+    const newEvent = await api.addEvent(eventData);
+    setEvents((prev) => [...prev, newEvent].sort((a, b) => a.startDate.localeCompare(b.startDate)));
+    showToast(`Added "${newEvent.title}" to the school calendar.`);
+  };
+
+  const handleDeleteEvent = async (id: string) => {
+    await api.deleteEvent(id);
+    setEvents((prev) => prev.filter((e) => e.id !== id));
+    showToast('Event removed from the school calendar.');
+  };
+
+  const handleUpdateEvent = async (id: string, updates: Partial<SchoolEvent>) => {
+    await api.updateEvent(id, updates);
+    setEvents((prev) => prev.map((e) => (e.id === id ? { ...e, ...updates } : e)));
+    if (updates.googleCalendarId) {
+      showToast('Event linked to Google Calendar.');
+    }
+  };
+
   if (appMode === 'landing') {
     return (
       <LandingPage
@@ -347,6 +375,7 @@ export default function App() {
               <DashboardOverview
                 students={students}
                 payments={payments}
+                events={events}
                 feeSummary={feeSummary}
                 userRole={currentUser.role}
                 currentUserName={currentUser.name}
@@ -405,6 +434,18 @@ export default function App() {
                 students={students}
                 grades={grades}
                 userRole={currentUser.role}
+              />
+            )}
+
+            {/* Tab: School Calendar & Events */}
+            {activeTab === 'calendar' && (
+              <SchoolCalendarManager
+                events={events}
+                userRole={currentUser.role}
+                currentUserName={currentUser.name}
+                onAddEvent={handleAddEvent}
+                onDeleteEvent={handleDeleteEvent}
+                onUpdateEvent={handleUpdateEvent}
               />
             )}
 

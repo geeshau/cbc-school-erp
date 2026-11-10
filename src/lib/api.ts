@@ -3,14 +3,16 @@ import {
   FeePayment,
   GradeRecord,
   TimetableSlot,
-  User
+  User,
+  SchoolEvent
 } from '../types';
 import {
   DEMO_USERS,
   INITIAL_STUDENTS,
   INITIAL_PAYMENTS,
   INITIAL_GRADES,
-  INITIAL_TIMETABLE
+  INITIAL_TIMETABLE,
+  INITIAL_EVENTS
 } from '../data/mockData';
 
 // Safe API caller that queries the Express server with fallback to in-memory state
@@ -216,5 +218,64 @@ export const api = {
       }
     } catch (_) {}
     return '';
+  },
+
+  async getEvents(params?: { category?: string; startDate?: string; endDate?: string }): Promise<SchoolEvent[]> {
+    try {
+      const query = new URLSearchParams(params as any).toString();
+      const res = await fetch(`/api/events?${query}`);
+      if (res.ok) return await res.json();
+    } catch (_) {}
+    return [...INITIAL_EVENTS].sort((a, b) => a.startDate.localeCompare(b.startDate));
+  },
+
+  async addEvent(event: Partial<SchoolEvent>): Promise<SchoolEvent> {
+    try {
+      const res = await fetch('/api/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(event)
+      });
+      if (res.ok) return await res.json();
+      const err = await res.json().catch(() => ({ error: 'Failed to add event' }));
+      throw new Error(err.error || 'Failed to add event');
+    } catch (e: any) {
+      if (e?.message && !e.message.includes('fetch')) throw e;
+    }
+    // Local fallback
+    return {
+      id: `evt_${Date.now()}`,
+      title: event.title || 'Untitled Event',
+      description: event.description || '',
+      category: event.category || 'General',
+      startDate: event.startDate || new Date().toISOString().split('T')[0],
+      endDate: event.endDate || event.startDate || new Date().toISOString().split('T')[0],
+      startTime: event.allDay ? '' : (event.startTime || ''),
+      endTime: event.allDay ? '' : (event.endTime || ''),
+      location: event.location || 'School Compound',
+      allDay: Boolean(event.allDay),
+      createdBy: event.createdBy || 'Administrator',
+      googleCalendarId: event.googleCalendarId
+    };
+  },
+
+  async updateEvent(id: string, updates: Partial<SchoolEvent>): Promise<SchoolEvent | null> {
+    try {
+      const res = await fetch(`/api/events/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates)
+      });
+      if (res.ok) return await res.json();
+    } catch (_) {}
+    return null;
+  },
+
+  async deleteEvent(id: string): Promise<{ message: string }> {
+    try {
+      const res = await fetch(`/api/events/${id}`, { method: 'DELETE' });
+      if (res.ok) return await res.json();
+    } catch (_) {}
+    return { message: 'Event removed' };
   }
 };
