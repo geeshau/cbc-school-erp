@@ -28,8 +28,11 @@ import {
   MessageCircle,
   Quote,
   ThumbsUp,
+  Download,
+  FileDown,
+  Eye,
 } from 'lucide-react';
-import { WebsiteContent, FeedbackComment } from './WebsiteContentManager';
+import { WebsiteContent, FeedbackComment, DownloadResource } from './WebsiteContentManager';
 
 interface LandingPageProps {
   content?: WebsiteContent;
@@ -43,6 +46,7 @@ const NAV_LINKS = [
   { href: '#about', label: 'About' },
   { href: '#programmes', label: 'Programmes' },
   { href: '#gallery', label: 'Gallery' },
+  { href: '#downloads', label: 'Downloads' },
   { href: '#reports', label: 'Reports', modal: true },
 ];
 
@@ -169,6 +173,33 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
 
   // Feedback from CMS (visible only)
   const visibleFeedback = (content?.feedbackComments || []).filter((fb) => fb.visible);
+
+  // Downloads & resources from CMS (visible only)
+  const visibleResources: DownloadResource[] = (content?.downloadResources || []).filter((r) => r.visible);
+  const [downloadFilter, setDownloadFilter] = useState<string>('All');
+  const downloadCategories = ['All', ...Array.from(new Set(visibleResources.map((r) => r.category)))];
+  const filteredResources =
+    downloadFilter === 'All' ? visibleResources : visibleResources.filter((r) => r.category === downloadFilter);
+
+  // Resource preview modal
+  const [previewResource, setPreviewResource] = useState<DownloadResource | null>(null);
+
+  const getPreviewKind = (res: DownloadResource): 'pdf' | 'image' | 'none' => {
+    const type = res.fileType.toUpperCase();
+    if (type === 'PDF' || res.url.startsWith('data:application/pdf')) return 'pdf';
+    if (['PNG', 'JPG', 'JPEG', 'GIF', 'WEBP', 'SVG'].includes(type) || res.url.startsWith('data:image/')) return 'image';
+    return 'none';
+  };
+
+  // Close preview on Escape key
+  useEffect(() => {
+    if (!previewResource) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setPreviewResource(null);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [previewResource]);
 
   // Horizontal slideshow — page-by-page with auto-advance
   const [slideIndex, setSlideIndex] = useState(0);
@@ -988,6 +1019,113 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
         </div>
       </section>
 
+      {/* ───────────── Downloads & Resources ───────────── */}
+      <section id="downloads" className="scroll-mt-6 py-20 lg:py-24" style={{ backgroundColor: TEAL }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <SectionLabel light>Parent Resources</SectionLabel>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+              Downloads & Resources
+            </h2>
+            <p className="mt-4 text-white/70">
+              Download admission forms, fee structures, term calendars, newsletters and other important school documents.
+            </p>
+          </div>
+
+          {visibleResources.length > 0 ? (
+            <>
+              {/* Category filter pills */}
+              {downloadCategories.length > 2 && (
+                <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+                  {downloadCategories.map((cat) => (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => setDownloadFilter(cat)}
+                      className={`rounded-full px-4 py-2 text-xs font-bold transition-all ${
+                        downloadFilter === cat
+                          ? 'bg-[#FFAE00] text-[#0D3B36] shadow-lg shadow-black/20'
+                          : 'border border-white/15 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Resource cards */}
+              <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredResources.map((res) => (
+                  <article
+                    key={res.id}
+                    onClick={() => setPreviewResource(res)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setPreviewResource(res);
+                      }
+                    }}
+                    aria-label={`Preview ${res.title}`}
+                    className="group flex cursor-pointer flex-col rounded-3xl rounded-tr-[2.5rem] border border-white/10 bg-white/5 p-6 transition-all hover:-translate-y-1 hover:border-[#FFAE00]/40 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAE00]"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#FFAE00]/15 text-[#FFAE00] transition-colors group-hover:bg-[#FFAE00] group-hover:text-[#0D3B36]">
+                        <FileDown className="h-6 w-6" aria-hidden="true" />
+                      </span>
+                      <span className="rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white/70">
+                        {res.category}
+                      </span>
+                    </div>
+                    <h3 className="mt-4 text-base font-extrabold text-white">{res.title}</h3>
+                    {res.description && (
+                      <p className="mt-1.5 flex-1 text-sm leading-relaxed text-white/60">{res.description}</p>
+                    )}
+                    <div className="mt-4 flex items-center justify-between gap-2 border-t border-white/10 pt-4">
+                      <span className="text-[11px] font-semibold text-white/50">
+                        {res.fileType} · {res.fileSize}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={(e) => { e.stopPropagation(); setPreviewResource(res); }}
+                          aria-label={`Preview ${res.title}`}
+                          className="flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3.5 py-2 text-xs font-bold text-white transition hover:-translate-y-0.5 hover:bg-white/20"
+                        >
+                          <Eye className="h-3.5 w-3.5" aria-hidden="true" />
+                          Preview
+                        </button>
+                        <a
+                          href={res.url}
+                          download={res.fileName}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          aria-label={`Download ${res.title}`}
+                          className="flex items-center gap-1.5 rounded-full bg-[#F7941D] px-3.5 py-2 text-xs font-bold text-white shadow-lg shadow-orange-500/20 transition hover:-translate-y-0.5 hover:bg-[#FFAE00] hover:text-[#0D3B36]"
+                        >
+                          <Download className="h-3.5 w-3.5" aria-hidden="true" />
+                          <span className="hidden sm:inline">Download</span>
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="mx-auto mt-10 max-w-md rounded-3xl rounded-tr-[2.5rem] border border-white/10 bg-white/5 p-8 text-center">
+              <FileDown className="mx-auto h-10 w-10 text-[#FFAE00]/70" aria-hidden="true" />
+              <p className="mt-4 text-sm font-semibold text-white/70">
+                School documents and resources will be published here soon. Please check back shortly or contact the office.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* ───────────── Office enquiry ───────────── */}
       <section id="enquire" className="scroll-mt-6 bg-[#F8F9FA] py-20 lg:py-24">
         <div className="mx-auto grid max-w-7xl items-start gap-12 px-5 sm:px-8 lg:grid-cols-2">
@@ -1101,6 +1239,125 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
           </button>
         </div>
       </section>
+
+      {/* ───────────── Resource preview MODAL ───────────── */}
+      {previewResource && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Preview of ${previewResource.title}`}
+        >
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={() => setPreviewResource(null)}
+            aria-hidden="true"
+          />
+
+          {/* Modal panel */}
+          <div
+            className="relative flex max-h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl rounded-tr-[4rem] bg-white shadow-2xl"
+            style={{ animation: 'fadeSlideUp 0.3s ease-out' }}
+          >
+            {/* Header */}
+            <div className="relative shrink-0 px-6 py-5 sm:px-8" style={{ backgroundColor: TEAL }}>
+              <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+                <div className="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-[#FFAE00]/15 blur-3xl" />
+              </div>
+              <button
+                type="button"
+                onClick={() => setPreviewResource(null)}
+                className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+                aria-label="Close preview"
+              >
+                <X className="h-5 w-5" />
+              </button>
+              <div className="relative flex items-center gap-4 pr-12">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#FFAE00]/15 text-[#FFAE00]">
+                  <FileDown className="h-6 w-6" aria-hidden="true" />
+                </span>
+                <div className="min-w-0">
+                  <h2 className="truncate text-lg font-extrabold tracking-tight text-white sm:text-xl">
+                    {previewResource.title}
+                  </h2>
+                  <p className="mt-0.5 flex flex-wrap items-center gap-x-2 text-xs text-white/70">
+                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide">
+                      {previewResource.category}
+                    </span>
+                    <span>{previewResource.fileType} · {previewResource.fileSize}</span>
+                    <span className="hidden sm:inline">· Added {previewResource.uploadedAt}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Preview body */}
+            <div className="flex-1 overflow-auto bg-slate-100">
+              {getPreviewKind(previewResource) === 'pdf' && (
+                <iframe
+                  src={previewResource.url}
+                  title={`Preview of ${previewResource.title}`}
+                  className="h-[60vh] min-h-[320px] w-full border-0 sm:h-[65vh]"
+                />
+              )}
+              {getPreviewKind(previewResource) === 'image' && (
+                <div className="flex min-h-[320px] items-center justify-center p-4 sm:p-6">
+                  <img
+                    src={previewResource.url}
+                    alt={previewResource.title}
+                    className="max-h-[60vh] w-auto max-w-full rounded-xl object-contain shadow-lg"
+                  />
+                </div>
+              )}
+              {getPreviewKind(previewResource) === 'none' && (
+                <div className="flex min-h-[320px] flex-col items-center justify-center gap-4 p-8 text-center">
+                  <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#0D3B36]/10 text-[#0D3B36]">
+                    <FileText className="h-8 w-8" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <h3 className="font-extrabold text-[#0D3B36]">Preview not available</h3>
+                    <p className="mx-auto mt-1 max-w-sm text-sm text-slate-500">
+                      {previewResource.fileType} files can't be previewed in the browser. Use the download button below to save
+                      <span className="font-semibold"> {previewResource.fileName}</span> and open it on your device.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Footer actions */}
+            <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-slate-200 bg-white px-6 py-4 sm:px-8">
+              {previewResource.description ? (
+                <p className="min-w-0 flex-1 truncate text-xs text-slate-500" title={previewResource.description}>
+                  {previewResource.description}
+                </p>
+              ) : (
+                <span className="text-xs text-slate-400">{previewResource.fileName}</span>
+              )}
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPreviewResource(null)}
+                  className="rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-bold text-slate-600 transition hover:bg-slate-50"
+                >
+                  Close
+                </button>
+                <a
+                  href={previewResource.url}
+                  download={previewResource.fileName}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-xl bg-[#F7941D] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-orange-500/30 transition hover:-translate-y-0.5 hover:bg-[#FFAE00]"
+                >
+                  <Download className="h-4 w-4" aria-hidden="true" />
+                  Download
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ───────────── Report request MODAL ───────────── */}
       {reportModalOpen && (

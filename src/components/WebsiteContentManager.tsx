@@ -19,6 +19,10 @@ import {
   EyeOff,
   ArrowUp,
   ArrowDown,
+  Download,
+  Upload,
+  File,
+  Link as LinkIcon,
 } from 'lucide-react';
 
 export interface FeedbackComment {
@@ -27,6 +31,19 @@ export interface FeedbackComment {
   role: string;
   date: string;
   likes: number;
+  visible: boolean;
+}
+
+export interface DownloadResource {
+  id: string;
+  title: string;
+  description?: string;
+  category: string; // e.g. 'Admissions', 'Fees', 'Calendar', 'Newsletters', 'Forms'
+  fileName: string;
+  fileType: string; // e.g. 'PDF', 'DOCX'
+  fileSize: string; // display string e.g. '245 KB'
+  url: string; // data URL (uploaded) or external link
+  uploadedAt: string;
   visible: boolean;
 }
 
@@ -43,6 +60,7 @@ export interface WebsiteContent {
   heroSecondaryCtaLabel?: string;
   galleryImages: { id: string; title: string; url: string; category: string }[];
   feedbackComments?: FeedbackComment[];
+  downloadResources?: DownloadResource[];
 }
 
 interface WebsiteContentManagerProps {
@@ -68,6 +86,103 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
   const [editingFbId, setEditingFbId] = useState<string | null>(null);
   const [editFbText, setEditFbText] = useState('');
   const [editFbRole, setEditFbRole] = useState('');
+
+  // New download resource state
+  const [newResTitle, setNewResTitle] = useState('');
+  const [newResDescription, setNewResDescription] = useState('');
+  const [newResCategory, setNewResCategory] = useState('Admissions');
+  const [newResUrl, setNewResUrl] = useState('');
+  const [newResFile, setNewResFile] = useState<{ name: string; type: string; size: string; dataUrl: string } | null>(null);
+  const [resUploadError, setResUploadError] = useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const MAX_FILE_BYTES = 5 * 1024 * 1024; // 5 MB
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  };
+
+  const extractFileType = (fileName: string) => {
+    const ext = fileName.split('.').pop()?.toUpperCase() || 'FILE';
+    return ext.length <= 5 ? ext : 'FILE';
+  };
+
+  const handleResourceFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setResUploadError(null);
+    if (file.size > MAX_FILE_BYTES) {
+      setResUploadError('File is too large. Maximum upload size is 5 MB. For larger files, host externally and paste the link instead.');
+      e.target.value = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setNewResFile({
+        name: file.name,
+        type: extractFileType(file.name),
+        size: formatFileSize(file.size),
+        dataUrl: String(reader.result),
+      });
+      setNewResUrl('');
+      if (!newResTitle.trim()) {
+        setNewResTitle(file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '));
+      }
+    };
+    reader.onerror = () => setResUploadError('Could not read the selected file. Please try again.');
+    reader.readAsDataURL(file);
+  };
+
+  const handleAddResource = () => {
+    setResUploadError(null);
+    if (!newResTitle.trim()) {
+      setResUploadError('Please provide a resource title.');
+      return;
+    }
+    if (!newResFile && !newResUrl.trim()) {
+      setResUploadError('Please upload a file or paste an external file link.');
+      return;
+    }
+    const newItem: DownloadResource = {
+      id: `res_${Date.now()}`,
+      title: newResTitle.trim(),
+      description: newResDescription.trim() || undefined,
+      category: newResCategory,
+      fileName: newResFile ? newResFile.name : (newResUrl.split('/').pop()?.split('?')[0] || 'resource'),
+      fileType: newResFile ? newResFile.type : extractFileType(newResUrl.split('?')[0]),
+      fileSize: newResFile ? newResFile.size : 'External Link',
+      url: newResFile ? newResFile.dataUrl : newResUrl.trim(),
+      uploadedAt: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }),
+      visible: true,
+    };
+    setFormData((prev) => ({
+      ...prev,
+      downloadResources: [newItem, ...(prev.downloadResources || [])],
+    }));
+    setNewResTitle('');
+    setNewResDescription('');
+    setNewResUrl('');
+    setNewResFile(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const handleRemoveResource = (id: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      downloadResources: (prev.downloadResources || []).filter((r) => r.id !== id),
+    }));
+  };
+
+  const handleToggleResourceVisibility = (id: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      downloadResources: (prev.downloadResources || []).map((r) =>
+        r.id === id ? { ...r, visible: !r.visible } : r
+      ),
+    }));
+  };
 
   const handleChange = (field: keyof WebsiteContent, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -448,6 +563,178 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Downloads & Resources Manager */}
+        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-5 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)]">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
+              <Download className="w-4 h-4 text-brand-500" />
+              <span>Downloads & Resources Manager</span>
+            </h3>
+            <span className="text-[11px] text-slate-400 font-semibold">
+              {(formData.downloadResources || []).filter((r) => r.visible).length} Visible / {(formData.downloadResources || []).length} Total
+            </span>
+          </div>
+
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 -mt-2">
+            Upload files (fee structures, admission forms, term calendars, newsletters, uniform lists) that parents can download from the public landing page.
+          </p>
+
+          {/* Add New Resource Form */}
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3">
+            <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200">Upload New Resource</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <input
+                type="text"
+                placeholder="Resource Title (e.g. 2026 Fee Structure)"
+                value={newResTitle}
+                onChange={(e) => setNewResTitle(e.target.value)}
+                className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
+              />
+              <select
+                value={newResCategory}
+                onChange={(e) => setNewResCategory(e.target.value)}
+                className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
+              >
+                <option value="Admissions">Admissions</option>
+                <option value="Fees">Fees</option>
+                <option value="Calendar">Calendar</option>
+                <option value="Newsletters">Newsletters</option>
+                <option value="Forms">Forms</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <input
+              type="text"
+              placeholder="Short description (optional)"
+              value={newResDescription}
+              onChange={(e) => setNewResDescription(e.target.value)}
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
+            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
+              {/* File upload */}
+              <div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg,.jpeg,.zip,.txt,.csv"
+                  onChange={handleResourceFileSelect}
+                  className="hidden"
+                  id="resource-file-input"
+                />
+                <label
+                  htmlFor="resource-file-input"
+                  className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs font-bold text-slate-600 dark:text-slate-300 cursor-pointer hover:border-brand-400 hover:text-brand-600 transition-colors"
+                >
+                  <Upload className="w-3.5 h-3.5" />
+                  {newResFile ? (
+                    <span className="truncate max-w-[200px]">{newResFile.name} ({newResFile.size})</span>
+                  ) : (
+                    <span>Choose File to Upload (max 5 MB)</span>
+                  )}
+                </label>
+              </div>
+              {/* OR external link */}
+              <div className="flex gap-2">
+                <div className="relative flex-1">
+                  <LinkIcon className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+                  <input
+                    type="text"
+                    placeholder="…or paste external file URL"
+                    value={newResUrl}
+                    onChange={(e) => { setNewResUrl(e.target.value); if (e.target.value) setNewResFile(null); }}
+                    className="w-full pl-8 pr-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={handleAddResource}
+                  className="px-4 py-2 bg-accent-500 hover:bg-accent-400 text-brand-900 rounded-xl text-xs font-bold flex items-center gap-1 cursor-pointer shrink-0"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Add</span>
+                </button>
+              </div>
+            </div>
+            {resUploadError && (
+              <p className="text-[11px] font-bold text-rose-600 dark:text-rose-400">{resUploadError}</p>
+            )}
+          </div>
+
+          {/* Resources List */}
+          <div className="space-y-2.5">
+            {(formData.downloadResources || []).map((res) => (
+              <div
+                key={res.id}
+                className={`rounded-xl border p-4 flex items-center gap-3 transition-all ${
+                  res.visible
+                    ? 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40'
+                    : 'border-slate-200/50 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/50 opacity-60'
+                }`}
+              >
+                <div className="w-10 h-10 rounded-xl bg-brand-100 dark:bg-brand-950 text-brand-600 dark:text-brand-400 flex items-center justify-center shrink-0">
+                  <File className="w-5 h-5" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <h5 className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">{res.title}</h5>
+                    <span className="px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300 text-[9px] font-bold uppercase shrink-0">
+                      {res.category}
+                    </span>
+                  </div>
+                  {res.description && (
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{res.description}</p>
+                  )}
+                  <div className="mt-0.5 flex items-center gap-2 text-[10px] text-slate-400">
+                    <span className="font-bold">{res.fileType}</span>
+                    <span>·</span>
+                    <span>{res.fileSize}</span>
+                    <span>·</span>
+                    <span>Added {res.uploadedAt}</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 shrink-0">
+                  <a
+                    href={res.url}
+                    download={res.fileName}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded-lg text-slate-500 hover:text-brand-600 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
+                    title="Preview / download file"
+                  >
+                    <Download className="w-4 h-4" />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => handleToggleResourceVisibility(res.id)}
+                    className={`p-1.5 rounded-lg cursor-pointer transition-colors ${
+                      res.visible
+                        ? 'text-brand-600 hover:bg-brand-50 dark:hover:bg-brand-950/40'
+                        : 'text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                    }`}
+                    title={res.visible ? 'Hide from landing page' : 'Show on landing page'}
+                  >
+                    {res.visible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveResource(res.id)}
+                    className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/50 cursor-pointer"
+                    title="Delete resource"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ))}
+
+            {(formData.downloadResources || []).length === 0 && (
+              <p className="text-center text-xs text-slate-400 py-6">
+                No downloadable resources yet. Upload a file or add an external link above.
+              </p>
+            )}
           </div>
         </div>
 

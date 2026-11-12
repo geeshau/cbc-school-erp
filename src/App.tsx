@@ -15,6 +15,7 @@ import { ReportCardsManager } from './components/ReportCardsManager';
 import { WebsiteContentManager, WebsiteContent } from './components/WebsiteContentManager';
 import { SchoolCalendarManager } from './components/SchoolCalendarManager';
 import { LandingPage } from './components/LandingPage';
+import { LoginPage } from './components/LoginPage';
 
 import {
   User,
@@ -38,7 +39,8 @@ import { CheckCircle2, ArrowLeft } from 'lucide-react';
 import { useTheme } from './lib/theme';
 
 export default function App() {
-  const [appMode, setAppMode] = useState<'landing' | 'system'>('landing');
+  const [appMode, setAppMode] = useState<'landing' | 'login' | 'system'>('landing');
+  const [loginRole, setLoginRole] = useState<UserRole | undefined>(undefined);
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
   const [tabHistory, setTabHistory] = useState<TabType[]>([]);
   const { theme, resolvedTheme, setTheme, toggleTheme, isDark } = useTheme();
@@ -105,6 +107,56 @@ export default function App() {
       { id: 'fb-4', text: 'Clean, safe, and well-organized campus. The outdoor play area is wonderful and the children get a great balance of structured learning and free play time.', role: 'Parent — PP1', date: 'Aug 2026', likes: 15, visible: true },
       { id: 'fb-5', text: 'The school events and parent days are beautifully organized. You can see how much effort the staff puts into making every child feel special and celebrated.', role: 'Parent — Grade 2', date: 'Oct 2026', likes: 22, visible: true },
       { id: 'fb-6', text: 'Transferring here was the best decision. The smaller class sizes mean my child gets individual attention. The report cards are detailed and show real progress tracking.', role: 'Parent — Grade 3', date: 'Nov 2026', likes: 27, visible: true },
+    ],
+    downloadResources: [
+      {
+        id: 'res-1',
+        title: '2026 Admission Application Form',
+        description: 'Official application form for new learner admissions (Playgroup – Grade 3).',
+        category: 'Admissions',
+        fileName: 'admission-application-form-2026.pdf',
+        fileType: 'PDF',
+        fileSize: '184 KB',
+        url: 'data:application/pdf;base64,JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFI+PgplbmRvYmoKMiAwIG9iago8PC9UeXBlL1BhZ2VzL0tpZHNbMyAwIFJdL0NvdW50IDE+PgplbmRvYmoKMyAwIG9iago8PC9UeXBlL1BhZ2UvUGFyZW50IDIgMCBSL01lZGlhQm94WzAgMCA2MTIgNzkyXS9SZXNvdXJjZXM8PC9Gb250PDwvRjEgNCAwIFI+Pj4+L0NvbnRlbnRzIDUgMCBSPj4KZW5kb2JqCjQgMCBvYmoKPDwvVHlwZS9Gb250L1N1YnR5cGUvVHlwZTEvQmFzZUZvbnQvSGVsdmV0aWNhPj4KZW5kb2JqCjUgMCBvYmoKPDwvTGVuZ3RoIDEwND4+CnN0cmVhbQpCVAovRjEgMTggVGYKNzIgNzIwIFRkCihQQ0VBIFN0IEFuZHJld3MgS2luZGVyZ2FydGVuIC0gQWRtaXNzaW9uIEZvcm0gMjAyNikgVGoKRVQKZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgNgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMTUgMDAwMDAgbiAKMDAwMDAwMDA2MCAwMDAwMCBuIAowMDAwMDAwMTExIDAwMDAwIG4gCjAwMDAwMDAyMzQgMDAwMDAgbiAKMDAwMDAwMDMwMSAwMDAwMCBuIAp0cmFpbGVyCjw8L1NpemUgNi9Sb290IDEgMCBSPj4Kc3RhcnR4cmVmCjQ1NQolJUVPRgo=',
+        uploadedAt: '5 Jan 2026',
+        visible: true
+      },
+      {
+        id: 'res-2',
+        title: 'Term 1 2026 Fee Structure',
+        description: 'Breakdown of tuition, meals, transport and activity fees per level for Term 1.',
+        category: 'Fees',
+        fileName: 'fee-structure-term1-2026.pdf',
+        fileType: 'PDF',
+        fileSize: '126 KB',
+        url: 'data:application/pdf;base64,JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFI+PgplbmRvYmoKMiAwIG9iago8PC9UeXBlL1BhZ2VzL0tpZHNbMyAwIFJdL0NvdW50IDE+PgplbmRvYmoKMyAwIG9iago8PC9UeXBlL1BhZ2UvUGFyZW50IDIgMCBSL01lZGlhQm94WzAgMCA2MTIgNzkyXS9SZXNvdXJjZXM8PC9Gb250PDwvRjEgNCAwIFI+Pj4+L0NvbnRlbnRzIDUgMCBSPj4KZW5kb2JqCjQgMCBvYmoKPDwvVHlwZS9Gb250L1N1YnR5cGUvVHlwZTEvQmFzZUZvbnQvSGVsdmV0aWNhPj4KZW5kb2JqCjUgMCBvYmoKPDwvTGVuZ3RoIDk4Pj4Kc3RyZWFtCkJUCi9GMSAxOCBUZgo3MiA3MjAgVGQKKFBDRUEgU3QgQW5kcmV3cyAtIEZlZSBTdHJ1Y3R1cmUgVGVybSAxIDIwMjYpIFRqCkVUCmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDE1IDAwMDAwIG4gCjAwMDAwMDAwNjAgMDAwMDAgbiAKMDAwMDAwMDExMSAwMDAwMCBuIAowMDAwMDAwMjM0IDAwMDAwIG4gCjAwMDAwMDAzMDEgMDAwMDAgbiAKdHJhaWxlcgo8PC9TaXplIDYvUm9vdCAxIDAgUj4+CnN0YXJ0eHJlZgo0NDkKJSVFT0YK',
+        uploadedAt: '5 Jan 2026',
+        visible: true
+      },
+      {
+        id: 'res-3',
+        title: '2026 School Term Calendar',
+        description: 'Key dates — term openings, half-terms, parent days, closing dates and holidays.',
+        category: 'Calendar',
+        fileName: 'school-term-calendar-2026.pdf',
+        fileType: 'PDF',
+        fileSize: '98 KB',
+        url: 'data:application/pdf;base64,JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFI+PgplbmRvYmoKMiAwIG9iago8PC9UeXBlL1BhZ2VzL0tpZHNbMyAwIFJdL0NvdW50IDE+PgplbmRvYmoKMyAwIG9iago8PC9UeXBlL1BhZ2UvUGFyZW50IDIgMCBSL01lZGlhQm94WzAgMCA2MTIgNzkyXS9SZXNvdXJjZXM8PC9Gb250PDwvRjEgNCAwIFI+Pj4+L0NvbnRlbnRzIDUgMCBSPj4KZW5kb2JqCjQgMCBvYmoKPDwvVHlwZS9Gb250L1N1YnR5cGUvVHlwZTEvQmFzZUZvbnQvSGVsdmV0aWNhPj4KZW5kb2JqCjUgMCBvYmoKPDwvTGVuZ3RoIDk1Pj4Kc3RyZWFtCkJUCi9GMSAxOCBUZgo3MiA3MjAgVGQKKFBDRUEgU3QgQW5kcmV3cyAtIFRlcm0gQ2FsZW5kYXIgMjAyNikgVGoKRVQKZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgNgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMTUgMDAwMDAgbiAKMDAwMDAwMDA2MCAwMDAwMCBuIAowMDAwMDAwMTExIDAwMDAwIG4gCjAwMDAwMDAyMzQgMDAwMDAgbiAKMDAwMDAwMDMwMSAwMDAwMCBuIAp0cmFpbGVyCjw8L1NpemUgNi9Sb290IDEgMCBSPj4Kc3RhcnR4cmVmCjQ0NgolJUVPRgo=',
+        uploadedAt: '8 Jan 2026',
+        visible: true
+      },
+      {
+        id: 'res-4',
+        title: 'School Uniform & Supplies List',
+        description: 'Required uniform items, stationery and personal effects checklist per class level.',
+        category: 'Forms',
+        fileName: 'uniform-supplies-list.pdf',
+        fileType: 'PDF',
+        fileSize: '74 KB',
+        url: 'data:application/pdf;base64,JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFI+PgplbmRvYmoKMiAwIG9iago8PC9UeXBlL1BhZ2VzL0tpZHNbMyAwIFJdL0NvdW50IDE+PgplbmRvYmoKMyAwIG9iago8PC9UeXBlL1BhZ2UvUGFyZW50IDIgMCBSL01lZGlhQm94WzAgMCA2MTIgNzkyXS9SZXNvdXJjZXM8PC9Gb250PDwvRjEgNCAwIFI+Pj4+L0NvbnRlbnRzIDUgMCBSPj4KZW5kb2JqCjQgMCBvYmoKPDwvVHlwZS9Gb250L1N1YnR5cGUvVHlwZTEvQmFzZUZvbnQvSGVsdmV0aWNhPj4KZW5kb2JqCjUgMCBvYmoKPDwvTGVuZ3RoIDk5Pj4Kc3RyZWFtCkJUCi9GMSAxOCBUZgo3MiA3MjAgVGQKKFBDRUEgU3QgQW5kcmV3cyAtIFVuaWZvcm0gJiBTdXBwbGllcyBMaXN0KSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCnhyZWYKMCA2CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAxNSAwMDAwMCBuIAowMDAwMDAwMDYwIDAwMDAwIG4gCjAwMDAwMDAxMTEgMDAwMDAgbiAKMDAwMDAwMDIzNCAwMDAwMCBuIAowMDAwMDAwMzAxIDAwMDAwIG4gCnRyYWlsZXIKPDwvU2l6ZSA2L1Jvb3QgMSAwIFI+PgpzdGFydHhyZWYKNDUwCiUlRU9GCg==',
+        uploadedAt: '10 Jan 2026',
+        visible: true
+      }
     ]
   });
 
@@ -343,13 +395,24 @@ export default function App() {
       <LandingPage
         content={websiteContent}
         onEnterSystem={(role) => {
-          if (role === 'admin') {
-            setCurrentUser(users.find((u) => u.role === 'admin') || users[0]);
-          } else {
-            setCurrentUser(users.find((u) => u.role === 'teacher') || users[1]);
-          }
-          setAppMode('system');
+          setLoginRole(role);
+          setAppMode('login');
         }}
+      />
+    );
+  }
+
+  if (appMode === 'login') {
+    return (
+      <LoginPage
+        users={users}
+        preselectedRole={loginRole}
+        onLogin={(user) => {
+          setCurrentUser(user);
+          setAppMode('system');
+          showToast(`Welcome back, ${user.name}!`);
+        }}
+        onBackToLanding={() => setAppMode('landing')}
       />
     );
   }
