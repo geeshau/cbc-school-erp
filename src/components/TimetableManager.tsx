@@ -345,7 +345,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
       {/* View Switcher & Selector */}
       <div
         id="timetable-controls"
-        className="timetable-controls bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-wrap gap-4 items-center justify-between rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900"
+        className="timetable-controls bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-wrap gap-4 items-center justify-between rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900"
       >
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2.5">
@@ -623,7 +623,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
       {/* Schedule Lesson Modal with Proactive Collision Detection */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 max-h-[90vh] overflow-y-auto rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 max-h-[90vh] overflow-y-auto rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div>
                 <h2 className="text-base font-bold text-slate-900 font-serif flex items-center gap-2">

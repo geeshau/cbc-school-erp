@@ -118,7 +118,7 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
       </div>
 
       {/* Student Selector Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-wrap gap-4 items-center justify-between print:hidden rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-wrap gap-4 items-center justify-between print:hidden rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
         <div className="flex items-center gap-2">
           <span className="text-xs font-bold text-slate-500">Select Learner:</span>
           <select
@@ -158,7 +158,7 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
       </div>
 
       {/* Printable Report Card Sheet */}
-      <div className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-200 shadow-md max-w-4xl mx-auto space-y-6 text-slate-900 font-serif print:shadow-none print:border-none print:p-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+      <div className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-200 shadow-md max-w-4xl mx-auto space-y-6 text-slate-900 font-serif print:shadow-none print:border-none print:p-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
         {/* School Header */}
         <div className="text-center pb-4 border-b-2 border-slate-900">
           <h1 className="text-2xl font-black uppercase tracking-widest text-slate-950">

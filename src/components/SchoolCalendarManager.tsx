@@ -238,7 +238,7 @@ export const SchoolCalendarManager: React.FC<SchoolCalendarManagerProps> = ({
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Calendar grid */}
-        <div className="lg:col-span-8 bg-white dark:bg-brand-950 rounded-2xl border border-slate-200/80 dark:border-brand-900 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] overflow-hidden flex flex-col">
+        <div className="lg:col-span-8 bg-white dark:bg-brand-950 rounded-2xl border border-slate-200/80 dark:border-brand-900 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] overflow-hidden flex flex-col">
           <div className="flex items-center justify-between p-4 border-b border-slate-100 dark:border-brand-900">
             <h2 className="text-base font-black text-slate-900 dark:text-slate-100 font-serif">
               {MONTH_NAMES[viewDate.getMonth()]} {viewDate.getFullYear()}
@@ -320,7 +320,7 @@ export const SchoolCalendarManager: React.FC<SchoolCalendarManagerProps> = ({
 
         {/* Upcoming events list */}
         <div className="lg:col-span-4 space-y-4">
-          <div className="bg-white dark:bg-brand-950 p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-brand-900 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)]">
+          <div className="bg-white dark:bg-brand-950 p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-brand-900 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)]">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200 mb-4 flex items-center gap-2">
               <Clock className="w-4 h-4 text-brand-500" />
               Upcoming Events

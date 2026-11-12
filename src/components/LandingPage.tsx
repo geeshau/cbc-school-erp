@@ -39,7 +39,7 @@ interface LandingPageProps {
   onEnterSystem: (role?: 'teacher' | 'admin') => void;
 }
 
-const TEAL = '#0D3B36';
+const TEAL = '#0D2840';
 
 const NAV_LINKS = [
   { href: '#home', label: 'Home' },
@@ -124,7 +124,7 @@ const PROGRAMMES = [
 ];
 
 const inputClass =
-  'w-full rounded-xl border border-slate-200 bg-[#F8F9FA] px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 transition focus:border-[#0D3B36] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0D3B36]/20';
+  'w-full rounded-xl border border-slate-200 bg-[#F8F9FA] px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 transition focus:border-[#0D2840] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0D2840]/20';
 
 const Stars: React.FC<{ size?: string }> = ({ size = 'h-4 w-4' }) => (
   <span className="flex items-center gap-0.5" aria-hidden="true">
@@ -298,7 +298,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
   return (
     <div className="min-h-screen overflow-x-clip bg-[#F8F9FA] font-['Plus_Jakarta_Sans',sans-serif] text-slate-800 antialiased">
       {/* ───────────── Announcement bar ───────────── */}
-      <div className="bg-[#082824] px-4 py-2 text-xs text-white/85">
+      <div className="bg-[#071D33] px-4 py-2 text-xs text-white/85">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-1 sm:justify-between">
           <p className="text-center sm:text-left">
             <span className="mr-1.5 font-bold text-[#FFAE00]">Term 1 2026:</span>
@@ -324,10 +324,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
         }`}
         style={{ backgroundColor: TEAL }}
       >
-        <div className="border-b border-white/10 bg-[#0D3B36]/95 backdrop-blur-xl shadow-lg shadow-black/20">
+        <div className="border-b border-white/10 bg-[#0D2840]/95 backdrop-blur-xl shadow-lg shadow-black/20">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
             <a href="#home" className="flex items-center gap-2.5 text-white" onClick={scrollToTop}>
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#FFAE00] text-sm font-black text-[#0D3B36]">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#FFAE00] text-sm font-black text-[#0D2840]">
                 PS
               </span>
               <span className="text-sm font-extrabold tracking-tight sm:text-base">PCEA St Andrews</span>
@@ -379,8 +379,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
       {/* ───────────── Hero (with header) ───────────── */}
       <div className="relative overflow-hidden" style={{ backgroundColor: TEAL }}>
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute -left-32 top-24 h-80 w-80 rounded-full bg-emerald-400/10 blur-3xl" />
-          <div className="absolute right-0 top-0 h-[520px] w-[520px] rounded-full bg-teal-300/10 blur-3xl" />
+          <div className="absolute -left-32 top-24 h-80 w-80 rounded-full bg-blue-400/10 blur-3xl" />
+          <div className="absolute right-0 top-0 h-[520px] w-[520px] rounded-full bg-sky-300/10 blur-3xl" />
           <div className="absolute inset-0 opacity-[0.07] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:26px_26px]" />
         </div>
 
@@ -388,7 +388,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
         <header className="relative z-20">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-5 sm:px-8">
             <a href="#home" className="flex items-center gap-3 text-white">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FFAE00] text-lg font-black text-[#0D3B36]">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FFAE00] text-lg font-black text-[#0D2840]">
                 PS
               </span>
               <span className="leading-tight">
@@ -530,7 +530,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
               </a>
 
               <button type="button" onClick={() => setReportModalOpen(true)} className="group inline-flex items-center gap-3 text-white cursor-pointer">
-                <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-white text-[#0D3B36] shadow-lg transition group-hover:scale-105">
+                <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-white text-[#0D2840] shadow-lg transition group-hover:scale-105">
                   <span className="absolute inset-0 animate-ping rounded-full bg-white/30" aria-hidden="true" />
                   <FileText className="relative h-5 w-5" aria-hidden="true" />
                 </span>
@@ -552,7 +552,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
 
           {/* Hero image */}
           <div className="relative mx-auto w-full max-w-md lg:max-w-lg">
-            <div className="absolute inset-x-6 bottom-0 top-10 rounded-[45%_55%_40%_60%/55%_45%_55%_45%] bg-gradient-to-br from-emerald-300/30 to-teal-500/20" aria-hidden="true" />
+            <div className="absolute inset-x-6 bottom-0 top-10 rounded-[45%_55%_40%_60%/55%_45%_55%_45%] bg-gradient-to-br from-sky-300/30 to-blue-500/20" aria-hidden="true" />
             <div className="absolute left-1/2 top-1/2 h-[90%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-white/15" aria-hidden="true" />
             <img
               src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=80"
@@ -567,7 +567,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
             <span className="absolute bottom-10 left-0 z-20 h-3 w-3 rounded-full bg-white/70" aria-hidden="true" />
 
             <div className="absolute -left-2 bottom-16 z-20 flex items-center gap-3 rounded-2xl bg-white p-3 pr-5 shadow-2xl [animation:lh-float_6s_ease-in-out_infinite] sm:-left-8">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0D3B36]/10 text-[#0D3B36]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0D2840]/10 text-[#0D2840]">
                 <Heart className="h-5 w-5" aria-hidden="true" />
               </span>
               <div>
@@ -597,7 +597,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
           {/* Header */}
           <div className="mx-auto max-w-2xl text-center">
             <SectionLabel>What Parents Say</SectionLabel>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0D3B36] sm:text-4xl lg:text-5xl">
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0D2840] sm:text-4xl lg:text-5xl">
               Voices From Our School Community
             </h2>
             <p className="mt-4 text-slate-500">
@@ -619,7 +619,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                 <button
                   type="button"
                   onClick={() => setSlideIndex((prev) => (prev - 1 + totalSlides) % totalSlides)}
-                  className="absolute left-0 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-[#0D3B36] shadow-md transition-all hover:bg-[#0D3B36] hover:text-white"
+                  className="absolute left-0 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-[#0D2840] shadow-md transition-all hover:bg-[#0D2840] hover:text-white"
                   aria-label="Previous feedback"
                 >
                   <ChevronLeft className="h-5 w-5" />
@@ -627,7 +627,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                 <button
                   type="button"
                   onClick={() => setSlideIndex((prev) => (prev + 1) % totalSlides)}
-                  className="absolute right-0 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-[#0D3B36] shadow-md transition-all hover:bg-[#0D3B36] hover:text-white"
+                  className="absolute right-0 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-[#0D2840] shadow-md transition-all hover:bg-[#0D2840] hover:text-white"
                   aria-label="Next feedback"
                 >
                   <ChevronRight className="h-5 w-5" />
@@ -663,10 +663,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                         return (
                           <article
                             key={fb.id}
-                            className="group relative flex flex-col rounded-3xl rounded-tr-[3rem] border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#0D3B36]/25 hover:shadow-[0_20px_60px_-20px_rgba(13,59,54,0.25)]"
+                            className="group relative flex flex-col rounded-3xl rounded-tr-[3rem] border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#0D2840]/25 hover:shadow-[0_20px_60px_-20px_rgba(13,40,64,0.25)]"
                           >
                             {/* Quote icon */}
-                            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0D3B36]/[0.07] text-[#0D3B36] transition-colors group-hover:bg-[#FFAE00]/15 group-hover:text-[#F7941D]">
+                            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0D2840]/[0.07] text-[#0D2840] transition-colors group-hover:bg-[#FFAE00]/15 group-hover:text-[#F7941D]">
                               <Quote className="h-5 w-5" aria-hidden="true" />
                             </span>
 
@@ -678,11 +678,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                             {/* Footer: role, date, like */}
                             <div className="mt-5 flex items-center justify-between border-t border-slate-200 pt-4 transition-colors group-hover:border-slate-300">
                               <div className="flex items-center gap-2.5">
-                                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0D3B36] text-xs font-bold text-white">
+                                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0D2840] text-xs font-bold text-white">
                                   {fb.role.charAt(0).toUpperCase()}
                                 </span>
                                 <div className="min-w-0">
-                                  <span className="block text-xs font-bold text-[#0D3B36] truncate">{fb.role}</span>
+                                  <span className="block text-xs font-bold text-[#0D2840] truncate">{fb.role}</span>
                                   <span className="block text-[10px] text-slate-400">{fb.date}</span>
                                 </div>
                               </div>
@@ -719,7 +719,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                     onClick={() => setSlideIndex(i)}
                     className={`h-2 rounded-full transition-all duration-300 ${
                       i === slideIndex
-                        ? 'w-8 bg-[#0D3B36]'
+                        ? 'w-8 bg-[#0D2840]'
                         : 'w-2 bg-slate-300 hover:bg-slate-400'
                     }`}
                     aria-label={`Go to feedback page ${i + 1}`}
@@ -732,7 +732,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
           {/* Submit Anonymous Feedback — collapsed by default */}
           <div className="mx-auto mt-14 max-w-2xl">
             <div className="relative rounded-3xl rounded-tr-[4rem] border border-slate-200 bg-white shadow-sm overflow-hidden">
-              <span className="absolute right-0 top-0 h-14 w-14 rounded-tr-[4rem] border-r-4 border-t-4 border-[#0D3B36]/30" aria-hidden="true" />
+              <span className="absolute right-0 top-0 h-14 w-14 rounded-tr-[4rem] border-r-4 border-t-4 border-[#0D2840]/30" aria-hidden="true" />
 
               {/* Clickable header — always visible */}
               <button
@@ -741,11 +741,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                 className="flex w-full items-center gap-3 p-6 text-left transition-colors hover:bg-slate-50 sm:p-8"
                 aria-expanded={feedbackFormOpen}
               >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0D3B36] text-white">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0D2840] text-white">
                   <MessageCircle className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-lg font-extrabold text-[#0D3B36]">Share Your Experience</h3>
+                  <h3 className="text-lg font-extrabold text-[#0D2840]">Share Your Experience</h3>
                   <p className="text-xs text-slate-500">Your feedback is anonymous and helps other parents.</p>
                 </div>
                 <ChevronRight
@@ -798,7 +798,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                       </div>
                       <button
                         type="submit"
-                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#0D3B36] py-3.5 text-sm font-bold text-white shadow-lg shadow-[#0D3B36]/20 transition hover:-translate-y-0.5 hover:bg-[#145A52]"
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#0D2840] py-3.5 text-sm font-bold text-white shadow-lg shadow-[#0D2840]/20 transition hover:-translate-y-0.5 hover:bg-[#144672]"
                       >
                         <Send className="h-4 w-4" aria-hidden="true" /> Post Anonymous Feedback
                       </button>
@@ -816,7 +816,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
       <section id="about" className="mx-auto max-w-7xl scroll-mt-6 px-5 pt-10 pb-20 sm:px-8 lg:pt-14 lg:pb-24">
         <div className="mx-auto max-w-2xl text-center">
           <SectionLabel>Why PCEA St Andrews</SectionLabel>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0D3B36] sm:text-4xl lg:text-5xl">3 Reasons To Choose Us</h2>
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0D2840] sm:text-4xl lg:text-5xl">3 Reasons To Choose Us</h2>
           <p className="mt-4 text-slate-500">
             A holistic, loving and stimulating environment where children discover their full potential.
           </p>
@@ -826,17 +826,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
           {REASONS.map(({ icon: Icon, title, text }, i) => (
             <article
               key={title}
-              className={`group relative rounded-3xl rounded-tr-[4.5rem] border border-slate-200 bg-white p-8 shadow-[0_10px_40px_-20px_rgba(13,59,54,0.25)] transition-all duration-300 hover:-translate-y-2 hover:border-[#0D3B36]/40 hover:shadow-[0_30px_60px_-25px_rgba(13,59,54,0.45)] ${
+              className={`group relative rounded-3xl rounded-tr-[4.5rem] border border-slate-200 bg-white p-8 shadow-[0_10px_40px_-20px_rgba(13,40,64,0.25)] transition-all duration-300 hover:-translate-y-2 hover:border-[#0D2840]/40 hover:shadow-[0_30px_60px_-25px_rgba(13,40,64,0.45)] ${
                 i === 2 ? 'sm:col-span-2 lg:col-span-1' : ''
               }`}
             >
-              <span className="absolute right-0 top-0 h-16 w-16 rounded-tr-[4.5rem] border-r-4 border-t-4 border-[#0D3B36] opacity-80 transition-colors group-hover:border-[#FFAE00]" aria-hidden="true" />
-              <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#0D3B36] text-white shadow-lg shadow-[#0D3B36]/30 transition-colors duration-300 group-hover:bg-[#FFAE00] group-hover:text-[#0D3B36]">
+              <span className="absolute right-0 top-0 h-16 w-16 rounded-tr-[4.5rem] border-r-4 border-t-4 border-[#0D2840] opacity-80 transition-colors group-hover:border-[#FFAE00]" aria-hidden="true" />
+              <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#0D2840] text-white shadow-lg shadow-[#0D2840]/30 transition-colors duration-300 group-hover:bg-[#FFAE00] group-hover:text-[#0D2840]">
                 <Icon className="h-7 w-7" aria-hidden="true" />
               </span>
-              <h3 className="mt-6 text-xl font-extrabold text-[#0D3B36]">{title}</h3>
+              <h3 className="mt-6 text-xl font-extrabold text-[#0D2840]">{title}</h3>
               <p className="mt-3 leading-relaxed text-slate-500">{text}</p>
-              <a href="#enquire" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#0D3B36] transition-colors hover:text-[#F7941D]">
+              <a href="#enquire" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#0D2840] transition-colors hover:text-[#F7941D]">
                 Learn More
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </a>
@@ -850,7 +850,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <SectionLabel>Admissions</SectionLabel>
-            <h2 id="steps-heading" className="mt-3 text-3xl font-extrabold tracking-tight text-[#0D3B36] sm:text-4xl lg:text-5xl">
+            <h2 id="steps-heading" className="mt-3 text-3xl font-extrabold tracking-tight text-[#0D2840] sm:text-4xl lg:text-5xl">
               Follow These 3 Simple Steps to Join Our School!
             </h2>
           </div>
@@ -868,18 +868,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                       onMouseEnter={() => setActiveStep(i)}
                       aria-current={active ? 'step' : undefined}
                       className={`relative flex w-full items-start gap-4 rounded-2xl rounded-tr-[2rem] p-3 text-left transition-all duration-300 ${
-                        active ? 'bg-[#0D3B36] shadow-xl shadow-[#0D3B36]/25' : 'hover:bg-slate-50'
+                        active ? 'bg-[#0D2840] shadow-xl shadow-[#0D2840]/25' : 'hover:bg-slate-50'
                       }`}
                     >
                       <span
                         className={`relative z-10 flex h-8 w-8 shrink-0 translate-x-[7px] items-center justify-center rounded-full text-sm font-extrabold transition-colors ${
-                          active ? 'bg-[#FFAE00] text-[#0D3B36]' : 'border-2 border-slate-300 bg-white text-slate-500'
+                          active ? 'bg-[#FFAE00] text-[#0D2840]' : 'border-2 border-slate-300 bg-white text-slate-500'
                         }`}
                       >
                         {i + 1}
                       </span>
                       <span className="pl-2">
-                        <span className={`block font-extrabold ${active ? 'text-white' : 'text-[#0D3B36]'}`}>{step.title}</span>
+                        <span className={`block font-extrabold ${active ? 'text-white' : 'text-[#0D2840]'}`}>{step.title}</span>
                         <span
                           className={`mt-1 block text-sm leading-relaxed transition-all ${
                             active ? 'max-h-24 text-white/70 opacity-100' : 'max-h-0 overflow-hidden opacity-0 lg:max-h-24 lg:text-slate-500 lg:opacity-100'
@@ -895,8 +895,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
             </ol>
 
             <div className="relative mx-auto h-72 w-72 sm:h-80 sm:w-80 lg:h-96 lg:w-96">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#0D3B36] to-[#14574f]" aria-hidden="true" />
-              <div className="absolute -inset-4 rounded-full border-2 border-dashed border-[#0D3B36]/25 [animation:spin_40s_linear_infinite]" aria-hidden="true" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#0D2840] to-[#143E66]" aria-hidden="true" />
+              <div className="absolute -inset-4 rounded-full border-2 border-dashed border-[#0D2840]/25 [animation:spin_40s_linear_infinite]" aria-hidden="true" />
               {/* Step images — all rendered, only active one is visible */}
               {STEPS.map((step, i) => (
                 <img
@@ -909,7 +909,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                   loading="lazy"
                 />
               ))}
-              <span className="absolute -right-1 top-8 flex h-14 w-14 items-center justify-center rounded-full bg-[#FFAE00] text-2xl font-black text-[#0D3B36] shadow-xl ring-4 ring-white transition-all duration-300">
+              <span className="absolute -right-1 top-8 flex h-14 w-14 items-center justify-center rounded-full bg-[#FFAE00] text-2xl font-black text-[#0D2840] shadow-xl ring-4 ring-white transition-all duration-300">
                 {activeStep + 1}
               </span>
               <Plus className="absolute -left-4 bottom-10 h-8 w-8 text-[#FFAE00]" strokeWidth={3} aria-hidden="true" />
@@ -919,10 +919,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
               {VALUES.map((m) => (
                 <div
                   key={m.value}
-                  className="group flex flex-col-reverse rounded-2xl rounded-tr-[2rem] border border-slate-200 bg-[#F8F9FA] px-6 py-4 transition hover:border-[#0D3B36]/30 hover:bg-white hover:shadow-lg lg:flex-row-reverse lg:items-center lg:justify-between"
+                  className="group flex flex-col-reverse rounded-2xl rounded-tr-[2rem] border border-slate-200 bg-[#F8F9FA] px-6 py-4 transition hover:border-[#0D2840]/30 hover:bg-white hover:shadow-lg lg:flex-row-reverse lg:items-center lg:justify-between"
                 >
                   <dt className="text-sm font-medium text-slate-500">{m.label}</dt>
-                  <dd className="text-2xl font-extrabold text-[#0D3B36] transition-colors group-hover:text-[#F7941D]">{m.value}</dd>
+                  <dd className="text-2xl font-extrabold text-[#0D2840] transition-colors group-hover:text-[#F7941D]">{m.value}</dd>
                 </div>
               ))}
             </dl>
@@ -935,7 +935,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
         <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] rounded-tr-[6rem] px-6 py-16 sm:px-12 lg:px-16" style={{ backgroundColor: TEAL }}>
           <div className="pointer-events-none absolute inset-0" aria-hidden="true">
             <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[#FFAE00]/10 blur-3xl" />
-            <div className="absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-emerald-300/10 blur-3xl" />
+            <div className="absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-sky-300/10 blur-3xl" />
             <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:24px_24px]" />
           </div>
 
@@ -961,21 +961,21 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                 }`}
               >
                 <div className="flex items-start justify-between">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FFAE00] text-[#0D3B36] shadow-lg shadow-black/20">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FFAE00] text-[#0D2840] shadow-lg shadow-black/20">
                     <Icon className="h-6 w-6" aria-hidden="true" />
                   </span>
-                  <span className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold text-white/80 transition-colors group-hover:bg-[#0D3B36]/10 group-hover:text-[#0D3B36]">
+                  <span className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold text-white/80 transition-colors group-hover:bg-[#0D2840]/10 group-hover:text-[#0D2840]">
                     {age}
                   </span>
                 </div>
-                <h3 className="mt-6 text-xl font-extrabold text-white transition-colors group-hover:text-[#0D3B36]">{title}</h3>
+                <h3 className="mt-6 text-xl font-extrabold text-white transition-colors group-hover:text-[#0D2840]">{title}</h3>
                 <p className="mt-3 flex-1 leading-relaxed text-white/65 transition-colors group-hover:text-slate-500">{text}</p>
                 <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5 transition-colors group-hover:border-slate-200">
                   <span className="text-xs font-bold text-white/70 group-hover:text-slate-500">{admissionLabel}</span>
                   <a
                     href="#enquire"
                     aria-label={`Enquire about ${title}`}
-                    className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-all group-hover:rotate-45 group-hover:bg-[#0D3B36]"
+                    className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-all group-hover:rotate-45 group-hover:bg-[#0D2840]"
                   >
                     <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
                   </a>
@@ -990,7 +990,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
       <section id="gallery" className="mx-auto max-w-7xl scroll-mt-6 px-5 pb-20 sm:px-8 lg:pb-24">
         <div className="mx-auto max-w-2xl text-center">
           <SectionLabel>Campus & Activities</SectionLabel>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0D3B36] sm:text-4xl lg:text-5xl">A Glimpse Into Life at St Andrews</h2>
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0D2840] sm:text-4xl lg:text-5xl">A Glimpse Into Life at St Andrews</h2>
           <p className="mt-4 text-slate-500">Vibrant classrooms, outdoor play areas, creative arts and everyday learning moments.</p>
         </div>
 
@@ -998,7 +998,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
           {galleryImages.map((img, i) => (
             <figure
               key={img.id}
-              className={`group relative overflow-hidden rounded-3xl rounded-tr-[3rem] bg-slate-200 shadow-[0_10px_40px_-20px_rgba(13,59,54,0.35)] ${
+              className={`group relative overflow-hidden rounded-3xl rounded-tr-[3rem] bg-slate-200 shadow-[0_10px_40px_-20px_rgba(13,40,64,0.35)] ${
                 i === 0 ? 'col-span-2 row-span-2' : ''
               } ${i === 3 ? 'lg:col-span-2' : ''}`}
             >
@@ -1008,8 +1008,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                 loading="lazy"
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0D3B36]/90 via-[#0D3B36]/40 to-transparent p-4 pt-10">
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#FFAE00] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#0D3B36]">
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0D2840]/90 via-[#0D2840]/40 to-transparent p-4 pt-10">
+                <span className="inline-flex items-center gap-1 rounded-full bg-[#FFAE00] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#0D2840]">
                   <ImageIcon className="h-3 w-3" aria-hidden="true" /> {img.category}
                 </span>
                 <span className="mt-1.5 block text-sm font-bold text-white">{img.title}</span>
@@ -1044,7 +1044,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                       onClick={() => setDownloadFilter(cat)}
                       className={`rounded-full px-4 py-2 text-xs font-bold transition-all ${
                         downloadFilter === cat
-                          ? 'bg-[#FFAE00] text-[#0D3B36] shadow-lg shadow-black/20'
+                          ? 'bg-[#FFAE00] text-[#0D2840] shadow-lg shadow-black/20'
                           : 'border border-white/15 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
                       }`}
                     >
@@ -1072,7 +1072,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                     className="group flex cursor-pointer flex-col rounded-3xl rounded-tr-[2.5rem] border border-white/10 bg-white/5 p-6 transition-all hover:-translate-y-1 hover:border-[#FFAE00]/40 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAE00]"
                   >
                     <div className="flex items-start justify-between gap-3">
-                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#FFAE00]/15 text-[#FFAE00] transition-colors group-hover:bg-[#FFAE00] group-hover:text-[#0D3B36]">
+                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#FFAE00]/15 text-[#FFAE00] transition-colors group-hover:bg-[#FFAE00] group-hover:text-[#0D2840]">
                         <FileDown className="h-6 w-6" aria-hidden="true" />
                       </span>
                       <span className="rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white/70">
@@ -1104,7 +1104,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
                           aria-label={`Download ${res.title}`}
-                          className="flex items-center gap-1.5 rounded-full bg-[#F7941D] px-3.5 py-2 text-xs font-bold text-white shadow-lg shadow-orange-500/20 transition hover:-translate-y-0.5 hover:bg-[#FFAE00] hover:text-[#0D3B36]"
+                          className="flex items-center gap-1.5 rounded-full bg-[#F7941D] px-3.5 py-2 text-xs font-bold text-white shadow-lg shadow-orange-500/20 transition hover:-translate-y-0.5 hover:bg-[#FFAE00] hover:text-[#0D2840]"
                         >
                           <Download className="h-3.5 w-3.5" aria-hidden="true" />
                           <span className="hidden sm:inline">Download</span>
@@ -1131,7 +1131,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
         <div className="mx-auto grid max-w-7xl items-start gap-12 px-5 sm:px-8 lg:grid-cols-2">
           <div>
             <SectionLabel>Direct Contact</SectionLabel>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0D3B36] sm:text-4xl lg:text-5xl">Enquire With Our School Office</h2>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0D2840] sm:text-4xl lg:text-5xl">Enquire With Our School Office</h2>
             <p className="mt-4 leading-relaxed text-slate-500">
               Have questions regarding fee structures, admission vacancies, uniform lists, or school bus transport? Send a direct
               enquiry and our admissions officer will respond promptly.
@@ -1145,19 +1145,19 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
               ].map(({ icon: Icon, label, value, extra, href }) => (
                 <li
                   key={label}
-                  className="group flex items-center gap-4 rounded-2xl rounded-tr-[2rem] border border-slate-200 bg-[#F8F9FA] p-4 transition hover:-translate-y-0.5 hover:border-[#0D3B36]/30 hover:bg-white hover:shadow-lg"
+                  className="group flex items-center gap-4 rounded-2xl rounded-tr-[2rem] border border-slate-200 bg-[#F8F9FA] p-4 transition hover:-translate-y-0.5 hover:border-[#0D2840]/30 hover:bg-white hover:shadow-lg"
                 >
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0D3B36] text-white transition-colors group-hover:bg-[#FFAE00] group-hover:text-[#0D3B36]">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0D2840] text-white transition-colors group-hover:bg-[#FFAE00] group-hover:text-[#0D2840]">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                   <span className="min-w-0">
                     <span className="block text-xs font-semibold text-slate-400">{label}</span>
                     {href ? (
-                      <a href={href} className="block break-all font-bold text-[#0D3B36] hover:text-[#F7941D]">
+                      <a href={href} className="block break-all font-bold text-[#0D2840] hover:text-[#F7941D]">
                         {value}
                       </a>
                     ) : (
-                      <span className="block break-all font-bold text-[#0D3B36]">{value}</span>
+                      <span className="block break-all font-bold text-[#0D2840]">{value}</span>
                     )}
                     {extra && <span className="block break-all text-xs text-slate-500">{extra}</span>}
                   </span>
@@ -1166,9 +1166,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
             </ul>
           </div>
 
-          <div className="relative rounded-3xl rounded-tr-[4.5rem] border border-slate-200 bg-white p-6 shadow-[0_30px_80px_-40px_rgba(13,59,54,0.45)] sm:p-8">
+          <div className="relative rounded-3xl rounded-tr-[4.5rem] border border-slate-200 bg-white p-6 shadow-[0_30px_80px_-40px_rgba(13,40,64,0.45)] sm:p-8">
             <span className="absolute right-0 top-0 h-16 w-16 rounded-tr-[4.5rem] border-r-4 border-t-4 border-[#FFAE00]" aria-hidden="true" />
-            <h3 className="text-xl font-extrabold text-[#0D3B36]">Send Office Message</h3>
+            <h3 className="text-xl font-extrabold text-[#0D2840]">Send Office Message</h3>
             <p className="mt-1 text-sm text-slate-500">Fill out this quick form for office follow-up.</p>
 
             {enquirySubmitted ? (
@@ -1312,11 +1312,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
               )}
               {getPreviewKind(previewResource) === 'none' && (
                 <div className="flex min-h-[320px] flex-col items-center justify-center gap-4 p-8 text-center">
-                  <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#0D3B36]/10 text-[#0D3B36]">
+                  <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#0D2840]/10 text-[#0D2840]">
                     <FileText className="h-8 w-8" aria-hidden="true" />
                   </span>
                   <div>
-                    <h3 className="font-extrabold text-[#0D3B36]">Preview not available</h3>
+                    <h3 className="font-extrabold text-[#0D2840]">Preview not available</h3>
                     <p className="mx-auto mt-1 max-w-sm text-sm text-slate-500">
                       {previewResource.fileType} files can't be previewed in the browser. Use the download button below to save
                       <span className="font-semibold"> {previewResource.fileName}</span> and open it on your device.
@@ -1398,7 +1398,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
               {reportSubmitted ? (
                 <div className="space-y-4 text-center">
                   <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-600" aria-hidden="true" />
-                  <h3 className="text-lg font-extrabold text-[#0D3B36]">Report Request Logged Successfully!</h3>
+                  <h3 className="text-lg font-extrabold text-[#0D2840]">Report Request Logged Successfully!</h3>
                   <p className="mx-auto max-w-md text-sm leading-relaxed text-slate-600">
                     Child Report Request for <strong className="text-[#F7941D]">{childName}</strong> (Admin No: <span className="font-mono">{adminNumber}</span>)
                     has been submitted for verification. The official term report will be sent to <span className="underline">{parentEmail}</span>.
@@ -1461,12 +1461,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
       )}
 
       {/* ───────────── Footer ───────────── */}
-      <footer className="relative overflow-hidden text-white/70" style={{ backgroundColor: '#082824' }}>
+      <footer className="relative overflow-hidden text-white/70" style={{ backgroundColor: '#071D33' }}>
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FFAE00]/60 to-transparent" aria-hidden="true" />
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFAE00] font-black text-[#0D3B36]">PS</span>
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFAE00] font-black text-[#0D2840]">PS</span>
               <span className="font-extrabold text-white">PCEA St Andrews</span>
             </div>
             <p className="text-sm leading-relaxed">
@@ -1534,7 +1534,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
         type="button"
         onClick={scrollToTop}
         aria-label="Scroll to top"
-        className={`fixed bottom-6 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-[#0D3B36] text-white shadow-lg shadow-black/20 ring-1 ring-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-[#145A52] hover:shadow-xl hover:scale-105 active:scale-95 ${
+        className={`fixed bottom-6 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-[#0D2840] text-white shadow-lg shadow-black/20 ring-1 ring-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-[#144672] hover:shadow-xl hover:scale-105 active:scale-95 ${
           showScrollTop
             ? 'translate-y-0 opacity-100'
             : 'translate-y-4 opacity-0 pointer-events-none'

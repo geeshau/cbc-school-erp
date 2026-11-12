@@ -367,7 +367,7 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
   return (
     <div className="space-y-6">
       {/* Month Navigation & Summary Header */}
-      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           {/* Month Title & Nav */}
           <div className="flex items-center gap-3">
@@ -596,7 +596,7 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
 
         {/* Right / Bottom: Selected Day Schedule Inspector (4 cols on large screen) */}
         <div className="lg:col-span-4 space-y-4">
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 flex flex-col h-full rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 flex flex-col h-full rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
             {/* Header of Day Inspector */}
             <div className="pb-3 border-b border-slate-100 flex items-start justify-between gap-2">
               <div>
@@ -784,7 +784,7 @@ export const TimetableCalendarView: React.FC<TimetableCalendarViewProps> = ({
       {/* Lesson Details Dialog / Popover */}
       {activeSlotModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-150 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-150 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
                 <div className={`p-2 rounded-xl ${getSubjectColor(activeSlotModal.subject).bg}`}>

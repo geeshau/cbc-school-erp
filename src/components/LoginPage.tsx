@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import { User, UserRole } from '../types';
 
-const TEAL = '#0D3B36';
+const TEAL = '#0D2840';
 const AMBER = '#FFAE00';
 
 interface LoginPageProps {
@@ -93,8 +93,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({
       <div className="relative hidden lg:flex lg:w-1/2 flex-col justify-between overflow-hidden p-12 text-white">
         {/* Decorative blobs */}
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute -left-32 top-24 h-80 w-80 rounded-full bg-emerald-400/10 blur-3xl" />
-          <div className="absolute right-0 bottom-0 h-[420px] w-[420px] rounded-full bg-teal-300/10 blur-3xl" />
+          <div className="absolute -left-32 top-24 h-80 w-80 rounded-full bg-blue-400/10 blur-3xl" />
+          <div className="absolute right-0 bottom-0 h-[420px] w-[420px] rounded-full bg-sky-300/10 blur-3xl" />
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FFAE00]/60 to-transparent" />
         </div>
 
@@ -102,7 +102,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           <button
             type="button"
             onClick={onBackToLanding}
-            className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-emerald-100 transition-colors hover:bg-white/10"
+            className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-sky-100 transition-colors hover:bg-white/10"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             Back to Website
@@ -110,24 +110,24 @@ export const LoginPage: React.FC<LoginPageProps> = ({
         </div>
 
         <div className="relative max-w-md space-y-6">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-300/30 to-teal-500/20 ring-1 ring-white/20">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-300/30 to-blue-500/20 ring-1 ring-white/20">
             <GraduationCap className="h-9 w-9" style={{ color: AMBER }} aria-hidden="true" />
           </div>
           <h1 className="text-4xl font-extrabold leading-tight tracking-tight">
             PCEA St Andrews
-            <span className="block text-emerald-300">Kindergarten Portal</span>
+            <span className="block text-sky-300">Kindergarten Portal</span>
           </h1>
-          <p className="text-base leading-relaxed text-emerald-100/80">
+          <p className="text-base leading-relaxed text-sky-100/80">
             Staff access to enrolment, CBC grading, fee management, timetables,
             report cards, and the school calendar — all in one secure system.
           </p>
-          <div className="flex items-center gap-2 text-sm font-semibold text-emerald-300">
+          <div className="flex items-center gap-2 text-sm font-semibold text-sky-300">
             <ShieldCheck className="h-4 w-4" aria-hidden="true" />
             Authorised staff only · Encrypted session
           </div>
         </div>
 
-        <p className="relative text-xs text-emerald-100/50">
+        <p className="relative text-xs text-sky-100/50">
           © {new Date().getFullYear()} PCEA St Andrews Kindergarten · kindergarten.pceastandrews.org
         </p>
       </div>
@@ -178,9 +178,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                 }`}
               >
                 {role === 'admin' ? (
-                  <ShieldCheck className="h-4 w-4 text-emerald-600" aria-hidden="true" />
+                  <ShieldCheck className="h-4 w-4 text-sky-600" aria-hidden="true" />
                 ) : (
-                  <Users className="h-4 w-4 text-emerald-600" aria-hidden="true" />
+                  <Users className="h-4 w-4 text-sky-600" aria-hidden="true" />
                 )}
                 {role === 'admin' ? 'Administrator' : 'Teacher'}
               </button>
@@ -202,7 +202,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                   value={email}
                   onChange={(e) => { setEmail(e.target.value); setError(null); }}
                   placeholder="you@pceastandrews.org"
-                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 outline-none ring-emerald-500/30 transition focus:border-emerald-500 focus:ring-4"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 outline-none ring-sky-500/30 transition focus:border-sky-500 focus:ring-4"
                 />
               </div>
             </div>
@@ -216,7 +216,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                 <button
                   type="button"
                   onClick={() => setError('Please contact the system administrator to reset your password.')}
-                  className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 hover:underline"
+                  className="text-xs font-semibold text-sky-700 hover:text-sky-800 hover:underline"
                 >
                   Forgot password?
                 </button>
@@ -230,7 +230,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                   value={password}
                   onChange={(e) => { setPassword(e.target.value); setError(null); }}
                   placeholder="••••••••"
-                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-11 text-sm text-slate-900 placeholder-slate-400 outline-none ring-emerald-500/30 transition focus:border-emerald-500 focus:ring-4"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-11 text-sm text-slate-900 placeholder-slate-400 outline-none ring-sky-500/30 transition focus:border-sky-500 focus:ring-4"
                 />
                 <button
                   type="button"
@@ -258,7 +258,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-900/20 transition-all hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70"
+              className="flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-900/20 transition-all hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70"
               style={{ backgroundColor: TEAL }}
             >
               {isSubmitting ? (
@@ -291,9 +291,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                     key={user.id}
                     type="button"
                     onClick={() => handleQuickFill(user)}
-                    className="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-left transition-all hover:border-emerald-300 hover:bg-emerald-50/50"
+                    className="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-left transition-all hover:border-sky-300 hover:bg-sky-50/50"
                   >
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 text-xs font-bold text-white">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-blue-600 text-xs font-bold text-white">
                       {user.name.split(' ').map((n) => n[0]).slice(0, 2).join('')}
                     </div>
                     <div className="min-w-0">

@@ -202,7 +202,7 @@ Performance Index: ${student.performanceIndex}%
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-col md:flex-row gap-3 items-center justify-between rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-col md:flex-row gap-3 items-center justify-between rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
         {/* Search */}
         <div className="relative w-full md:w-80">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -447,7 +447,7 @@ Performance Index: ${student.performanceIndex}%
         >
           <div
             id="learner-details-modal"
-            className="bg-white rounded-3xl max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 my-8 max-h-[92vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200 space-y-6 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900"
+            className="bg-white rounded-3xl max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 my-8 max-h-[92vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200 space-y-6 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Top Modal Header */}
@@ -958,7 +958,7 @@ Performance Index: ${student.performanceIndex}%
       {/* New Learner Admission Modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 max-h-[92vh] overflow-y-auto animate-in fade-in duration-150 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 max-h-[92vh] overflow-y-auto animate-in fade-in duration-150 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div>
                 <h2 className="text-base font-bold text-slate-900 font-serif">

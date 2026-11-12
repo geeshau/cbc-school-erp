@@ -466,7 +466,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
           {/* A4-Proportioned Printable Sheet */}
           <div
             id="student-fee-statement-document"
-            className="bg-white rounded-xl shadow-lg border border-slate-300/80 p-6 sm:p-10 space-y-6 max-w-3xl mx-auto print:shadow-none print:border print:border-slate-300 print:rounded-none print:p-6 print:m-0 print:max-w-none rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900"
+            className="bg-white rounded-xl shadow-lg border border-slate-300/80 p-6 sm:p-10 space-y-6 max-w-3xl mx-auto print:shadow-none print:border print:border-slate-300 print:rounded-none print:p-6 print:m-0 print:max-w-none rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900"
           >
             {/* 1. Institutional Letterhead Header */}
             <div className="border-b-2 border-slate-900 pb-5">

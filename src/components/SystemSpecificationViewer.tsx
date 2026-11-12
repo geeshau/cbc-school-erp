@@ -75,7 +75,7 @@ export const SystemSpecificationViewer: React.FC = () => {
       </div>
 
       {/* Document Body */}
-      <div className="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200 max-w-4xl mx-auto space-y-8 text-slate-800 font-sans print:border-none print:shadow-none print:p-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+      <div className="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200 max-w-4xl mx-auto space-y-8 text-slate-800 font-sans print:border-none print:shadow-none print:p-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
         {/* Title Cover Block */}
         <div className="border-b-2 border-slate-900 pb-6 text-center space-y-2">
           <span className="inline-block px-3 py-1 bg-amber-100 text-amber-900 text-[11px] font-bold uppercase tracking-wider rounded-full font-sans">

@@ -154,7 +154,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         {/* Card 1: Academic Status */}
         <div
           onClick={() => onNavigateTab('grading')}
-          className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 hover:border-brand-200 transition-all cursor-pointer group min-w-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900"
+          className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 hover:border-brand-200 transition-all cursor-pointer group min-w-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900"
         >
           <div className="flex items-center justify-between gap-2">
             <span className="text-[11px] sm:text-xs font-semibold text-slate-500">Academic Grading</span>
@@ -172,7 +172,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
 
         {/* Card 2: Performance Average */}
         <div
-          className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 hover:border-brand-200 transition-all group min-w-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900"
+          className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 hover:border-brand-200 transition-all group min-w-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900"
         >
           <div className="flex items-center justify-between gap-2">
             <span className="text-[11px] sm:text-xs font-semibold text-slate-500">Avg Performance</span>
@@ -191,7 +191,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         {/* Card 3: Student Directory */}
         <div
           onClick={() => onNavigateTab('enrolment')}
-          className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 hover:border-brand-200 transition-all cursor-pointer group min-w-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900"
+          className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 hover:border-brand-200 transition-all cursor-pointer group min-w-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900"
         >
           <div className="flex items-center justify-between gap-2">
             <span className="text-[11px] sm:text-xs font-semibold text-slate-500">Student Directory</span>
@@ -210,7 +210,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         {/* Card 4: Fee Arrears Alert */}
         <div
           onClick={() => onNavigateTab('fees')}
-          className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 hover:border-brand-200 transition-all cursor-pointer group min-w-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900"
+          className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 hover:border-brand-200 transition-all cursor-pointer group min-w-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900"
         >
           <div className="flex items-center justify-between gap-2">
             <span className="text-[11px] sm:text-xs font-semibold text-slate-500">Fee Arrears</span>
@@ -229,7 +229,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         {/* Card 5: Fee Collection Rate */}
         <div
           onClick={() => onNavigateTab('fees')}
-          className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 hover:border-brand-200 transition-all cursor-pointer group min-w-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900"
+          className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/80 hover:border-brand-200 transition-all cursor-pointer group min-w-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900"
         >
           <div className="flex items-center justify-between gap-2">
             <span className="text-[11px] sm:text-xs font-semibold text-slate-500">Collection Rate</span>
@@ -254,7 +254,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
       {/* Operations overview cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 min-w-0">
           {/* Quick School Actions */}
-          <div className="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 transition-colors rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] lg:col-span-1">
+          <div className="bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 transition-colors rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-brand-500"></span>
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200">
@@ -289,7 +289,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
 
           {/* Urgent Alerts (Admin Only) */}
           {userRole === 'admin' && (
-            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-4 flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4 text-amber-500" />
                 Urgent Alerts
@@ -306,7 +306,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           )}
 
           {/* Performance Spotlight */}
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-4">Performance Spotlight</h3>
             <div className="space-y-3">
               {[...students].sort((a, b) => a.performanceIndex - b.performanceIndex).slice(0, 3).map(s => (
@@ -320,7 +320,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
       </div>
 
       {/* Outstanding Balances Table */}
-      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
         <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200 mb-4 flex items-center justify-between">
           <span>Learners with Outstanding Balances</span>
           <span className="text-[10px] text-slate-400 font-normal">Showing top 5</span>
@@ -354,7 +354,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
 
       {/* Upcoming Events Preview */}
       {upcomingEvents.length > 0 && (
-        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200 mb-4 flex items-center justify-between">
             <span className="flex items-center gap-2">
               <CalendarDays className="w-4 h-4 text-brand-500" />

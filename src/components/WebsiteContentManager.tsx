@@ -294,7 +294,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-12">
       {/* Header Banner */}
-      <div className="bg-white dark:bg-brand-950 p-6 rounded-2xl border border-slate-200/80 dark:border-brand-900 flex flex-wrap items-center justify-between gap-4 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)]">
+      <div className="bg-white dark:bg-brand-950 p-6 rounded-2xl border border-slate-200/80 dark:border-brand-900 flex flex-wrap items-center justify-between gap-4 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)]">
         <div>
           <div className="flex items-center gap-2">
             <div className="w-9 h-9 rounded-xl bg-brand-100 dark:bg-brand-950 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold">
@@ -332,7 +332,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Contact & General Info */}
-        <div className="bg-white dark:bg-brand-950 p-6 rounded-2xl border border-slate-200/80 dark:border-brand-900 space-y-4 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)]">
+        <div className="bg-white dark:bg-brand-950 p-6 rounded-2xl border border-slate-200/80 dark:border-brand-900 space-y-4 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)]">
           <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
             <Phone className="w-4 h-4 text-brand-500" />
             <span>Contact Information & Top Banner</span>
@@ -402,7 +402,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
         </div>
 
         {/* Hero Section Copy */}
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-4 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)]">
+        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-4 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)]">
           <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-brand-500" />
             <span>Hero & Overview Copy</span>
@@ -478,7 +478,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
         </div>
 
         {/* Gallery Photos Management */}
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-5 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)]">
+        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-5 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)]">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
               <ImageIcon className="w-4 h-4 text-brand-500" />
@@ -567,7 +567,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
         </div>
 
         {/* Downloads & Resources Manager */}
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-5 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)]">
+        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-5 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)]">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
               <Download className="w-4 h-4 text-brand-500" />
@@ -739,7 +739,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
         </div>
 
         {/* Parent Feedback / Testimonial Cards Manager */}
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-5 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)]">
+        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-5 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)]">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
               <MessageCircle className="w-4 h-4 text-brand-500" />

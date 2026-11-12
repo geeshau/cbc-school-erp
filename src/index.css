@@ -2,22 +2,22 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ── Brand design tokens (shared by landing page & portal) ──
-   brand  = dark teal / forest green (primary, #0D3B36 at 800)
+   brand  = dark navy blue (primary, #0D2840 at 800)
    accent = bright yellow-orange (CTAs, stars, highlights)        */
 @theme {
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 
-  --color-brand-50: #eef8f6;
-  --color-brand-100: #d5eee9;
-  --color-brand-200: #a9dcd3;
-  --color-brand-300: #72c2b5;
-  --color-brand-400: #3fa594;
-  --color-brand-500: #17766a;
-  --color-brand-600: #115f55;
-  --color-brand-700: #0f4c45;
-  --color-brand-800: #0d3b36;
-  --color-brand-900: #0a2f2b;
-  --color-brand-950: #061d1b;
+  --color-brand-50: #eef2f8;
+  --color-brand-100: #d5e1ee;
+  --color-brand-200: #a9c3dc;
+  --color-brand-300: #729ec6;
+  --color-brand-400: #3f74a8;
+  --color-brand-500: #174a7e;
+  --color-brand-600: #113c66;
+  --color-brand-700: #0f3152;
+  --color-brand-800: #0d2840;
+  --color-brand-900: #0a1f33;
+  --color-brand-950: #061320;
 
   --color-accent-300: #ffc94d;
   --color-accent-400: #ffae00;
@@ -45,7 +45,7 @@ body {
 }
 
 .dark body, html.dark body {
-  background-color: #04110f !important;
+  background-color: #040b14 !important;
 }
 
 /* Responsive base improvements */
@@ -90,7 +90,7 @@ table tbody tr {
 }
 
 table tbody tr:hover {
-  background-color: rgba(23, 118, 106, 0.07) !important;
+  background-color: rgba(23, 74, 126, 0.07) !important;
 }
 
 /* Ensure table data shows fully without wrapping or truncation */

@@ -418,7 +418,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-canvas dark:bg-[#04110f] text-slate-900 dark:text-slate-100 font-sans flex flex-col antialiased w-full overflow-x-hidden transition-colors duration-200">
+    <div className="min-h-screen bg-canvas dark:bg-[#040b14] text-slate-900 dark:text-slate-100 font-sans flex flex-col antialiased w-full overflow-x-hidden transition-colors duration-200">
       {/* Top Header Navbar */}
       <Navbar
         currentUser={currentUser}
@@ -451,7 +451,7 @@ export default function App() {
         />
 
         {/* Dynamic Content Body */}
-        <main className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 2xl:p-8 pb-24 sm:pb-24 md:pb-24 lg:pb-24 xl:pb-24 2xl:pb-24 bg-canvas dark:bg-[#04110f] transition-colors w-full">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 2xl:p-8 pb-24 sm:pb-24 md:pb-24 lg:pb-24 xl:pb-24 2xl:pb-24 bg-canvas dark:bg-[#040b14] transition-colors w-full">
           <div className="w-full max-w-full sm:max-w-[calc(100vw-2rem)] md:max-w-7xl xl:max-w-[1600px] 2xl:max-w-[1720px] mx-auto space-y-4 sm:space-y-5 lg:space-y-6">
             {/* Back Navigation Button */}
             {tabHistory.length > 0 && (

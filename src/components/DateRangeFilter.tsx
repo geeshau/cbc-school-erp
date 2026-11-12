@@ -71,7 +71,7 @@ export const DateRangeFilter: React.FC<DateRangeFilterProps> = ({
 
   return (
     <div
-      className={`bg-white p-4 rounded-2xl border border-slate-200/90 space-y-3 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900 ${className}`}
+      className={`bg-white p-4 rounded-2xl border border-slate-200/90 space-y-3 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900 ${className}`}
     >
       {/* Top row: Title and current status */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">

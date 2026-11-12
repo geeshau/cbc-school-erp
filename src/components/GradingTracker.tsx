@@ -208,7 +208,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
       )}
 
       {/* Selectors Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-wrap gap-3 items-center justify-between rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-wrap gap-3 items-center justify-between rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
         <div className="flex flex-wrap items-center gap-3">
           <div>
             <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
@@ -285,7 +285,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
 
       {/* Class Performance Metrics Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+        <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Class Mean Score
           </span>
@@ -293,7 +293,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
           <p className="text-[11px] text-slate-500">Across {selectedSubject}</p>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+        <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Class Pass Rate
           </span>
@@ -301,7 +301,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
           <p className="text-[11px] text-slate-500">{passCount} scored &gt;= 50%</p>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+        <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Highest Mark
           </span>
@@ -309,7 +309,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
           <p className="text-[11px] text-slate-500">Top performance</p>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,59,54,0.35)] dark:bg-brand-950 dark:border-brand-900">
+        <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Grade Distribution
           </span>
