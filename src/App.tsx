@@ -182,12 +182,24 @@ export default function App() {
   };
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastExiting, setToastExiting] = useState(false);
+  const toastTimersRef = React.useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const showToast = (msg: string) => {
+    // Clear any pending timers so consecutive toasts restart cleanly
+    toastTimersRef.current.forEach(clearTimeout);
+    toastTimersRef.current = [];
+
+    setToastExiting(false);
     setToastMessage(msg);
-    setTimeout(() => {
-      setToastMessage(null);
-    }, 4000);
+
+    toastTimersRef.current.push(
+      setTimeout(() => setToastExiting(true), 3650),
+      setTimeout(() => {
+        setToastMessage(null);
+        setToastExiting(false);
+      }, 4000)
+    );
   };
 
   // Global Keyboard shortcuts:
@@ -467,7 +479,17 @@ export default function App() {
 
             {/* Action Toast Feedback */}
             {toastMessage && (
-              <div className="fixed bottom-20 sm:bottom-6 right-3 sm:right-7 z-50 bg-slate-900 dark:bg-slate-800 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl shadow-2xl border border-slate-700 dark:border-slate-700 flex items-center gap-2 sm:gap-2.5 animate-in fade-in slide-in-from-bottom-3 duration-200 max-w-[calc(100vw-1.5rem)] sm:max-w-sm">
+              <div
+                role="status"
+                aria-live="polite"
+                className="fixed top-4 sm:top-5 left-1/2 z-[110] bg-slate-900 dark:bg-slate-800 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl shadow-2xl border border-slate-700 dark:border-slate-700 flex items-center gap-2 sm:gap-2.5 max-w-[calc(100vw-1.5rem)] sm:max-w-sm"
+                style={{
+                  animation: toastExiting
+                    ? 'toastSlideUp 0.35s cubic-bezier(0.4, 0, 1, 1) forwards'
+                    : 'toastSlideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                  transform: 'translateX(-50%)',
+                }}
+              >
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span className="break-words">{toastMessage}</span>
               </div>
