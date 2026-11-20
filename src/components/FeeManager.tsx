@@ -303,15 +303,15 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200 dark:border-brand-900">
         <div>
           <div className="flex items-center gap-2">
             <CreditCard className="w-5 h-5 text-brand-500" />
-            <h1 className="text-xl font-bold text-slate-900 font-serif">
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white font-serif">
               Learner Fee & Financial Accounts
             </h1>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Term fee packages, collection ledgers, payment receipt generation, and outstanding arrears monitoring.
           </p>
         </div>
@@ -319,7 +319,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={() => handleOpenStatement(filteredStudents[0]?.id || students[0]?.id || '')}
-            className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs border border-slate-200 shadow-xs transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white dark:bg-brand-950 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs border border-slate-200 dark:border-brand-900 shadow-xs transition-all cursor-pointer"
             title="Generate official printable PDF-style student fee statement"
           >
             <FileText className="w-4 h-4 text-brand-500" />
@@ -341,40 +341,40 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
           <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
             Total Fees Billed
           </span>
-          <div className="text-2xl font-black text-slate-900 mt-2">
+          <div className="text-2xl font-black text-slate-900 dark:text-white mt-2">
             KES {totalBilled.toLocaleString()}
           </div>
-          <p className="text-xs text-slate-500 mt-1">Full term expected fees</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Full term expected fees</p>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
             Total Fees Banked
           </span>
-          <div className="text-2xl font-black text-emerald-700 mt-2">
+          <div className="text-2xl font-black text-emerald-700 dark:text-emerald-400 mt-2">
             KES {totalCollected.toLocaleString()}
           </div>
-          <p className="text-xs text-slate-500 mt-1">Received in school accounts</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Received in school accounts</p>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
             Outstanding Arrears
           </span>
-          <div className="text-2xl font-black text-rose-700 mt-2">
+          <div className="text-2xl font-black text-rose-700 dark:text-rose-400 mt-2">
             KES {totalOutstanding.toLocaleString()}
           </div>
-          <p className="text-xs text-slate-500 mt-1">Due before end-of-term</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Due before end-of-term</p>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
             Collection Rate
           </span>
-          <div className="text-2xl font-black text-brand-600 mt-2">
+          <div className="text-2xl font-black text-brand-600 dark:text-brand-400 mt-2">
             {collectionRate}%
           </div>
-          <div className="w-full bg-slate-100 rounded-full h-1.5 mt-2 overflow-hidden">
+          <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 mt-2 overflow-hidden">
             <div
               className="bg-brand-500 h-full rounded-full"
               style={{ width: `${collectionRate}%` }}
@@ -384,13 +384,13 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
       </div>
 
       {/* Sub-Tabs: Student Ledger, Transactions, Fee Structure */}
-      <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
+      <div className="flex items-center gap-2 border-b border-slate-200 dark:border-brand-900 pb-2">
         <button
           onClick={() => setActiveTab('ledger')}
           className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
             activeTab === 'ledger'
               ? 'bg-brand-500 text-white shadow-xs'
-              : 'text-slate-600 hover:bg-slate-100'
+              : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
         >
           Learner Fee Ledger
@@ -400,12 +400,12 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
           className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
             activeTab === 'transactions'
               ? 'bg-brand-500 text-white shadow-xs'
-              : 'text-slate-600 hover:bg-slate-100'
+              : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
         >
           <span>Payment Transactions Log</span>
           <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
-            activeTab === 'transactions' ? 'bg-white/20 text-white' : 'bg-brand-100 text-brand-800'
+            activeTab === 'transactions' ? 'bg-white/20 text-white' : 'bg-brand-100 text-brand-800 dark:bg-brand-900 dark:text-brand-300'
           }`}>
             {filteredPayments.length}
           </span>
@@ -415,7 +415,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
           className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
             activeTab === 'structure'
               ? 'bg-brand-500 text-white shadow-xs'
-              : 'text-slate-600 hover:bg-slate-100'
+              : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
         >
           Standard Fee Structure Packages
@@ -433,18 +433,18 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                 placeholder="Search student or admission number..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none"
+                className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-700 focus:outline-none"
               />
             </div>
 
             <div className="flex items-center gap-2 w-full sm:w-auto">
-              <span className="text-xs text-slate-500 font-medium">Filter:</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Filter:</span>
               <button
                 onClick={() => setStatusFilter('all')}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold cursor-pointer ${
                   statusFilter === 'all'
-                    ? 'bg-brand-50 text-brand-700 border border-brand-200'
-                    : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                    ? 'bg-brand-50 text-brand-700 border border-brand-200 dark:bg-brand-900/40 dark:text-brand-300 dark:border-brand-800'
+                    : 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700'
                 }`}
               >
                 All Learners
@@ -453,8 +453,8 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                 onClick={() => setStatusFilter('pending')}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold cursor-pointer ${
                   statusFilter === 'pending'
-                    ? 'bg-rose-50 text-rose-700 border border-rose-200'
-                    : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                    ? 'bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-900/30 dark:text-rose-300 dark:border-rose-800'
+                    : 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700'
                 }`}
               >
                 Pending Balance
@@ -463,8 +463,8 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                 onClick={() => setStatusFilter('cleared')}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold cursor-pointer ${
                   statusFilter === 'cleared'
-                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                    : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-800'
+                    : 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700'
                 }`}
               >
                 Fully Cleared
@@ -473,10 +473,10 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
           </div>
 
           {/* Ledger Table */}
-          <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+          <div className="bg-white dark:bg-brand-950 rounded-2xl border border-slate-200/80 dark:border-brand-900 shadow-xs overflow-hidden">
             <div className="overflow-x-auto">
               <table className="responsive-card-table w-full text-left text-xs">
-                <thead className="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-200 text-[11px]">
+                <thead className="bg-slate-50 dark:bg-brand-900 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-brand-800 text-[11px]">
                   <tr>
                     <th className="py-3 px-4">Adm No.</th>
                     <th className="py-3 px-4">Learner Name</th>
@@ -488,22 +488,22 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                     <th className="py-3 px-4 text-right">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-slate-100 dark:divide-brand-900">
                   {filteredStudents.map((s) => {
                     const isPaid = s.feeBalance === 0;
                     return (
-                      <tr key={s.id} className="hover:bg-slate-50/70 transition-colors">
-                        <td data-label="Adm No." className="py-3.5 px-4 font-mono font-semibold text-slate-700">
+                      <tr key={s.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/50 transition-colors">
+                        <td data-label="Adm No." className="py-3.5 px-4 font-mono font-semibold text-slate-700 dark:text-slate-300">
                           {s.admissionNumber}
                         </td>
-                        <td data-label="Learner Name" className="py-3.5 px-4 font-bold text-slate-900">
+                        <td data-label="Learner Name" className="py-3.5 px-4 font-bold text-slate-900 dark:text-white">
                           {s.firstName} {s.lastName}
                         </td>
-                        <td data-label="Grade" className="py-3.5 px-4 text-slate-600 font-medium">{s.grade}</td>
-                        <td data-label="Total Billed" className="py-3.5 px-4 font-semibold text-slate-700">
+                        <td data-label="Grade" className="py-3.5 px-4 text-slate-600 dark:text-slate-400 font-medium">{s.grade}</td>
+                        <td data-label="Total Billed" className="py-3.5 px-4 font-semibold text-slate-700 dark:text-slate-300">
                           KES {s.totalFeesBilled.toLocaleString()}
                         </td>
-                        <td data-label="Total Paid" className="py-3.5 px-4 font-bold text-emerald-700">
+                        <td data-label="Total Paid" className="py-3.5 px-4 font-bold text-emerald-700 dark:text-emerald-400">
                           KES {s.totalFeesPaid.toLocaleString()}
                         </td>
                         <td
@@ -516,11 +516,11 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                         </td>
                         <td data-label="Status" className="py-3.5 px-4">
                           {isPaid ? (
-                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                               Cleared
                             </span>
                           ) : (
-                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                               Part Payment
                             </span>
                           )}
@@ -529,10 +529,10 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                           <div className="flex items-center justify-end gap-1.5">
                             <button
                               onClick={() => handleOpenStatement(s.id)}
-                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs transition-colors cursor-pointer border border-slate-200"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs transition-colors cursor-pointer border border-slate-200 dark:border-slate-700"
                               title={`Generate Statement for ${s.firstName} ${s.lastName}`}
                             >
-                              <FileText className="w-3.5 h-3.5 text-slate-600" />
+                              <FileText className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />
                               <span>Statement</span>
                             </button>
                             <button
@@ -540,7 +540,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                                 setSelectedStudentId(s.id);
                                 setShowPaymentModal(true);
                               }}
-                              className="px-2.5 py-1 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold text-xs transition-colors cursor-pointer border border-brand-200/60"
+                              className="px-2.5 py-1 rounded-lg bg-brand-50 dark:bg-brand-900/40 hover:bg-brand-100 dark:hover:bg-brand-800/50 text-brand-700 dark:text-brand-300 font-bold text-xs transition-colors cursor-pointer border border-brand-200/60 dark:border-brand-800"
                             >
                               + Pay Fee
                             </button>
@@ -585,19 +585,19 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                   placeholder="Search receipt, learner, adm..."
                   value={transactionSearchQuery}
                   onChange={(e) => setTransactionSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none"
+                  className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-700 focus:outline-none"
                 />
               </div>
 
               {/* Class Filter */}
               <div className="flex items-center gap-1.5">
-                <label className="text-xs font-semibold text-slate-500 whitespace-nowrap">
+                <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 whitespace-nowrap">
                   Grade:
                 </label>
                 <select
                   value={filterGrade}
                   onChange={(e) => setFilterGrade(e.target.value)}
-                  className="text-xs font-bold px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none"
+                  className="text-xs font-bold px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-700 focus:outline-none"
                 >
                   <option value="all">All Grades</option>
                   <option value="Grade 9-A">Grade 9-A</option>
@@ -611,13 +611,13 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
 
               {/* Payment Method Filter */}
               <div className="flex items-center gap-1.5">
-                <label className="text-xs font-semibold text-slate-500 whitespace-nowrap">
+                <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 whitespace-nowrap">
                   Method:
                 </label>
                 <select
                   value={filterPaymentMethod}
                   onChange={(e) => setFilterPaymentMethod(e.target.value)}
-                  className="text-xs font-bold px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none"
+                  className="text-xs font-bold px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-700 focus:outline-none"
                 >
                   <option value="all">All Methods</option>
                   <option value="Mobile Money">Mobile Money (M-Pesa)</option>
@@ -633,19 +633,19 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
               <button
                 type="button"
                 onClick={handleExportPaymentsCSV}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs border border-slate-200 transition-colors cursor-pointer shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-brand-950 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs border border-slate-200 dark:border-brand-900 transition-colors cursor-pointer shadow-2xs"
                 title="Export filtered transactions to CSV"
               >
-                <Download className="w-3.5 h-3.5 text-slate-500" />
+                <Download className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                 <span>Export CSV</span>
               </button>
               <button
                 type="button"
                 onClick={handlePrintTransactions}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs border border-slate-200 transition-colors cursor-pointer shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-brand-950 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs border border-slate-200 dark:border-brand-900 transition-colors cursor-pointer shadow-2xs"
                 title="Print official transaction ledger sheet"
               >
-                <Printer className="w-3.5 h-3.5 text-slate-500" />
+                <Printer className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                 <span>Print Ledger</span>
               </button>
             </div>
@@ -657,10 +657,10 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Period Banked
               </span>
-              <div className="text-xl font-black text-emerald-700 mt-1">
+              <div className="text-xl font-black text-emerald-700 dark:text-emerald-400 mt-1">
                 KES {periodTotalCollected.toLocaleString()}
               </div>
-              <p className="text-[11px] text-slate-500 mt-0.5">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                 {periodTransactionCount} verified receipts
               </p>
             </div>
@@ -669,20 +669,20 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Average Receipt
               </span>
-              <div className="text-xl font-black text-slate-900 mt-1">
+              <div className="text-xl font-black text-slate-900 dark:text-white mt-1">
                 KES {periodAvgReceipt.toLocaleString()}
               </div>
-              <p className="text-[11px] text-slate-500 mt-0.5">Per transaction</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Per transaction</p>
             </div>
 
             <div className="bg-white p-4 rounded-2xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Mobile Money (M-Pesa)
               </span>
-              <div className="text-xl font-black text-emerald-600 mt-1">
+              <div className="text-xl font-black text-emerald-600 dark:text-emerald-400 mt-1">
                 KES {(methodTotals['Mobile Money'] || 0).toLocaleString()}
               </div>
-              <p className="text-[11px] text-slate-500 mt-0.5">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                 {periodTotalCollected > 0
                   ? Math.round(((methodTotals['Mobile Money'] || 0) / periodTotalCollected) * 100)
                   : 0}
@@ -694,26 +694,26 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Bank Wire & Card
               </span>
-              <div className="text-xl font-black text-indigo-600 mt-1">
+              <div className="text-xl font-black text-indigo-600 dark:text-indigo-400 mt-1">
                 KES {((methodTotals['Bank Transfer'] || 0) + (methodTotals['Card'] || 0)).toLocaleString()}
               </div>
-              <p className="text-[11px] text-slate-500 mt-0.5">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                 Cash: KES {(methodTotals['Cash'] || 0).toLocaleString()}
               </p>
             </div>
           </div>
 
           {/* Transactions Table */}
-          <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+          <div className="bg-white dark:bg-brand-950 rounded-2xl border border-slate-200/80 dark:border-brand-900 shadow-xs overflow-hidden">
             {filteredPayments.length === 0 ? (
               <div className="p-12 text-center space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
+                <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto text-slate-400">
                   <Receipt className="w-6 h-6" />
                 </div>
-                <h3 className="text-sm font-bold text-slate-800">
+                <h3 className="text-sm font-bold text-slate-800 dark:text-slate-200">
                   No payment transactions found in this time frame
                 </h3>
-                <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
                   Try adjusting the start or end dates, choosing a broader preset (such as "Last 30 Days" or "All Records"), or clearing filters.
                 </p>
                 <button
@@ -728,7 +728,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
             ) : (
               <div className="overflow-x-auto">
                 <table className="responsive-card-table w-full text-left text-xs">
-                  <thead className="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-200 text-[11px]">
+                  <thead className="bg-slate-50 dark:bg-brand-900 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-brand-800 text-[11px]">
                     <tr>
                       <th className="py-3 px-4">Receipt No.</th>
                       <th className="py-3 px-4">Payment Date</th>
@@ -741,61 +741,61 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                       <th className="py-3 px-4 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-slate-100 dark:divide-brand-900">
                     {filteredPayments.map((p) => (
-                      <tr key={p.id} className="hover:bg-slate-50/70 transition-colors">
-                        <td data-label="Receipt No." className="py-3.5 px-4 font-mono font-bold text-indigo-700 whitespace-nowrap">
+                      <tr key={p.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/50 transition-colors">
+                        <td data-label="Receipt No." className="py-3.5 px-4 font-mono font-bold text-indigo-700 dark:text-indigo-400 whitespace-nowrap">
                           {p.receiptNumber}
                         </td>
-                        <td data-label="Payment Date" className="py-3.5 px-4 text-slate-600 whitespace-nowrap font-medium">
+                        <td data-label="Payment Date" className="py-3.5 px-4 text-slate-600 dark:text-slate-400 whitespace-nowrap font-medium">
                           {p.paymentDate}
                         </td>
                         <td data-label="Learner Details" className="py-3.5 px-4">
-                          <div className="font-bold text-slate-900">{p.studentName}</div>
+                          <div className="font-bold text-slate-900 dark:text-white">{p.studentName}</div>
                           <div className="text-[10px] font-mono text-slate-400">
                             {p.admissionNumber}
                           </div>
                         </td>
-                        <td data-label="Grade" className="py-3.5 px-4 text-slate-600 whitespace-nowrap">
+                        <td data-label="Grade" className="py-3.5 px-4 text-slate-600 dark:text-slate-400 whitespace-nowrap">
                           {p.grade}
                         </td>
                         <td data-label="Channel" className="py-3.5 px-4 whitespace-nowrap">
                           <span
                             className={`px-2 py-0.5 rounded-md font-medium text-[11px] ${
                               p.paymentMethod === 'Mobile Money'
-                                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-800'
                                 : p.paymentMethod === 'Bank Transfer'
-                                ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                                ? 'bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800'
                                 : p.paymentMethod === 'Card'
-                                ? 'bg-purple-50 text-purple-700 border border-purple-200'
-                                : 'bg-slate-100 text-slate-700'
+                                ? 'bg-purple-50 text-purple-700 border border-purple-200 dark:bg-purple-900/30 dark:text-purple-300 dark:border-purple-800'
+                                : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
                             }`}
                           >
                             {p.paymentMethod}
                           </span>
                         </td>
-                        <td data-label="Amount Paid" className="py-3.5 px-4 font-black text-emerald-700 whitespace-nowrap">
+                        <td data-label="Amount Paid" className="py-3.5 px-4 font-black text-emerald-700 dark:text-emerald-400 whitespace-nowrap">
                           KES {p.amount.toLocaleString()}
                         </td>
-                        <td data-label="Notes / Purpose" className="py-3.5 px-4 text-slate-600 max-w-xs truncate">
-                          {p.notes || <span className="text-slate-300">—</span>}
+                        <td data-label="Notes / Purpose" className="py-3.5 px-4 text-slate-600 dark:text-slate-400 max-w-xs truncate">
+                          {p.notes || <span className="text-slate-300 dark:text-slate-600">—</span>}
                         </td>
-                        <td data-label="Recorded By" className="py-3.5 px-4 text-slate-500 whitespace-nowrap">
+                        <td data-label="Recorded By" className="py-3.5 px-4 text-slate-500 dark:text-slate-400 whitespace-nowrap">
                           {p.recordedBy}
                         </td>
                         <td data-label="Actions" className="py-3.5 px-4 text-right whitespace-nowrap">
                           <div className="flex items-center justify-end gap-1.5">
                             <button
                               onClick={() => setSelectedReceipt(p)}
-                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium text-xs transition-colors cursor-pointer"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-medium text-xs transition-colors cursor-pointer"
                               title="View Official Receipt Slip"
                             >
-                              <Receipt className="w-3.5 h-3.5 text-slate-500" />
+                              <Receipt className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                               <span>Slip</span>
                             </button>
                             <button
                               onClick={() => handleOpenStatement(p.studentId)}
-                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 font-semibold text-xs transition-colors cursor-pointer border border-brand-200/50"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-brand-50 dark:bg-brand-900/40 hover:bg-brand-100 dark:hover:bg-brand-800/50 text-brand-700 dark:text-brand-300 font-semibold text-xs transition-colors cursor-pointer border border-brand-200/50 dark:border-brand-800"
                               title="Generate PDF-style Printable Statement"
                             >
                               <FileText className="w-3.5 h-3.5 text-brand-600" />
@@ -808,7 +808,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                                     onDeletePayment(p.id);
                                   }
                                 }}
-                                className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 font-medium text-xs transition-colors cursor-pointer border border-rose-200/60"
+                                className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-rose-50 dark:bg-rose-900/30 hover:bg-rose-100 dark:hover:bg-rose-800/40 text-rose-600 dark:text-rose-400 font-medium text-xs transition-colors cursor-pointer border border-rose-200/60 dark:border-rose-800"
                                 title="Delete payment record"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
@@ -831,8 +831,8 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-bold text-slate-900">Standard Fee Structure Packages</h3>
-              <p className="text-xs text-slate-500">Configure and manage school fee packages by grade level.</p>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Standard Fee Structure Packages</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Configure and manage school fee packages by grade level.</p>
             </div>
             <button
               type="button"
@@ -846,67 +846,67 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-brand-900">
               <div>
-                <h3 className="text-sm font-bold text-slate-900 font-serif">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white font-serif">
                   Standard Secondary Term Package (Grade 9 & 10)
                 </h3>
-                <p className="text-xs text-slate-500">Applicable for Term 1, 2026</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Applicable for Term 1, 2026</p>
               </div>
-              <span className="text-lg font-black text-slate-900">KES 46,000</span>
+              <span className="text-lg font-black text-slate-900 dark:text-white">KES 46,000</span>
             </div>
 
             <div className="space-y-2 text-xs">
-              <div className="flex justify-between py-1.5 border-b border-slate-50">
-                <span className="text-slate-600">Core Tuition & Instruction:</span>
-                <span className="font-semibold text-slate-900">KES 28,000</span>
+              <div className="flex justify-between py-1.5 border-b border-slate-50 dark:border-brand-900">
+                <span className="text-slate-600 dark:text-slate-400">Core Tuition & Instruction:</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-200">KES 28,000</span>
               </div>
-              <div className="flex justify-between py-1.5 border-b border-slate-50">
-                <span className="text-slate-600">Science Laboratory & Computer Lab Consumables:</span>
-                <span className="font-semibold text-slate-900">KES 6,500</span>
+              <div className="flex justify-between py-1.5 border-b border-slate-50 dark:border-brand-900">
+                <span className="text-slate-600 dark:text-slate-400">Science Laboratory & Computer Lab Consumables:</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-200">KES 6,500</span>
               </div>
-              <div className="flex justify-between py-1.5 border-b border-slate-50">
-                <span className="text-slate-600">Library & Digital Learning Resources:</span>
-                <span className="font-semibold text-slate-900">KES 3,500</span>
+              <div className="flex justify-between py-1.5 border-b border-slate-50 dark:border-brand-900">
+                <span className="text-slate-600 dark:text-slate-400">Library & Digital Learning Resources:</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-200">KES 3,500</span>
               </div>
-              <div className="flex justify-between py-1.5 border-b border-slate-50">
-                <span className="text-slate-600">Sports & Co-Curricular Activities:</span>
-                <span className="font-semibold text-slate-900">KES 4,000</span>
+              <div className="flex justify-between py-1.5 border-b border-slate-50 dark:border-brand-900">
+                <span className="text-slate-600 dark:text-slate-400">Sports & Co-Curricular Activities:</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-200">KES 4,000</span>
               </div>
               <div className="flex justify-between py-1.5">
-                <span className="text-slate-600">School Daily Mid-Day Meal:</span>
-                <span className="font-semibold text-slate-900">KES 4,000</span>
+                <span className="text-slate-600 dark:text-slate-400">School Daily Mid-Day Meal:</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-200">KES 4,000</span>
               </div>
             </div>
           </div>
 
           <div className="bg-white p-6 rounded-2xl border border-slate-200/80 space-y-4 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-brand-900">
               <div>
-                <h3 className="text-sm font-bold text-slate-900 font-serif">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white font-serif">
                   Senior Secondary Term Package (Grade 11 & 12)
                 </h3>
-                <p className="text-xs text-slate-500">Applicable for Term 1, 2026</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Applicable for Term 1, 2026</p>
               </div>
-              <span className="text-lg font-black text-slate-900">KES 52,000 - 55,000</span>
+              <span className="text-lg font-black text-slate-900 dark:text-white">KES 52,000 - 55,000</span>
             </div>
 
             <div className="space-y-2 text-xs">
-              <div className="flex justify-between py-1.5 border-b border-slate-50">
-                <span className="text-slate-600">Advanced Core Tuition:</span>
-                <span className="font-semibold text-slate-900">KES 32,000</span>
+              <div className="flex justify-between py-1.5 border-b border-slate-50 dark:border-brand-900">
+                <span className="text-slate-600 dark:text-slate-400">Advanced Core Tuition:</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-200">KES 32,000</span>
               </div>
-              <div className="flex justify-between py-1.5 border-b border-slate-50">
-                <span className="text-slate-600">Advanced Science & Engineering Practicals:</span>
-                <span className="font-semibold text-slate-900">KES 8,000</span>
+              <div className="flex justify-between py-1.5 border-b border-slate-50 dark:border-brand-900">
+                <span className="text-slate-600 dark:text-slate-400">Advanced Science & Engineering Practicals:</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-200">KES 8,000</span>
               </div>
-              <div className="flex justify-between py-1.5 border-b border-slate-50">
-                <span className="text-slate-600">National Exam Prep & Mock Papers:</span>
-                <span className="font-semibold text-slate-900">KES 4,000</span>
+              <div className="flex justify-between py-1.5 border-b border-slate-50 dark:border-brand-900">
+                <span className="text-slate-600 dark:text-slate-400">National Exam Prep & Mock Papers:</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-200">KES 4,000</span>
               </div>
               <div className="flex justify-between py-1.5">
-                <span className="text-slate-600">Activities, Library & Meals:</span>
-                <span className="font-semibold text-slate-900">KES 8,000</span>
+                <span className="text-slate-600 dark:text-slate-400">Activities, Library & Meals:</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-200">KES 8,000</span>
               </div>
             </div>
           </div>
@@ -918,14 +918,14 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
       {showPackageModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 my-auto rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-brand-900">
               <div>
-                <h2 className="text-base font-bold text-slate-900 font-serif">Setup New Standard Fee Package</h2>
-                <p className="text-xs text-slate-500">Create a reusable fee structure template for a grade level.</p>
+                <h2 className="text-base font-bold text-slate-900 dark:text-white font-serif">Setup New Standard Fee Package</h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Create a reusable fee structure template for a grade level.</p>
               </div>
               <button
                 onClick={() => setShowPackageModal(false)}
-                className="p-1 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600"
+                className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -941,22 +941,22 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
             <form onSubmit={handleCreatePackage} className="mt-4 space-y-4 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-700 font-semibold mb-1">Package Title *</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Package Title *</label>
                   <input
                     type="text"
                     required
                     value={packageForm.title}
                     onChange={(e) => setPackageForm({ ...packageForm, title: e.target.value })}
                     placeholder="e.g. Junior Secondary Package (Grade 7 & 8)"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-700 font-semibold mb-1">Grade / Stream *</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Grade / Stream *</label>
                   <select
                     value={packageForm.grade}
                     onChange={(e) => setPackageForm({ ...packageForm, grade: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-medium focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-slate-100 font-medium focus:outline-none"
                   >
                     <option value="Grade 9-A">Grade 9-A</option>
                     <option value="Grade 9-B">Grade 9-B</option>
@@ -967,27 +967,27 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                   </select>
                 </div>
                 <div>
-                  <label className="block text-slate-700 font-semibold mb-1">Term</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Term</label>
                   <input
                     type="text"
                     value={packageForm.term}
                     onChange={(e) => setPackageForm({ ...packageForm, term: e.target.value })}
                     placeholder="Term 1 - 2026"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-slate-100 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-700 font-semibold mb-1">Academic Year</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Academic Year</label>
                   <input
                     type="text"
                     value={packageForm.academicYear}
                     onChange={(e) => setPackageForm({ ...packageForm, academicYear: e.target.value })}
                     placeholder="2026"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-slate-100 focus:outline-none"
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="block text-slate-700 font-semibold mb-1">Total Package Amount (KES) *</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Total Package Amount (KES) *</label>
                   <input
                     type="number"
                     required
@@ -995,14 +995,14 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                     step="500"
                     value={packageForm.totalAmount}
                     onChange={(e) => setPackageForm({ ...packageForm, totalAmount: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                   />
                 </div>
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="text-slate-700 font-semibold">Fee Breakdown Line Items</label>
+                  <label className="text-slate-700 dark:text-slate-300 font-semibold">Fee Breakdown Line Items</label>
                   <button
                     type="button"
                     onClick={() => setPackageForm({ ...packageForm, breakdown: [...packageForm.breakdown, { label: '', amount: '' }] })}
@@ -1023,7 +1023,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                           setPackageForm({ ...packageForm, breakdown: next });
                         }}
                         placeholder="Line item name"
-                        className="flex-1 px-3 py-2 rounded-xl border border-slate-300 bg-white focus:outline-none"
+                        className="flex-1 px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-slate-100 focus:outline-none"
                       />
                       <input
                         type="number"
@@ -1036,7 +1036,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                           setPackageForm({ ...packageForm, breakdown: next });
                         }}
                         placeholder="Amount"
-                        className="w-28 px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold focus:outline-none"
+                        className="w-28 px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-slate-100 font-bold focus:outline-none"
                       />
                       <button
                         type="button"
@@ -1050,11 +1050,11 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                 </div>
               </div>
 
-              <div className="pt-2 flex items-center justify-end gap-3 border-t border-slate-100">
+              <div className="pt-2 flex items-center justify-end gap-3 border-t border-slate-100 dark:border-brand-900">
                 <button
                   type="button"
                   onClick={() => setShowPackageModal(false)}
-                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium text-xs transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -1075,18 +1075,18 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
       {showPaymentModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-brand-900">
               <div>
-                <h2 className="text-base font-bold text-slate-900 font-serif">
+                <h2 className="text-base font-bold text-slate-900 dark:text-white font-serif">
                   Record Learner Fee Payment
                 </h2>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   Issues official payment receipt and updates learner balance ledger immediately.
                 </p>
               </div>
               <button
                 onClick={() => setShowPaymentModal(false)}
-                className="p-1 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600"
+                className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1094,11 +1094,11 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
 
             <form onSubmit={handlePaymentSubmit} className="mt-4 space-y-4 text-xs">
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">Select Learner *</label>
+                <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Select Learner *</label>
                 <select
                   value={selectedStudentId}
                   onChange={(e) => setSelectedStudentId(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-slate-100 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                 >
                   {students.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -1111,7 +1111,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-700 font-semibold mb-1">
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">
                     Amount Paid (KES) *
                   </label>
                   <input
@@ -1121,16 +1121,16 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                     step="100"
                     value={paymentAmount}
                     onChange={(e) => setPaymentAmount(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-700 font-semibold mb-1">Payment Method</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Payment Method</label>
                   <select
                     value={paymentMethod}
                     onChange={(e) => setPaymentMethod(e.target.value as any)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-medium focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-slate-100 font-medium focus:outline-none"
                   >
                     <option value="Mobile Money">Mobile Money (M-Pesa)</option>
                     <option value="Bank Transfer">Bank Transfer</option>
@@ -1141,21 +1141,21 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
               </div>
 
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">Transaction Remarks</label>
+                <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Transaction Remarks</label>
                 <input
                   type="text"
                   value={paymentNotes}
                   onChange={(e) => setPaymentNotes(e.target.value)}
                   placeholder="e.g. Bank Ref #992812 or Tuition installment"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-slate-100"
                 />
               </div>
 
-              <div className="pt-2 flex items-center justify-end gap-3 border-t border-slate-100">
+              <div className="pt-2 flex items-center justify-end gap-3 border-t border-slate-100 dark:border-brand-900">
                 <button
                   type="button"
                   onClick={() => setShowPaymentModal(false)}
-                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium text-xs transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -1176,21 +1176,21 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
       {selectedReceipt && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 print:hidden">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-brand-900 print:hidden">
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Official School Receipt
               </span>
               <div className="flex items-center gap-2">
                 <button
                   onClick={handlePrint}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold text-xs transition-colors cursor-pointer border border-brand-200"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-50 dark:bg-brand-900/40 hover:bg-brand-100 dark:hover:bg-brand-800/50 text-brand-700 dark:text-brand-300 font-bold text-xs transition-colors cursor-pointer border border-brand-200 dark:border-brand-800"
                 >
                   <Printer className="w-3.5 h-3.5" />
                   <span>Print Receipt</span>
                 </button>
                 <button
                   onClick={() => setSelectedReceipt(null)}
-                  className="p-1 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600"
+                  className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -1198,13 +1198,13 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
             </div>
 
             {/* Receipt Body */}
-            <div className="mt-4 p-6 border-2 border-slate-200 rounded-xl bg-slate-50/50 space-y-4 text-xs font-serif">
+            <div className="mt-4 p-6 border-2 border-slate-200 dark:border-brand-900 rounded-xl bg-slate-50/50 dark:bg-brand-900/30 space-y-4 text-xs font-serif">
               {/* School Header */}
-              <div className="text-center pb-3 border-b border-slate-300">
-                <h2 className="text-lg font-black text-slate-900 tracking-wider">
+              <div className="text-center pb-3 border-b border-slate-300 dark:border-slate-700">
+                <h2 className="text-lg font-black text-slate-900 dark:text-white tracking-wider">
                   PCEA ST ANDREWS KINDERGARTEN
                 </h2>
-                <p className="text-[11px] text-slate-600 font-sans">
+                <p className="text-[11px] text-slate-600 dark:text-slate-400 font-sans">
                   PCEA St. Andrews Campus • State House Road, Nairobi • Tel: +254 20 272 3505
                 </p>
                 <div className="inline-block mt-2 px-3 py-0.5 bg-brand-800 text-white text-[10px] font-sans font-bold uppercase tracking-widest rounded-full">
@@ -1216,39 +1216,39 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
               <div className="grid grid-cols-2 gap-2 text-[11px] font-sans">
                 <div>
                   <span className="text-slate-400 block">Receipt Number:</span>
-                  <span className="font-mono font-bold text-slate-900">{selectedReceipt.receiptNumber}</span>
+                  <span className="font-mono font-bold text-slate-900 dark:text-white">{selectedReceipt.receiptNumber}</span>
                 </div>
                 <div className="text-right">
                   <span className="text-slate-400 block">Date of Payment:</span>
-                  <span className="font-semibold text-slate-900">{selectedReceipt.paymentDate}</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">{selectedReceipt.paymentDate}</span>
                 </div>
               </div>
 
               {/* Student Details */}
-              <div className="p-3 bg-white rounded-lg border border-slate-200 font-sans text-xs space-y-1">
+              <div className="p-3 bg-white dark:bg-brand-950 rounded-lg border border-slate-200 dark:border-brand-900 font-sans text-xs space-y-1">
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Learner Name:</span>
-                  <span className="font-bold text-slate-900">{selectedReceipt.studentName}</span>
+                  <span className="text-slate-500 dark:text-slate-400">Learner Name:</span>
+                  <span className="font-bold text-slate-900 dark:text-white">{selectedReceipt.studentName}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Admission Number:</span>
-                  <span className="font-mono font-semibold text-slate-900">
+                  <span className="text-slate-500 dark:text-slate-400">Admission Number:</span>
+                  <span className="font-mono font-semibold text-slate-900 dark:text-white">
                     {selectedReceipt.admissionNumber}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Grade / Class:</span>
-                  <span className="font-semibold text-slate-900">{selectedReceipt.grade}</span>
+                  <span className="text-slate-500 dark:text-slate-400">Grade / Class:</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">{selectedReceipt.grade}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Term & Year:</span>
-                  <span className="font-semibold text-slate-900">
+                  <span className="text-slate-500 dark:text-slate-400">Term & Year:</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">
                     {selectedReceipt.term} ({selectedReceipt.academicYear})
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Payment Channel:</span>
-                  <span className="font-semibold text-slate-900">{selectedReceipt.paymentMethod}</span>
+                  <span className="text-slate-500 dark:text-slate-400">Payment Channel:</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">{selectedReceipt.paymentMethod}</span>
                 </div>
               </div>
 
@@ -1266,14 +1266,14 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
               </div>
 
               {/* Sign-off */}
-              <div className="pt-4 border-t border-slate-300 flex justify-between items-end font-sans text-[11px]">
+              <div className="pt-4 border-t border-slate-300 dark:border-slate-700 flex justify-between items-end font-sans text-[11px]">
                 <div>
                   <span className="text-slate-400 block">Receiving Cashier / Bursar:</span>
-                  <span className="font-bold text-slate-800">{selectedReceipt.recordedBy}</span>
+                  <span className="font-bold text-slate-800 dark:text-slate-200">{selectedReceipt.recordedBy}</span>
                 </div>
                 <div className="text-right">
-                  <div className="w-24 border-b border-slate-400 mb-1"></div>
-                  <span className="text-slate-500 font-serif italic text-[10px]">Official School Stamp</span>
+                  <div className="w-24 border-b border-slate-400 dark:border-slate-600 mb-1"></div>
+                  <span className="text-slate-500 dark:text-slate-400 font-serif italic text-[10px]">Official School Stamp</span>
                 </div>
               </div>
             </div>

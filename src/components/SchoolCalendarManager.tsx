@@ -466,7 +466,7 @@ export const SchoolCalendarManager: React.FC<SchoolCalendarManagerProps> = ({
 
             <form onSubmit={handleSubmit} className="mt-4 space-y-3.5 text-xs">
               {formError && (
-                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 text-[11px]">
+                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 text-[11px]">
                   <AlertCircle className="w-4 h-4 shrink-0" />
                   <span>{formError}</span>
                 </div>
@@ -479,7 +479,7 @@ export const SchoolCalendarManager: React.FC<SchoolCalendarManagerProps> = ({
                   value={formData.title}
                   onChange={e => setFormData({ ...formData, title: e.target.value })}
                   placeholder="e.g. Term 2 Opening Day"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
                 />
               </div>
 
@@ -490,7 +490,7 @@ export const SchoolCalendarManager: React.FC<SchoolCalendarManagerProps> = ({
                   onChange={e => setFormData({ ...formData, description: e.target.value })}
                   rows={2}
                   placeholder="Short details about the event"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30 resize-none"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30 resize-none"
                 />
               </div>
 
@@ -500,7 +500,7 @@ export const SchoolCalendarManager: React.FC<SchoolCalendarManagerProps> = ({
                   <select
                     value={formData.category}
                     onChange={e => setFormData({ ...formData, category: e.target.value as SchoolEventCategory })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
                   >
                     {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
@@ -511,7 +511,7 @@ export const SchoolCalendarManager: React.FC<SchoolCalendarManagerProps> = ({
                     type="text"
                     value={formData.location}
                     onChange={e => setFormData({ ...formData, location: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
                   />
                 </div>
               </div>
@@ -523,7 +523,7 @@ export const SchoolCalendarManager: React.FC<SchoolCalendarManagerProps> = ({
                     type="date"
                     value={formData.startDate}
                     onChange={e => setFormData({ ...formData, startDate: e.target.value, endDate: e.target.value > formData.endDate ? e.target.value : formData.endDate })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
                   />
                 </div>
                 <div>
@@ -533,7 +533,7 @@ export const SchoolCalendarManager: React.FC<SchoolCalendarManagerProps> = ({
                     value={formData.endDate}
                     min={formData.startDate}
                     onChange={e => setFormData({ ...formData, endDate: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
                   />
                 </div>
               </div>
@@ -556,7 +556,7 @@ export const SchoolCalendarManager: React.FC<SchoolCalendarManagerProps> = ({
                       type="time"
                       value={formData.startTime}
                       onChange={e => setFormData({ ...formData, startTime: e.target.value })}
-                      className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
+                      className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
                     />
                   </div>
                   <div>
@@ -565,7 +565,7 @@ export const SchoolCalendarManager: React.FC<SchoolCalendarManagerProps> = ({
                       type="time"
                       value={formData.endTime}
                       onChange={e => setFormData({ ...formData, endTime: e.target.value })}
-                      className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
+                      className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-800 dark:bg-brand-900 bg-white dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
                     />
                   </div>
                 </div>

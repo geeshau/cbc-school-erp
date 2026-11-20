@@ -551,20 +551,20 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                 placeholder="Photo Title (e.g. Montessori Class)"
                 value={newImageTitle}
                 onChange={(e) => setNewImageTitle(e.target.value)}
-                className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
+                className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs dark:text-slate-100"
               />
               <input
                 type="text"
                 placeholder="Image URL (Unsplash link)"
                 value={newImageUrl}
                 onChange={(e) => setNewImageUrl(e.target.value)}
-                className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
+                className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs dark:text-slate-100"
               />
               <div className="flex gap-2">
                 <select
                   value={newImageCategory}
                   onChange={(e) => setNewImageCategory(e.target.value)}
-                  className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs flex-1"
+                  className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs dark:text-slate-100 flex-1"
                 >
                   <option value="Campus">Campus</option>
                   <option value="Activities">Activities</option>
@@ -647,12 +647,12 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                 placeholder="Resource Title (e.g. 2026 Fee Structure)"
                 value={newResTitle}
                 onChange={(e) => setNewResTitle(e.target.value)}
-                className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
+                className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs dark:text-slate-100"
               />
               <select
                 value={newResCategory}
                 onChange={(e) => setNewResCategory(e.target.value)}
-                className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
+                className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs dark:text-slate-100"
               >
                 <option value="Admissions">Admissions</option>
                 <option value="Fees">Fees</option>
@@ -667,7 +667,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
               placeholder="Short description (optional)"
               value={newResDescription}
               onChange={(e) => setNewResDescription(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs dark:text-slate-100"
             />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
               {/* File upload */}
@@ -701,7 +701,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                     placeholder="…or paste external file URL"
                     value={newResUrl}
                     onChange={(e) => { setNewResUrl(e.target.value); if (e.target.value) setNewResFile(null); }}
-                    className="w-full pl-8 pr-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
+                    className="w-full pl-8 pr-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs dark:text-slate-100"
                   />
                 </div>
                 <button
@@ -878,7 +878,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                         value={editFbRole}
                         onChange={(e) => setEditFbRole(e.target.value)}
                         placeholder="Role label"
-                        className="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs min-w-[120px]"
+                        className="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs dark:text-slate-100 min-w-[120px]"
                       />
                       <div className="flex items-center gap-0.5 shrink-0" title="Star rating">
                         {[1, 2, 3, 4, 5].map((s) => (

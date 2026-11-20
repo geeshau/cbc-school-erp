@@ -84,7 +84,7 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
 
   if (!selectedStudent) {
     return (
-      <div className="p-8 text-center text-slate-500">
+      <div className="p-8 text-center text-slate-500 dark:text-slate-400">
         No students enrolled yet to generate terminal report cards.
       </div>
     );
@@ -93,15 +93,15 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200 print:hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200 dark:border-brand-900 print:hidden">
         <div>
           <div className="flex items-center gap-2">
             <FileCheck2 className="w-5 h-5 text-brand-500" />
-            <h1 className="text-xl font-bold text-slate-900 font-serif">
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white font-serif">
               Terminal Learner Performance & Report Cards
             </h1>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Formal, printable end-of-term academic statements with subject breakdown and teacher evaluations.
           </p>
         </div>
@@ -120,11 +120,11 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
       {/* Student Selector Bar */}
       <div className="bg-white p-4 rounded-2xl border border-slate-200/80 flex flex-wrap gap-4 items-center justify-between print:hidden rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-slate-500">Select Learner:</span>
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Select Learner:</span>
           <select
             value={selectedStudentId}
             onChange={(e) => setSelectedStudentId(e.target.value)}
-            className="text-xs font-bold px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+            className="text-xs font-bold px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
           >
             {students.map((s) => (
               <option key={s.id} value={s.id}>
@@ -136,11 +136,11 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
 
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-500">Term:</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">Term:</span>
             <select
               value={selectedTerm}
               onChange={(e) => setSelectedTerm(e.target.value)}
-              className="text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50"
+              className="text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
             >
               <option value="Term 1">Term 1</option>
               <option value="Term 2">Term 2</option>
@@ -149,8 +149,8 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-500">Year:</span>
-            <span className="text-xs font-bold px-2.5 py-1.5 rounded-xl bg-slate-100 text-slate-800">
+            <span className="text-xs text-slate-500 dark:text-slate-400">Year:</span>
+            <span className="text-xs font-bold px-2.5 py-1.5 rounded-xl bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200">
               {academicYear}
             </span>
           </div>
@@ -158,16 +158,16 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
       </div>
 
       {/* Printable Report Card Sheet */}
-      <div className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-200 shadow-md max-w-4xl mx-auto space-y-6 text-slate-900 font-serif print:shadow-none print:border-none print:p-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
+      <div className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-200 shadow-md max-w-4xl mx-auto space-y-6 text-slate-900 dark:text-white font-serif print:shadow-none print:border-none print:p-0 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
         {/* School Header */}
-        <div className="text-center pb-4 border-b-2 border-slate-900">
-          <h1 className="text-2xl font-black uppercase tracking-widest text-slate-950">
+        <div className="text-center pb-4 border-b-2 border-slate-900 dark:border-slate-200">
+          <h1 className="text-2xl font-black uppercase tracking-widest text-slate-950 dark:text-white">
             PCEA ST ANDREWS KINDERGARTEN
           </h1>
-          <p className="text-xs font-sans uppercase font-bold tracking-wider text-slate-600 mt-0.5">
+          <p className="text-xs font-sans uppercase font-bold tracking-wider text-slate-600 dark:text-slate-400 mt-0.5">
             "Train up a child in the way he should go — Proverbs 22:6"
           </p>
-          <p className="text-[11px] font-sans text-slate-500 mt-1">
+          <p className="text-[11px] font-sans text-slate-500 dark:text-slate-400 mt-1">
             PCEA St. Andrews Campus • State House Road, P.O. Box 41282-00100, Nairobi • Tel: +254 20 272 3505 • Email: kindergarten@pceastandrews.org
           </p>
           <div className="inline-block mt-3 px-4 py-1 bg-brand-800 text-white font-sans text-xs font-bold uppercase tracking-widest rounded-full">
@@ -176,47 +176,47 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
         </div>
 
         {/* Learner & Session Meta */}
-        <div className="p-4 bg-slate-50/70 rounded-xl border border-slate-200 font-sans text-xs grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="p-4 bg-slate-50/70 dark:bg-brand-900/40 rounded-xl border border-slate-200 dark:border-slate-700 font-sans text-xs grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div>
             <span className="text-slate-400 block text-[10px] uppercase font-bold">Learner Name:</span>
-            <span className="font-black text-slate-900 text-sm">
+            <span className="font-black text-slate-900 dark:text-white text-sm">
               {selectedStudent.firstName} {selectedStudent.lastName}
             </span>
           </div>
           <div>
             <span className="text-slate-400 block text-[10px] uppercase font-bold">Admission Number:</span>
-            <span className="font-mono font-bold text-slate-900">
+            <span className="font-mono font-bold text-slate-900 dark:text-white">
               {selectedStudent.admissionNumber}
             </span>
           </div>
           <div>
             <span className="text-slate-400 block text-[10px] uppercase font-bold">Class / Grade:</span>
-            <span className="font-bold text-slate-900">{selectedStudent.grade}</span>
+            <span className="font-bold text-slate-900 dark:text-white">{selectedStudent.grade}</span>
           </div>
           <div>
             <span className="text-slate-400 block text-[10px] uppercase font-bold">Academic Session:</span>
-            <span className="font-bold text-slate-900">
+            <span className="font-bold text-slate-900 dark:text-white">
               {selectedTerm}, {academicYear}
             </span>
           </div>
         </div>
 
         {/* Academic & Enrollment Standing */}
-        <div className="flex flex-wrap items-center justify-between p-3 bg-slate-100/60 rounded-xl font-sans text-xs border border-slate-200/60">
+        <div className="flex flex-wrap items-center justify-between p-3 bg-slate-100/60 dark:bg-brand-900/40 rounded-xl font-sans text-xs border border-slate-200/60 dark:border-slate-700">
           <div>
-            <span className="text-slate-500">Performance Index: </span>
-            <span className="font-bold text-slate-900">
+            <span className="text-slate-500 dark:text-slate-400">Performance Index: </span>
+            <span className="font-bold text-slate-900 dark:text-white">
               {selectedStudent.performanceIndex ?? 95}%
             </span>
           </div>
           <div>
-            <span className="text-slate-500">Academic Standing: </span>
-            <span className="font-black text-emerald-800">
+            <span className="text-slate-500 dark:text-slate-400">Academic Standing: </span>
+            <span className="font-black text-emerald-800 dark:text-emerald-400">
               {selectedStudent.performanceIndex ?? 95}%
             </span>
           </div>
           <div>
-            <span className="text-slate-500">Fee Clearance: </span>
+            <span className="text-slate-500 dark:text-slate-400">Fee Clearance: </span>
             <span
               className={`font-bold ${
                 selectedStudent.feeBalance === 0 ? 'text-emerald-700' : 'text-amber-700'
@@ -230,7 +230,7 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
         </div>
 
         {/* Academic Matrix Table */}
-        <div className="overflow-hidden border border-slate-300 rounded-xl">
+        <div className="overflow-hidden border border-slate-300 dark:border-slate-700 rounded-xl">
           <table className="responsive-card-table w-full text-left text-xs font-sans">
             <thead className="bg-brand-800 text-white font-bold uppercase tracking-wider text-[11px]">
               <tr>
@@ -242,13 +242,13 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
                 <th className="py-2.5 px-3">Subject Teacher Remarks</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
               {subjectResults.map((sub, idx) => (
-                <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}>
-                  <td data-label="Subject" className="py-2.5 px-3 font-semibold text-slate-900">{sub.name}</td>
-                  <td data-label="CA (30%)" className="py-2.5 px-3 text-center text-slate-600">{sub.ca}</td>
-                  <td data-label="Exam (70%)" className="py-2.5 px-3 text-center text-slate-600">{sub.exam}</td>
-                  <td data-label="Total (100%)" className="py-2.5 px-3 text-center font-black text-slate-900">{sub.total}%</td>
+                <tr key={idx} className={idx % 2 === 0 ? 'bg-white dark:bg-brand-950' : 'bg-slate-50/50 dark:bg-brand-900/40'}>
+                  <td data-label="Subject" className="py-2.5 px-3 font-semibold text-slate-900 dark:text-white">{sub.name}</td>
+                  <td data-label="CA (30%)" className="py-2.5 px-3 text-center text-slate-600 dark:text-slate-400">{sub.ca}</td>
+                  <td data-label="Exam (70%)" className="py-2.5 px-3 text-center text-slate-600 dark:text-slate-400">{sub.exam}</td>
+                  <td data-label="Total (100%)" className="py-2.5 px-3 text-center font-black text-slate-900 dark:text-white">{sub.total}%</td>
                   <td data-label="Grade" className="py-2.5 px-3 text-center">
                     <span
                       className={`inline-block w-6 py-0.5 rounded text-[11px] font-black ${
@@ -262,7 +262,7 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
                       {sub.grade}
                     </span>
                   </td>
-                  <td data-label="Teacher Remarks" className="py-2.5 px-3 text-[11px] text-slate-700 italic">{sub.remarks}</td>
+                  <td data-label="Teacher Remarks" className="py-2.5 px-3 text-[11px] text-slate-700 dark:text-slate-300 italic">{sub.remarks}</td>
                 </tr>
               ))}
             </tbody>
@@ -271,78 +271,78 @@ export const ReportCardsManager: React.FC<ReportCardsManagerProps> = ({
 
         {/* Summary Card */}
         <div className="grid grid-cols-3 gap-4 font-sans text-center">
-          <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <div className="p-3 rounded-xl bg-slate-50 dark:bg-brand-900/40 border border-slate-200 dark:border-slate-700">
             <span className="text-[10px] uppercase font-bold text-slate-400 block">
               Total Points
             </span>
-            <div className="text-xl font-black text-slate-900">{totalScore} / 800</div>
+            <div className="text-xl font-black text-slate-900 dark:text-white">{totalScore} / 800</div>
           </div>
-          <div className="p-3 rounded-xl bg-indigo-50 border border-indigo-200">
-            <span className="text-[10px] uppercase font-bold text-indigo-700 block">
+          <div className="p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800">
+            <span className="text-[10px] uppercase font-bold text-indigo-700 dark:text-indigo-400 block">
               Mean Average
             </span>
-            <div className="text-xl font-black text-indigo-900">{averageScore}%</div>
+            <div className="text-xl font-black text-indigo-900 dark:text-indigo-300">{averageScore}%</div>
           </div>
-          <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <div className="p-3 rounded-xl bg-slate-50 dark:bg-brand-900/40 border border-slate-200 dark:border-slate-700">
             <span className="text-[10px] uppercase font-bold text-slate-400 block">
               Class Position
             </span>
-            <div className="text-xl font-black text-slate-900">
+            <div className="text-xl font-black text-slate-900 dark:text-white">
               {Number(averageScore) >= 80 ? '2nd of 34' : '6th of 34'}
             </div>
           </div>
         </div>
 
         {/* Character & Co-Curricular Assessment */}
-        <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 font-sans text-xs space-y-2">
-          <span className="font-bold text-slate-800 uppercase tracking-wider text-[10px] block">
+        <div className="p-4 bg-slate-50 dark:bg-brand-900/40 rounded-xl border border-slate-200 dark:border-slate-700 font-sans text-xs space-y-2">
+          <span className="font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider text-[10px] block">
             Conduct, Character & Co-Curricular Assessment
           </span>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             <div>
-              <span className="text-slate-500 block text-[11px]">Discipline & Conduct:</span>
-              <span className="font-bold text-emerald-800">Exemplary & Courteous</span>
+              <span className="text-slate-500 dark:text-slate-400 block text-[11px]">Discipline & Conduct:</span>
+              <span className="font-bold text-emerald-800 dark:text-emerald-400">Exemplary & Courteous</span>
             </div>
             <div>
-              <span className="text-slate-500 block text-[11px]">Clubs & Societies:</span>
-              <span className="font-bold text-slate-800">Robotics & Debate Society</span>
+              <span className="text-slate-500 dark:text-slate-400 block text-[11px]">Clubs & Societies:</span>
+              <span className="font-bold text-slate-800 dark:text-slate-200">Robotics & Debate Society</span>
             </div>
             <div>
-              <span className="text-slate-500 block text-[11px]">Sports & Athletics:</span>
-              <span className="font-bold text-slate-800">Track & Field (Long Jump)</span>
+              <span className="text-slate-500 dark:text-slate-400 block text-[11px]">Sports & Athletics:</span>
+              <span className="font-bold text-slate-800 dark:text-slate-200">Track & Field (Long Jump)</span>
             </div>
           </div>
         </div>
 
         {/* Official Teacher & Principal Comments */}
         <div className="font-sans text-xs space-y-4 pt-2">
-          <div className="p-3 border border-slate-300 rounded-xl">
+          <div className="p-3 border border-slate-300 dark:border-slate-600 rounded-xl">
             <span className="text-slate-400 block text-[10px] font-bold uppercase">
               Class Teacher's General Remarks:
             </span>
-            <p className="font-serif text-sm mt-1 text-slate-800 italic">
+            <p className="font-serif text-sm mt-1 text-slate-800 dark:text-slate-200 italic">
               "{selectedStudent.firstName} is a focused, diligent learner who participates constructively in discussions and demonstrates high academic integrity. Keep up the high standards."
             </p>
-            <div className="mt-3 flex justify-between items-end text-[11px] text-slate-500">
+            <div className="mt-3 flex justify-between items-end text-[11px] text-slate-500 dark:text-slate-400">
               <span>Class Teacher: Sarah Jenkins</span>
               <span>Signature: __________________________</span>
             </div>
           </div>
 
-          <div className="p-3 border border-slate-300 rounded-xl">
+          <div className="p-3 border border-slate-300 dark:border-slate-600 rounded-xl">
             <span className="text-slate-400 block text-[10px] font-bold uppercase">
               Principal's Official Recommendation:
             </span>
-            <p className="font-serif text-sm mt-1 text-slate-800 italic">
+            <p className="font-serif text-sm mt-1 text-slate-800 dark:text-slate-200 italic">
               "An exceptional term of steady growth and academic accomplishment. Approved for progression with merit."
             </p>
-            <div className="mt-4 flex justify-between items-end text-[11px] text-slate-500">
+            <div className="mt-4 flex justify-between items-end text-[11px] text-slate-500 dark:text-slate-400">
               <div>
                 <span>Principal: Dr. Raymond Thorne, PhD</span>
-                <div className="text-[10px] text-slate-400 mt-0.5">Next Term Resumes: May 4, 2026</div>
+                <div className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Next Term Resumes: May 4, 2026</div>
               </div>
               <div className="text-center">
-                <div className="w-24 border-b border-slate-400 mb-1"></div>
+                <div className="w-24 border-b border-slate-400 dark:border-slate-600 mb-1"></div>
                 <span className="font-serif italic text-[10px]">Official School Stamp</span>
               </div>
             </div>

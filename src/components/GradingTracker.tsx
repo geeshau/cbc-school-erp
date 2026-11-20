@@ -78,11 +78,11 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
   }, [selectedGrade, selectedSubject, selectedAssessment, grades]);
 
   const calculateGrade = (score: number): { grade: LetterGrade; label: string; color: string } => {
-    if (score >= 80) return { grade: 'A', label: 'Distinction (80-100%)', color: 'bg-emerald-50 text-emerald-800 border-emerald-200' };
-    if (score >= 70) return { grade: 'B', label: 'Very Good (70-79%)', color: 'bg-blue-50 text-blue-800 border-blue-200' };
-    if (score >= 60) return { grade: 'C', label: 'Credit (60-69%)', color: 'bg-indigo-50 text-indigo-800 border-indigo-200' };
-    if (score >= 50) return { grade: 'D', label: 'Pass (50-59%)', color: 'bg-amber-50 text-amber-800 border-amber-200' };
-    return { grade: 'F', label: 'Remedial Needed (<50%)', color: 'bg-rose-50 text-rose-800 border-rose-200' };
+    if (score >= 80) return { grade: 'A', label: 'Distinction (80-100%)', color: 'bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-900/40 dark:text-emerald-300 dark:border-emerald-700' };
+    if (score >= 70) return { grade: 'B', label: 'Very Good (70-79%)', color: 'bg-blue-50 text-blue-800 border-blue-200 dark:bg-blue-900/40 dark:text-blue-300 dark:border-blue-700' };
+    if (score >= 60) return { grade: 'C', label: 'Credit (60-69%)', color: 'bg-indigo-50 text-indigo-800 border-indigo-200 dark:bg-indigo-900/40 dark:text-indigo-300 dark:border-indigo-700' };
+    if (score >= 50) return { grade: 'D', label: 'Pass (50-59%)', color: 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-900/40 dark:text-amber-300 dark:border-amber-700' };
+    return { grade: 'F', label: 'Remedial Needed (<50%)', color: 'bg-rose-50 text-rose-800 border-rose-200 dark:bg-rose-900/40 dark:text-rose-300 dark:border-rose-700' };
   };
 
   const handleScoreChange = (studentId: string, value: string) => {
@@ -174,15 +174,15 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200 dark:border-brand-900">
         <div>
           <div className="flex items-center gap-2">
             <Award className="w-5 h-5 text-brand-500" />
-            <h1 className="text-xl font-bold text-slate-900 font-serif">
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white font-serif">
               Academic Performance & Grading Matrix
             </h1>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Standardized letter grade tracking, test score entry, auto-calculated marks, and performance insights.
           </p>
         </div>
@@ -204,8 +204,8 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
       </div>
 
       {saveSuccess && (
-        <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2 animate-in fade-in">
-          <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+        <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center gap-2 animate-in fade-in">
+          <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
           <span>All class marks and teacher remarks have been saved to the database.</span>
         </div>
       )}
@@ -220,7 +220,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
             <select
               value={selectedGrade}
               onChange={(e) => setSelectedGrade(e.target.value)}
-              className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none"
+              className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100 focus:outline-none"
             >
               <option value="Grade 10-A">Grade 10-A</option>
               <option value="Grade 11-A">Grade 11-A</option>
@@ -236,7 +236,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
             <select
               value={selectedSubject}
               onChange={(e) => setSelectedSubject(e.target.value)}
-              className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none"
+              className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100 focus:outline-none"
             >
               <option value="Mathematics">Mathematics</option>
               <option value="Physics">Physics</option>
@@ -256,7 +256,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
             <select
               value={selectedAssessment}
               onChange={(e) => setSelectedAssessment(e.target.value as any)}
-              className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none"
+              className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100 focus:outline-none"
             >
               <option value="End-Term">End-Term Examination</option>
               <option value="Mid-Term">Mid-Term Assessment</option>
@@ -272,7 +272,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
             <select
               value={selectedTerm}
               onChange={(e) => setSelectedTerm(e.target.value)}
-              className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none"
+              className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100 focus:outline-none"
             >
               <option value="Term 1">Term 1 - 2026</option>
               <option value="Term 2">Term 2 - 2026</option>
@@ -281,7 +281,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
           </div>
         </div>
 
-        <div className="text-xs text-slate-500 font-medium">
+        <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
           Roster: {classStudents.length} Students in {selectedGrade}
         </div>
       </div>
@@ -292,24 +292,24 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Class Mean Score
           </span>
-          <div className="text-xl font-black text-slate-900 mt-1">{classAvg}%</div>
-          <p className="text-[11px] text-slate-500">Across {selectedSubject}</p>
+          <div className="text-xl font-black text-slate-900 dark:text-white dark:text-white mt-1">{classAvg}%</div>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400">Across {selectedSubject}</p>
         </div>
 
         <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Class Pass Rate
           </span>
-          <div className="text-xl font-black text-emerald-700 mt-1">{passRate}%</div>
-          <p className="text-[11px] text-slate-500">{passCount} scored &gt;= 50%</p>
+          <div className="text-xl font-black text-emerald-700 dark:text-emerald-400 mt-1">{passRate}%</div>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400">{passCount} scored &gt;= 50%</p>
         </div>
 
         <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Highest Mark
           </span>
-          <div className="text-xl font-black text-indigo-700 mt-1">{highestScore}%</div>
-          <p className="text-[11px] text-slate-500">Top performance</p>
+          <div className="text-xl font-black text-indigo-700 dark:text-indigo-400 mt-1">{highestScore}%</div>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400">Top performance</p>
         </div>
 
         <div className="bg-white p-4 rounded-xl border border-slate-200/80 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
@@ -317,19 +317,19 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
             Grade Distribution
           </span>
           <div className="flex items-center gap-1.5 mt-2">
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300">
               A:{gradeCounts.A}
             </span>
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-800">
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300">
               B:{gradeCounts.B}
             </span>
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-800">
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300">
               C:{gradeCounts.C}
             </span>
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800">
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
               D:{gradeCounts.D}
             </span>
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-800">
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300">
               F:{gradeCounts.F}
             </span>
           </div>
@@ -337,10 +337,10 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
       </div>
 
       {/* Gradebook Matrix Table */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+      <div className="bg-white dark:bg-brand-950 rounded-2xl border border-slate-200/80 dark:border-brand-900 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="responsive-card-table w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-200 text-[11px]">
+            <thead className="bg-slate-50 dark:bg-brand-900 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-brand-800 text-[11px]">
               <tr>
                 <th className="py-3 px-4 w-28 md:w-32">Adm No.</th>
                 <th className="py-3 px-4 md:w-48 lg:w-60">Learner Name</th>
@@ -352,17 +352,17 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
                 )}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-brand-900">
               {classStudents.map((student) => {
                 const item = localScores[student.id] || { score: 70, remarks: '' };
                 const gradeInfo = calculateGrade(item.score);
 
                 return (
-                  <tr key={student.id} className="hover:bg-slate-50/70 transition-colors">
-                    <td data-label="Adm No." className="py-3 px-4 font-mono font-semibold text-slate-600">
+                  <tr key={student.id} className="hover:bg-slate-50/70 dark:hover:bg-brand-900/40 transition-colors">
+                    <td data-label="Adm No." className="py-3 px-4 font-mono font-semibold text-slate-600 dark:text-slate-400">
                       {student.admissionNumber}
                     </td>
-                    <td data-label="Learner Name" className="py-3 px-4 font-bold text-slate-900">
+                    <td data-label="Learner Name" className="py-3 px-4 font-bold text-slate-900 dark:text-white">
                       {student.firstName} {student.lastName}
                     </td>
                     <td data-label="Score (/100)" className="py-3 px-4">
@@ -373,9 +373,9 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
                           max="100"
                           value={item.score}
                           onChange={(e) => handleScoreChange(student.id, e.target.value)}
-                          className="w-16 px-2.5 py-1.5 rounded-lg border border-slate-300 font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-center text-sm"
+                          className="w-16 px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 font-bold text-slate-900 dark:text-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-center text-sm"
                         />
-                        <span className="text-slate-400 font-medium">%</span>
+                        <span className="text-slate-400 dark:text-slate-500 font-medium">%</span>
                       </div>
                     </td>
                     <td data-label="Letter Grade" className="py-3 px-4">
@@ -391,7 +391,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
                         value={item.remarks}
                         onChange={(e) => handleRemarksChange(student.id, e.target.value)}
                         placeholder="Add remarks for report card..."
-                        className="w-full px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:border-indigo-400 text-xs text-slate-800"
+                        className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:bg-white dark:focus:bg-slate-700 focus:outline-none focus:border-indigo-400 text-xs text-slate-800 dark:text-slate-100"
                       />
                     </td>
                     {userRole === 'admin' && onDeleteGrade && item.recordId && (
@@ -403,7 +403,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
                               onDeleteGrade(item.recordId!);
                             }
                           }}
-                          className="inline-flex items-center justify-center p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 transition-colors cursor-pointer border border-rose-200/60"
+                          className="inline-flex items-center justify-center p-1.5 rounded-lg bg-rose-50 dark:bg-rose-900/30 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-rose-600 dark:text-rose-400 transition-colors cursor-pointer border border-rose-200/60 dark:border-rose-700/60"
                           title="Delete grade record"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -412,7 +412,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
                     )}
                     {userRole === 'admin' && onDeleteGrade && !item.recordId && (
                       <td data-label="Delete" className="py-3 px-4 text-center">
-                        <span className="text-slate-300">—</span>
+                        <span className="text-slate-300 dark:text-slate-600">—</span>
                       </td>
                     )}
                   </tr>

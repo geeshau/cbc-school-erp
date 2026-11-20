@@ -278,22 +278,22 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200 dark:border-brand-900">
         <div>
           <div className="flex items-center gap-2">
             <CalendarDays className="w-5 h-5 text-brand-500" />
-            <h1 className="text-xl font-bold text-slate-900 font-serif">
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white font-serif">
               Master School Timetable & Class Schedules
             </h1>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Weekly lesson matrices, classroom allocations, teacher period assignments, and conflict avoidance.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           {/* Calendar vs Matrix Layout Switcher */}
-          <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs font-semibold">
+          <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-xl text-xs font-semibold">
             <button
               id="timetable-layout-monthly-btn"
               type="button"
@@ -301,7 +301,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
                 layoutMode === 'monthly'
                   ? 'bg-brand-500 text-white font-bold shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
               }`}
             >
               <Calendar className="w-3.5 h-3.5" />
@@ -314,7 +314,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
                 layoutMode === 'weekly'
                   ? 'bg-brand-500 text-white font-bold shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
               }`}
             >
               <Table2 className="w-3.5 h-3.5" />
@@ -324,7 +324,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
 
           <button
             onClick={handlePrint}
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs transition-colors cursor-pointer"
           >
             <Printer className="w-4 h-4" />
             <span>Print</span>
@@ -349,14 +349,14 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
       >
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2.5">
-            <span className="text-xs font-bold text-slate-500">View By:</span>
-            <div className="flex items-center bg-slate-100 p-0.5 rounded-xl text-xs font-semibold">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400">View By:</span>
+            <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-0.5 rounded-xl text-xs font-semibold">
               <button
                 id="timetable-view-class-btn"
                 type="button"
                 onClick={() => setViewMode('class')}
                 className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
-                  viewMode === 'class' ? 'bg-white text-slate-900 shadow-xs font-bold' : 'text-slate-500 hover:text-slate-800'
+                  viewMode === 'class' ? 'bg-white dark:bg-brand-950 text-slate-900 dark:text-white shadow-xs font-bold' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
                 }`}
               >
                 Class / Grade View
@@ -371,7 +371,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                   }
                 }}
                 className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
-                  viewMode === 'teacher' ? 'bg-white text-slate-900 shadow-xs font-bold' : 'text-slate-500 hover:text-slate-800'
+                  viewMode === 'teacher' ? 'bg-white dark:bg-brand-950 text-slate-900 dark:text-white shadow-xs font-bold' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
                 }`}
               >
                 Teacher Schedule View
@@ -381,12 +381,12 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
 
           {viewMode === 'class' && (
             <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-500 font-medium">Select Class:</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Select Class:</span>
               <select
                 id="timetable-grade-select"
                 value={selectedGrade}
                 onChange={(e) => setSelectedGrade(e.target.value)}
-                className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand-500/20 cursor-pointer text-slate-800"
+                className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500/20 cursor-pointer text-slate-800 dark:text-slate-100"
               >
                 {availableGrades.map((grade) => (
                   <option key={grade} value={grade}>
@@ -403,7 +403,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
           <div className="flex items-center gap-2">
             <label
               htmlFor="timetable-teacher-filter"
-              className="text-xs font-bold text-slate-600 flex items-center gap-1.5 whitespace-nowrap"
+              className="text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center gap-1.5 whitespace-nowrap"
             >
               <Filter className="w-3.5 h-3.5 text-brand-500" />
               <span>Filter by Teacher:</span>
@@ -418,7 +418,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                   setSelectedTeacher(val);
                 }
               }}
-              className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand-500/20 text-slate-800 cursor-pointer"
+              className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500/20 text-slate-800 dark:text-slate-100 cursor-pointer"
             >
               <option value="all">All Teachers (Show All)</option>
               {availableTeachers.map((teacher) => (
@@ -443,7 +443,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                     setViewMode('class');
                   }
                 }}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-brand-50 hover:bg-brand-100 text-brand-800 border border-brand-200 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-brand-50 hover:bg-brand-100 dark:bg-brand-900/40 dark:hover:bg-brand-900/60 text-brand-800 dark:text-brand-200 border border-brand-200 dark:border-brand-800 transition-colors cursor-pointer"
                 title="Toggle view between class schedule and full teacher schedule"
               >
                 <User className="w-3.5 h-3.5 text-brand-600" />
@@ -456,7 +456,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                 id="timetable-clear-teacher-filter-btn"
                 type="button"
                 onClick={() => setSelectedTeacherFilter('all')}
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 transition-colors cursor-pointer"
                 title="Clear teacher filter and show all"
               >
                 <X className="w-3.5 h-3.5" />
@@ -469,12 +469,12 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
 
       {/* Active Filter Notification Banner */}
       {selectedTeacherFilter !== 'all' && (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 py-2.5 rounded-xl bg-brand-50 border border-brand-200 text-xs text-brand-950 animate-in fade-in duration-150">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 py-2.5 rounded-xl bg-brand-50 dark:bg-brand-900/30 border border-brand-200 dark:border-brand-800 text-xs text-brand-950 dark:text-brand-200 animate-in fade-in duration-150">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-brand-500 shrink-0 animate-pulse" />
             <span>
               Teacher Filter Active: Only displaying slots associated with{' '}
-              <strong className="font-bold text-brand-900">{selectedTeacherFilter}</strong>
+              <strong className="font-bold text-brand-900 dark:text-brand-300">{selectedTeacherFilter}</strong>
               {viewMode === 'class' ? (
                 <> in <strong>{selectedGrade}</strong> ({filteredSlots.length} periods found)</>
               ) : (
@@ -493,14 +493,14 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                   setViewMode('class');
                 }
               }}
-              className="text-brand-800 hover:text-brand-950 font-bold underline cursor-pointer text-xs"
+              className="text-brand-800 hover:text-brand-950 dark:text-brand-300 dark:hover:text-brand-100 font-bold underline cursor-pointer text-xs"
             >
               {viewMode === 'class' ? 'Toggle to Full School Schedule' : `Toggle to ${selectedGrade} Only`}
             </button>
             <button
               type="button"
               onClick={() => setSelectedTeacherFilter('all')}
-              className="text-slate-600 hover:text-slate-900 font-bold cursor-pointer text-xs"
+              className="text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white font-bold cursor-pointer text-xs"
             >
               Reset Filter
             </button>
@@ -531,7 +531,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
         />
       ) : (
         /* Weekly Grid */
-        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+        <div className="bg-white dark:bg-brand-950 rounded-2xl border border-slate-200/80 dark:border-brand-900 shadow-xs overflow-hidden">
           <div className="overflow-x-auto">
             <table className="responsive-card-table w-full text-left text-xs border-collapse">
               <thead>
@@ -544,15 +544,15 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200">
+              <tbody className="divide-y divide-slate-200 dark:divide-brand-900">
                 {periodSlots.map((period, pIdx) => {
                   if (period.isBreak) {
                     return (
-                      <tr key={pIdx} className="bg-amber-50/70 text-center font-bold text-amber-900">
-                        <td data-label="Time" className="p-2.5 text-xs text-slate-500 border-r border-slate-200 font-mono">
+                      <tr key={pIdx} className="bg-amber-50/70 dark:bg-amber-900/20 text-center font-bold text-amber-900 dark:text-amber-300">
+                        <td data-label="Time" className="p-2.5 text-xs text-slate-500 dark:text-slate-400 border-r border-slate-200 dark:border-brand-900 font-mono">
                           {period.time}
                         </td>
-                        <td data-label="Break Period" colSpan={5} className="p-2.5 text-xs uppercase tracking-widest text-amber-800">
+                        <td data-label="Break Period" colSpan={5} className="p-2.5 text-xs uppercase tracking-widest text-amber-800 dark:text-amber-400">
                           ☕ {period.name}
                         </td>
                       </tr>
@@ -560,9 +560,9 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                   }
 
                   return (
-                    <tr key={pIdx} className="hover:bg-slate-50/50">
-                      <td data-label="Time / Period" className="p-3 text-xs border-r border-slate-200 font-medium bg-slate-50/80">
-                        <div className="font-bold text-slate-900">{period.name}</div>
+                    <tr key={pIdx} className="hover:bg-slate-50/50 dark:hover:bg-brand-900/30">
+                      <td data-label="Time / Period" className="p-3 text-xs border-r border-slate-200 dark:border-brand-900 font-medium bg-slate-50/80 dark:bg-brand-900/40">
+                        <div className="font-bold text-slate-900 dark:text-white">{period.name}</div>
                         <div className="text-[10px] text-slate-400 font-mono">{period.time}</div>
                       </td>
 
@@ -572,30 +572,30 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                         );
 
                         return (
-                          <td key={day} data-label={day} className="p-2 border-r border-slate-200 last:border-r-0 align-top">
+                          <td key={day} data-label={day} className="p-2 border-r border-slate-200 dark:border-brand-900 last:border-r-0 align-top">
                             {match ? (
-                              <div className="p-2.5 rounded-xl bg-indigo-50/90 border border-indigo-100 flex flex-col justify-between h-full group hover:border-indigo-300 transition-colors">
+                              <div className="p-2.5 rounded-xl bg-indigo-50/90 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 flex flex-col justify-between h-full group hover:border-indigo-300 dark:hover:border-indigo-600 transition-colors">
                                 <div>
-                                  <div className="text-xs font-black text-indigo-950">
+                                  <div className="text-xs font-black text-indigo-950 dark:text-indigo-200">
                                     {match.subject}
                                   </div>
-                                  <div className="text-[11px] text-indigo-700 font-medium flex items-center gap-1 mt-0.5">
-                                    <User className="w-3 h-3 text-indigo-500 shrink-0" />
+                                  <div className="text-[11px] text-indigo-700 dark:text-indigo-300 font-medium flex items-center gap-1 mt-0.5">
+                                    <User className="w-3 h-3 text-indigo-500 dark:text-indigo-400 shrink-0" />
                                     <span className="truncate">
                                       {viewMode === 'class' ? match.teacherName : match.grade}
                                     </span>
                                   </div>
-                                  <div className="text-[10px] text-slate-500 flex items-center gap-1 mt-1">
-                                    <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
+                                  <div className="text-[10px] text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-1">
+                                    <MapPin className="w-3 h-3 text-slate-400 dark:text-slate-500 shrink-0" />
                                     <span className="truncate">{match.room}</span>
                                   </div>
                                 </div>
 
                                 {userRole === 'admin' && (
-                                  <div className="pt-2 mt-2 border-t border-indigo-200/50 flex justify-end">
+                                  <div className="pt-2 mt-2 border-t border-indigo-200/50 dark:border-indigo-800/50 flex justify-end">
                                     <button
                                       onClick={() => onDeleteSlot(match.id)}
-                                      className="p-1 rounded text-rose-500 hover:bg-rose-50 hover:text-rose-700 transition-colors"
+                                      className="p-1 rounded text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/30 hover:text-rose-700 transition-colors"
                                       title="Remove this scheduled lesson"
                                     >
                                       <Trash2 className="w-3.5 h-3.5" />
@@ -604,7 +604,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                                 )}
                               </div>
                             ) : (
-                              <div className="h-16 flex items-center justify-center text-[11px] text-slate-300 border border-dashed border-slate-200 rounded-xl">
+                              <div className="h-16 flex items-center justify-center text-[11px] text-slate-300 dark:text-slate-600 border border-dashed border-slate-200 dark:border-slate-700 rounded-xl">
                                 Free
                               </div>
                             )}
@@ -624,21 +624,21 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
       {showAddModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 max-h-[90vh] overflow-y-auto rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-brand-900">
               <div>
-                <h2 className="text-base font-bold text-slate-900 font-serif flex items-center gap-2">
+                <h2 className="text-base font-bold text-slate-900 dark:text-white font-serif flex items-center gap-2">
                   <span>Schedule Lesson Slot</span>
                   {validationStatus.hasConflict ? (
-                    <span className="text-[10px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 border border-rose-200">
+                    <span className="text-[10px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
                       Conflict Detected
                     </span>
                   ) : (
-                    <span className="text-[10px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
+                    <span className="text-[10px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                       Slot Available
                     </span>
                   )}
                 </h2>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                   Assigns a subject, teacher, and room to a weekly period with automatic booking validation.
                 </p>
               </div>
@@ -647,7 +647,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                   setShowAddModal(false);
                   setConflictError('');
                 }}
-                className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors"
+                className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
                 title="Close"
               >
                 <X className="w-5 h-5" />
@@ -656,10 +656,10 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
 
             {/* Top Server or Submission Conflict Banner */}
             {conflictError && (
-              <div className="mt-4 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 text-xs flex items-start gap-2.5">
+              <div className="mt-4 p-3.5 rounded-xl bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 text-rose-900 dark:text-rose-200 text-xs flex items-start gap-2.5">
                 <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
                 <div className="leading-relaxed">
-                  <span className="font-bold block text-rose-950 mb-0.5">Booking Alert</span>
+                  <span className="font-bold block text-rose-950 dark:text-rose-300 mb-0.5">Booking Alert</span>
                   {conflictError}
                 </div>
               </div>
@@ -667,19 +667,19 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
 
             {/* Proactive Real-Time Conflict Warning Card */}
             {validationStatus.hasConflict ? (
-              <div className="mt-4 p-3.5 rounded-2xl bg-rose-50/90 border border-rose-200 text-rose-950 space-y-2.5">
+              <div className="mt-4 p-3.5 rounded-2xl bg-rose-50/90 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200 space-y-2.5">
                 <div className="flex items-start gap-2.5">
-                  <div className="p-1.5 rounded-xl bg-rose-200 text-rose-800 shrink-0 mt-0.5">
+                  <div className="p-1.5 rounded-xl bg-rose-200 dark:bg-rose-800/40 text-rose-800 dark:text-rose-300 shrink-0 mt-0.5">
                     <ShieldAlert className="w-4 h-4" />
                   </div>
                   <div className="space-y-1 text-xs">
-                    <span className="font-bold text-rose-950 flex items-center gap-1.5">
+                    <span className="font-bold text-rose-950 dark:text-rose-300 flex items-center gap-1.5">
                       Scheduling Conflict Detected
                     </span>
 
                     {validationStatus.teacherConflict && (
-                      <p className="text-[11px] text-rose-800 leading-relaxed">
-                        <strong className="font-semibold text-rose-950">Teacher Already Booked: </strong>
+                      <p className="text-[11px] text-rose-800 dark:text-rose-300 leading-relaxed">
+                        <strong className="font-semibold text-rose-950 dark:text-rose-200">Teacher Already Booked: </strong>
                         {formData.teacherName} is already assigned to teach{' '}
                         <span className="font-semibold">{validationStatus.teacherConflict.grade}</span> (
                         {validationStatus.teacherConflict.subject}) in{' '}
@@ -689,8 +689,8 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                     )}
 
                     {validationStatus.roomConflict && (
-                      <p className="text-[11px] text-rose-800 leading-relaxed">
-                        <strong className="font-semibold text-rose-950">Classroom Already Occupied: </strong>
+                      <p className="text-[11px] text-rose-800 dark:text-rose-300 leading-relaxed">
+                        <strong className="font-semibold text-rose-950 dark:text-rose-200">Classroom Already Occupied: </strong>
                         "{formData.room}" is already reserved by{' '}
                         <span className="font-semibold">{validationStatus.roomConflict.teacherName}</span> for{' '}
                         {validationStatus.roomConflict.grade} ({validationStatus.roomConflict.subject}) during this period.
@@ -698,8 +698,8 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                     )}
 
                     {validationStatus.gradeConflict && (
-                      <p className="text-[11px] text-rose-800 leading-relaxed">
-                        <strong className="font-semibold text-rose-950">Class Schedule Collision: </strong>
+                      <p className="text-[11px] text-rose-800 dark:text-rose-300 leading-relaxed">
+                        <strong className="font-semibold text-rose-950 dark:text-rose-200">Class Schedule Collision: </strong>
                         {formData.grade} already has{' '}
                         <span className="font-semibold">{validationStatus.gradeConflict.subject}</span> with{' '}
                         {validationStatus.gradeConflict.teacherName} in{' '}
@@ -710,10 +710,10 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                 </div>
 
                 {/* Instant Quick-Fix Recommendation Actions */}
-                <div className="pt-2 border-t border-rose-200/80 space-y-2">
+                <div className="pt-2 border-t border-rose-200/80 dark:border-rose-800/60 space-y-2">
                   {validationStatus.roomConflict && validationStatus.availableRooms.length > 0 && (
                     <div>
-                      <span className="text-[10px] font-bold text-rose-900 block mb-1">
+                      <span className="text-[10px] font-bold text-rose-900 dark:text-rose-300 block mb-1">
                         Alternative Unreserved Rooms for Period {formData.periodIndex}:
                       </span>
                       <div className="flex flex-wrap gap-1.5">
@@ -722,7 +722,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                             key={rm}
                             type="button"
                             onClick={() => setFormData({ ...formData, room: rm })}
-                            className="px-2 py-0.5 rounded-lg bg-white hover:bg-rose-100 border border-rose-300 text-[10px] font-semibold text-rose-900 transition-colors cursor-pointer shadow-xs"
+                            className="px-2 py-0.5 rounded-lg bg-white dark:bg-rose-900/30 hover:bg-rose-100 dark:hover:bg-rose-900/50 border border-rose-300 dark:border-rose-700 text-[10px] font-semibold text-rose-900 dark:text-rose-200 transition-colors cursor-pointer shadow-xs"
                           >
                             Switch to {rm}
                           </button>
@@ -733,7 +733,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
 
                   {validationStatus.teacherConflict && validationStatus.teacherFreePeriods.length > 0 && (
                     <div>
-                      <span className="text-[10px] font-bold text-rose-900 block mb-1">
+                      <span className="text-[10px] font-bold text-rose-900 dark:text-rose-300 block mb-1">
                         Free Periods for {formData.teacherName} on {formData.dayOfWeek}:
                       </span>
                       <div className="flex flex-wrap gap-1.5">
@@ -742,7 +742,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                             key={p.index}
                             type="button"
                             onClick={() => setFormData({ ...formData, periodIndex: p.index })}
-                            className="px-2 py-0.5 rounded-lg bg-white hover:bg-rose-100 border border-rose-300 text-[10px] font-semibold text-rose-900 transition-colors cursor-pointer shadow-xs"
+                            className="px-2 py-0.5 rounded-lg bg-white dark:bg-rose-900/30 hover:bg-rose-100 dark:hover:bg-rose-900/50 border border-rose-300 dark:border-rose-700 text-[10px] font-semibold text-rose-900 dark:text-rose-200 transition-colors cursor-pointer shadow-xs"
                           >
                             Move to {p.name} ({p.time})
                           </button>
@@ -753,14 +753,14 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                 </div>
               </div>
             ) : (
-              <div className="mt-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between text-xs">
+              <div className="mt-4 p-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span className="font-semibold text-[11px]">
                     No Booking Collisions: Teacher and Classroom are both unreserved.
                   </span>
                 </div>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-900">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-900 dark:text-emerald-300">
                   Ready to Book
                 </span>
               </div>
@@ -769,14 +769,14 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
             <form onSubmit={handleAddSubmit} className="mt-4 space-y-4 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-600 mb-1 font-medium">Day of Week</label>
+                  <label className="block text-slate-600 dark:text-slate-300 mb-1 font-medium">Day of Week</label>
                   <select
                     value={formData.dayOfWeek}
                     onChange={(e) => {
                       setFormData({ ...formData, dayOfWeek: e.target.value as any });
                       setConflictError('');
                     }}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
                   >
                     {days.map((d) => (
                       <option key={d} value={d}>
@@ -787,14 +787,14 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-slate-600 mb-1 font-medium">Period Slot</label>
+                  <label className="block text-slate-600 dark:text-slate-300 mb-1 font-medium">Period Slot</label>
                   <select
                     value={formData.periodIndex}
                     onChange={(e) => {
                       setFormData({ ...formData, periodIndex: Number(e.target.value) });
                       setConflictError('');
                     }}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-slate-100 font-bold focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
                   >
                     <option value={1}>Period 1 (08:00 - 08:45)</option>
                     <option value={2}>Period 2 (08:45 - 09:30)</option>
@@ -810,9 +810,9 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="block text-slate-600 font-medium">Class / Grade</label>
+                    <label className="block text-slate-600 dark:text-slate-300 font-medium">Class / Grade</label>
                     {validationStatus.gradeConflict ? (
-                      <span className="text-[10px] font-bold text-rose-600 bg-rose-50 px-1.5 py-0.2 rounded border border-rose-200">
+                      <span className="text-[10px] font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/30 px-1.5 py-0.2 rounded border border-rose-200 dark:border-rose-800">
                         Collision
                       </span>
                     ) : (
@@ -827,10 +827,10 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                       setFormData({ ...formData, grade: e.target.value });
                       setConflictError('');
                     }}
-                    className={`w-full px-3 py-2 rounded-xl border bg-white font-semibold transition-colors ${
+                    className={`w-full px-3 py-2 rounded-xl border bg-white dark:bg-slate-800 dark:text-slate-100 font-semibold transition-colors ${
                       validationStatus.gradeConflict
-                        ? 'border-rose-300 bg-rose-50/30'
-                        : 'border-slate-300'
+                        ? 'border-rose-300 dark:border-rose-700 bg-rose-50/30 dark:bg-rose-900/20'
+                        : 'border-slate-300 dark:border-slate-700'
                     }`}
                   >
                     {availableGrades.map((g) => (
@@ -842,14 +842,14 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-slate-600 mb-1 font-medium">Subject</label>
+                  <label className="block text-slate-600 dark:text-slate-300 mb-1 font-medium">Subject</label>
                   <input
                     type="text"
                     required
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     placeholder="e.g. Mathematics"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-slate-100 font-bold focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
                   />
                 </div>
               </div>
@@ -857,13 +857,13 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="block text-slate-600 font-medium">Teacher</label>
+                    <label className="block text-slate-600 dark:text-slate-300 font-medium">Teacher</label>
                     {validationStatus.teacherConflict ? (
-                      <span className="text-[10px] font-bold text-rose-600 bg-rose-50 px-1.5 py-0.2 rounded border border-rose-200 flex items-center gap-0.5">
+                      <span className="text-[10px] font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/30 px-1.5 py-0.2 rounded border border-rose-200 dark:border-rose-800 flex items-center gap-0.5">
                         <AlertTriangle className="w-2.5 h-2.5" /> Booked
                       </span>
                     ) : (
-                      <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200 flex items-center gap-0.5">
+                      <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-1.5 py-0.2 rounded border border-emerald-200 dark:border-emerald-800 flex items-center gap-0.5">
                         <CheckCircle2 className="w-2.5 h-2.5" /> Free
                       </span>
                     )}
@@ -879,10 +879,10 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                       });
                       setConflictError('');
                     }}
-                    className={`w-full px-3 py-2 rounded-xl border bg-white font-medium transition-colors ${
+                    className={`w-full px-3 py-2 rounded-xl border bg-white dark:bg-slate-800 dark:text-slate-100 font-medium transition-colors ${
                       validationStatus.teacherConflict
-                        ? 'border-rose-400 bg-rose-50/40 text-rose-950 ring-1 ring-rose-400'
-                        : 'border-slate-300'
+                        ? 'border-rose-400 dark:border-rose-700 bg-rose-50/40 dark:bg-rose-900/20 text-rose-950 dark:text-rose-200 ring-1 ring-rose-400'
+                        : 'border-slate-300 dark:border-slate-700'
                     }`}
                   >
                     {availableTeachers.map((t) => (
@@ -895,13 +895,13 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
 
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="block text-slate-600 font-medium">Room / Lab</label>
+                    <label className="block text-slate-600 dark:text-slate-300 font-medium">Room / Lab</label>
                     {validationStatus.roomConflict ? (
-                      <span className="text-[10px] font-bold text-rose-600 bg-rose-50 px-1.5 py-0.2 rounded border border-rose-200 flex items-center gap-0.5">
+                      <span className="text-[10px] font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/30 px-1.5 py-0.2 rounded border border-rose-200 dark:border-rose-800 flex items-center gap-0.5">
                         <AlertTriangle className="w-2.5 h-2.5" /> Occupied
                       </span>
                     ) : (
-                      <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200 flex items-center gap-0.5">
+                      <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-1.5 py-0.2 rounded border border-emerald-200 dark:border-emerald-800 flex items-center gap-0.5">
                         <CheckCircle2 className="w-2.5 h-2.5" /> Free
                       </span>
                     )}
@@ -916,10 +916,10 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                       setConflictError('');
                     }}
                     placeholder="e.g. Room 204 or Physics Lab"
-                    className={`w-full px-3 py-2 rounded-xl border bg-white transition-colors ${
+                    className={`w-full px-3 py-2 rounded-xl border bg-white dark:bg-slate-800 dark:text-slate-100 transition-colors ${
                       validationStatus.roomConflict
-                        ? 'border-rose-400 bg-rose-50/40 text-rose-950 ring-1 ring-rose-400 font-semibold'
-                        : 'border-slate-300'
+                        ? 'border-rose-400 dark:border-rose-700 bg-rose-50/40 dark:bg-rose-900/20 text-rose-950 dark:text-rose-200 ring-1 ring-rose-400 font-semibold'
+                        : 'border-slate-300 dark:border-slate-700'
                     }`}
                   />
                   <datalist id="standard-rooms-list">
@@ -932,7 +932,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
 
               {/* Quick Facility Suggestion Chips */}
               <div>
-                <div className="flex items-center justify-between text-[11px] text-slate-500 mb-1.5">
+                <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 mb-1.5">
                   <span className="flex items-center gap-1">
                     <Building2 className="w-3 h-3 text-slate-400" />
                     <span>Quick Select Room</span>
@@ -963,8 +963,8 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                           isSelected
                             ? 'bg-brand-500 text-white border-brand-500'
                             : isOccupied
-                            ? 'bg-rose-50/80 text-rose-700 border-rose-200 line-through opacity-60'
-                            : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
+                            ? 'bg-rose-50/80 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400 border-rose-200 dark:border-rose-800 line-through opacity-60'
+                            : 'bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
                         }`}
                         title={isOccupied ? `Occupied during Period ${formData.periodIndex}` : `Available`}
                       >
@@ -976,14 +976,14 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+              <div className="pt-4 border-t border-slate-100 dark:border-brand-900 flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => {
                     setShowAddModal(false);
                     setConflictError('');
                   }}
-                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-xs transition-colors"
                 >
                   Cancel
                 </button>
@@ -992,7 +992,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                   disabled={isSubmitting || validationStatus.hasConflict}
                   className={`px-5 py-2.5 rounded-xl font-bold text-xs transition-all flex items-center gap-1.5 ${
                     validationStatus.hasConflict
-                      ? 'bg-rose-100 text-rose-700 border border-rose-300 cursor-not-allowed opacity-90'
+                      ? 'bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 border border-rose-300 dark:border-rose-700 cursor-not-allowed opacity-90'
                       : 'bg-brand-500 hover:bg-brand-600 text-white shadow-md shadow-brand-500/20 cursor-pointer'
                   }`}
                   title={

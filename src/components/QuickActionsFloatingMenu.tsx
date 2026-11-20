@@ -219,9 +219,9 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
       title: 'Record Fee Payment',
       subtitle: 'Post fee installment & print instant receipt',
       badge: 'Finance',
-      badgeColor: 'bg-emerald-100 text-emerald-800',
+      badgeColor: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
       icon: CreditCard,
-      iconColor: 'text-emerald-600 bg-emerald-50 group-hover:bg-emerald-600 group-hover:text-white',
+      iconColor: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 group-hover:bg-emerald-600 group-hover:text-white',
       onClick: () => {
         setIsOpen(false);
         setShowPaymentModal(true);
@@ -232,9 +232,9 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
       title: 'Enroll New Student',
       subtitle: 'Admit learner & register parent dossier',
       badge: 'Admissions',
-      badgeColor: 'bg-brand-100 text-brand-800',
+      badgeColor: 'bg-brand-100 text-brand-800 dark:bg-brand-900/40 dark:text-brand-300',
       icon: UserPlus,
-      iconColor: 'text-brand-600 bg-brand-50 group-hover:bg-brand-600 group-hover:text-white',
+      iconColor: 'text-brand-600 bg-brand-50 dark:bg-brand-900/30 group-hover:bg-brand-600 group-hover:text-white',
       onClick: () => {
         setIsOpen(false);
         setShowEnrolmentModal(true);
@@ -245,9 +245,9 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
       title: 'Generate Fee Statement',
       subtitle: 'Official printable PDF ledger & bank info',
       badge: 'Bursary',
-      badgeColor: 'bg-amber-100 text-amber-800',
+      badgeColor: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
       icon: FileText,
-      iconColor: 'text-amber-600 bg-amber-50 group-hover:bg-amber-600 group-hover:text-white',
+      iconColor: 'text-amber-600 bg-amber-50 dark:bg-amber-900/30 group-hover:bg-amber-600 group-hover:text-white',
       onClick: () => {
         setIsOpen(false);
         setStatementStudentId(students[0]?.id || '');
@@ -259,9 +259,9 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
       title: 'Input Academic Marks',
       subtitle: 'Enter continuous assessment & exam scores',
       badge: 'Grading',
-      badgeColor: 'bg-indigo-100 text-indigo-800',
+      badgeColor: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300',
       icon: FileSpreadsheet,
-      iconColor: 'text-indigo-600 bg-indigo-50 group-hover:bg-indigo-600 group-hover:text-white',
+      iconColor: 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/30 group-hover:bg-indigo-600 group-hover:text-white',
       onClick: () => {
         setIsOpen(false);
         onNavigateTab('grading');
@@ -277,7 +277,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
         {isOpen && (
           <div
             id="quick-actions-floating-popover"
-            className="mb-3 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200/90 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200"
+            className="mb-3 w-80 sm:w-96 bg-white dark:bg-brand-950 rounded-2xl shadow-2xl border border-slate-200/90 dark:border-brand-900 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200"
           >
             {/* Popover Header */}
             <div className="bg-gradient-to-r from-brand-800 via-slate-800 to-brand-900 px-4 py-3.5 text-white flex items-center justify-between border-b border-slate-700">
@@ -313,7 +313,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
             </div>
 
             {/* Quick Action Items List */}
-            <div className="p-2 divide-y divide-slate-100 max-h-[380px] overflow-y-auto">
+            <div className="p-2 divide-y divide-slate-100 dark:divide-slate-800 max-h-[380px] overflow-y-auto">
               {quickActionItems.map((item) => {
                 const IconComponent = item.icon;
                 return (
@@ -321,7 +321,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                     key={item.id}
                     id={`quick-action-btn-${item.id}`}
                     onClick={item.onClick}
-                    className="w-full text-left p-2.5 rounded-xl hover:bg-slate-50 transition-all flex items-center justify-between group cursor-pointer"
+                    className="w-full text-left p-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-brand-900/40 transition-all flex items-center justify-between group cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
                       <div
@@ -331,7 +331,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-bold text-slate-900 group-hover:text-brand-600 transition-colors">
+                          <span className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-brand-600 transition-colors">
                             {item.title}
                           </span>
                           <span
@@ -340,19 +340,19 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                             {item.badge}
                           </span>
                         </div>
-                        <p className="text-[10px] text-slate-500 leading-snug">{item.subtitle}</p>
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-snug">{item.subtitle}</p>
                       </div>
                     </div>
 
-                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-brand-500 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+                    <ChevronRight className="w-4 h-4 text-slate-300 dark:text-slate-600 group-hover:text-brand-500 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
                   </button>
                 );
               })}
             </div>
 
             {/* Popover Footer Info */}
-            <div className="px-3.5 py-2 bg-slate-50 border-t border-slate-200/80 flex items-center justify-between text-[10px] text-slate-500">
-              <span>Logged in as: <strong className="text-slate-800">{currentUserName}</strong></span>
+            <div className="px-3.5 py-2 bg-slate-50 dark:bg-slate-900 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-[10px] text-slate-500 dark:text-slate-400">
+              <span>Logged in as: <strong className="text-slate-800 dark:text-slate-200">{currentUserName}</strong></span>
               <span className="text-slate-400">Esc to dismiss</span>
             </div>
           </div>
@@ -388,30 +388,30 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
       {showPaymentModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
           <div className="bg-white rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-slate-200 animate-in fade-in duration-150 my-auto rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
-            <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
+            <div className="flex items-center justify-between pb-3.5 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 flex items-center justify-center">
                   <CreditCard className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900 font-serif">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white font-serif">
                     Quick Record Fee Payment
                   </h3>
-                  <p className="text-[11px] text-slate-500">
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
                     Instantly credit learner fee ledger and adjust arrears
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setShowPaymentModal(false)}
-                className="p-1 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 cursor-pointer"
+                className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             {paymentError && (
-              <div className="mt-3 p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+              <div className="mt-3 p-2.5 rounded-lg bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{paymentError}</span>
               </div>
@@ -420,11 +420,11 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
             <form onSubmit={handlePaymentSubmit} className="mt-4 space-y-3.5 text-xs">
               {/* Select Learner */}
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Select Learner *</label>
+                <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1">Select Learner *</label>
                 <select
                   value={paymentStudentId}
                   onChange={(e) => setPaymentStudentId(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30"
                 >
                   {students.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -436,14 +436,14 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
 
               {/* Outstanding Arrears Snapshot */}
               {selectedPaymentStudent && (
-                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center justify-between">
+                <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200/80 dark:border-slate-700 flex items-center justify-between">
                   <div>
                     <span className="text-[10px] uppercase font-bold text-slate-400 block">
                       Current Arrears Balance
                     </span>
                     <span
                       className={`text-sm font-black ${
-                        selectedPaymentStudent.feeBalance === 0 ? 'text-emerald-700' : 'text-rose-700'
+                        selectedPaymentStudent.feeBalance === 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'
                       }`}
                     >
                       KES {selectedPaymentStudent.feeBalance.toLocaleString()}
@@ -451,7 +451,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                   </div>
                   <div className="text-right">
                     <span className="text-[10px] text-slate-400 block">Total Invoiced:</span>
-                    <span className="font-bold text-slate-700 text-xs">
+                    <span className="font-bold text-slate-700 dark:text-slate-300 text-xs">
                       KES {selectedPaymentStudent.totalFeesBilled.toLocaleString()}
                     </span>
                   </div>
@@ -461,7 +461,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
               {/* Amount and Method */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">
+                  <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1">
                     Amount Paid (KES) *
                   </label>
                   <input
@@ -471,16 +471,16 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                     step="100"
                     value={paymentAmount}
                     onChange={(e) => setPaymentAmount(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500/30 text-sm"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500/30 text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Payment Method</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1">Payment Method</label>
                   <select
                     value={paymentMethod}
                     onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30 text-xs"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-brand-500/30 text-xs"
                   >
                     <option value="Mobile Money">Mobile Money (M-Pesa)</option>
                     <option value="Bank Transfer">Bank Transfer (EFT)</option>
@@ -497,7 +497,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                   <button
                     type="button"
                     onClick={() => setPaymentAmount(String(selectedPaymentStudent.feeBalance))}
-                    className="px-2 py-0.5 rounded bg-brand-50 hover:bg-brand-100 text-brand-700 text-[10px] font-bold border border-brand-200 cursor-pointer"
+                    className="px-2 py-0.5 rounded bg-brand-50 dark:bg-brand-900/40 hover:bg-brand-100 dark:hover:bg-brand-900/60 text-brand-700 dark:text-brand-300 text-[10px] font-bold border border-brand-200 dark:border-brand-800 cursor-pointer"
                   >
                     Full Arrears (KES {selectedPaymentStudent.feeBalance.toLocaleString()})
                   </button>
@@ -505,21 +505,21 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                 <button
                   type="button"
                   onClick={() => setPaymentAmount('10000')}
-                  className="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-semibold cursor-pointer"
+                  className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-[10px] font-semibold cursor-pointer"
                 >
                   10,000
                 </button>
                 <button
                   type="button"
                   onClick={() => setPaymentAmount('20000')}
-                  className="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-semibold cursor-pointer"
+                  className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-[10px] font-semibold cursor-pointer"
                 >
                   20,000
                 </button>
                 <button
                   type="button"
                   onClick={() => setPaymentAmount('30000')}
-                  className="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-semibold cursor-pointer"
+                  className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-[10px] font-semibold cursor-pointer"
                 >
                   30,000
                 </button>
@@ -527,7 +527,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
 
               {/* Transaction Remarks */}
               <div>
-                <label className="block text-slate-700 font-bold mb-1">
+                <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1">
                   Transaction Remarks / Reference
                 </label>
                 <input
@@ -535,16 +535,16 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                   value={paymentNotes}
                   onChange={(e) => setPaymentNotes(e.target.value)}
                   placeholder="e.g. M-Pesa Ref QK99201 or Term 1 Installment 1"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 dark:text-white text-xs"
                 />
               </div>
 
               {/* Footer Actions */}
-              <div className="pt-3 flex items-center justify-end gap-2 border-t border-slate-100">
+              <div className="pt-3 flex items-center justify-end gap-2 border-t border-slate-100 dark:border-slate-800">
                 <button
                   type="button"
                   onClick={() => setShowPaymentModal(false)}
-                  className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors cursor-pointer"
+                  className="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -566,30 +566,30 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
       {showEnrolmentModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
           <div className="bg-white rounded-2xl max-w-xl w-full p-5 sm:p-6 shadow-2xl border border-slate-200 max-h-[92vh] overflow-y-auto animate-in fade-in duration-150 my-auto rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
-            <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
+            <div className="flex items-center justify-between pb-3.5 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-brand-100 text-brand-600 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 flex items-center justify-center">
                   <UserPlus className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900 font-serif">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white font-serif">
                     Quick Enroll New Student
                   </h3>
-                  <p className="text-[11px] text-slate-500">
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
                     Creates student profile, allocates class, and sets up fee invoice
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setShowEnrolmentModal(false)}
-                className="p-1 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 cursor-pointer"
+                className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             {enrolmentError && (
-              <div className="mt-3 p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+              <div className="mt-3 p-2.5 rounded-lg bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{enrolmentError}</span>
               </div>
@@ -597,58 +597,58 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
 
             <form onSubmit={handleEnrolmentSubmit} className="mt-4 space-y-4 text-xs">
               {/* Section 1: Biodata */}
-              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 space-y-2.5">
-                <span className="font-bold text-slate-700 uppercase tracking-wider text-[10px] block">
+              <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200/80 dark:border-slate-700 space-y-2.5">
+                <span className="font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-[10px] block">
                   1. Learner Biodata
                 </span>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-slate-600 mb-1 font-semibold">First Name *</label>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1 font-semibold">First Name *</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Samuel"
                       value={enrolmentData.firstName}
                       onChange={(e) => setEnrolmentData({ ...enrolmentData, firstName: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-brand-500"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 mb-1 font-semibold">Last / Surname *</label>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1 font-semibold">Last / Surname *</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Mwangi"
                       value={enrolmentData.lastName}
                       onChange={(e) => setEnrolmentData({ ...enrolmentData, lastName: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-brand-500"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-slate-600 mb-1 font-semibold">Admission No</label>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1 font-semibold">Admission No</label>
                     <input
                       type="text"
                       value={enrolmentData.admissionNumber}
                       onChange={(e) =>
                         setEnrolmentData({ ...enrolmentData, admissionNumber: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white font-mono text-slate-700 text-xs"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-mono text-slate-700 dark:text-slate-200 text-xs focus:outline-none focus:ring-1 focus:ring-brand-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 mb-1 font-semibold">Gender</label>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1 font-semibold">Gender</label>
                     <select
                       value={enrolmentData.gender}
                       onChange={(e) =>
                         setEnrolmentData({ ...enrolmentData, gender: e.target.value as any })
                       }
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 dark:text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-500"
                     >
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
@@ -657,25 +657,25 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 mb-1 font-semibold">Date of Birth</label>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1 font-semibold">Date of Birth</label>
                     <input
                       type="date"
                       value={enrolmentData.dateOfBirth}
                       onChange={(e) =>
                         setEnrolmentData({ ...enrolmentData, dateOfBirth: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 dark:text-white text-xs focus:outline-none focus:ring-1 focus:ring-brand-500"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-slate-600 mb-1 font-semibold">Class / Grade</label>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1 font-semibold">Class / Grade</label>
                     <select
                       value={enrolmentData.grade}
                       onChange={(e) => setEnrolmentData({ ...enrolmentData, grade: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white font-bold text-slate-800"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-bold text-slate-800 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500"
                     >
                       <option value="Grade 9-A">Grade 9-A</option>
                       <option value="Grade 9-B">Grade 9-B</option>
@@ -687,11 +687,11 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 mb-1 font-semibold">Stream</label>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1 font-semibold">Stream</label>
                     <select
                       value={enrolmentData.stream}
                       onChange={(e) => setEnrolmentData({ ...enrolmentData, stream: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500"
                     >
                       <option value="Alpha">Alpha</option>
                       <option value="Beta">Beta</option>
@@ -703,14 +703,14 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
               </div>
 
               {/* Section 2: Guardian Contacts */}
-              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 space-y-2.5">
-                <span className="font-bold text-slate-700 uppercase tracking-wider text-[10px] block">
+              <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200/80 dark:border-slate-700 space-y-2.5">
+                <span className="font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-[10px] block">
                   2. Parent & Emergency Contacts
                 </span>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-slate-600 mb-1 font-semibold">Guardian Full Name *</label>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1 font-semibold">Guardian Full Name *</label>
                     <input
                       type="text"
                       required
@@ -719,18 +719,18 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                       onChange={(e) =>
                         setEnrolmentData({ ...enrolmentData, guardianName: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-brand-500"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 mb-1 font-semibold">Relationship</label>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1 font-semibold">Relationship</label>
                     <select
                       value={enrolmentData.guardianRelationship}
                       onChange={(e) =>
                         setEnrolmentData({ ...enrolmentData, guardianRelationship: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500"
                     >
                       <option value="Mother">Mother</option>
                       <option value="Father">Father</option>
@@ -742,7 +742,7 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-slate-600 mb-1 font-semibold">Telephone *</label>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1 font-semibold">Telephone *</label>
                     <input
                       type="tel"
                       required
@@ -751,12 +751,12 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                       onChange={(e) =>
                         setEnrolmentData({ ...enrolmentData, guardianPhone: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white font-mono"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 dark:text-white font-mono focus:outline-none focus:ring-1 focus:ring-brand-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 mb-1 font-semibold">Email Address</label>
+                    <label className="block text-slate-600 dark:text-slate-300 mb-1 font-semibold">Email Address</label>
                     <input
                       type="email"
                       placeholder="parent@example.com"
@@ -764,18 +764,18 @@ export const QuickActionsFloatingMenu: React.FC<QuickActionsFloatingMenuProps> =
                       onChange={(e) =>
                         setEnrolmentData({ ...enrolmentData, guardianEmail: e.target.value })
                       }
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-500"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Footer Actions */}
-              <div className="pt-3 flex items-center justify-end gap-2 border-t border-slate-100">
+              <div className="pt-3 flex items-center justify-end gap-2 border-t border-slate-100 dark:border-slate-800">
                 <button
                   type="button"
                   onClick={() => setShowEnrolmentModal(false)}
-                  className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors cursor-pointer"
+                  className="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>

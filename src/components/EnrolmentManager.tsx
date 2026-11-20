@@ -180,15 +180,15 @@ Performance Index: ${student.performanceIndex}%
   return (
     <div className="space-y-6">
       {/* Header and Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200 dark:border-brand-900">
         <div>
           <div className="flex items-center gap-2">
             <Users className="w-5 h-5 text-brand-500" />
-            <h1 className="text-xl font-bold text-slate-900 font-serif">
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white font-serif">
               Learner Enrolment & Student Directory
             </h1>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Complete student admission records, contact details, medical information, and academic placement.
           </p>
         </div>
@@ -214,20 +214,20 @@ Performance Index: ${student.performanceIndex}%
             placeholder="Search learner name, ADM number, parent..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all"
+            className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100 dark:focus:bg-slate-800"
           />
         </div>
 
         {/* Filters */}
         <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-          <div className="flex items-center gap-1.5 text-xs text-slate-500">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
             <Filter className="w-3.5 h-3.5" />
             <span>Class:</span>
           </div>
           <select
             value={selectedGrade}
             onChange={(e) => setSelectedGrade(e.target.value)}
-            className="text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none"
+            className="text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
           >
             <option value="all">All Classes</option>
             <option value="Grade 9-A">Grade 9-A</option>
@@ -241,7 +241,7 @@ Performance Index: ${student.performanceIndex}%
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none"
+            className="text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
           >
             <option value="all">All Status</option>
             <option value="active">Active</option>
@@ -249,30 +249,30 @@ Performance Index: ${student.performanceIndex}%
             <option value="graduated">Graduated</option>
           </select>
 
-          <span className="text-xs text-slate-400 font-medium pl-2">
+          <span className="text-xs text-slate-400 dark:text-slate-500 font-medium pl-2">
             Showing {filteredStudents.length} of {students.length}
           </span>
         </div>
       </div>
 
       {/* Student Records Table */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+      <div className="bg-white dark:bg-brand-950 rounded-2xl border border-slate-200/80 dark:border-brand-900 shadow-xs overflow-hidden">
         {/* Table Tip / Instruction Banner */}
-        <div className="px-4 py-2.5 bg-brand-50/70 border-b border-brand-200/60 flex items-center justify-between text-xs text-brand-950 font-medium">
+        <div className="px-4 py-2.5 bg-brand-50/70 dark:bg-brand-900/40 border-b border-brand-200/60 dark:border-brand-800 flex items-center justify-between text-xs text-brand-950 dark:text-brand-200 font-medium">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-brand-500 animate-pulse shrink-0" />
             <span>
               Tip: <strong>Click any table row</strong> to open the complete learner dossier, guardian contacts & medical details.
             </span>
           </div>
-          <span className="text-[11px] text-brand-800 font-bold shrink-0 hidden sm:inline">
+          <span className="text-[11px] text-brand-800 dark:text-brand-300 font-bold shrink-0 hidden sm:inline">
             Showing {filteredStudents.length} of {students.length} Learners
           </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="responsive-card-table w-full text-left text-xs">
-            <thead className="bg-slate-50/80 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-200 text-[11px]">
+            <thead className="bg-slate-50/80 dark:bg-brand-900 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-brand-800 text-[11px]">
               <tr>
                 <th className="py-3.5 px-4">Admission No.</th>
                 <th className="py-3.5 px-4">Learner Name</th>
@@ -283,7 +283,7 @@ Performance Index: ${student.performanceIndex}%
                 <th className="py-3.5 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-brand-900">
               {filteredStudents.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="py-12 text-center text-slate-400">
@@ -306,17 +306,17 @@ Performance Index: ${student.performanceIndex}%
                           setSelectedStudent(student);
                         }
                       }}
-                      className="hover:bg-brand-50/50 cursor-pointer transition-colors group select-none"
+                      className="hover:bg-brand-50/50 dark:hover:bg-brand-900/30 cursor-pointer transition-colors group select-none"
                       title={`Click to open full learner details for ${student.firstName} ${student.lastName}`}
                     >
-                      <td data-label="Admission No." className="py-3.5 px-4 font-mono font-semibold text-slate-700">
+                      <td data-label="Admission No." className="py-3.5 px-4 font-mono font-semibold text-slate-700 dark:text-slate-300">
                         <span className="group-hover:text-brand-600 transition-colors font-bold">
                           {student.admissionNumber}
                         </span>
                       </td>
-                      <td data-label="Learner Name" className="py-3.5 px-4 font-semibold text-slate-900">
+                      <td data-label="Learner Name" className="py-3.5 px-4 font-semibold text-slate-900 dark:text-white">
                         <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-full bg-brand-100 text-brand-800 flex items-center justify-center font-bold text-xs border border-brand-200/60 group-hover:scale-105 transition-transform shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-brand-100 dark:bg-brand-900 text-brand-800 dark:text-brand-300 flex items-center justify-center font-bold text-xs border border-brand-200/60 dark:border-brand-700 group-hover:scale-105 transition-transform shrink-0">
                             {student.firstName[0]}
                             {student.lastName[0]}
                           </div>
@@ -331,7 +331,7 @@ Performance Index: ${student.performanceIndex}%
                         </div>
                       </td>
                       <td data-label="Grade & Stream" className="py-3.5 px-4">
-                        <span className="inline-block px-2 py-0.5 rounded-md bg-brand-50 text-brand-700 font-bold text-[11px] border border-brand-200/60">
+                        <span className="inline-block px-2 py-0.5 rounded-md bg-brand-50 dark:bg-brand-900 text-brand-700 dark:text-brand-300 font-bold text-[11px] border border-brand-200/60 dark:border-brand-700">
                           {student.grade}
                         </span>
                         <div className="text-[10px] text-slate-400 mt-0.5">
@@ -339,8 +339,8 @@ Performance Index: ${student.performanceIndex}%
                         </div>
                       </td>
                       <td data-label="Guardian Contact" className="py-3.5 px-4">
-                        <div className="text-slate-800 font-medium">{student.guardianName}</div>
-                        <div className="text-[10px] text-slate-500 font-mono">
+                        <div className="text-slate-800 dark:text-slate-200 font-medium">{student.guardianName}</div>
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
                           {student.guardianPhone}
                         </div>
                       </td>
@@ -349,10 +349,10 @@ Performance Index: ${student.performanceIndex}%
                           <span
                             className={`font-bold ${
                               student.performanceIndex >= 95
-                                ? 'text-emerald-700'
+                                ? 'text-emerald-700 dark:text-emerald-400'
                                 : student.performanceIndex >= 85
-                                ? 'text-amber-700'
-                                : 'text-rose-700'
+                                ? 'text-amber-700 dark:text-amber-400'
+                                : 'text-rose-700 dark:text-rose-400'
                             }`}
                           >
                             {student.performanceIndex}%
@@ -361,12 +361,12 @@ Performance Index: ${student.performanceIndex}%
                       </td>
                       <td data-label="Fee Status" className="py-3.5 px-4">
                         {isCleared ? (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                             <CheckCircle2 className="w-3 h-3" />
                             Cleared
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 dark:bg-rose-950/50 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
                             KES {student.feeBalance.toLocaleString()} Due
                           </span>
                         )}
@@ -380,7 +380,7 @@ Performance Index: ${student.performanceIndex}%
                               e.stopPropagation();
                               setSelectedStudent(student);
                             }}
-                            className="px-2.5 py-1 rounded-lg bg-brand-50 group-hover:bg-brand-100 text-brand-700 font-bold text-xs transition-colors cursor-pointer border border-brand-200/70"
+                            className="px-2.5 py-1 rounded-lg bg-brand-50 dark:bg-brand-900 group-hover:bg-brand-100 dark:group-hover:bg-brand-800 text-brand-700 dark:text-brand-300 font-bold text-xs transition-colors cursor-pointer border border-brand-200/70 dark:border-brand-700"
                           >
                             Details
                           </button>
@@ -391,7 +391,7 @@ Performance Index: ${student.performanceIndex}%
                               e.stopPropagation();
                               onViewReportCard(student);
                             }}
-                            className="px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors cursor-pointer"
+                            className="px-2 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium text-xs transition-colors cursor-pointer"
                             title="Generate Term Report Card"
                           >
                             Report Card
@@ -406,13 +406,13 @@ Performance Index: ${student.performanceIndex}%
                                   onDeleteStudent(student.id);
                                 }
                               }}
-                              className="px-2 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 font-medium text-xs transition-colors cursor-pointer border border-rose-200/60"
+                              className="px-2 py-1 rounded-lg bg-rose-50 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-rose-600 dark:text-rose-400 font-medium text-xs transition-colors cursor-pointer border border-rose-200/60 dark:border-rose-800"
                               title="Remove learner from system"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
                           )}
-                          <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-brand-500 group-hover:translate-x-0.5 transition-all" />
+                          <ChevronRight className="w-4 h-4 text-slate-300 dark:text-slate-600 group-hover:text-brand-500 group-hover:translate-x-0.5 transition-all" />
                         </div>
                       </td>
                     </tr>
@@ -424,14 +424,14 @@ Performance Index: ${student.performanceIndex}%
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
-        <div className="px-4 py-3 border-b border-slate-200 flex items-center justify-between gap-3">
-          <h2 className="text-sm font-bold text-slate-900">Teaching Staff Directory</h2>
-          <span className="text-xs font-medium text-slate-500">{teachers.length} teachers</span>
+      <div className="bg-white dark:bg-brand-950 rounded-2xl border border-slate-200/80 dark:border-brand-900 shadow-xs overflow-hidden">
+        <div className="px-4 py-3 border-b border-slate-200 dark:border-brand-900 flex items-center justify-between gap-3">
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white">Teaching Staff Directory</h2>
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{teachers.length} teachers</span>
         </div>
         <div className="overflow-x-auto">
           <table className="responsive-card-table w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-200 text-[11px]">
+            <thead className="bg-slate-50 dark:bg-brand-900 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-brand-800 text-[11px]">
               <tr>
                 <th className="py-3 px-4">Teacher</th>
                 <th className="py-3 px-4">Phone</th>
@@ -440,17 +440,17 @@ Performance Index: ${student.performanceIndex}%
                 <th className="py-3 px-4">Assigned Subjects</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-brand-900">
               {teachers.map((teacher) => (
                 <tr key={teacher.id}>
                   <td data-label="Teacher" className="py-3 px-4">
-                    <div className="font-bold text-slate-900">{teacher.name}</div>
-                    <div className="text-[10px] text-slate-500">{teacher.title}</div>
+                    <div className="font-bold text-slate-900 dark:text-white">{teacher.name}</div>
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400">{teacher.title}</div>
                   </td>
-                  <td data-label="Phone" className="py-3 px-4 font-mono">{teacher.phone}</td>
-                  <td data-label="Email" className="py-3 px-4">{teacher.email}</td>
-                  <td data-label="Assigned Classes" className="py-3 px-4">{teacher.assignedClasses.join(', ')}</td>
-                  <td data-label="Assigned Subjects" className="py-3 px-4">{teacher.assignedSubjects.join(', ')}</td>
+                  <td data-label="Phone" className="py-3 px-4 font-mono dark:text-slate-300">{teacher.phone}</td>
+                  <td data-label="Email" className="py-3 px-4 dark:text-slate-300">{teacher.email}</td>
+                  <td data-label="Assigned Classes" className="py-3 px-4 dark:text-slate-300">{teacher.assignedClasses.join(', ')}</td>
+                  <td data-label="Assigned Subjects" className="py-3 px-4 dark:text-slate-300">{teacher.assignedSubjects.join(', ')}</td>
                 </tr>
               ))}
             </tbody>
@@ -470,7 +470,7 @@ Performance Index: ${student.performanceIndex}%
             onClick={(e) => e.stopPropagation()}
           >
             {/* Top Modal Header */}
-            <div className="flex items-start justify-between pb-5 border-b border-slate-100 gap-4">
+            <div className="flex items-start justify-between pb-5 border-b border-slate-100 dark:border-brand-900 gap-4">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-500 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-brand-500/20 ring-2 ring-brand-400/30 shrink-0">
                   {selectedStudent.firstName[0]}
@@ -478,16 +478,16 @@ Performance Index: ${student.performanceIndex}%
                 </div>
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <h2 className="text-xl font-bold text-slate-900 font-serif">
+                    <h2 className="text-xl font-bold text-slate-900 dark:text-white font-serif">
                       {selectedStudent.firstName} {selectedStudent.lastName}
                     </h2>
                     <span
                       className={`inline-flex items-center gap-1 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider ${
                         selectedStudent.status === 'active'
-                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                          ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
                           : selectedStudent.status === 'transferred'
-                          ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                          : 'bg-slate-100 text-slate-700'
+                          ? 'bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
+                          : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
                       }`}
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-current" />
@@ -495,13 +495,13 @@ Performance Index: ${student.performanceIndex}%
                     </span>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-3 mt-1.5 text-xs text-slate-500">
-                    <span className="font-mono font-bold text-slate-700 flex items-center gap-1.5 bg-slate-100 px-2 py-0.5 rounded-md">
+                  <div className="flex flex-wrap items-center gap-3 mt-1.5 text-xs text-slate-500 dark:text-slate-400">
+                    <span className="font-mono font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
                       {selectedStudent.admissionNumber}
                       <button
                         type="button"
                         onClick={() => handleCopyText(selectedStudent.admissionNumber, 'Admission Number')}
-                        className="text-slate-400 hover:text-slate-700 cursor-pointer"
+                        className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer"
                         title="Copy Admission Number"
                       >
                         {copiedField === 'Admission Number' ? (
@@ -525,7 +525,7 @@ Performance Index: ${student.performanceIndex}%
                 id="close-learner-details-btn"
                 type="button"
                 onClick={() => setSelectedStudent(null)}
-                className="p-2 rounded-xl text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors cursor-pointer shrink-0"
+                className="p-2 rounded-xl text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer shrink-0"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
@@ -534,125 +534,125 @@ Performance Index: ${student.performanceIndex}%
 
             {/* Quick KPI Metric Highlights */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="p-3 rounded-2xl bg-brand-50/70 border border-brand-200/70">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-brand-700 block mb-0.5">
+              <div className="p-3 rounded-2xl bg-brand-50/70 dark:bg-brand-900/40 border border-brand-200/70 dark:border-brand-700">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-brand-700 dark:text-brand-300 block mb-0.5">
                   Class Placement
                 </span>
-                <div className="text-sm font-bold text-slate-900">{selectedStudent.grade}</div>
-                <div className="text-[11px] text-brand-800 mt-0.5 font-medium">{selectedStudent.stream} Stream</div>
+                <div className="text-sm font-bold text-slate-900 dark:text-white">{selectedStudent.grade}</div>
+                <div className="text-[11px] text-brand-800 dark:text-brand-300 mt-0.5 font-medium">{selectedStudent.stream} Stream</div>
               </div>
 
-              <div className="p-3 rounded-2xl bg-emerald-50/70 border border-emerald-200/70">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 block mb-0.5">
+              <div className="p-3 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200/70 dark:border-emerald-800">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 block mb-0.5">
                   Performance Index
                 </span>
-                <div className="text-sm font-black text-emerald-800">{selectedStudent.performanceIndex}%</div>
-                <div className="text-[11px] text-emerald-700 mt-0.5 font-medium">
+                <div className="text-sm font-black text-emerald-800 dark:text-emerald-300">{selectedStudent.performanceIndex}%</div>
+                <div className="text-[11px] text-emerald-700 dark:text-emerald-400 mt-0.5 font-medium">
                   {selectedStudent.performanceIndex >= 95 ? 'Exceptional Progress' : 'Steady Progress'}
                 </div>
               </div>
 
-              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 block mb-0.5">
+              <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-0.5">
                   Fee Status
                 </span>
                 <div
                   className={`text-sm font-bold ${
-                    selectedStudent.feeBalance === 0 ? 'text-emerald-700' : 'text-rose-700'
+                    selectedStudent.feeBalance === 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'
                   }`}
                 >
                   {selectedStudent.feeBalance === 0
                     ? 'Fully Cleared'
                     : `KES ${selectedStudent.feeBalance.toLocaleString()} Due`}
                 </div>
-                <div className="text-[11px] text-slate-500 mt-0.5 font-medium">
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 font-medium">
                   {Math.round((selectedStudent.totalFeesPaid / (selectedStudent.totalFeesBilled || 1)) * 100)}% Paid
                 </div>
               </div>
 
-              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 block mb-0.5">
+              <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-0.5">
                   Age & Birthday
                 </span>
-                <div className="text-sm font-bold text-slate-900">{calculateAge(selectedStudent.dateOfBirth)}</div>
-                <div className="text-[11px] text-slate-500 mt-0.5 font-medium">DOB: {selectedStudent.dateOfBirth}</div>
+                <div className="text-sm font-bold text-slate-900 dark:text-white">{calculateAge(selectedStudent.dateOfBirth)}</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 font-medium">DOB: {selectedStudent.dateOfBirth}</div>
               </div>
             </div>
 
             {/* Detailed Comprehensive Information Panels */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 text-xs">
               {/* 1. Complete Biodata & Enrolment Information */}
-              <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2.5">
-                <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+              <div className="p-4 rounded-2xl bg-slate-50/80 dark:bg-brand-900/40 border border-slate-200/80 dark:border-brand-800 space-y-2.5">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-200/60 dark:border-brand-800">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                     <Users className="w-3.5 h-3.5 text-brand-500" />
                     Personal & Admission Biodata
                   </span>
                   <span className="text-[10px] font-mono text-slate-400">ID: {selectedStudent.id}</span>
                 </div>
 
-                <div className="space-y-1.5 text-slate-700">
+                <div className="space-y-1.5 text-slate-700 dark:text-slate-300">
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-500 font-medium">Full Name:</span>
-                    <span className="font-bold text-slate-900">
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Full Name:</span>
+                    <span className="font-bold text-slate-900 dark:text-white">
                       {selectedStudent.firstName} {selectedStudent.lastName}
                     </span>
                   </div>
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-500 font-medium">Admission No.:</span>
-                    <span className="font-mono font-bold text-slate-900">{selectedStudent.admissionNumber}</span>
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Admission No.:</span>
+                    <span className="font-mono font-bold text-slate-900 dark:text-white">{selectedStudent.admissionNumber}</span>
                   </div>
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-500 font-medium">Gender:</span>
-                    <span className="font-semibold text-slate-900">{selectedStudent.gender}</span>
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Gender:</span>
+                    <span className="font-semibold text-slate-900 dark:text-white">{selectedStudent.gender}</span>
                   </div>
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-500 font-medium">Date of Birth:</span>
-                    <span className="font-semibold text-slate-900">
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Date of Birth:</span>
+                    <span className="font-semibold text-slate-900 dark:text-white">
                       {selectedStudent.dateOfBirth} ({calculateAge(selectedStudent.dateOfBirth)})
                     </span>
                   </div>
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-500 font-medium">Enrolment Date:</span>
-                    <span className="font-semibold text-slate-900">{selectedStudent.enrollmentDate}</span>
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Enrolment Date:</span>
+                    <span className="font-semibold text-slate-900 dark:text-white">{selectedStudent.enrollmentDate}</span>
                   </div>
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-500 font-medium">Academic Year:</span>
-                    <span className="font-semibold text-slate-900">2026 AY • Term 1</span>
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Academic Year:</span>
+                    <span className="font-semibold text-slate-900 dark:text-white">2026 AY • Term 1</span>
                   </div>
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-500 font-medium">Enrolment Status:</span>
-                    <span className="capitalize font-bold text-emerald-700">{selectedStudent.status}</span>
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Enrolment Status:</span>
+                    <span className="capitalize font-bold text-emerald-700 dark:text-emerald-400">{selectedStudent.status}</span>
                   </div>
                 </div>
               </div>
 
               {/* 2. Parent / Guardian & Emergency Contacts */}
-              <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2.5">
-                <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+              <div className="p-4 rounded-2xl bg-slate-50/80 dark:bg-brand-900/40 border border-slate-200/80 dark:border-brand-800 space-y-2.5">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-200/60 dark:border-brand-800">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                     <Phone className="w-3.5 h-3.5 text-brand-500" />
                     Parent / Guardian & Contacts
                   </span>
-                  <span className="text-[10px] font-semibold text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded border border-brand-200/50">
+                  <span className="text-[10px] font-semibold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900 px-1.5 py-0.5 rounded border border-brand-200/50 dark:border-brand-700">
                     Primary Contact
                   </span>
                 </div>
 
-                <div className="space-y-2 text-slate-700">
+                <div className="space-y-2 text-slate-700 dark:text-slate-300">
                   <div>
                     <div className="text-[10px] text-slate-400 font-medium uppercase">Primary Guardian</div>
-                    <div className="font-bold text-slate-900 text-sm">
+                    <div className="font-bold text-slate-900 dark:text-white text-sm">
                       {selectedStudent.guardianName}{' '}
-                      <span className="text-xs font-normal text-slate-500">
+                      <span className="text-xs font-normal text-slate-500 dark:text-slate-400">
                         ({selectedStudent.guardianRelationship})
                       </span>
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-1.5 pt-1">
-                    <div className="flex items-center justify-between py-1 px-2.5 rounded-xl bg-white border border-slate-200/60">
-                      <span className="text-slate-500 font-medium flex items-center gap-1.5">
+                    <div className="flex items-center justify-between py-1 px-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700">
+                      <span className="text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1.5">
                         <Phone className="w-3.5 h-3.5 text-slate-400" />
                         Telephone:
                       </span>
@@ -667,14 +667,14 @@ Performance Index: ${student.performanceIndex}%
                     </div>
 
                     {selectedStudent.guardianEmail && (
-                      <div className="flex items-center justify-between py-1 px-2.5 rounded-xl bg-white border border-slate-200/60">
-                        <span className="text-slate-500 font-medium flex items-center gap-1.5">
+                      <div className="flex items-center justify-between py-1 px-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700">
+                        <span className="text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1.5">
                           <Mail className="w-3.5 h-3.5 text-slate-400" />
                           Email:
                         </span>
                         <a
                           href={`mailto:${selectedStudent.guardianEmail}`}
-                          className="font-medium text-slate-800 hover:text-brand-600 hover:underline truncate max-w-[180px]"
+                          className="font-medium text-slate-800 dark:text-slate-200 hover:text-brand-600 hover:underline truncate max-w-[180px]"
                           title="Click to email parent"
                         >
                           {selectedStudent.guardianEmail}
@@ -682,8 +682,8 @@ Performance Index: ${student.performanceIndex}%
                       </div>
                     )}
 
-                    <div className="flex items-center justify-between py-1 px-2.5 rounded-xl bg-rose-50/60 border border-rose-200/60 text-rose-900">
-                      <span className="font-semibold flex items-center gap-1.5 text-rose-800">
+                    <div className="flex items-center justify-between py-1 px-2.5 rounded-xl bg-rose-50/60 dark:bg-rose-950/40 border border-rose-200/60 dark:border-rose-800 text-rose-900 dark:text-rose-300">
+                      <span className="font-semibold flex items-center gap-1.5 text-rose-800 dark:text-rose-300">
                         <AlertCircle className="w-3.5 h-3.5 text-rose-500" />
                         Emergency Contact:
                       </span>
@@ -695,10 +695,10 @@ Performance Index: ${student.performanceIndex}%
                       </a>
                     </div>
 
-                    <div className="flex items-start gap-2 pt-1 text-slate-600">
+                    <div className="flex items-start gap-2 pt-1 text-slate-600 dark:text-slate-400">
                       <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
                       <span>
-                        <strong className="text-slate-700">Home Residence:</strong> {selectedStudent.address}
+                        <strong className="text-slate-700 dark:text-slate-300">Home Residence:</strong> {selectedStudent.address}
                       </span>
                     </div>
                   </div>
@@ -706,31 +706,31 @@ Performance Index: ${student.performanceIndex}%
               </div>
 
               {/* 3. Academic Placement & Curriculum Subjects */}
-              <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2.5">
-                <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+              <div className="p-4 rounded-2xl bg-slate-50/80 dark:bg-brand-900/40 border border-slate-200/80 dark:border-brand-800 space-y-2.5">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-200/60 dark:border-brand-800">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                     <BookOpen className="w-3.5 h-3.5 text-brand-500" />
                     Academic Placement & Faculty
                   </span>
-                  <span className="text-[10px] font-semibold text-slate-500">Term 1, 2026</span>
+                  <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">Term 1, 2026</span>
                 </div>
 
-                <div className="space-y-2 text-slate-700">
+                <div className="space-y-2 text-slate-700 dark:text-slate-300">
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-500 font-medium">Assigned Class:</span>
-                    <span className="font-bold text-slate-900">{selectedStudent.grade}</span>
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Assigned Class:</span>
+                    <span className="font-bold text-slate-900 dark:text-white">{selectedStudent.grade}</span>
                   </div>
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-500 font-medium">Class Stream:</span>
-                    <span className="font-semibold text-slate-900">{selectedStudent.stream} Stream</span>
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Class Stream:</span>
+                    <span className="font-semibold text-slate-900 dark:text-white">{selectedStudent.stream} Stream</span>
                   </div>
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-500 font-medium">Campus:</span>
-                    <span className="font-semibold text-slate-900">PCEA St Andrews Campus</span>
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Campus:</span>
+                    <span className="font-semibold text-slate-900 dark:text-white">PCEA St Andrews Campus</span>
                   </div>
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-500 font-medium">Faculty Advisors:</span>
-                    <span className="font-semibold text-slate-900">
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Faculty Advisors:</span>
+                    <span className="font-semibold text-slate-900 dark:text-white">
                       {selectedStudent.grade.includes('10')
                         ? 'Sarah Jenkins & Dr. Helen Oloo'
                         : selectedStudent.grade.includes('9')
@@ -739,7 +739,7 @@ Performance Index: ${student.performanceIndex}%
                     </span>
                   </div>
 
-                  <div className="pt-1.5 border-t border-slate-200/60">
+                  <div className="pt-1.5 border-t border-slate-200/60 dark:border-brand-800">
                     <span className="text-[10px] font-bold uppercase text-slate-400 block mb-1">
                       Enrolled Core Curriculum Subjects
                     </span>
@@ -754,7 +754,7 @@ Performance Index: ${student.performanceIndex}%
                       ].map((sub) => (
                         <span
                           key={sub}
-                          className="px-2 py-0.5 bg-white border border-slate-200/80 rounded-md text-[10px] font-medium text-slate-700"
+                          className="px-2 py-0.5 bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 rounded-md text-[10px] font-medium text-slate-700 dark:text-slate-300"
                         >
                           {sub}
                         </span>
@@ -765,23 +765,23 @@ Performance Index: ${student.performanceIndex}%
               </div>
 
               {/* 4. Health, Medical & Dietary Alerts */}
-              <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2.5">
-                <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+              <div className="p-4 rounded-2xl bg-slate-50/80 dark:bg-brand-900/40 border border-slate-200/80 dark:border-brand-800 space-y-2.5">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-200/60 dark:border-brand-800">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                     <HeartPulse className="w-3.5 h-3.5 text-rose-500" />
                     Health & Medical Profile
                   </span>
-                  <span className="text-[10px] font-semibold text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200/50">
+                  <span className="text-[10px] font-semibold text-rose-700 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/50 px-1.5 py-0.5 rounded border border-rose-200/50 dark:border-rose-800">
                     School Nurse Protocol
                   </span>
                 </div>
 
-                <div className="space-y-2.5 text-slate-700">
-                  <div className="p-3 rounded-xl bg-white border border-slate-200/80 flex items-start gap-2.5">
+                <div className="space-y-2.5 text-slate-700 dark:text-slate-300">
+                  <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 flex items-start gap-2.5">
                     <HeartPulse className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
                     <div>
-                      <div className="font-bold text-slate-900 text-xs">Medical Conditions & Allergies</div>
-                      <p className="text-slate-600 mt-0.5 text-xs">
+                      <div className="font-bold text-slate-900 dark:text-white text-xs">Medical Conditions & Allergies</div>
+                      <p className="text-slate-600 dark:text-slate-400 mt-0.5 text-xs">
                         {selectedStudent.medicalNotes && selectedStudent.medicalNotes !== 'None'
                           ? selectedStudent.medicalNotes
                           : 'No known chronic medical conditions, allergies, or dietary restrictions registered.'}
@@ -789,7 +789,7 @@ Performance Index: ${student.performanceIndex}%
                     </div>
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/60 text-amber-900 text-[11px]">
+                  <div className="p-2.5 rounded-xl bg-amber-50/60 dark:bg-amber-950/40 border border-amber-200/60 dark:border-amber-800 text-amber-900 dark:text-amber-300 text-[11px]">
                     <span className="font-bold">First Aid Protocol:</span> Certified school health staff on site during
                     all teaching hours. In emergency circumstances, guardian will be immediately phoned followed by
                     the school physician.
@@ -798,17 +798,17 @@ Performance Index: ${student.performanceIndex}%
               </div>
 
               {/* 5. School Fee Account & Financial Ledger */}
-              <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2.5">
-                <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+              <div className="p-4 rounded-2xl bg-slate-50/80 dark:bg-brand-900/40 border border-slate-200/80 dark:border-brand-800 space-y-2.5">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-200/60 dark:border-brand-800">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                     <CreditCard className="w-3.5 h-3.5 text-brand-500" />
                     School Fee Account & Ledger
                   </span>
                   <span
                     className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
                       selectedStudent.feeBalance === 0
-                        ? 'bg-emerald-100 text-emerald-800'
-                        : 'bg-rose-100 text-rose-800'
+                        ? 'bg-emerald-100 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300'
+                        : 'bg-rose-100 dark:bg-rose-950/50 text-rose-800 dark:text-rose-300'
                     }`}
                   >
                     {selectedStudent.feeBalance === 0 ? 'Full Clearance' : 'Pending Arrears'}
@@ -817,22 +817,22 @@ Performance Index: ${student.performanceIndex}%
 
                 <div className="space-y-1.5">
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-500 font-medium">Total Fees Billed (Term 1):</span>
-                    <span className="font-semibold text-slate-900">
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Total Fees Billed (Term 1):</span>
+                    <span className="font-semibold text-slate-900 dark:text-white">
                       KES {selectedStudent.totalFeesBilled.toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-500 font-medium">Total Fees Paid to Date:</span>
-                    <span className="font-bold text-emerald-700">
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Total Fees Paid to Date:</span>
+                    <span className="font-bold text-emerald-700 dark:text-emerald-400">
                       KES {selectedStudent.totalFeesPaid.toLocaleString()}
                     </span>
                   </div>
-                  <div className="flex justify-between py-1 border-t border-slate-200">
-                    <span className="text-slate-800 font-bold">Outstanding Balance:</span>
+                  <div className="flex justify-between py-1 border-t border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-800 dark:text-slate-200 font-bold">Outstanding Balance:</span>
                     <span
                       className={`font-black text-sm ${
-                        selectedStudent.feeBalance === 0 ? 'text-emerald-700' : 'text-rose-700'
+                        selectedStudent.feeBalance === 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'
                       }`}
                     >
                       KES {selectedStudent.feeBalance.toLocaleString()}
@@ -841,7 +841,7 @@ Performance Index: ${student.performanceIndex}%
 
                   {/* Payment Progress Bar */}
                   <div className="pt-1">
-                    <div className="flex justify-between text-[10px] text-slate-500 mb-1">
+                    <div className="flex justify-between text-[10px] text-slate-500 dark:text-slate-400 mb-1">
                       <span>Payment Progress</span>
                       <span className="font-bold">
                         {Math.min(
@@ -851,7 +851,7 @@ Performance Index: ${student.performanceIndex}%
                         %
                       </span>
                     </div>
-                    <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden">
+                    <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
                       <div
                         className={`h-full rounded-full transition-all duration-500 ${
                           selectedStudent.feeBalance === 0 ? 'bg-emerald-500' : 'bg-brand-500'
@@ -869,28 +869,28 @@ Performance Index: ${student.performanceIndex}%
               </div>
 
               {/* 6. Learner Progress Overview */}
-              <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2.5">
-                <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+              <div className="p-4 rounded-2xl bg-slate-50/80 dark:bg-brand-900/40 border border-slate-200/80 dark:border-brand-800 space-y-2.5">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-200/60 dark:border-brand-800">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                     <Activity className="w-3.5 h-3.5 text-emerald-600" />
                     Learner Progress Pulse
                   </span>
-                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200/50">
+                  <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-1.5 py-0.5 rounded border border-emerald-200/50 dark:border-emerald-800">
                     Term Review
                   </span>
                 </div>
 
-                <div className="space-y-2 text-slate-700">
+                <div className="space-y-2 text-slate-700 dark:text-slate-300">
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500 font-medium">Performance Index:</span>
-                    <span className="text-base font-black text-emerald-700">
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Performance Index:</span>
+                    <span className="text-base font-black text-emerald-700 dark:text-emerald-400">
                       {selectedStudent.performanceIndex}%
                     </span>
                   </div>
 
                   {/* Progress Bar */}
                   <div>
-                    <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden">
+                    <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
                       <div
                         className="h-full rounded-full bg-emerald-500 transition-all duration-500"
                         style={{ width: `${selectedStudent.performanceIndex}%` }}
@@ -898,15 +898,15 @@ Performance Index: ${student.performanceIndex}%
                     </div>
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-white border border-slate-200/80 text-xs">
-                    <div className="font-bold text-slate-800">
+                  <div className="p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-xs">
+                    <div className="font-bold text-slate-800 dark:text-slate-200">
                       {selectedStudent.performanceIndex >= 95
                         ? 'Strong engagement and steady performance'
                         : selectedStudent.performanceIndex >= 85
                         ? 'Healthy learner engagement'
                         : 'Support plan recommended'}
                     </div>
-                    <p className="text-[11px] text-slate-500 mt-0.5">
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                       Learner progress is being monitored through ongoing academic support review.
                     </p>
                   </div>
@@ -915,12 +915,12 @@ Performance Index: ${student.performanceIndex}%
             </div>
 
             {/* Bottom Modal Actions Bar */}
-            <div className="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="pt-4 border-t border-slate-200 dark:border-brand-900 flex flex-col sm:flex-row items-center justify-between gap-3">
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 <button
                   type="button"
                   onClick={() => handleCopyFullDossier(selectedStudent)}
-                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors cursor-pointer w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs transition-colors cursor-pointer w-full sm:w-auto"
                   title="Copy formatted learner record to clipboard"
                 >
                   {copiedField === 'Full Dossier' ? (
@@ -939,7 +939,7 @@ Performance Index: ${student.performanceIndex}%
                 <button
                   type="button"
                   onClick={() => window.print()}
-                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors cursor-pointer w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs transition-colors cursor-pointer w-full sm:w-auto"
                   title="Print learner dossier slip"
                 >
                   <Printer className="w-3.5 h-3.5" />
@@ -964,7 +964,7 @@ Performance Index: ${student.performanceIndex}%
                 <button
                   type="button"
                   onClick={() => setSelectedStudent(null)}
-                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors cursor-pointer w-full sm:w-auto"
+                  className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs transition-colors cursor-pointer w-full sm:w-auto"
                 >
                   Close
                 </button>
@@ -978,76 +978,76 @@ Performance Index: ${student.performanceIndex}%
       {showAddModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 max-h-[92vh] overflow-y-auto animate-in fade-in duration-150 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-brand-900">
               <div>
-                <h2 className="text-base font-bold text-slate-900 font-serif">
+                <h2 className="text-base font-bold text-slate-900 dark:text-white font-serif">
                   Admit New Learner to PCEA St Andrews Kindergarten
                 </h2>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                   Creates permanent student profile, registers parent contact, and allocates class.
                 </p>
               </div>
               <button
                 onClick={() => setShowAddModal(false)}
-                className="p-1 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600"
+                className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {formError && (
-              <div className="mt-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+              <div className="mt-4 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{formError}</span>
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="mt-4 space-y-4 text-xs">
-              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/60">
-                <span className="font-bold text-slate-700 uppercase tracking-wider text-[10px] block mb-2">
+              <div className="p-3 bg-slate-50 dark:bg-brand-900/40 rounded-xl border border-slate-200/60 dark:border-brand-800">
+                <span className="font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-[10px] block mb-2">
                   1. Learner Biodata
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-slate-600 mb-1">First Name *</label>
+                    <label className="block text-slate-600 dark:text-slate-400 mb-1">First Name *</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Samuel"
                       value={formData.firstName}
                       onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 mb-1">Last / Surname *</label>
+                    <label className="block text-slate-600 dark:text-slate-400 mb-1">Last / Surname *</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Waweru"
                       value={formData.lastName}
                       onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 mb-1">Admission Number</label>
+                    <label className="block text-slate-600 dark:text-slate-400 mb-1">Admission Number</label>
                     <input
                       type="text"
                       value={formData.admissionNumber}
                       onChange={(e) => setFormData({ ...formData, admissionNumber: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white font-mono text-slate-700"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white font-mono text-slate-700 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 mb-1">Gender</label>
+                    <label className="block text-slate-600 dark:text-slate-400 mb-1">Gender</label>
                     <select
                       value={formData.gender}
                       onChange={(e) => setFormData({ ...formData, gender: e.target.value as any })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                     >
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
@@ -1056,21 +1056,21 @@ Performance Index: ${student.performanceIndex}%
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 mb-1">Date of Birth</label>
+                    <label className="block text-slate-600 dark:text-slate-400 mb-1">Date of Birth</label>
                     <input
                       type="date"
                       value={formData.dateOfBirth}
                       onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 mb-1">Assigned Grade</label>
+                    <label className="block text-slate-600 dark:text-slate-400 mb-1">Assigned Grade</label>
                     <select
                       value={formData.grade}
                       onChange={(e) => setFormData({ ...formData, grade: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white font-semibold"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white font-semibold dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                     >
                       <option value="Grade 9-A">Grade 9-A</option>
                       <option value="Grade 9-B">Grade 9-B</option>
@@ -1083,82 +1083,82 @@ Performance Index: ${student.performanceIndex}%
                 </div>
               </div>
 
-              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/60">
-                <span className="font-bold text-slate-700 uppercase tracking-wider text-[10px] block mb-2">
+              <div className="p-3 bg-slate-50 dark:bg-brand-900/40 rounded-xl border border-slate-200/60 dark:border-brand-800">
+                <span className="font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-[10px] block mb-2">
                   2. Parent / Guardian Contacts
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-slate-600 mb-1">Guardian Full Name *</label>
+                    <label className="block text-slate-600 dark:text-slate-400 mb-1">Guardian Full Name *</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Mary Waweru"
                       value={formData.guardianName}
                       onChange={(e) => setFormData({ ...formData, guardianName: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 mb-1">Relationship</label>
+                    <label className="block text-slate-600 dark:text-slate-400 mb-1">Relationship</label>
                     <input
                       type="text"
                       placeholder="Mother / Father / Uncle"
                       value={formData.guardianRelationship}
                       onChange={(e) => setFormData({ ...formData, guardianRelationship: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 mb-1">Telephone Number *</label>
+                    <label className="block text-slate-600 dark:text-slate-400 mb-1">Telephone Number *</label>
                     <input
                       type="tel"
                       required
                       placeholder="+254 7..."
                       value={formData.guardianPhone}
                       onChange={(e) => setFormData({ ...formData, guardianPhone: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white font-mono"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white font-mono dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-600 mb-1">Email Address</label>
+                    <label className="block text-slate-600 dark:text-slate-400 mb-1">Email Address</label>
                     <input
                       type="email"
                       placeholder="parent@example.com"
                       value={formData.guardianEmail}
                       onChange={(e) => setFormData({ ...formData, guardianEmail: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                     />
                   </div>
 
                   <div className="sm:col-span-2">
-                    <label className="block text-slate-600 mb-1">Home Residential Address</label>
+                    <label className="block text-slate-600 dark:text-slate-400 mb-1">Home Residential Address</label>
                     <input
                       type="text"
                       placeholder="Estate, Road, House No."
                       value={formData.address}
                       onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/60">
-                <span className="font-bold text-slate-700 uppercase tracking-wider text-[10px] block mb-2">
+              <div className="p-3 bg-slate-50 dark:bg-brand-900/40 rounded-xl border border-slate-200/60 dark:border-brand-800">
+                <span className="font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-[10px] block mb-2">
                   3. Health & Medical Information
                 </span>
                 <div>
-                  <label className="block text-slate-600 mb-1">Medical Conditions, Allergies, or Dietary Needs</label>
+                  <label className="block text-slate-600 dark:text-slate-400 mb-1">Medical Conditions, Allergies, or Dietary Needs</label>
                   <input
                     type="text"
                     placeholder="e.g. Asthma (carries inhaler), Penicillin allergy, or None"
                     value={formData.medicalNotes}
                     onChange={(e) => setFormData({ ...formData, medicalNotes: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white"
+                    className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                   />
                 </div>
               </div>
@@ -1167,7 +1167,7 @@ Performance Index: ${student.performanceIndex}%
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors"
+                  className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium text-xs transition-colors"
                 >
                   Cancel
                 </button>

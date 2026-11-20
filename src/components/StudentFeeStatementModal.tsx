@@ -356,16 +356,16 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
   return (
     <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 overflow-y-auto print:p-0 print:bg-white print:static">
       {/* Outer Modal Container */}
-      <div className="bg-slate-100 rounded-2xl max-w-4xl w-full my-auto shadow-2xl border border-slate-300 flex flex-col max-h-[94vh] overflow-hidden print:max-h-none print:shadow-none print:border-none print:rounded-none print:w-full print:max-w-none print:bg-white">
+      <div className="bg-slate-100 dark:bg-brand-950 rounded-2xl max-w-4xl w-full my-auto shadow-2xl border border-slate-300 dark:border-brand-900 flex flex-col max-h-[94vh] overflow-hidden print:max-h-none print:shadow-none print:border-none print:rounded-none print:w-full print:max-w-none print:bg-white">
         {/* Top Control Bar (HIDDEN IN PRINT) */}
-        <div className="bg-white px-5 py-3.5 border-b border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-3 shrink-0 print:hidden">
+        <div className="bg-white dark:bg-brand-950 px-5 py-3.5 border-b border-slate-200 dark:border-brand-900 flex flex-col md:flex-row md:items-center md:justify-between gap-3 shrink-0 print:hidden">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-brand-100 flex items-center justify-center text-brand-600 shrink-0">
               <FileText className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-sm font-bold text-slate-900 font-serif">
+                <h2 className="text-sm font-bold text-slate-900 dark:text-white font-serif">
                   Student Fee Statement & Financial Ledger
                 </h2>
                 <span
@@ -378,7 +378,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                   {isCleared ? 'Cleared' : 'Arrears Pending'}
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
                 Official statement summarizing individual student billing, payment history, and outstanding balance.
               </p>
             </div>
@@ -391,7 +391,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
               <select
                 value={selectedStudentId}
                 onChange={(e) => setSelectedStudentId(e.target.value)}
-                className="text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-300 bg-slate-50 hover:bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500/30"
+                className="text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-white dark:hover:bg-slate-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500/30"
               >
                 {students.map((s) => (
                   <option key={s.id} value={s.id}>
@@ -405,7 +405,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
             <select
               value={selectedTerm}
               onChange={(e) => setSelectedTerm(e.target.value)}
-              className="text-xs font-medium px-2 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 focus:outline-none"
+              className="text-xs font-medium px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-white focus:outline-none"
             >
               <option value="Term 1 - 2026">Term 1 - 2026</option>
               <option value="Term 2 - 2026">Term 2 - 2026</option>
@@ -415,7 +415,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
             {/* Copy Summary Text Button */}
             <button
               onClick={handleCopySummary}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors cursor-pointer border border-slate-200"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-xs transition-colors cursor-pointer border border-slate-200 dark:border-slate-700"
               title="Copy SMS/WhatsApp summary to clipboard"
             >
               {copied ? (
@@ -434,7 +434,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
             {/* Download Standalone HTML/PDF Statement */}
             <button
               onClick={handleDownload}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors cursor-pointer border border-slate-200"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-xs transition-colors cursor-pointer border border-slate-200 dark:border-slate-700"
               title="Download standalone statement file"
             >
               <Download className="w-3.5 h-3.5 text-slate-500" />
@@ -454,7 +454,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
             {/* Close Modal */}
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer ml-1"
+              className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors cursor-pointer ml-1"
             >
               <X className="w-5 h-5" />
             </button>
@@ -462,14 +462,14 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
         </div>
 
         {/* Scrollable Printable Document Canvas */}
-        <div className="overflow-y-auto p-4 sm:p-6 bg-slate-200/60 print:bg-white print:p-0 print:overflow-visible">
+        <div className="overflow-y-auto p-4 sm:p-6 bg-slate-200/60 dark:bg-brand-950/60 print:bg-white print:p-0 print:overflow-visible">
           {/* A4-Proportioned Printable Sheet */}
           <div
             id="student-fee-statement-document"
-            className="bg-white rounded-xl shadow-lg border border-slate-300/80 p-6 sm:p-10 space-y-6 max-w-3xl mx-auto print:shadow-none print:border print:border-slate-300 print:rounded-none print:p-6 print:m-0 print:max-w-none rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900"
+            className="bg-white rounded-xl shadow-lg border border-slate-300/80 p-6 sm:p-10 space-y-6 max-w-3xl mx-auto print:shadow-none print:border print:border-slate-300 print:rounded-none print:p-6 print:m-0 print:max-w-none rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)] dark:bg-brand-950 dark:border-brand-900 dark:text-slate-200"
           >
             {/* 1. Institutional Letterhead Header */}
-            <div className="border-b-2 border-slate-900 pb-5">
+            <div className="border-b-2 border-slate-900 dark:border-slate-600 pb-5">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
                 {/* School Seal & Identity */}
                 <div className="flex items-center gap-3.5">
@@ -477,31 +477,31 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                     <Building2 className="w-8 h-8 text-brand-400" />
                   </div>
                   <div>
-                    <h1 className="text-xl sm:text-2xl font-black text-slate-900 font-serif tracking-tight">
+                    <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-serif tracking-tight">
                       PCEA ST. ANDREWS KINDERGARTEN
                     </h1>
-                    <p className="text-[11px] font-medium text-slate-600 italic">
+                    <p className="text-[11px] font-medium text-slate-600 dark:text-slate-400 italic">
                       Kindergarten School | Student Statement
                     </p>
-                    <p className="text-[10px] text-slate-500 mt-0.5">
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
                       State House Road • P.O. Box 41298 - 00100, Nairobi, Kenya • Tel: +254 (020) 272-3505
                     </p>
                   </div>
                 </div>
 
                 {/* Statement Reference & Meta */}
-                <div className="sm:text-right border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-200 w-full sm:w-auto">
+                <div className="sm:text-right border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-200 dark:border-slate-700 w-full sm:w-auto">
                   <span className="inline-block px-3 py-1 bg-brand-800 text-white text-[10px] font-bold uppercase tracking-wider rounded-md">
                     OFFICIAL FEE STATEMENT
                   </span>
-                  <div className="mt-2 text-[11px] text-slate-600 space-y-0.5">
+                  <div className="mt-2 text-[11px] text-slate-600 dark:text-slate-400 space-y-0.5">
                     <div>
                       <span className="text-slate-400">Statement Ref: </span>
-                      <span className="font-mono font-bold text-slate-800">{statementReference}</span>
+                      <span className="font-mono font-bold text-slate-800 dark:text-slate-200">{statementReference}</span>
                     </div>
                     <div>
                       <span className="text-slate-400">Date of Issue: </span>
-                      <span className="font-semibold text-slate-800">
+                      <span className="font-semibold text-slate-800 dark:text-slate-200">
                         {new Date().toLocaleDateString('en-GB', {
                           day: '2-digit',
                           month: 'short',
@@ -511,7 +511,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                     </div>
                     <div>
                       <span className="text-slate-400">Academic Period: </span>
-                      <span className="font-semibold text-slate-800">{selectedTerm}</span>
+                      <span className="font-semibold text-slate-800 dark:text-slate-200">{selectedTerm}</span>
                     </div>
                   </div>
                 </div>
@@ -521,26 +521,26 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
             {/* 2. Learner & Account Particulars (Two Column Card) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Learner Particulars */}
-              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-1.5">
-                <div className="flex items-center gap-1.5 font-bold text-slate-900 uppercase tracking-wider text-[11px] pb-1 border-b border-slate-200">
+              <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-xs space-y-1.5">
+                <div className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] pb-1 border-b border-slate-200 dark:border-slate-700">
                   <User className="w-3.5 h-3.5 text-brand-500" />
                   <span>Learner Particulars</span>
                 </div>
                 <div className="flex justify-between pt-1">
-                  <span className="text-slate-500">Student Full Name:</span>
-                  <span className="font-bold text-slate-900">
+                  <span className="text-slate-500 dark:text-slate-400">Student Full Name:</span>
+                  <span className="font-bold text-slate-900 dark:text-white">
                     {currentStudent.firstName} {currentStudent.lastName}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Admission Number:</span>
-                  <span className="font-mono font-bold text-slate-900">
+                  <span className="text-slate-500 dark:text-slate-400">Admission Number:</span>
+                  <span className="font-mono font-bold text-slate-900 dark:text-white">
                     {currentStudent.admissionNumber}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Class & Stream:</span>
-                  <span className="font-semibold text-slate-800">
+                  <span className="text-slate-500 dark:text-slate-400">Class & Stream:</span>
+                  <span className="font-semibold text-slate-800 dark:text-slate-200">
                     {currentStudent.grade} ({currentStudent.stream})
                   </span>
                 </div>
@@ -554,32 +554,32 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
               </div>
 
               {/* Billing & Guardian Particulars */}
-              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-1.5">
-                <div className="flex items-center gap-1.5 font-bold text-slate-900 uppercase tracking-wider text-[11px] pb-1 border-b border-slate-200">
+              <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-xs space-y-1.5">
+                <div className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] pb-1 border-b border-slate-200 dark:border-slate-700">
                   <Building2 className="w-3.5 h-3.5 text-brand-500" />
                   <span>Guardian & Billing Particulars</span>
                 </div>
                 <div className="flex justify-between pt-1">
-                  <span className="text-slate-500">Parent / Guardian:</span>
-                  <span className="font-bold text-slate-900">
+                  <span className="text-slate-500 dark:text-slate-400">Parent / Guardian:</span>
+                  <span className="font-bold text-slate-900 dark:text-white">
                     {currentStudent.guardianName} ({currentStudent.guardianRelationship})
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Contact Telephone:</span>
-                  <span className="font-mono font-semibold text-slate-800">
+                  <span className="text-slate-500 dark:text-slate-400">Contact Telephone:</span>
+                  <span className="font-mono font-semibold text-slate-800 dark:text-slate-200">
                     {currentStudent.guardianPhone}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Billing Email:</span>
-                  <span className="font-medium text-slate-800 truncate max-w-[180px]">
+                  <span className="text-slate-500 dark:text-slate-400">Billing Email:</span>
+                  <span className="font-medium text-slate-800 dark:text-slate-200 truncate max-w-[180px]">
                     {currentStudent.guardianEmail}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Physical Address:</span>
-                  <span className="text-slate-800 font-medium truncate max-w-[180px]">
+                  <span className="text-slate-500 dark:text-slate-400">Physical Address:</span>
+                  <span className="text-slate-800 dark:text-slate-200 font-medium truncate max-w-[180px]">
                     {currentStudent.address}
                   </span>
                 </div>
@@ -587,25 +587,25 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
             </div>
 
             {/* 3. Executive Financial Standing Snapshot */}
-            <div className="border border-slate-200 rounded-xl p-4 bg-gradient-to-br from-slate-50/80 to-white">
+            <div className="border border-slate-200 dark:border-slate-700 rounded-xl p-4 bg-gradient-to-br from-slate-50/80 to-white dark:from-slate-800/80 dark:to-brand-950">
               <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">
                 Executive Account Status Summary
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
                 {/* Total Billed */}
-                <div className="p-3 bg-white rounded-lg border border-slate-200 shadow-2xs">
-                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                <div className="p-3 bg-white dark:bg-brand-950 rounded-lg border border-slate-200 dark:border-slate-700 shadow-2xs">
+                  <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                     Total Invoiced
                   </span>
-                  <div className="text-base sm:text-lg font-black text-slate-900 mt-0.5">
+                  <div className="text-base sm:text-lg font-black text-slate-900 dark:text-white mt-0.5">
                     KES {currentStudent.totalFeesBilled.toLocaleString()}
                   </div>
                   <span className="text-[10px] text-slate-400">Approved term package</span>
                 </div>
 
                 {/* Total Paid */}
-                <div className="p-3 bg-white rounded-lg border border-slate-200 shadow-2xs">
-                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                <div className="p-3 bg-white dark:bg-brand-950 rounded-lg border border-slate-200 dark:border-slate-700 shadow-2xs">
+                  <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                     Total Credited
                   </span>
                   <div className="text-base sm:text-lg font-black text-emerald-700 mt-0.5">
@@ -648,8 +648,8 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                 </div>
 
                 {/* Clearance Status */}
-                <div className="p-3 bg-white rounded-lg border border-slate-200 shadow-2xs flex flex-col justify-between">
-                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                <div className="p-3 bg-white dark:bg-brand-950 rounded-lg border border-slate-200 dark:border-slate-700 shadow-2xs flex flex-col justify-between">
+                  <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                     Exam Clearance
                   </span>
                   <div className="mt-1">
@@ -672,11 +672,11 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
               </div>
 
               {/* Progress Bar */}
-              <div className="mt-3 pt-3 border-t border-slate-200/80 flex items-center gap-3">
-                <div className="text-[11px] font-semibold text-slate-600 shrink-0">
+              <div className="mt-3 pt-3 border-t border-slate-200/80 dark:border-slate-700 flex items-center gap-3">
+                <div className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 shrink-0">
                   Settlement Progress:
                 </div>
-                <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all ${
                       isCleared ? 'bg-emerald-600' : 'bg-brand-500'
@@ -684,7 +684,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                     style={{ width: `${settlementPercent}%` }}
                   ></div>
                 </div>
-                <div className="text-xs font-bold text-slate-800 shrink-0">
+                <div className="text-xs font-bold text-slate-800 dark:text-slate-200 shrink-0">
                   {settlementPercent}%
                 </div>
               </div>
@@ -692,16 +692,16 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
 
             {/* 4. Itemized Fee Structure Assessment Schedule */}
             <div className="space-y-2">
-              <div className="flex items-center justify-between pb-1 border-b border-slate-200">
-                <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              <div className="flex items-center justify-between pb-1 border-b border-slate-200 dark:border-slate-700">
+                <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
                   Itemized Fee Invoice Schedule
                 </h3>
-                <span className="text-[11px] text-slate-500">Standard Grade Fee Structure</span>
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">Standard Grade Fee Structure</span>
               </div>
 
-              <div className="border border-slate-200 rounded-lg overflow-hidden">
+              <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
                 <table className="responsive-card-table w-full text-left text-xs">
-                  <thead className="bg-slate-100 text-slate-600 font-bold text-[11px] border-b border-slate-200">
+                  <thead className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-[11px] border-b border-slate-200 dark:border-slate-700">
                     <tr>
                       <th className="py-2 px-3">Item #</th>
                       <th className="py-2 px-3">Category</th>
@@ -709,24 +709,24 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                       <th className="py-2 px-3 text-right">Invoiced Amount (KES)</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
                     {feeItems.map((item, idx) => (
-                      <tr key={idx} className="hover:bg-slate-50/60">
+                      <tr key={idx} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/60">
                         <td data-label="Item #" className="py-2 px-3 text-slate-400 font-mono">{idx + 1}</td>
-                        <td data-label="Category" className="py-2 px-3 font-semibold text-slate-700">{item.category}</td>
-                        <td data-label="Billing Item" className="py-2 px-3 text-slate-800">{item.item}</td>
-                        <td data-label="Amount (KES)" className="py-2 px-3 text-right font-medium text-slate-900">
+                        <td data-label="Category" className="py-2 px-3 font-semibold text-slate-700 dark:text-slate-300">{item.category}</td>
+                        <td data-label="Billing Item" className="py-2 px-3 text-slate-800 dark:text-slate-200">{item.item}</td>
+                        <td data-label="Amount (KES)" className="py-2 px-3 text-right font-medium text-slate-900 dark:text-white">
                           {item.amount.toLocaleString()}
                         </td>
                       </tr>
                     ))}
                   </tbody>
-                  <tfoot className="bg-slate-50 font-bold border-t-2 border-slate-300 text-xs">
+                  <tfoot className="bg-slate-50 dark:bg-slate-800 font-bold border-t-2 border-slate-300 dark:border-slate-600 text-xs">
                     <tr>
-                      <td data-label="Invoice Total" colSpan={3} className="py-2.5 px-3 text-slate-800 text-right uppercase">
+                      <td data-label="Invoice Total" colSpan={3} className="py-2.5 px-3 text-slate-800 dark:text-slate-200 text-right uppercase">
                         Total Invoiced Term Fees:
                       </td>
-                      <td data-label="Total Invoiced" className="py-2.5 px-3 text-right font-black text-slate-900 text-sm">
+                      <td data-label="Total Invoiced" className="py-2.5 px-3 text-right font-black text-slate-900 dark:text-white text-sm">
                         KES {currentStudent.totalFeesBilled.toLocaleString()}
                       </td>
                     </tr>
@@ -737,22 +737,22 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
 
             {/* 5. Historical Payment Transaction Ledger (CORE USER REQUIREMENT) */}
             <div className="space-y-2">
-              <div className="flex items-center justify-between pb-1 border-b border-slate-200">
+              <div className="flex items-center justify-between pb-1 border-b border-slate-200 dark:border-slate-700">
                 <div className="flex items-center gap-2">
                   <CreditCard className="w-4 h-4 text-brand-500" />
-                  <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                  <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
                     Payment History & Credit Ledger
                   </h3>
                 </div>
-                <span className="text-[11px] font-medium text-slate-500">
+                <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">
                   {studentPayments.length} verified transaction{studentPayments.length !== 1 ? 's' : ''}
                 </span>
               </div>
 
               {studentPayments.length > 0 ? (
-                <div className="border border-slate-200 rounded-lg overflow-hidden">
+                <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
                   <table className="responsive-card-table w-full text-left text-xs">
-                    <thead className="bg-slate-100 text-slate-600 font-bold text-[11px] border-b border-slate-200">
+                    <thead className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-[11px] border-b border-slate-200 dark:border-slate-700">
                       <tr>
                         <th className="py-2 px-3">Date</th>
                         <th className="py-2 px-3">Receipt No.</th>
@@ -762,21 +762,21 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                         <th className="py-2 px-3 text-right">Running Balance</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
                       {paymentLedgerWithBalance.map((p) => (
-                        <tr key={p.id} className="hover:bg-slate-50/60">
-                          <td data-label="Date" className="py-2.5 px-3 text-slate-600 font-mono text-[11px]">
+                        <tr key={p.id} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/60">
+                          <td data-label="Date" className="py-2.5 px-3 text-slate-600 dark:text-slate-400 font-mono text-[11px]">
                             {p.paymentDate}
                           </td>
                           <td data-label="Receipt No." className="py-2.5 px-3 font-mono font-bold text-indigo-700 text-[11px]">
                             {p.receiptNumber}
                           </td>
                           <td data-label="Payment Channel" className="py-2.5 px-3">
-                            <span className="inline-block px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-medium text-[11px]">
+                            <span className="inline-block px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium text-[11px]">
                               {p.paymentMethod}
                             </span>
                           </td>
-                          <td data-label="Transaction Remarks" className="py-2.5 px-3 text-slate-700 text-[11px]">
+                          <td data-label="Transaction Remarks" className="py-2.5 px-3 text-slate-700 dark:text-slate-300 text-[11px]">
                             {p.notes || 'School fee installment'}
                             <span className="block text-[10px] text-slate-400">
                               By: {p.recordedBy}
@@ -785,15 +785,15 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                           <td data-label="Amount Paid" className="py-2.5 px-3 text-right font-black text-emerald-700">
                             + KES {p.amount.toLocaleString()}
                           </td>
-                          <td data-label="Running Balance" className="py-2.5 px-3 text-right font-mono font-bold text-slate-900">
+                          <td data-label="Running Balance" className="py-2.5 px-3 text-right font-mono font-bold text-slate-900 dark:text-white">
                             KES {p.runningBalance.toLocaleString()}
                           </td>
                         </tr>
                       ))}
                     </tbody>
-                    <tfoot className="bg-slate-50 font-bold border-t-2 border-slate-300 text-xs">
+                    <tfoot className="bg-slate-50 dark:bg-slate-800 font-bold border-t-2 border-slate-300 dark:border-slate-600 text-xs">
                       <tr>
-                        <td data-label="Payment Totals" colSpan={4} className="py-2.5 px-3 text-slate-800 text-right uppercase">
+                        <td data-label="Payment Totals" colSpan={4} className="py-2.5 px-3 text-slate-800 dark:text-slate-200 text-right uppercase">
                           Total Payments Credited:
                         </td>
                         <td data-label="Total Payments" className="py-2.5 px-3 text-right font-black text-emerald-700 text-sm">
@@ -812,8 +812,8 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                   </table>
                 </div>
               ) : (
-                <div className="p-6 bg-slate-50 border border-dashed border-slate-200 rounded-lg text-center text-xs text-slate-500">
-                  <p className="font-medium text-slate-700">No payments recorded to date for this student.</p>
+                <div className="p-6 bg-slate-50 dark:bg-slate-800 border border-dashed border-slate-200 dark:border-slate-700 rounded-lg text-center text-xs text-slate-500 dark:text-slate-400">
+                  <p className="font-medium text-slate-700 dark:text-slate-300">No payments recorded to date for this student.</p>
                   <p className="text-[11px] text-slate-400 mt-1">
                     The entire billed invoice amount of KES {currentStudent.totalFeesBilled.toLocaleString()} remains outstanding.
                   </p>
@@ -833,30 +833,30 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
             </div>
 
             {/* 6. Outstanding Balance & Remittance Instructions */}
-            <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/70 text-xs space-y-2">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-2 border-b border-slate-200">
-                <span className="font-bold text-slate-900 uppercase tracking-wider text-[11px]">
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/70 text-xs space-y-2">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-2 border-b border-slate-200 dark:border-slate-700">
+                <span className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
                   Payment Remittance Instructions
                 </span>
-                <span className="text-[11px] text-slate-500">
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">
                   Official School Bank Accounts & Mobile Money Channels
                 </span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                 {/* M-Pesa Channel */}
-                <div className="p-3 bg-white rounded-lg border border-slate-200">
-                  <div className="text-[11px] font-bold text-emerald-800 flex items-center gap-1">
+                <div className="p-3 bg-white dark:bg-brand-950 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <div className="text-[11px] font-bold text-emerald-800 dark:text-emerald-400 flex items-center gap-1">
                     <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
                     Safaricom M-Pesa (Direct Clearance)
                   </div>
                   <div className="mt-1.5 space-y-1 text-[11px]">
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Paybill Business No:</span>
-                      <span className="font-mono font-black text-slate-900">400200</span>
+                      <span className="text-slate-500 dark:text-slate-400">Paybill Business No:</span>
+                      <span className="font-mono font-black text-slate-900 dark:text-white">400200</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Account No (Student Adm):</span>
+                      <span className="text-slate-500 dark:text-slate-400">Account No (Student Adm):</span>
                       <span className="font-mono font-black text-brand-600">
                         {currentStudent.admissionNumber}
                       </span>
@@ -865,41 +865,41 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
                 </div>
 
                 {/* Bank Wire Channel */}
-                <div className="p-3 bg-white rounded-lg border border-slate-200">
-                  <div className="text-[11px] font-bold text-slate-800 flex items-center gap-1">
+                <div className="p-3 bg-white dark:bg-brand-950 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <div className="text-[11px] font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1">
                     <span className="w-2 h-2 rounded-full bg-blue-600"></span>
                     Bank Wire / Electronic Funds Transfer (EFT)
                   </div>
                   <div className="mt-1.5 space-y-1 text-[11px]">
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Bank & Branch:</span>
-                      <span className="font-semibold text-slate-900">Absa Bank Kenya, Nairobi</span>
+                      <span className="text-slate-500 dark:text-slate-400">Bank & Branch:</span>
+                      <span className="font-semibold text-slate-900 dark:text-white">Absa Bank Kenya, Nairobi</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Account Number:</span>
-                      <span className="font-mono font-black text-slate-900">01020-948210-00</span>
+                      <span className="text-slate-500 dark:text-slate-400">Account Number:</span>
+                      <span className="font-mono font-black text-slate-900 dark:text-white">01020-948210-00</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Account Name:</span>
-                      <span className="font-medium text-slate-800">PCEA St. Andrews School Account</span>
+                      <span className="text-slate-500 dark:text-slate-400">Account Name:</span>
+                      <span className="font-medium text-slate-800 dark:text-slate-200">PCEA St. Andrews School Account</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <p className="text-[10px] text-slate-500 italic pt-1">
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 italic pt-1">
                 Notice: Always quote the student admission number ({currentStudent.admissionNumber}) as payment reference to ensure immediate automatic ledger clearance.
               </p>
             </div>
 
             {/* 7. Official Endorsement & Verification Footer */}
-            <div className="pt-6 border-t-2 border-slate-900 grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs font-serif">
+            <div className="pt-6 border-t-2 border-slate-900 dark:border-slate-600 grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs font-serif">
               {/* Bursar Signature */}
               <div className="space-y-1">
-                <div className="h-10 border-b border-slate-400 flex items-end pb-1 font-sans italic text-slate-600 text-[11px]">
+                <div className="h-10 border-b border-slate-400 dark:border-slate-600 flex items-end pb-1 font-sans italic text-slate-600 dark:text-slate-400 text-[11px]">
                   Arthur Pendelton, Ph.D.
                 </div>
-                <div className="font-sans font-bold text-slate-800 text-[11px]">
+                <div className="font-sans font-bold text-slate-800 dark:text-slate-200 text-[11px]">
                   Head of Accounts & Finance
                 </div>
                 <div className="font-sans text-[10px] text-slate-400">PCEA St. Andrews Bursary</div>
@@ -907,10 +907,10 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
 
               {/* Headteacher Endorsement */}
               <div className="space-y-1">
-                <div className="h-10 border-b border-slate-400 flex items-end pb-1 font-sans italic text-slate-600 text-[11px]">
+                <div className="h-10 border-b border-slate-400 dark:border-slate-600 flex items-end pb-1 font-sans italic text-slate-600 dark:text-slate-400 text-[11px]">
                   Sarah Jenkins, M.Ed.
                 </div>
-                <div className="font-sans font-bold text-slate-800 text-[11px]">
+                <div className="font-sans font-bold text-slate-800 dark:text-slate-200 text-[11px]">
                   School Principal / Administrator
                 </div>
                 <div className="font-sans text-[10px] text-slate-400">PCEA St. Andrews Campus</div>
@@ -918,7 +918,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
 
               {/* Official Seal / Verification */}
               <div className="flex flex-col items-center sm:items-end justify-center text-center sm:text-right font-sans">
-                <div className="w-24 h-12 border border-slate-300 rounded-lg flex items-center justify-center bg-slate-50 text-[10px] text-slate-400 font-mono">
+                <div className="w-24 h-12 border border-slate-300 dark:border-slate-600 rounded-lg flex items-center justify-center bg-slate-50 dark:bg-slate-800 text-[10px] text-slate-400 font-mono">
                   [ OFFICIAL STAMP ]
                 </div>
                 <span className="text-[9px] text-slate-400 mt-1">
@@ -928,16 +928,16 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
             </div>
 
             {/* Tiny Legal / Security Footer */}
-            <div className="pt-2 text-[9px] text-slate-400 font-mono text-center border-t border-slate-200">
+            <div className="pt-2 text-[9px] text-slate-400 font-mono text-center border-t border-slate-200 dark:border-slate-700">
               PCEA St. Andrews Integrated ERP System &bull; Confidential Student Accounting Record &bull; Generated electronically &bull; Page 1 of 1
             </div>
           </div>
         </div>
 
         {/* Modal Footer Actions (HIDDEN IN PRINT) */}
-        <div className="bg-white px-5 py-3 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0 print:hidden">
-          <div className="text-xs text-slate-500">
-            Current Standing: <span className="font-bold text-slate-800">{currentStudent.firstName} {currentStudent.lastName}</span> &bull;{' '}
+        <div className="bg-white dark:bg-brand-950 px-5 py-3 border-t border-slate-200 dark:border-brand-900 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0 print:hidden">
+          <div className="text-xs text-slate-500 dark:text-slate-400">
+            Current Standing: <span className="font-bold text-slate-800 dark:text-slate-200">{currentStudent.firstName} {currentStudent.lastName}</span> &bull;{' '}
             {isCleared ? (
               <span className="text-emerald-700 font-bold">Cleared (0.00 balance)</span>
             ) : (
@@ -970,7 +970,7 @@ Or Bank: Absa Bank Kenya, A/C: 01020-948210-00`;
 
             <button
               onClick={onClose}
-              className="px-3.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition-colors cursor-pointer"
+              className="px-3.5 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-medium transition-colors cursor-pointer"
             >
               Close
             </button>
