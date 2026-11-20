@@ -146,6 +146,24 @@ app.get('/api/users', (req: Request, res: Response) => {
   res.json(DEMO_USERS);
 });
 
+app.post('/api/auth/login', (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email and password are required.' });
+  }
+
+  const trimmedEmail = email.trim().toLowerCase();
+  const matchedUser = DEMO_USERS.find(u => u.email.toLowerCase() === trimmedEmail);
+
+  if (!matchedUser) {
+    return res.status(401).json({ error: 'No staff account found with that email address.' });
+  }
+
+  // For now, any non-empty password is accepted for registered staff accounts.
+  // In production, replace this with proper bcrypt/hash comparison.
+  res.json(matchedUser);
+});
+
 // Students / Enrolment endpoints
 app.get('/api/students', (req: Request, res: Response) => {
   const { grade, status, search } = req.query;
@@ -221,6 +239,27 @@ app.put('/api/students/:id', (req: Request, res: Response) => {
   }
 
   res.json(studentsStore[index]);
+});
+
+app.delete('/api/students/:id', (req: Request, res: Response) => {
+  const { id } = req.params;
+  const index = studentsStore.findIndex(s => s.id === id);
+  if (index === -1) {
+    return res.status(404).json({ error: 'Student not found' });
+  }
+
+  studentsStore = studentsStore.filter(s => s.id !== id);
+  // Also remove related payments and grades
+  paymentsStore = paymentsStore.filter(p => p.studentId !== id);
+  gradesStore = gradesStore.filter(g => g.studentId !== id);
+
+  if (isMongoConnected && mongoDb) {
+    mongoDb.collection('students').deleteOne({ id }).catch(console.error);
+    mongoDb.collection('fees').deleteMany({ studentId: id }).catch(console.error);
+    mongoDb.collection('grades').deleteMany({ studentId: id }).catch(console.error);
+  }
+
+  res.json({ message: 'Student and related records removed' });
 });
 
 // Fees Management
@@ -308,6 +347,36 @@ app.post('/api/fees/payments', (req: Request, res: Response) => {
   }
 
   res.status(201).json({ payment: newPayment, updatedStudent: student });
+});
+
+app.delete('/api/fees/payments/:id', (req: Request, res: Response) => {
+  const { id } = req.params;
+  const index = paymentsStore.findIndex(p => p.id === id);
+  if (index === -1) {
+    return res.status(404).json({ error: 'Payment not found' });
+  }
+
+  // Reverse the payment's effect on the student balance
+  const payment = paymentsStore[index];
+  const student = studentsStore.find(s => s.id === payment.studentId);
+  if (student) {
+    student.totalFeesPaid = Math.max(0, student.totalFeesPaid - payment.amount);
+    student.feeBalance = Math.max(0, student.totalFeesBilled - student.totalFeesPaid);
+  }
+
+  paymentsStore = paymentsStore.filter(p => p.id !== id);
+
+  if (isMongoConnected && mongoDb) {
+    mongoDb.collection('fees').deleteOne({ id }).catch(console.error);
+    if (student) {
+      mongoDb.collection('students').updateOne(
+        { id: student.id },
+        { $set: { totalFeesPaid: student.totalFeesPaid, feeBalance: student.feeBalance } }
+      ).catch(console.error);
+    }
+  }
+
+  res.json({ message: 'Payment removed', updatedStudent: student || null });
 });
 
 app.get('/api/fees/statement/:studentId', (req: Request, res: Response) => {
@@ -420,6 +489,17 @@ app.post('/api/grades/batch', (req: Request, res: Response) => {
   res.json({ message: 'Grades saved successfully', count: updates.length });
 });
 
+
+app.delete('/api/grades/:id', (req: Request, res: Response) => {
+  const { id } = req.params;
+  gradesStore = gradesStore.filter(g => g.id !== id);
+
+  if (isMongoConnected && mongoDb) {
+    mongoDb.collection('grades').deleteOne({ id }).catch(console.error);
+  }
+
+  res.json({ message: 'Grade record removed' });
+});
 
 // Timetable Scheduling
 app.get('/api/timetable', (req: Request, res: Response) => {

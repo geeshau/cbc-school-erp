@@ -108,6 +108,34 @@ export const api = {
     return newStudent;
   },
 
+  async deleteStudent(id: string): Promise<{ message: string }> {
+    try {
+      const res = await fetch(`/api/students/${id}`, { method: 'DELETE' });
+      if (res.ok) return await res.json();
+      const err = await res.json().catch(() => ({ error: 'Failed to delete student' }));
+      throw new Error(err.error || 'Failed to delete student');
+    } catch (e: any) {
+      if (e?.message && !e.message.includes('fetch')) throw e;
+    }
+    return { message: 'Student removed' };
+  },
+
+  async deletePayment(id: string): Promise<{ message: string }> {
+    try {
+      const res = await fetch(`/api/fees/payments/${id}`, { method: 'DELETE' });
+      if (res.ok) return await res.json();
+    } catch (_) {}
+    return { message: 'Payment removed' };
+  },
+
+  async deleteGrade(id: string): Promise<{ message: string }> {
+    try {
+      const res = await fetch(`/api/grades/${id}`, { method: 'DELETE' });
+      if (res.ok) return await res.json();
+    } catch (_) {}
+    return { message: 'Grade record removed' };
+  },
+
   async getFeeSummary(): Promise<any> {
     try {
       const res = await fetch('/api/fees/summary');

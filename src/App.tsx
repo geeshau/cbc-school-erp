@@ -291,6 +291,51 @@ export default function App() {
     }
   };
 
+  const handleDeleteStudent = async (id: string) => {
+    try {
+      await api.deleteStudent(id);
+      const student = students.find(s => s.id === id);
+      setStudents((prev) => prev.filter((s) => s.id !== id));
+      setPayments((prev) => prev.filter((p) => p.studentId !== id));
+      setGrades((prev) => prev.filter((g) => g.studentId !== id));
+      showToast(`Learner ${student ? student.firstName + ' ' + student.lastName : ''} removed from the system.`);
+    } catch (err: any) {
+      showToast(`Error removing learner: ${err.message}`);
+    }
+  };
+
+  const handleDeletePayment = async (id: string) => {
+    try {
+      const result = await api.deletePayment(id);
+      const payment = payments.find(p => p.id === id);
+      setPayments((prev) => prev.filter((p) => p.id !== id));
+      if (payment) {
+        setStudents((prev) =>
+          prev.map((s) => {
+            if (s.id === payment.studentId) {
+              const newPaid = Math.max(0, s.totalFeesPaid - payment.amount);
+              return { ...s, totalFeesPaid: newPaid, feeBalance: Math.max(0, s.totalFeesBilled - newPaid) };
+            }
+            return s;
+          })
+        );
+      }
+      showToast('Payment record removed.');
+    } catch (err: any) {
+      showToast(`Error removing payment: ${err.message}`);
+    }
+  };
+
+  const handleDeleteGrade = async (id: string) => {
+    try {
+      await api.deleteGrade(id);
+      setGrades((prev) => prev.filter((g) => g.id !== id));
+      showToast('Grade record removed.');
+    } catch (err: any) {
+      showToast(`Error removing grade: ${err.message}`);
+    }
+  };
+
   // Fee Payment
   const handleRecordPayment = async (data: {
     studentId: string;
@@ -517,6 +562,7 @@ export default function App() {
                 students={students}
                 teachers={users.filter((user) => user.role === 'teacher')}
                 onAddStudent={handleAddStudent}
+                onDeleteStudent={handleDeleteStudent}
                 userRole={currentUser.role}
                 onViewReportCard={() => navigateToTab('reports')}
               />
@@ -528,6 +574,7 @@ export default function App() {
                 students={students}
                 payments={payments}
                 onRecordPayment={handleRecordPayment}
+                onDeletePayment={handleDeletePayment}
                 userRole={currentUser.role}
               />
             )}
@@ -538,6 +585,7 @@ export default function App() {
                 students={students}
                 grades={grades}
                 onSaveGrades={handleSaveGrades}
+                onDeleteGrade={handleDeleteGrade}
                 userRole={currentUser.role}
                 currentUserName={currentUser.name}
               />

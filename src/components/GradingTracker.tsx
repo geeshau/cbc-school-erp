@@ -8,7 +8,8 @@ import {
   TrendingUp,
   BarChart2,
   AlertCircle,
-  Users
+  Users,
+  Trash2
 } from 'lucide-react';
 import { GradeRecord, Student, UserRole, LetterGrade } from '../types';
 
@@ -16,6 +17,7 @@ interface GradingTrackerProps {
   students: Student[];
   grades: GradeRecord[];
   onSaveGrades: (updates: Partial<GradeRecord>[]) => Promise<void>;
+  onDeleteGrade?: (id: string) => Promise<void>;
   userRole: UserRole;
   currentUserName: string;
 }
@@ -24,6 +26,7 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
   students,
   grades,
   onSaveGrades,
+  onDeleteGrade,
   userRole,
   currentUserName
 }) => {

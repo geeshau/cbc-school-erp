@@ -43,8 +43,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [roleTab, setRoleTab] = useState<UserRole>(preselectedRole ?? 'admin');
 
-  const demoUsersForRole = users.filter((u) => u.role === roleTab);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -61,27 +59,34 @@ export const LoginPage: React.FC<LoginPageProps> = ({
 
     setIsSubmitting(true);
 
-    // Simulate authentication latency
-    await new Promise((resolve) => setTimeout(resolve, 650));
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: trimmedEmail, password }),
+      });
 
-    const matchedUser = users.find(
-      (u) => u.email.toLowerCase() === trimmedEmail
-    );
-
-    if (!matchedUser) {
+      if (res.ok) {
+        const user = await res.json();
+        setIsSubmitting(false);
+        onLogin(user);
+      } else {
+        const data = await res.json().catch(() => ({ error: 'Invalid credentials.' }));
+        setIsSubmitting(false);
+        setError(data.error || 'Invalid email or password.');
+      }
+    } catch (_) {
+      // Fallback: match against local user list when server is unavailable
+      const matchedUser = users.find(
+        (u) => u.email.toLowerCase() === trimmedEmail
+      );
       setIsSubmitting(false);
-      setError('No staff account found with that email address.');
-      return;
+      if (!matchedUser) {
+        setError('No staff account found with that email address.');
+        return;
+      }
+      onLogin(matchedUser);
     }
-
-    setIsSubmitting(false);
-    onLogin(matchedUser);
-  };
-
-  const handleQuickFill = (user: User) => {
-    setEmail(user.email);
-    setPassword('demo1234');
-    setError(null);
   };
 
   return (
@@ -275,39 +280,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
             </button>
           </form>
 
-          {/* Demo accounts */}
-          {demoUsersForRole.length > 0 && (
-            <div className="mt-8">
-              <div className="mb-3 flex items-center gap-3">
-                <div className="h-px flex-1 bg-slate-200" />
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                  Demo accounts
-                </span>
-                <div className="h-px flex-1 bg-slate-200" />
-              </div>
-              <div className="space-y-2">
-                {demoUsersForRole.map((user) => (
-                  <button
-                    key={user.id}
-                    type="button"
-                    onClick={() => handleQuickFill(user)}
-                    className="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-left transition-all hover:border-sky-300 hover:bg-sky-50/50"
-                  >
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-blue-600 text-xs font-bold text-white">
-                      {user.name.split(' ').map((n) => n[0]).slice(0, 2).join('')}
-                    </div>
-                    <div className="min-w-0">
-                      <p className="truncate text-sm font-bold text-slate-800">{user.name}</p>
-                      <p className="truncate text-xs text-slate-500">{user.title} · {user.email}</p>
-                    </div>
-                  </button>
-                ))}
-              </div>
-              <p className="mt-3 text-center text-[11px] text-slate-400">
-                Click a demo account to pre-fill credentials, then press Sign In.
-              </p>
-            </div>
-          )}
+
         </div>
       </div>
     </div>

@@ -23,7 +23,8 @@ import {
   BookOpen,
   Activity,
   Clock,
-  Sparkles
+  Sparkles,
+  Trash2
 } from 'lucide-react';
 import { Student, User, UserRole } from '../types';
 
@@ -31,6 +32,7 @@ interface EnrolmentManagerProps {
   students: Student[];
   teachers: User[];
   onAddStudent: (student: Partial<Student>) => Promise<void>;
+  onDeleteStudent?: (id: string) => Promise<void>;
   userRole: UserRole;
   onViewReportCard: (student: Student) => void;
 }
@@ -39,6 +41,7 @@ export const EnrolmentManager: React.FC<EnrolmentManagerProps> = ({
   students,
   teachers,
   onAddStudent,
+  onDeleteStudent,
   userRole,
   onViewReportCard
 }) => {
@@ -393,6 +396,22 @@ Performance Index: ${student.performanceIndex}%
                           >
                             Report Card
                           </button>
+                          {userRole === 'admin' && onDeleteStudent && (
+                            <button
+                              id={`delete-student-${student.id}`}
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (window.confirm(`Are you sure you want to permanently remove ${student.firstName} ${student.lastName} and all their records? This action cannot be undone.`)) {
+                                  onDeleteStudent(student.id);
+                                }
+                              }}
+                              className="px-2 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 font-medium text-xs transition-colors cursor-pointer border border-rose-200/60"
+                              title="Remove learner from system"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          )}
                           <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-brand-500 group-hover:translate-x-0.5 transition-all" />
                         </div>
                       </td>

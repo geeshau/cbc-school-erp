@@ -17,7 +17,8 @@ import {
   RotateCcw,
   TrendingUp,
   Wallet,
-  ArrowUpDown
+  ArrowUpDown,
+  Trash2
 } from 'lucide-react';
 import { Student, FeePayment, UserRole } from '../types';
 import { StudentFeeStatementModal } from './StudentFeeStatementModal';
@@ -33,6 +34,7 @@ interface FeeManagerProps {
     notes?: string;
     recordedBy: string;
   }) => Promise<void>;
+  onDeletePayment?: (id: string) => Promise<void>;
   userRole: UserRole;
 }
 
@@ -40,6 +42,7 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
   students,
   payments,
   onRecordPayment,
+  onDeletePayment,
   userRole
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -798,6 +801,19 @@ export const FeeManager: React.FC<FeeManagerProps> = ({
                               <FileText className="w-3.5 h-3.5 text-brand-600" />
                               <span>Statement</span>
                             </button>
+                            {userRole === 'admin' && onDeletePayment && (
+                              <button
+                                onClick={() => {
+                                  if (window.confirm(`Delete payment ${p.receiptNumber} (KES ${p.amount.toLocaleString()}) for ${p.studentName}? This will reverse the payment.`)) {
+                                    onDeletePayment(p.id);
+                                  }
+                                }}
+                                className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 font-medium text-xs transition-colors cursor-pointer border border-rose-200/60"
+                                title="Delete payment record"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            )}
                           </div>
                         </td>
                       </tr>
