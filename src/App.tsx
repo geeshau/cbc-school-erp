@@ -234,42 +234,54 @@ export default function App() {
     showToast(`Switched active profile to ${user.name} (${user.role.toUpperCase()}).`);
   };
 
-  // Sync data with backend API
-  useEffect(() => {
-    const bootstrap = async () => {
-      try {
-        const [
-          fetchedUsers,
-          health,
-          fetchedStudents,
-          fetchedSummary,
-          fetchedGrades,
-          fetchedTimetable,
-          fetchedEvents
-        ] = await Promise.all([
-          api.getUsers().catch(() => DEMO_USERS),
-          api.getHealth().catch(() => ({ database: { connected: true, provider: 'High-Speed Database' } })),
-          api.getStudents().catch(() => INITIAL_STUDENTS),
-          api.getFeeSummary().catch(() => null),
-          api.getGrades().catch(() => INITIAL_GRADES),
-          api.getTimetable().catch(() => INITIAL_TIMETABLE),
-          api.getEvents().catch(() => INITIAL_EVENTS)
-        ]);
+  // Shared data refresh function — re-fetches all collections from server
+  const refreshData = React.useCallback(async () => {
+    try {
+      const [
+        fetchedUsers,
+        health,
+        fetchedStudents,
+        fetchedPayments,
+        fetchedGrades,
+        fetchedTimetable,
+        fetchedEvents
+      ] = await Promise.all([
+        api.getUsers().catch(() => DEMO_USERS),
+        api.getHealth().catch(() => ({ database: { connected: true, provider: 'High-Speed Database' } })),
+        api.getStudents().catch(() => null),
+        api.getPayments().catch(() => null),
+        api.getGrades().catch(() => null),
+        api.getTimetable().catch(() => null),
+        api.getEvents().catch(() => null)
+      ]);
 
-        if (fetchedUsers && fetchedUsers.length > 0) setUsers(fetchedUsers);
-        if (health?.database) setDbStatus(health.database);
-        if (fetchedStudents && fetchedStudents.length > 0) setStudents(fetchedStudents);
-        if (fetchedSummary?.recentPayments) setPayments(fetchedSummary.recentPayments);
-        if (fetchedGrades && fetchedGrades.length > 0) setGrades(fetchedGrades);
-        if (fetchedTimetable && fetchedTimetable.length > 0) setTimetableSlots(fetchedTimetable);
-        if (fetchedEvents && fetchedEvents.length > 0) setEvents(fetchedEvents);
-      } catch (err) {
-        console.error('Data bootstrap error:', err);
+      if (fetchedUsers && fetchedUsers.length > 0) setUsers(fetchedUsers);
+      if (health?.database) setDbStatus(health.database);
+      if (fetchedStudents) setStudents(fetchedStudents);
+      if (fetchedPayments) setPayments(fetchedPayments);
+      if (fetchedGrades) setGrades(fetchedGrades);
+      if (fetchedTimetable) setTimetableSlots(fetchedTimetable);
+      if (fetchedEvents) setEvents(fetchedEvents);
+    } catch (err) {
+      console.error('Data refresh error:', err);
+    }
+  }, []);
+
+  // Initial data bootstrap on mount
+  useEffect(() => {
+    refreshData();
+  }, [refreshData]);
+
+  // Re-fetch data when browser tab regains focus (catches external/server changes)
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible' && appMode === 'system') {
+        refreshData();
       }
     };
-
-    bootstrap();
-  }, []);
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, [refreshData, appMode]);
 
   // Compute fee summary metrics
   const totalBilled = students.reduce((acc, s) => acc + s.totalFeesBilled, 0);
@@ -284,8 +296,8 @@ export default function App() {
   const handleAddStudent = async (newStudentData: Partial<Student>) => {
     try {
       const created = await api.createStudent(newStudentData);
-      setStudents((prev) => [created, ...prev]);
       showToast(`Learner ${created.firstName} ${created.lastName} successfully enrolled.`);
+      await refreshData();
     } catch (err: any) {
       showToast(`Error enrolling learner: ${err.message}`);
     }
@@ -293,12 +305,10 @@ export default function App() {
 
   const handleDeleteStudent = async (id: string) => {
     try {
-      await api.deleteStudent(id);
       const student = students.find(s => s.id === id);
-      setStudents((prev) => prev.filter((s) => s.id !== id));
-      setPayments((prev) => prev.filter((p) => p.studentId !== id));
-      setGrades((prev) => prev.filter((g) => g.studentId !== id));
+      await api.deleteStudent(id);
       showToast(`Learner ${student ? student.firstName + ' ' + student.lastName : ''} removed from the system.`);
+      await refreshData();
     } catch (err: any) {
       showToast(`Error removing learner: ${err.message}`);
     }
@@ -306,21 +316,9 @@ export default function App() {
 
   const handleDeletePayment = async (id: string) => {
     try {
-      const result = await api.deletePayment(id);
-      const payment = payments.find(p => p.id === id);
-      setPayments((prev) => prev.filter((p) => p.id !== id));
-      if (payment) {
-        setStudents((prev) =>
-          prev.map((s) => {
-            if (s.id === payment.studentId) {
-              const newPaid = Math.max(0, s.totalFeesPaid - payment.amount);
-              return { ...s, totalFeesPaid: newPaid, feeBalance: Math.max(0, s.totalFeesBilled - newPaid) };
-            }
-            return s;
-          })
-        );
-      }
+      await api.deletePayment(id);
       showToast('Payment record removed.');
+      await refreshData();
     } catch (err: any) {
       showToast(`Error removing payment: ${err.message}`);
     }
@@ -329,8 +327,8 @@ export default function App() {
   const handleDeleteGrade = async (id: string) => {
     try {
       await api.deleteGrade(id);
-      setGrades((prev) => prev.filter((g) => g.id !== id));
       showToast('Grade record removed.');
+      await refreshData();
     } catch (err: any) {
       showToast(`Error removing grade: ${err.message}`);
     }
@@ -347,23 +345,8 @@ export default function App() {
     try {
       const result = await api.recordFeePayment(data);
       const newPayment = result.payment;
-      setPayments((prev) => [newPayment, ...prev]);
-
-      setStudents((prev) =>
-        prev.map((s) => {
-          if (s.id === data.studentId) {
-            const newPaid = s.totalFeesPaid + data.amount;
-            const newBalance = Math.max(0, s.totalFeesBilled - newPaid);
-            return {
-              ...s,
-              totalFeesPaid: newPaid,
-              feeBalance: newBalance
-            };
-          }
-          return s;
-        })
-      );
       showToast(`Fee receipt #${newPayment.receiptNumber} generated for KES ${data.amount.toLocaleString()}.`);
+      await refreshData();
     } catch (err: any) {
       showToast(`Error recording fee payment: ${err.message}`);
     }
@@ -373,41 +356,8 @@ export default function App() {
   const handleSaveGrades = async (updates: Partial<GradeRecord>[]) => {
     try {
       await api.saveGrades(updates);
-      setGrades((prev) => {
-        const next = [...prev];
-        updates.forEach((u) => {
-          const idx = next.findIndex(
-            (g) =>
-              g.studentId === u.studentId &&
-              g.subject.toLowerCase() === u.subject?.toLowerCase() &&
-              g.assessmentType === u.assessmentType
-          );
-          if (idx >= 0) {
-            next[idx] = { ...next[idx], ...u } as GradeRecord;
-          } else if (u.studentId) {
-            next.push({
-              id: `gr_${Date.now()}_${Math.random()}`,
-              studentId: u.studentId,
-              studentName: u.studentName || '',
-              admissionNumber: u.admissionNumber || '',
-              grade: u.grade || 'Grade 10-A',
-              subject: u.subject || 'Mathematics',
-              term: u.term || 'Term 1',
-              academicYear: '2026',
-              assessmentType: u.assessmentType || 'End-Term',
-              score: u.score || 0,
-              maxScore: 100,
-              percentage: u.percentage || u.score || 0,
-              letterGrade: u.letterGrade || 'B',
-              remarks: u.remarks || '',
-              recordedBy: currentUser.name,
-              updatedAt: new Date().toISOString().split('T')[0]
-            });
-          }
-        });
-        return next;
-      });
       showToast(`Marks published successfully for ${updates.length} students.`);
+      await refreshData();
     } catch (err: any) {
       showToast(`Error saving grades: ${err.message}`);
     }
@@ -415,35 +365,55 @@ export default function App() {
 
   // Timetable
   const handleAddSlot = async (slotData: Partial<TimetableSlot>) => {
-    const newSlot = await api.addTimetableSlot(slotData);
-    setTimetableSlots((prev) => [...prev, newSlot]);
-    showToast(`Added ${newSlot.subject} to ${newSlot.grade} schedule.`);
+    try {
+      const newSlot = await api.addTimetableSlot(slotData);
+      showToast(`Added ${newSlot.subject} to ${newSlot.grade} schedule.`);
+      await refreshData();
+    } catch (err: any) {
+      showToast(`Error adding timetable slot: ${err.message}`);
+    }
   };
 
   const handleDeleteSlot = async (id: string) => {
-    await api.deleteTimetableSlot(id);
-    setTimetableSlots((prev) => prev.filter((s) => s.id !== id));
-    showToast('Lesson slot removed from timetable.');
+    try {
+      await api.deleteTimetableSlot(id);
+      showToast('Lesson slot removed from timetable.');
+      await refreshData();
+    } catch (err: any) {
+      showToast(`Error removing timetable slot: ${err.message}`);
+    }
   };
 
   // School Calendar / Events
   const handleAddEvent = async (eventData: Partial<SchoolEvent>) => {
-    const newEvent = await api.addEvent(eventData);
-    setEvents((prev) => [...prev, newEvent].sort((a, b) => a.startDate.localeCompare(b.startDate)));
-    showToast(`Added "${newEvent.title}" to the school calendar.`);
+    try {
+      const newEvent = await api.addEvent(eventData);
+      showToast(`Added "${newEvent.title}" to the school calendar.`);
+      await refreshData();
+    } catch (err: any) {
+      showToast(`Error adding event: ${err.message}`);
+    }
   };
 
   const handleDeleteEvent = async (id: string) => {
-    await api.deleteEvent(id);
-    setEvents((prev) => prev.filter((e) => e.id !== id));
-    showToast('Event removed from the school calendar.');
+    try {
+      await api.deleteEvent(id);
+      showToast('Event removed from the school calendar.');
+      await refreshData();
+    } catch (err: any) {
+      showToast(`Error removing event: ${err.message}`);
+    }
   };
 
   const handleUpdateEvent = async (id: string, updates: Partial<SchoolEvent>) => {
-    await api.updateEvent(id, updates);
-    setEvents((prev) => prev.map((e) => (e.id === id ? { ...e, ...updates } : e)));
-    if (updates.googleCalendarId) {
-      showToast('Event linked to Google Calendar.');
+    try {
+      await api.updateEvent(id, updates);
+      if (updates.googleCalendarId) {
+        showToast('Event linked to Google Calendar.');
+      }
+      await refreshData();
+    } catch (err: any) {
+      showToast(`Error updating event: ${err.message}`);
     }
   };
 
@@ -479,8 +449,6 @@ export default function App() {
       {/* Top Header Navbar */}
       <Navbar
         currentUser={currentUser}
-        users={users}
-        onSwitchUser={handleSwitchUser}
         dbStatus={dbStatus}
         activeStudentsCount={students.filter((s) => s.status === 'active').length}
         onNavigateTab={(tab) => navigateToTab(tab)}

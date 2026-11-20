@@ -347,6 +347,9 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
                 <th className="py-3 px-4 w-28 md:w-32 text-center">Score (/100)</th>
                 <th className="py-3 px-4 w-32 md:w-36 text-center">Letter Grade</th>
                 <th className="py-3 px-4">Teacher's Pedagogical Remarks</th>
+                {userRole === 'admin' && onDeleteGrade && (
+                  <th className="py-3 px-4 w-16 text-center">Delete</th>
+                )}
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -391,6 +394,27 @@ export const GradingTracker: React.FC<GradingTrackerProps> = ({
                         className="w-full px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:border-indigo-400 text-xs text-slate-800"
                       />
                     </td>
+                    {userRole === 'admin' && onDeleteGrade && item.recordId && (
+                      <td data-label="Delete" className="py-3 px-4 text-center">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (window.confirm(`Delete grade record for ${student.firstName} ${student.lastName}?`)) {
+                              onDeleteGrade(item.recordId!);
+                            }
+                          }}
+                          className="inline-flex items-center justify-center p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 transition-colors cursor-pointer border border-rose-200/60"
+                          title="Delete grade record"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </td>
+                    )}
+                    {userRole === 'admin' && onDeleteGrade && !item.recordId && (
+                      <td data-label="Delete" className="py-3 px-4 text-center">
+                        <span className="text-slate-300">—</span>
+                      </td>
+                    )}
                   </tr>
                 );
               })}

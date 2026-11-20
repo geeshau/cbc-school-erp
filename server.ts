@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import crypto from 'crypto';
 import { MongoClient, Db } from 'mongodb';
 import { createServer as createViteServer } from 'vite';
 
@@ -141,6 +142,40 @@ app.get('/api/health', (req: Request, res: Response) => {
   });
 });
 
+// ----- Password utilities (scrypt with Node built-in crypto) -----
+function hashPassword(password: string): string {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.scryptSync(password, salt, 64).toString('hex');
+  return `${salt}:${hash}`;
+}
+
+function verifyPassword(password: string, stored: string): boolean {
+  const [salt, hash] = stored.split(':');
+  if (!salt || !hash) return false;
+  const derived = crypto.scryptSync(password, salt, 64).toString('hex');
+  return crypto.timingSafeEqual(Buffer.from(hash, 'hex'), Buffer.from(derived, 'hex'));
+}
+
+// ----- Staff user accounts store (seeded on startup) -----
+interface StaffAccount {
+  email: string;
+  passwordHash: string;
+  userId: string;
+}
+
+let staffAccounts: StaffAccount[] = [
+  {
+    email: 'kindergarten@pceastandrews.org',
+    passwordHash: hashPassword('Kindergarten2026!'),
+    userId: 'user_admin_1'
+  },
+  {
+    email: 'ict.team@pceastandrews.org',
+    passwordHash: hashPassword('ICT2026!'),
+    userId: 'user_admin_2'
+  }
+];
+
 // Users / Auth endpoints
 app.get('/api/users', (req: Request, res: Response) => {
   res.json(DEMO_USERS);
@@ -153,15 +188,48 @@ app.post('/api/auth/login', (req: Request, res: Response) => {
   }
 
   const trimmedEmail = email.trim().toLowerCase();
-  const matchedUser = DEMO_USERS.find(u => u.email.toLowerCase() === trimmedEmail);
+  const account = staffAccounts.find(a => a.email.toLowerCase() === trimmedEmail);
 
-  if (!matchedUser) {
+  if (!account) {
     return res.status(401).json({ error: 'No staff account found with that email address.' });
   }
 
-  // For now, any non-empty password is accepted for registered staff accounts.
-  // In production, replace this with proper bcrypt/hash comparison.
+  if (!verifyPassword(password, account.passwordHash)) {
+    return res.status(401).json({ error: 'Incorrect password. Please try again.' });
+  }
+
+  const matchedUser = DEMO_USERS.find(u => u.id === account.userId);
+  if (!matchedUser) {
+    return res.status(500).json({ error: 'User profile not found.' });
+  }
+
   res.json(matchedUser);
+});
+
+// Change password endpoint
+app.post('/api/auth/change-password', (req: Request, res: Response) => {
+  const { email, currentPassword, newPassword } = req.body;
+  if (!email || !currentPassword || !newPassword) {
+    return res.status(400).json({ error: 'Email, current password, and new password are required.' });
+  }
+
+  const trimmedEmail = email.trim().toLowerCase();
+  const account = staffAccounts.find(a => a.email.toLowerCase() === trimmedEmail);
+
+  if (!account) {
+    return res.status(404).json({ error: 'Account not found.' });
+  }
+
+  if (!verifyPassword(currentPassword, account.passwordHash)) {
+    return res.status(401).json({ error: 'Current password is incorrect.' });
+  }
+
+  if (newPassword.length < 6) {
+    return res.status(400).json({ error: 'New password must be at least 6 characters.' });
+  }
+
+  account.passwordHash = hashPassword(newPassword);
+  res.json({ message: 'Password updated successfully.' });
 });
 
 // Students / Enrolment endpoints

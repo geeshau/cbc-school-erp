@@ -11,33 +11,23 @@ import {
 export const DEMO_USERS: User[] = [
   {
     id: 'user_admin_1',
-    name: 'Dr. Arthur Pendelton',
-    email: 'administrator@pceastandrews.org',
+    name: 'Kindergarten Admin',
+    email: 'kindergarten@pceastandrews.org',
     role: 'admin',
     title: 'Headteacher & Administrator',
     assignedClasses: ['Grade 9-A', 'Grade 9-B', 'Grade 10-A', 'Grade 11-A', 'Grade 12-A'],
     assignedSubjects: ['All School Operations'],
-    phone: '+254 712 345 678'
+    phone: '+254 786 198 873'
   },
   {
-    id: 'user_teacher_1',
-    name: 'Sarah Jenkins',
-    email: 'sjenkins@pceastandrews.org',
-    role: 'teacher',
-    title: 'Lead Class Teacher',
-    assignedClasses: ['Grade 10-A', 'Grade 11-A'],
-    assignedSubjects: ['Mathematics', 'Physics'],
-    phone: '+254 722 987 654'
-  },
-  {
-    id: 'user_teacher_2',
-    name: 'Marcus Vance',
-    email: 'mvance@pceastandrews.org',
-    role: 'teacher',
-    title: 'Early Learning Instructor',
-    assignedClasses: ['Grade 9-A', 'Grade 10-A'],
-    assignedSubjects: ['English Literature', 'Creative Writing'],
-    phone: '+254 733 456 123'
+    id: 'user_admin_2',
+    name: 'ICT Team',
+    email: 'ict.team@pceastandrews.org',
+    role: 'admin',
+    title: 'ICT Systems Administrator',
+    assignedClasses: ['Grade 9-A', 'Grade 9-B', 'Grade 10-A', 'Grade 11-A', 'Grade 12-A'],
+    assignedSubjects: ['All School Operations'],
+    phone: '+254 786 198 873'
   }
 ];
 
