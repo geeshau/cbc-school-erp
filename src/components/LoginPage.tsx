@@ -26,7 +26,7 @@ interface LoginPageProps {
   users: User[];
   /** Optional role preselected from the landing page CTA */
   preselectedRole?: UserRole;
-  onLogin: (user: User) => void;
+  onLogin: (user: User, rememberMe: boolean) => void;
   onBackToLanding: () => void;
 }
 
@@ -42,6 +42,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [roleTab, setRoleTab] = useState<UserRole>(preselectedRole ?? 'admin');
+  const [rememberMe, setRememberMe] = useState(true);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,7 +70,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
       if (res.ok) {
         const user = await res.json();
         setIsSubmitting(false);
-        onLogin(user);
+        onLogin(user, rememberMe);
       } else {
         const data = await res.json().catch(() => ({ error: 'Invalid credentials.' }));
         setIsSubmitting(false);
@@ -85,7 +86,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
         setError('No staff account found with that email address.');
         return;
       }
-      onLogin(matchedUser);
+      onLogin(matchedUser, rememberMe);
     }
   };
 
@@ -138,14 +139,14 @@ export const LoginPage: React.FC<LoginPageProps> = ({
       </div>
 
       {/* ---- Right form panel ---- */}
-      <div className="flex flex-1 items-center justify-center bg-slate-50 p-4 sm:p-8 lg:rounded-l-[3rem]">
+      <div className="flex flex-1 items-center justify-center bg-slate-50 dark:bg-slate-900 p-4 sm:p-8 lg:rounded-l-[3rem]">
         <div className="w-full max-w-md">
           {/* Mobile back link + logo */}
           <div className="mb-8 flex items-center justify-between lg:hidden">
             <button
               type="button"
               onClick={onBackToLanding}
-              className="inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-500 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-colors"
             >
               <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
               Back
@@ -159,16 +160,16 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           </div>
 
           <div className="mb-8">
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Staff Sign In
             </h2>
-            <p className="mt-2 text-sm text-slate-500">
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
               Sign in to access the school management system.
             </p>
           </div>
 
           {/* Role tabs */}
-          <div className="mb-6 grid grid-cols-2 gap-2 rounded-2xl bg-slate-100 p-1.5" role="tablist">
+          <div className="mb-6 grid grid-cols-2 gap-2 rounded-2xl bg-slate-100 dark:bg-slate-800 p-1.5" role="tablist">
             {(['admin', 'teacher'] as UserRole[]).map((role) => (
               <button
                 key={role}
@@ -178,8 +179,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                 onClick={() => setRoleTab(role)}
                 className={`flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-all ${
                   roleTab === role
-                    ? 'bg-white text-slate-900 shadow-sm ring-1 ring-slate-200'
-                    : 'text-slate-500 hover:text-slate-700'
+                    ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm ring-1 ring-slate-200 dark:ring-slate-600'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                 }`}
               >
                 {role === 'admin' ? (
@@ -195,11 +196,11 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           <form onSubmit={handleSubmit} className="space-y-4" noValidate>
             {/* Email */}
             <div>
-              <label htmlFor="login-email" className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-600">
+              <label htmlFor="login-email" className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-600 dark:text-slate-300">
                 Staff Email
               </label>
               <div className="relative">
-                <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+                <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 dark:text-slate-500" aria-hidden="true" />
                 <input
                   id="login-email"
                   type="email"
@@ -207,7 +208,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                   value={email}
                   onChange={(e) => { setEmail(e.target.value); setError(null); }}
                   placeholder="you@pceastandrews.org"
-                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 outline-none ring-sky-500/30 transition focus:border-sky-500 focus:ring-4"
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 py-3 pl-10 pr-4 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none ring-sky-500/30 transition focus:border-sky-500 focus:ring-4"
                 />
               </div>
             </div>
@@ -215,19 +216,19 @@ export const LoginPage: React.FC<LoginPageProps> = ({
             {/* Password */}
             <div>
               <div className="mb-1.5 flex items-center justify-between">
-                <label htmlFor="login-password" className="block text-xs font-bold uppercase tracking-wide text-slate-600">
+                <label htmlFor="login-password" className="block text-xs font-bold uppercase tracking-wide text-slate-600 dark:text-slate-300">
                   Password
                 </label>
                 <button
                   type="button"
                   onClick={() => setError('Please contact the system administrator to reset your password.')}
-                  className="text-xs font-semibold text-sky-700 hover:text-sky-800 hover:underline"
+                  className="text-xs font-semibold text-sky-700 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-300 hover:underline"
                 >
                   Forgot password?
                 </button>
               </div>
               <div className="relative">
-                <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+                <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 dark:text-slate-500" aria-hidden="true" />
                 <input
                   id="login-password"
                   type={showPassword ? 'text' : 'password'}
@@ -235,24 +236,38 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                   value={password}
                   onChange={(e) => { setPassword(e.target.value); setError(null); }}
                   placeholder="••••••••"
-                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-11 text-sm text-slate-900 placeholder-slate-400 outline-none ring-sky-500/30 transition focus:border-sky-500 focus:ring-4"
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 py-3 pl-10 pr-11 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none ring-sky-500/30 transition focus:border-sky-500 focus:ring-4"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-1 text-slate-400 transition-colors hover:text-slate-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-1 text-slate-400 dark:text-slate-500 transition-colors hover:text-slate-600 dark:hover:text-slate-300"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" aria-hidden="true" /> : <Eye className="h-4 w-4" aria-hidden="true" />}
                 </button>
               </div>
             </div>
 
+            {/* Remember Me */}
+            <div className="flex items-center gap-2">
+              <input
+                id="remember-me"
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="h-4 w-4 rounded border-slate-300 dark:border-slate-600 text-sky-600 focus:ring-sky-500 cursor-pointer accent-sky-600"
+              />
+              <label htmlFor="remember-me" className="text-sm text-slate-600 dark:text-slate-300 select-none cursor-pointer">
+                Remember me
+              </label>
+            </div>
+
             {/* Error banner */}
             {error && (
               <div
                 role="alert"
-                className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700"
+                className="flex items-start gap-2 rounded-xl border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 px-4 py-3 text-sm font-semibold text-red-700 dark:text-red-300"
               >
                 <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                 {error}

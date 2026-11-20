@@ -23,6 +23,7 @@ import {
   Upload,
   File,
   Link as LinkIcon,
+  Star,
 } from 'lucide-react';
 
 export interface FeedbackComment {
@@ -30,7 +31,7 @@ export interface FeedbackComment {
   text: string;
   role: string;
   date: string;
-  likes: number;
+  rating: number; // 1–5 star rating
   visible: boolean;
 }
 
@@ -65,8 +66,10 @@ export interface WebsiteContent {
 
 interface WebsiteContentManagerProps {
   content: WebsiteContent;
-  onSaveContent: (newContent: WebsiteContent) => void;
+  onSaveContent: (newContent: WebsiteContent) => Promise<void> | void;
 }
+
+type SectionName = 'contact' | 'hero' | 'gallery' | 'downloads' | 'feedback';
 
 export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
   content,
@@ -74,6 +77,8 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
 }) => {
   const [formData, setFormData] = useState<WebsiteContent>({ ...content });
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [savingSection, setSavingSection] = useState<SectionName | 'all' | null>(null);
+  const [sectionSuccess, setSectionSuccess] = useState<SectionName | 'all' | null>(null);
 
   // New gallery item state
   const [newImageTitle, setNewImageTitle] = useState('');
@@ -83,9 +88,11 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
   // New feedback item state
   const [newFbText, setNewFbText] = useState('');
   const [newFbRole, setNewFbRole] = useState('');
+  const [newFbRating, setNewFbRating] = useState(5);
   const [editingFbId, setEditingFbId] = useState<string | null>(null);
   const [editFbText, setEditFbText] = useState('');
   const [editFbRole, setEditFbRole] = useState('');
+  const [editFbRating, setEditFbRating] = useState(5);
 
   // New download resource state
   const [newResTitle, setNewResTitle] = useState('');
@@ -195,7 +202,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
       text: newFbText.trim(),
       role: newFbRole.trim() || 'Anonymous Parent',
       date: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
-      likes: 0,
+      rating: newFbRating,
       visible: true,
     };
     setFormData((prev) => ({
@@ -204,6 +211,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
     }));
     setNewFbText('');
     setNewFbRole('');
+    setNewFbRating(5);
   };
 
   const handleRemoveFeedback = (id: string) => {
@@ -238,6 +246,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
     setEditingFbId(fb.id);
     setEditFbText(fb.text);
     setEditFbRole(fb.role);
+    setEditFbRating(fb.rating || 5);
   };
 
   const handleSaveEditFeedback = () => {
@@ -246,23 +255,67 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
       ...prev,
       feedbackComments: (prev.feedbackComments || []).map((fb) =>
         fb.id === editingFbId
-          ? { ...fb, text: editFbText.trim(), role: editFbRole.trim() || 'Anonymous Parent' }
+          ? { ...fb, text: editFbText.trim(), role: editFbRole.trim() || 'Anonymous Parent', rating: editFbRating }
           : fb
       ),
     }));
     setEditingFbId(null);
     setEditFbText('');
     setEditFbRole('');
+    setEditFbRating(5);
   };
 
-  const handleSave = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSaveContent(formData);
-    setSuccessMessage('Website content successfully updated and published to kindergarten.pceastandrews.org!');
-    setTimeout(() => {
-      setSuccessMessage(null);
-    }, 5000);
+  const handleSectionSave = async (section: SectionName) => {
+    setSavingSection(section);
+    setSectionSuccess(null);
+    try {
+      await onSaveContent(formData);
+      setSectionSuccess(section);
+      setTimeout(() => setSectionSuccess(null), 4000);
+    } catch (err) {
+      alert('Failed to save section. Please try again.');
+    } finally {
+      setSavingSection(null);
+    }
   };
+
+  const handleSave = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    setSavingSection('all');
+    setSectionSuccess(null);
+    try {
+      await onSaveContent(formData);
+      setSuccessMessage('Website content successfully updated and published to kindergarten.pceastandrews.org!');
+      setSectionSuccess('all');
+      setTimeout(() => {
+        setSuccessMessage(null);
+        setSectionSuccess(null);
+      }, 5000);
+    } catch (err) {
+      alert('Failed to save. Please try again.');
+    } finally {
+      setSavingSection(null);
+    }
+  };
+
+  const SectionSaveButton = ({ section, label }: { section: SectionName; label: string }) => (
+    <div className="flex items-center justify-end gap-3 pt-4 mt-2 border-t border-slate-200/60 dark:border-slate-800/60">
+      {sectionSuccess === section && (
+        <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 animate-pulse">
+          <CheckCircle2 className="w-3.5 h-3.5" /> {label} saved & published!
+        </span>
+      )}
+      <button
+        type="button"
+        onClick={() => handleSectionSave(section)}
+        disabled={savingSection === section}
+        className="px-5 py-2.5 rounded-xl text-xs font-black text-brand-900 bg-accent-500 hover:bg-accent-400 shadow-md shadow-brand-600/15 transition-all cursor-pointer flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        <Save className="w-3.5 h-3.5" />
+        <span>{savingSection === section ? 'Saving…' : `Save & Publish ${label}`}</span>
+      </button>
+    </div>
+  );
 
   const handleAddImage = (e: React.FormEvent) => {
     e.preventDefault();
@@ -399,6 +452,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
               />
             </div>
           </div>
+          <SectionSaveButton section="contact" label="Contact Info" />
         </div>
 
         {/* Hero Section Copy */}
@@ -475,6 +529,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
             </div>
             <p className="text-[11px] text-slate-500 dark:text-slate-400">CTA labels are optional; existing button destinations remain unchanged.</p>
           </div>
+          <SectionSaveButton section="hero" label="Hero Copy" />
         </div>
 
         {/* Gallery Photos Management */}
@@ -564,6 +619,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
               </div>
             ))}
           </div>
+          <SectionSaveButton section="gallery" label="Gallery" />
         </div>
 
         {/* Downloads & Resources Manager */}
@@ -736,6 +792,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
               </p>
             )}
           </div>
+          <SectionSaveButton section="downloads" label="Downloads" />
         </div>
 
         {/* Parent Feedback / Testimonial Cards Manager */}
@@ -762,7 +819,7 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                 maxLength={500}
                 className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"
               />
-              <div className="flex gap-3">
+              <div className="flex gap-3 items-center">
                 <input
                   type="text"
                   placeholder="Role label (e.g. Parent — PP2)"
@@ -770,6 +827,18 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                   onChange={(e) => setNewFbRole(e.target.value)}
                   className="flex-1 px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
                 />
+                <div className="flex items-center gap-0.5 shrink-0" title="Star rating">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => setNewFbRating(s)}
+                      className="p-0.5 cursor-pointer"
+                    >
+                      <Star className={`w-4 h-4 ${s <= newFbRating ? 'text-amber-400 fill-amber-400' : 'text-slate-300 dark:text-slate-600'}`} />
+                    </button>
+                  ))}
+                </div>
                 <button
                   type="button"
                   onClick={handleAddFeedback}
@@ -803,14 +872,26 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                       maxLength={500}
                       className="w-full px-3 py-2 rounded-lg border border-brand-300 dark:border-brand-700 bg-white dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"
                     />
-                    <div className="flex gap-2 items-center">
+                    <div className="flex gap-2 items-center flex-wrap">
                       <input
                         type="text"
                         value={editFbRole}
                         onChange={(e) => setEditFbRole(e.target.value)}
                         placeholder="Role label"
-                        className="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs"
+                        className="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs min-w-[120px]"
                       />
+                      <div className="flex items-center gap-0.5 shrink-0" title="Star rating">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <button
+                            key={s}
+                            type="button"
+                            onClick={() => setEditFbRating(s)}
+                            className="p-0.5 cursor-pointer"
+                          >
+                            <Star className={`w-3.5 h-3.5 ${s <= editFbRating ? 'text-amber-400 fill-amber-400' : 'text-slate-300 dark:text-slate-600'}`} />
+                          </button>
+                        ))}
+                      </div>
                       <button
                         type="button"
                         onClick={handleSaveEditFeedback}
@@ -862,7 +943,11 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
                         <span>·</span>
                         <span>{fb.date}</span>
                         <span>·</span>
-                        <span>{fb.likes} likes</span>
+                        <span className="flex items-center gap-0.5">
+                          {[1, 2, 3, 4, 5].map((s) => (
+                            <Star key={s} className={`w-3 h-3 ${s <= (fb.rating || 0) ? 'text-amber-400 fill-amber-400' : 'text-slate-300 dark:text-slate-600'}`} />
+                          ))}
+                        </span>
                       </div>
                     </div>
 
@@ -908,19 +993,28 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
               </p>
             )}
           </div>
+          <SectionSaveButton section="feedback" label="Feedback" />
         </div>
 
-        {/* Save Button */}
-        <div className="flex justify-end pt-4">
-          <button
-            type="submit"
-            className="px-8 py-3.5 rounded-xl text-xs font-black text-brand-900 bg-accent-500 hover:bg-accent-400 shadow-lg shadow-brand-600/25 transition-all cursor-pointer flex items-center gap-2"
-          >
-            <Save className="w-4 h-4" />
-            <span>Save & Publish Website Changes</span>
-          </button>
-        </div>
       </form>
+
+      {/* Floating sticky Save All bar */}
+      <div className="sticky bottom-0 z-30 -mx-6 px-6 py-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-end gap-3 shadow-[0_-4px_24px_-8px_rgba(0,0,0,0.1)]">
+        {sectionSuccess === 'all' && (
+          <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+            <CheckCircle2 className="w-4 h-4" /> All sections saved!
+          </span>
+        )}
+        <button
+          type="button"
+          onClick={handleSave}
+          disabled={savingSection === 'all'}
+          className="px-8 py-3.5 rounded-xl text-xs font-black text-brand-900 bg-accent-500 hover:bg-accent-400 shadow-lg shadow-brand-600/25 transition-all cursor-pointer flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <Save className="w-4 h-4" />
+          <span>{savingSection === 'all' ? 'Saving All…' : 'Save & Publish All Sections'}</span>
+        </button>
+      </div>
     </div>
   );
 };

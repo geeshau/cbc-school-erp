@@ -39,10 +39,25 @@ import { CheckCircle2, ArrowLeft } from 'lucide-react';
 import { useTheme } from './lib/theme';
 
 export default function App() {
-  const [appMode, setAppMode] = useState<'landing' | 'login' | 'system'>('landing');
+  // ---- Session persistence helpers ----
+  const SESSION_KEY = 'pcea_sms_session';
+
+  const getSavedSession = (): { appMode: 'landing' | 'login' | 'system'; activeTab: TabType; currentUser: User | null; rememberMe: boolean } | null => {
+    try {
+      // sessionStorage survives refresh; localStorage survives browser close (remember me)
+      const raw = sessionStorage.getItem(SESSION_KEY) || localStorage.getItem(SESSION_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch {}
+    return null;
+  };
+
+  const saved = getSavedSession();
+
+  const [appMode, setAppMode] = useState<'landing' | 'login' | 'system'>(saved?.appMode === 'system' ? 'system' : 'landing');
   const [loginRole, setLoginRole] = useState<UserRole | undefined>(undefined);
-  const [activeTab, setActiveTab] = useState<TabType>('dashboard');
+  const [activeTab, setActiveTab] = useState<TabType>(saved?.activeTab || 'dashboard');
   const [tabHistory, setTabHistory] = useState<TabType[]>([]);
+  const [rememberMe, setRememberMe] = useState(saved?.rememberMe ?? false);
   const { theme, resolvedTheme, setTheme, toggleTheme, isDark } = useTheme();
 
   // Wrapped tab setter that tracks history
@@ -63,9 +78,21 @@ export default function App() {
     });
   };
 
-  // Users & Role Switching (Dr. Arthur Pendelton - Admin, Sarah Jenkins - Teacher, Marcus Vance - Teacher)
+  // Users & Role Switching
   const [users, setUsers] = useState<User[]>(DEMO_USERS);
-  const [currentUser, setCurrentUser] = useState<User>(DEMO_USERS[0]);
+  const [currentUser, setCurrentUser] = useState<User>(saved?.currentUser || DEMO_USERS[0]);
+
+  // Persist session state to storage on every relevant change
+  useEffect(() => {
+    if (appMode !== 'system') return; // Only persist when logged in
+    const sessionData = JSON.stringify({ appMode, activeTab, currentUser, rememberMe });
+    try {
+      sessionStorage.setItem(SESSION_KEY, sessionData);
+      if (rememberMe) {
+        localStorage.setItem(SESSION_KEY, sessionData);
+      }
+    } catch {}
+  }, [appMode, activeTab, currentUser, rememberMe]);
 
   // Database Connection Status
   const [dbStatus, setDbStatus] = useState<{ provider: string; connected: boolean }>({
@@ -101,12 +128,12 @@ export default function App() {
       { id: '6', title: 'Kindergarten Computer Lab', url: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80', category: 'Facilities' }
     ],
     feedbackComments: [
-      { id: 'fb-1', text: 'My daughter has blossomed since joining St Andrews. The teachers are incredibly patient and truly know each child by name. The CBC approach makes learning feel like play!', role: 'Parent — PP2', date: 'Oct 2026', likes: 24, visible: true },
-      { id: 'fb-2', text: 'As a first-time parent, I was nervous about school. The warm reception and regular progress updates from teachers gave me so much confidence. Highly recommend this school.', role: 'Parent — Playgroup', date: 'Sep 2026', likes: 18, visible: true },
-      { id: 'fb-3', text: 'The Montessori-inspired activities are fantastic. My son comes home excited to tell us what he learned. The spiritual growth focus aligns perfectly with our family values.', role: 'Parent — Grade 1', date: 'Nov 2026', likes: 31, visible: true },
-      { id: 'fb-4', text: 'Clean, safe, and well-organized campus. The outdoor play area is wonderful and the children get a great balance of structured learning and free play time.', role: 'Parent — PP1', date: 'Aug 2026', likes: 15, visible: true },
-      { id: 'fb-5', text: 'The school events and parent days are beautifully organized. You can see how much effort the staff puts into making every child feel special and celebrated.', role: 'Parent — Grade 2', date: 'Oct 2026', likes: 22, visible: true },
-      { id: 'fb-6', text: 'Transferring here was the best decision. The smaller class sizes mean my child gets individual attention. The report cards are detailed and show real progress tracking.', role: 'Parent — Grade 3', date: 'Nov 2026', likes: 27, visible: true },
+      { id: 'fb-1', text: 'My daughter has blossomed since joining St Andrews. The teachers are incredibly patient and truly know each child by name. The CBC approach makes learning feel like play!', role: 'Parent — PP2', date: 'Oct 2026', rating: 5, visible: true },
+      { id: 'fb-2', text: 'As a first-time parent, I was nervous about school. The warm reception and regular progress updates from teachers gave me so much confidence. Highly recommend this school.', role: 'Parent — Playgroup', date: 'Sep 2026', rating: 4, visible: true },
+      { id: 'fb-3', text: 'The Montessori-inspired activities are fantastic. My son comes home excited to tell us what he learned. The spiritual growth focus aligns perfectly with our family values.', role: 'Parent — Grade 1', date: 'Nov 2026', rating: 5, visible: true },
+      { id: 'fb-4', text: 'Clean, safe, and well-organized campus. The outdoor play area is wonderful and the children get a great balance of structured learning and free play time.', role: 'Parent — PP1', date: 'Aug 2026', rating: 4, visible: true },
+      { id: 'fb-5', text: 'The school events and parent days are beautifully organized. You can see how much effort the staff puts into making every child feel special and celebrated.', role: 'Parent — Grade 2', date: 'Oct 2026', rating: 5, visible: true },
+      { id: 'fb-6', text: 'Transferring here was the best decision. The smaller class sizes mean my child gets individual attention. The report cards are detailed and show real progress tracking.', role: 'Parent — Grade 3', date: 'Nov 2026', rating: 5, visible: true },
     ],
     downloadResources: [
       {
@@ -244,7 +271,8 @@ export default function App() {
         fetchedPayments,
         fetchedGrades,
         fetchedTimetable,
-        fetchedEvents
+        fetchedEvents,
+        fetchedCms
       ] = await Promise.all([
         api.getUsers().catch(() => DEMO_USERS),
         api.getHealth().catch(() => ({ database: { connected: true, provider: 'High-Speed Database' } })),
@@ -252,7 +280,8 @@ export default function App() {
         api.getPayments().catch(() => null),
         api.getGrades().catch(() => null),
         api.getTimetable().catch(() => null),
-        api.getEvents().catch(() => null)
+        api.getEvents().catch(() => null),
+        api.getCmsContent().catch(() => null)
       ]);
 
       if (fetchedUsers && fetchedUsers.length > 0) setUsers(fetchedUsers);
@@ -262,6 +291,7 @@ export default function App() {
       if (fetchedGrades) setGrades(fetchedGrades);
       if (fetchedTimetable) setTimetableSlots(fetchedTimetable);
       if (fetchedEvents) setEvents(fetchedEvents);
+      if (fetchedCms) setWebsiteContent((prev) => ({ ...prev, ...fetchedCms }));
     } catch (err) {
       console.error('Data refresh error:', err);
     }
@@ -434,9 +464,18 @@ export default function App() {
       <LoginPage
         users={users}
         preselectedRole={loginRole}
-        onLogin={(user) => {
+        onLogin={(user, remember) => {
           setCurrentUser(user);
+          setRememberMe(remember);
           setAppMode('system');
+          // Persist session
+          const sessionData = JSON.stringify({ appMode: 'system', activeTab, currentUser: user, rememberMe: remember });
+          sessionStorage.setItem(SESSION_KEY, sessionData);
+          if (remember) {
+            localStorage.setItem(SESSION_KEY, sessionData);
+          } else {
+            localStorage.removeItem(SESSION_KEY);
+          }
           showToast(`Welcome back, ${user.name}!`);
         }}
         onBackToLanding={() => setAppMode('landing')}
@@ -457,7 +496,14 @@ export default function App() {
         onThemeChange={setTheme}
         onToggleTheme={toggleTheme}
         onReturnToLanding={() => setAppMode('landing')}
-        onLogout={() => setAppMode('landing')}
+        onLogout={() => {
+          // Clear persisted session
+          sessionStorage.removeItem(SESSION_KEY);
+          localStorage.removeItem(SESSION_KEY);
+          setRememberMe(false);
+          setAppMode('landing');
+          setActiveTab('dashboard');
+        }}
       />
 
       {/* Main App Container */}
@@ -594,7 +640,10 @@ export default function App() {
             {activeTab === 'website-cms' && (
               <WebsiteContentManager
                 content={websiteContent}
-                onSaveContent={(newC) => setWebsiteContent(newC)}
+                onSaveContent={async (newC) => {
+                  setWebsiteContent(newC);
+                  await api.saveCmsContent(newC);
+                }}
               />
             )}
 

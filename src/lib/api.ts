@@ -305,5 +305,46 @@ export const api = {
       if (res.ok) return await res.json();
     } catch (_) {}
     return { message: 'Event removed' };
+  },
+
+  // ----- Website CMS Content -----
+  async getCmsContent(): Promise<Record<string, any> | null> {
+    try {
+      const res = await fetch('/api/cms');
+      if (res.ok) {
+        const data = await res.json();
+        // Return null if empty object (no saved content yet)
+        if (data && Object.keys(data).length > 0) return data;
+      }
+    } catch (_) {}
+    return null;
+  },
+
+  async saveCmsContent(content: Record<string, any>): Promise<{ message: string }> {
+    try {
+      const res = await fetch('/api/cms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(content)
+      });
+      if (res.ok) return await res.json();
+      const err = await res.json().catch(() => ({ error: 'Failed to save CMS content' }));
+      throw new Error(err.error || 'Failed to save CMS content');
+    } catch (e: any) {
+      if (e?.message && !e.message.includes('fetch')) throw e;
+    }
+    return { message: 'Content saved locally.' };
+  },
+
+  async patchCmsContent(updates: Record<string, any>): Promise<{ message: string }> {
+    try {
+      const res = await fetch('/api/cms', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates)
+      });
+      if (res.ok) return await res.json();
+    } catch (_) {}
+    return { message: 'Section updated locally.' };
   }
 };

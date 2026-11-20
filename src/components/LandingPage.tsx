@@ -27,7 +27,6 @@ import {
   ChevronRight,
   MessageCircle,
   Quote,
-  ThumbsUp,
   Download,
   FileDown,
   Eye,
@@ -233,15 +232,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
     setSlideIndex((prev) => Math.min(prev, totalSlides - 1));
   }, [totalSlides]);
 
-  // Like handling (local session only)
-  const [likedIds, setLikedIds] = useState<Set<string>>(new Set());
-  const [localLikes, setLocalLikes] = useState<Record<string, number>>({});
 
-  const handleLike = (id: string) => {
-    if (likedIds.has(id)) return;
-    setLikedIds((prev) => new Set(prev).add(id));
-    setLocalLikes((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
-  };
 
   // Feedback submission form
   const [feedbackFormOpen, setFeedbackFormOpen] = useState(false);
@@ -659,7 +650,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                       aria-label={`Feedback page ${slideIdx + 1} of ${totalSlides}`}
                     >
                       {slideCards.map((fb) => {
-                        const totalLikes = fb.likes + (localLikes[fb.id] || 0);
                         return (
                           <article
                             key={fb.id}
@@ -686,19 +676,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                                   <span className="block text-[10px] text-slate-400">{fb.date}</span>
                                 </div>
                               </div>
-                              <button
-                                type="button"
-                                onClick={() => handleLike(fb.id)}
-                                className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition-all ${
-                                  likedIds.has(fb.id)
-                                    ? 'bg-[#FFAE00]/15 text-[#F7941D]'
-                                    : 'bg-slate-100 text-slate-400 hover:bg-[#FFAE00]/10 hover:text-[#F7941D]'
-                                }`}
-                                aria-label={`Like this feedback (${totalLikes} likes)`}
-                              >
-                                <ThumbsUp className={`h-3.5 w-3.5 ${likedIds.has(fb.id) ? 'fill-[#F7941D]' : ''}`} />
-                                {totalLikes}
-                              </button>
+                              <div className="flex items-center gap-0.5" aria-label={`${fb.rating || 0} out of 5 stars`}>
+                                {[1, 2, 3, 4, 5].map((s) => (
+                                  <Star
+                                    key={s}
+                                    className={`h-3.5 w-3.5 ${s <= (fb.rating || 0) ? 'text-amber-400 fill-amber-400' : 'text-slate-200'}`}
+                                  />
+                                ))}
+                              </div>
                             </div>
                           </article>
                         );

@@ -87,6 +87,7 @@ let paymentsStore: FeePayment[] = [...INITIAL_PAYMENTS];
 let gradesStore: GradeRecord[] = [...INITIAL_GRADES];
 let timetableStore: TimetableSlot[] = [...INITIAL_TIMETABLE];
 let eventsStore: SchoolEvent[] = [...INITIAL_EVENTS];
+let cmsContentStore: Record<string, any> | null = null; // null = use client defaults
 
 // MongoDB integration variables
 let mongoClient: MongoClient | null = null;
@@ -726,6 +727,63 @@ app.delete('/api/events/:id', (req: Request, res: Response) => {
   }
 
   res.json({ message: 'Event removed' });
+});
+
+// ----- Website CMS Content Endpoints -----
+app.get('/api/cms', (req: Request, res: Response) => {
+  if (isMongoConnected && mongoDb) {
+    mongoDb.collection('cms').findOne({ _key: 'website_content' })
+      .then((doc) => {
+        if (doc) {
+          const { _id, _key, ...content } = doc;
+          return res.json(content);
+        }
+        // No saved CMS content yet — return empty so client uses defaults
+        return res.json(cmsContentStore || {});
+      })
+      .catch(() => res.json(cmsContentStore || {}));
+    return;
+  }
+  res.json(cmsContentStore || {});
+});
+
+app.post('/api/cms', (req: Request, res: Response) => {
+  const content = req.body;
+  if (!content || typeof content !== 'object') {
+    return res.status(400).json({ error: 'Invalid CMS content.' });
+  }
+
+  cmsContentStore = { ...content };
+
+  if (isMongoConnected && mongoDb) {
+    mongoDb.collection('cms').updateOne(
+      { _key: 'website_content' },
+      { $set: { ...content, _key: 'website_content', updatedAt: new Date().toISOString() } },
+      { upsert: true }
+    ).catch(console.error);
+  }
+
+  res.json({ message: 'Website content saved and published successfully.', content: cmsContentStore });
+});
+
+// Partial CMS update — merges only the provided fields
+app.patch('/api/cms', (req: Request, res: Response) => {
+  const updates = req.body;
+  if (!updates || typeof updates !== 'object') {
+    return res.status(400).json({ error: 'Invalid CMS content.' });
+  }
+
+  cmsContentStore = { ...(cmsContentStore || {}), ...updates };
+
+  if (isMongoConnected && mongoDb) {
+    mongoDb.collection('cms').updateOne(
+      { _key: 'website_content' },
+      { $set: { ...updates, _key: 'website_content', updatedAt: new Date().toISOString() } },
+      { upsert: true }
+    ).catch(console.error);
+  }
+
+  res.json({ message: 'Website section updated successfully.', content: cmsContentStore });
 });
 
 // Non-Technical Specification Document API
