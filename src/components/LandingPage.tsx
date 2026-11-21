@@ -139,6 +139,31 @@ const SectionLabel: React.FC<{ children: React.ReactNode; light?: boolean }> = (
   </span>
 );
 
+// Smooth scroll with ease-out cubic curve for a polished feel
+function smoothScrollTo(targetId: string, duration = 900) {
+  const el = document.getElementById(targetId);
+  if (!el) return;
+  const start = window.scrollY;
+  const headerOffset = 72; // sticky nav height
+  const end = el.getBoundingClientRect().top + start - headerOffset;
+  const distance = end - start;
+  let startTime: number | null = null;
+
+  function easeOutCubic(t: number) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function step(timestamp: number) {
+    if (!startTime) startTime = timestamp;
+    const elapsed = timestamp - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    window.scrollTo(0, start + distance * easeOutCubic(progress));
+    if (progress < 1) requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
+}
+
 export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
@@ -265,8 +290,19 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
   }, []);
 
   const scrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    smoothScrollTo('home', 800);
   }, []);
+
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const id = href.replace('#', '');
+    if (id === 'home') {
+      scrollToTop();
+    } else {
+      smoothScrollTo(id);
+    }
+    setMenuOpen(false);
+  }, [scrollToTop]);
 
   const handleReportSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -317,7 +353,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
       >
         <div className="border-b border-white/10 bg-[#0D2840]/95 backdrop-blur-xl shadow-lg shadow-black/20">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
-            <a href="#home" className="flex items-center gap-2.5 text-white" onClick={scrollToTop}>
+            <a href="#home" className="flex items-center gap-2.5 text-white" onClick={(e) => handleNavClick(e, '#home')}>
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#FFAE00] text-sm font-black text-[#0D2840]">
                 PS
               </span>
@@ -339,6 +375,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                   <a
                     key={link.href}
                     href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     className="text-sm font-semibold text-white/70 transition-colors hover:text-white"
                   >
                     {link.label}
@@ -358,6 +395,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
               </button>
               <a
                 href="#enquire"
+                onClick={(e) => handleNavClick(e, '#enquire')}
                 className="hidden rounded-full bg-[#F7941D] px-5 py-2 text-xs font-bold text-white shadow-lg shadow-orange-500/30 transition hover:bg-[#FFAE00] sm:inline-flex"
               >
                 Contact
@@ -378,7 +416,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
         {/* Header */}
         <header className="relative z-20">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-5 sm:px-8">
-            <a href="#home" className="flex items-center gap-3 text-white">
+            <a href="#home" onClick={(e) => handleNavClick(e, '#home')} className="flex items-center gap-3 text-white">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FFAE00] text-lg font-black text-[#0D2840]">
                 PS
               </span>
@@ -405,6 +443,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                 <a
                   key={link.href}
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className={`relative text-sm font-semibold transition-colors hover:text-white ${
                     i === 0 ? 'text-white after:w-full' : 'text-white/70 after:w-0 hover:after:w-full'
                   } after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:rounded-full after:bg-[#FFAE00] after:transition-all`}
@@ -426,6 +465,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
               </button>
               <a
                 href="#enquire"
+                onClick={(e) => handleNavClick(e, '#enquire')}
                 className="hidden rounded-full bg-[#F7941D] px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-orange-500/30 transition hover:-translate-y-0.5 hover:bg-[#FFAE00] sm:inline-flex"
               >
                 Contact
@@ -459,7 +499,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="block rounded-xl px-4 py-3 text-sm font-semibold text-white/90 hover:bg-white/10"
                 >
                   {link.label}
@@ -476,7 +516,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
               </button>
               <a
                 href="#enquire"
-                onClick={() => setMenuOpen(false)}
+                onClick={(e) => handleNavClick(e, '#enquire')}
                 className="mt-2 block rounded-xl bg-[#F7941D] px-4 py-3 text-center text-sm font-bold text-white"
               >
                 Contact
@@ -514,6 +554,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
             <div className="mt-8 flex flex-col items-center justify-center gap-5 sm:flex-row lg:justify-start">
               <a
                 href="#enquire"
+                onClick={(e) => handleNavClick(e, '#enquire')}
                 className="group inline-flex items-center gap-2 rounded-2xl bg-[#F7941D] px-6 py-4 text-sm font-bold text-white shadow-xl shadow-orange-500/30 transition hover:-translate-y-0.5 hover:bg-[#FFAE00]"
               >
                 {content?.heroPrimaryCtaLabel || 'Enquire About Admissions'}
@@ -821,7 +862,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
               </span>
               <h3 className="mt-6 text-xl font-extrabold text-[#0D2840]">{title}</h3>
               <p className="mt-3 leading-relaxed text-slate-500">{text}</p>
-              <a href="#enquire" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#0D2840] transition-colors hover:text-[#F7941D]">
+              <a href="#enquire" onClick={(e) => handleNavClick(e, '#enquire')} className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#0D2840] transition-colors hover:text-[#F7941D]">
                 Learn More
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </a>
@@ -931,6 +972,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
             </div>
             <a
               href="#enquire"
+              onClick={(e) => handleNavClick(e, '#enquire')}
               className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#F7941D] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-orange-500/30 transition hover:-translate-y-0.5 hover:bg-[#FFAE00]"
             >
               Enquire Now <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -959,6 +1001,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                   <span className="text-xs font-bold text-white/70 group-hover:text-slate-500">{admissionLabel}</span>
                   <a
                     href="#enquire"
+                    onClick={(e) => handleNavClick(e, '#enquire')}
                     aria-label={`Enquire about ${title}`}
                     className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-all group-hover:rotate-45 group-hover:bg-[#0D2840]"
                   >
@@ -1467,7 +1510,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
                   {'modal' in l && l.modal ? (
                     <button type="button" onClick={() => setReportModalOpen(true)} className="transition-colors hover:text-[#FFAE00]">{l.label}</button>
                   ) : (
-                    <a href={l.href} className="transition-colors hover:text-[#FFAE00]">{l.label}</a>
+                    <a href={l.href} onClick={(e) => handleNavClick(e, l.href)} className="transition-colors hover:text-[#FFAE00]">{l.label}</a>
                   )}
                 </li>
               ))}
