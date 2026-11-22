@@ -30,8 +30,11 @@ import {
   Download,
   FileDown,
   Eye,
+  Megaphone,
+  Pin,
+  Calendar,
 } from 'lucide-react';
-import { WebsiteContent, FeedbackComment, DownloadResource } from './WebsiteContentManager';
+import { WebsiteContent, FeedbackComment, DownloadResource, Announcement } from './WebsiteContentManager';
 
 interface LandingPageProps {
   content?: WebsiteContent;
@@ -168,11 +171,30 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
 
+  // ── Splash screen ──
+  const [splashVisible, setSplashVisible] = useState(true);
+  const [splashFading, setSplashFading] = useState(false);
+
+  useEffect(() => {
+    // After 2.4s begin fade-out, then hide after transition
+    const fadeTimer = setTimeout(() => setSplashFading(true), 2400);
+    const hideTimer = setTimeout(() => setSplashVisible(false), 3200);
+    return () => { clearTimeout(fadeTimer); clearTimeout(hideTimer); };
+  }, []);
+
   const phone = content?.phone || '0786198873';
   const email = content?.email || 'kindergarten@pceastandrews.org';
   const altEmail = content?.altEmail || 'pceastandrewskindergarten@gmail.com';
   const location = content?.location || 'kindergarten.pceastandrews.org';
   const admissionLabel = content?.admissionLabel || 'Admissions Open';
+
+  // ── Announcements ──
+  const visibleAnnouncements: Announcement[] = (content?.announcements || [])
+    .filter((a) => a.visible)
+    .sort((a, b) => {
+      if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
   const galleryImages = content?.galleryImages?.length
     ? content.galleryImages
     : [
@@ -324,6 +346,43 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
 
   return (
     <div className="min-h-screen overflow-x-clip bg-[#F8F9FA] font-['Plus_Jakarta_Sans',sans-serif] text-slate-800 antialiased">
+
+      {/* ───────────── Splash Screen ───────────── */}
+      {splashVisible && (
+        <div
+          className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-gradient-to-br from-[#0D2840] via-[#102E4A] to-[#071D33] transition-opacity duration-700 ${
+            splashFading ? 'opacity-0' : 'opacity-100'
+          }`}
+        >
+          {/* Decorative rings */}
+          <div className="absolute h-[420px] w-[420px] rounded-full border border-white/[0.04] sm:h-[560px] sm:w-[560px]" aria-hidden="true" />
+          <div className="absolute h-[280px] w-[280px] rounded-full border border-white/[0.07] sm:h-[380px] sm:w-[380px]" aria-hidden="true" />
+
+          {/* Logo badge */}
+          <span
+            className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-[#FFAE00] text-3xl font-black text-[#0D2840] shadow-2xl shadow-orange-500/40 animate-[splash-badge_0.6s_ease-out_both]"
+          >
+            PS
+          </span>
+
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-white/50 animate-[splash-line_0.7s_ease-out_0.25s_both]">
+            Welcome to
+          </p>
+          <h1 className="mt-2 text-center text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl animate-[splash-line_0.7s_ease-out_0.4s_both]">
+            PCEA St Andrews
+          </h1>
+          <h2 className="mt-1 text-center text-xl font-bold text-[#FFAE00] sm:text-2xl lg:text-3xl animate-[splash-line_0.7s_ease-out_0.55s_both]">
+            Kindergarten
+          </h2>
+
+          <div className="mt-8 flex items-center gap-2 animate-[splash-line_0.7s_ease-out_0.75s_both]">
+            <span className="h-1 w-1 rounded-full bg-white/40 animate-[splash-dot_1.4s_ease-in-out_infinite_0s]" />
+            <span className="h-1 w-1 rounded-full bg-white/40 animate-[splash-dot_1.4s_ease-in-out_infinite_0.2s]" />
+            <span className="h-1 w-1 rounded-full bg-white/40 animate-[splash-dot_1.4s_ease-in-out_infinite_0.4s]" />
+          </div>
+        </div>
+      )}
+
       {/* ───────────── Announcement bar ───────────── */}
       <div className="bg-[#071D33] px-4 py-2 text-xs text-white/85">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-1 sm:justify-between">
@@ -621,6 +680,45 @@ export const LandingPage: React.FC<LandingPageProps> = ({ content, onEnterSystem
           <path d="M0,80 C240,150 480,10 720,60 C960,110 1200,140 1440,50 L1440,140 L0,140 Z" fill="#F8F9FA" />
         </svg>
       </div>
+
+      {/* ───────────── Announcements Section ───────────── */}
+      {visibleAnnouncements.length > 0 && (
+        <section id="announcements" className="scroll-mt-20 bg-[#F8F9FA] pb-6 pt-14 lg:pb-10 lg:pt-18">
+          <div className="mx-auto max-w-7xl px-5 sm:px-8">
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionLabel>Announcements</SectionLabel>
+              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#0D2840] sm:text-4xl">
+                Latest School Updates
+              </h2>
+              <p className="mt-3 text-slate-500">Important notices and news from PCEA St Andrews Kindergarten.</p>
+            </div>
+
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {visibleAnnouncements.map((ann) => (
+                <article
+                  key={ann.id}
+                  className="group relative flex flex-col rounded-2xl border border-slate-200/80 bg-white p-6 shadow-[0_8px_30px_-18px_rgba(13,40,64,0.18)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                >
+                  {ann.pinned && (
+                    <span className="absolute -top-2.5 right-4 flex items-center gap-1 rounded-full bg-[#FFAE00] px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wide text-[#0D2840] shadow">
+                      <Pin className="h-3 w-3" /> Pinned
+                    </span>
+                  )}
+                  <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-400">
+                    <Calendar className="h-3.5 w-3.5" />
+                    {new Date(ann.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  </div>
+                  <h3 className="mt-2.5 text-lg font-extrabold leading-snug text-[#0D2840] group-hover:text-[#F7941D] transition-colors">
+                    {ann.title}
+                  </h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-500">{ann.body}</p>
+                  <div className="mt-4 h-1 w-12 rounded-full bg-gradient-to-r from-[#F7941D] to-[#FFAE00] opacity-60" />
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ───────────── Parent Feedback Carousel ───────────── */}
       {visibleFeedback.length > 0 && (

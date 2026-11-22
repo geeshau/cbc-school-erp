@@ -24,6 +24,9 @@ import {
   File,
   Link as LinkIcon,
   Star,
+  Megaphone,
+  Pin,
+  Calendar,
 } from 'lucide-react';
 
 export interface FeedbackComment {
@@ -32,6 +35,15 @@ export interface FeedbackComment {
   role: string;
   date: string;
   rating: number; // 1–5 star rating
+  visible: boolean;
+}
+
+export interface Announcement {
+  id: string;
+  title: string;
+  body: string;
+  date: string; // YYYY-MM-DD
+  pinned: boolean;
   visible: boolean;
 }
 
@@ -50,6 +62,7 @@ export interface DownloadResource {
 
 export interface WebsiteContent {
   announcementText: string;
+  announcements?: Announcement[];
   phone: string;
   email: string;
   altEmail: string;
@@ -69,7 +82,7 @@ interface WebsiteContentManagerProps {
   onSaveContent: (newContent: WebsiteContent) => Promise<void> | void;
 }
 
-type SectionName = 'contact' | 'hero' | 'gallery' | 'downloads' | 'feedback';
+type SectionName = 'contact' | 'hero' | 'announcements' | 'gallery' | 'downloads' | 'feedback';
 
 export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
   content,
@@ -79,6 +92,17 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [savingSection, setSavingSection] = useState<SectionName | 'all' | null>(null);
   const [sectionSuccess, setSectionSuccess] = useState<SectionName | 'all' | null>(null);
+
+  // New announcement item state
+  const [newAnnTitle, setNewAnnTitle] = useState('');
+  const [newAnnBody, setNewAnnBody] = useState('');
+  const [newAnnDate, setNewAnnDate] = useState(new Date().toISOString().slice(0, 10));
+  const [newAnnPinned, setNewAnnPinned] = useState(false);
+  const [editingAnnId, setEditingAnnId] = useState<string | null>(null);
+  const [editAnnTitle, setEditAnnTitle] = useState('');
+  const [editAnnBody, setEditAnnBody] = useState('');
+  const [editAnnDate, setEditAnnDate] = useState('');
+  const [editAnnPinned, setEditAnnPinned] = useState(false);
 
   // New gallery item state
   const [newImageTitle, setNewImageTitle] = useState('');
@@ -193,6 +217,73 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
 
   const handleChange = (field: keyof WebsiteContent, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  // ── Announcement CRUD helpers ──
+  const handleAddAnnouncement = () => {
+    if (!newAnnTitle.trim() || !newAnnBody.trim()) return;
+    const newItem: Announcement = {
+      id: String(Date.now()),
+      title: newAnnTitle.trim(),
+      body: newAnnBody.trim(),
+      date: newAnnDate,
+      pinned: newAnnPinned,
+      visible: true,
+    };
+    setFormData((prev) => ({
+      ...prev,
+      announcements: [newItem, ...(prev.announcements || [])],
+    }));
+    setNewAnnTitle('');
+    setNewAnnBody('');
+    setNewAnnDate(new Date().toISOString().slice(0, 10));
+    setNewAnnPinned(false);
+  };
+
+  const handleDeleteAnnouncement = (id: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      announcements: (prev.announcements || []).filter((a) => a.id !== id),
+    }));
+  };
+
+  const handleToggleAnnouncementVisibility = (id: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      announcements: (prev.announcements || []).map((a) =>
+        a.id === id ? { ...a, visible: !a.visible } : a
+      ),
+    }));
+  };
+
+  const handleToggleAnnouncementPinned = (id: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      announcements: (prev.announcements || []).map((a) =>
+        a.id === id ? { ...a, pinned: !a.pinned } : a
+      ),
+    }));
+  };
+
+  const handleStartEditAnnouncement = (ann: Announcement) => {
+    setEditingAnnId(ann.id);
+    setEditAnnTitle(ann.title);
+    setEditAnnBody(ann.body);
+    setEditAnnDate(ann.date);
+    setEditAnnPinned(ann.pinned);
+  };
+
+  const handleSaveEditAnnouncement = () => {
+    if (!editAnnTitle.trim() || !editAnnBody.trim()) return;
+    setFormData((prev) => ({
+      ...prev,
+      announcements: (prev.announcements || []).map((a) =>
+        a.id === editingAnnId
+          ? { ...a, title: editAnnTitle.trim(), body: editAnnBody.trim(), date: editAnnDate, pinned: editAnnPinned }
+          : a
+      ),
+    }));
+    setEditingAnnId(null);
   };
 
   const handleAddFeedback = () => {
@@ -530,6 +621,154 @@ export const WebsiteContentManager: React.FC<WebsiteContentManagerProps> = ({
             <p className="text-[11px] text-slate-500 dark:text-slate-400">CTA labels are optional; existing button destinations remain unchanged.</p>
           </div>
           <SectionSaveButton section="hero" label="Hero Copy" />
+        </div>
+
+        {/* ── Announcements Management ── */}
+        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 space-y-5 rounded-tr-[2rem] shadow-[0_10px_40px_-24px_rgba(13,40,64,0.35)]">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
+              <Megaphone className="w-4 h-4 text-brand-500" />
+              <span>Announcements Manager</span>
+            </h3>
+            <span className="text-[11px] text-slate-400 font-semibold">
+              {(formData.announcements || []).filter((a) => a.visible).length} Visible / {(formData.announcements || []).length} Total
+            </span>
+          </div>
+
+          {/* Add New Announcement Form */}
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3">
+            <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200">Add New Announcement</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <input
+                type="text"
+                placeholder="Announcement Title"
+                value={newAnnTitle}
+                onChange={(e) => setNewAnnTitle(e.target.value)}
+                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
+              />
+              <input
+                type="date"
+                value={newAnnDate}
+                onChange={(e) => setNewAnnDate(e.target.value)}
+                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
+              />
+            </div>
+            <textarea
+              placeholder="Announcement body — displayed on the landing page"
+              rows={3}
+              value={newAnnBody}
+              onChange={(e) => setNewAnnBody(e.target.value)}
+              className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"
+            />
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={newAnnPinned}
+                  onChange={(e) => setNewAnnPinned(e.target.checked)}
+                  className="accent-brand-500"
+                />
+                <span className="text-xs font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-1">
+                  <Pin className="w-3 h-3" /> Pin to top
+                </span>
+              </label>
+              <button
+                type="button"
+                onClick={handleAddAnnouncement}
+                disabled={!newAnnTitle.trim() || !newAnnBody.trim()}
+                className="px-4 py-2 rounded-lg text-[11px] font-bold bg-brand-800 dark:bg-brand-600 text-white hover:bg-brand-700 transition disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5 cursor-pointer"
+              >
+                <Plus className="w-3.5 h-3.5" /> Add Announcement
+              </button>
+            </div>
+          </div>
+
+          {/* Announcements List */}
+          <div className="space-y-3 max-h-[480px] overflow-y-auto pr-1">
+            {(formData.announcements || []).map((ann) => (
+              <div
+                key={ann.id}
+                className={`p-4 rounded-xl border transition-all ${
+                  ann.visible
+                    ? 'bg-white dark:bg-slate-800/80 border-slate-200 dark:border-slate-700'
+                    : 'bg-slate-100 dark:bg-slate-800/40 border-slate-200/50 dark:border-slate-700/50 opacity-60'
+                }`}
+              >
+                {editingAnnId === ann.id ? (
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <input
+                        type="text"
+                        value={editAnnTitle}
+                        onChange={(e) => setEditAnnTitle(e.target.value)}
+                        className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                      />
+                      <input
+                        type="date"
+                        value={editAnnDate}
+                        onChange={(e) => setEditAnnDate(e.target.value)}
+                        className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                      />
+                    </div>
+                    <textarea
+                      value={editAnnBody}
+                      onChange={(e) => setEditAnnBody(e.target.value)}
+                      rows={3}
+                      className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"
+                    />
+                    <div className="flex items-center justify-between">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={editAnnPinned}
+                          onChange={(e) => setEditAnnPinned(e.target.checked)}
+                          className="accent-brand-500"
+                        />
+                        <span className="text-xs font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-1"><Pin className="w-3 h-3" /> Pinned</span>
+                      </label>
+                      <div className="flex items-center gap-2">
+                        <button type="button" onClick={() => setEditingAnnId(null)} className="px-3 py-1.5 rounded-lg text-[11px] font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer">Cancel</button>
+                        <button type="button" onClick={handleSaveEditAnnouncement} className="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-emerald-600 text-white hover:bg-emerald-500 transition cursor-pointer">Save</button>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-start gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h4 className="text-sm font-extrabold text-slate-800 dark:text-slate-100 truncate">{ann.title}</h4>
+                        {ann.pinned && (
+                          <span className="text-[10px] font-black text-amber-700 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/40 px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                            <Pin className="w-2.5 h-2.5" /> Pinned
+                          </span>
+                        )}
+                        <span className="text-[11px] text-slate-400 flex items-center gap-1"><Calendar className="w-3 h-3" />{ann.date}</span>
+                      </div>
+                      <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{ann.body}</p>
+                    </div>
+                    <div className="flex items-center gap-1 shrink-0">
+                      <button type="button" onClick={() => handleToggleAnnouncementVisibility(ann.id)} title={ann.visible ? 'Hide' : 'Show'} className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer">
+                        {ann.visible ? <Eye className="w-3.5 h-3.5 text-emerald-500" /> : <EyeOff className="w-3.5 h-3.5 text-slate-400" />}
+                      </button>
+                      <button type="button" onClick={() => handleToggleAnnouncementPinned(ann.id)} title={ann.pinned ? 'Unpin' : 'Pin'} className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer">
+                        <Pin className={`w-3.5 h-3.5 ${ann.pinned ? 'text-amber-500' : 'text-slate-400'}`} />
+                      </button>
+                      <button type="button" onClick={() => handleStartEditAnnouncement(ann)} className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer">
+                        <Edit3 className="w-3.5 h-3.5 text-slate-400" />
+                      </button>
+                      <button type="button" onClick={() => handleDeleteAnnouncement(ann.id)} className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 transition cursor-pointer">
+                        <Trash2 className="w-3.5 h-3.5 text-red-400" />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+            {(formData.announcements || []).length === 0 && (
+              <p className="text-center text-xs text-slate-400 dark:text-slate-500 py-8">No announcements yet. Add one above to display on the landing page.</p>
+            )}
+          </div>
+          <SectionSaveButton section="announcements" label="Announcements" />
         </div>
 
         {/* Gallery Photos Management */}

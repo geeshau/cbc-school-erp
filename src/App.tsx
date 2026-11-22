@@ -127,6 +127,12 @@ export default function App() {
       { id: '5', title: 'CBC Interactive Lessons', url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80', category: 'Facilities' },
       { id: '6', title: 'Kindergarten Computer Lab', url: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80', category: 'Facilities' }
     ],
+    announcements: [
+      { id: 'ann-1', title: 'Term 1 2026 Begins 6th January', body: 'All learners are expected to report to school on Monday 6th January 2026 by 7:30 AM. New parents should bring completed admission forms and medical records.', date: '2026-01-02', pinned: true, visible: true },
+      { id: 'ann-2', title: 'Open Day — Saturday 18th January', body: 'Parents and guardians are warmly invited to our Term 1 Open Day. Tour the classrooms, meet teachers, and see what makes PCEA St Andrews special. 9 AM – 12 PM.', date: '2026-01-10', pinned: true, visible: true },
+      { id: 'ann-3', title: 'Swimming Lessons Resume', body: 'Weekly swimming lessons for PP1 and above resume on Wednesday 15th January. Please ensure your child has a labelled swimming costume and towel.', date: '2026-01-08', pinned: false, visible: true },
+      { id: 'ann-4', title: 'Hot Lunch Menu Updated', body: 'The new Term 1 hot lunch menu is now available. We have added more fruit options and a vegetarian alternative every Thursday. Check the Downloads section for the full menu.', date: '2026-01-05', pinned: false, visible: true },
+    ],
     feedbackComments: [
       { id: 'fb-1', text: 'My daughter has blossomed since joining St Andrews. The teachers are incredibly patient and truly know each child by name. The CBC approach makes learning feel like play!', role: 'Parent — PP2', date: 'Oct 2026', rating: 5, visible: true },
       { id: 'fb-2', text: 'As a first-time parent, I was nervous about school. The warm reception and regular progress updates from teachers gave me so much confidence. Highly recommend this school.', role: 'Parent — Playgroup', date: 'Sep 2026', rating: 4, visible: true },
